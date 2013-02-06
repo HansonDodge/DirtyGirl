@@ -1,0 +1,12 @@
+﻿@{Layout = null;}
+
+@using (Ajax.BeginForm("GenerateEventDate", "Event", new AjaxOptions {OnSuccess = "onEventDateCreated", OnFailure = "onEventDateCreatedFail"}, new {id="GenerateEventDateForm" }))
+{   
+    <div id="GenerateEventDateContainer"> 
+        @Html.Partial("Partial/GenerateEventDateForm", new vmAdmin_CreateEventDate())
+    </div>
+    
+    <input type="submit" value="Create Event Date" />
+}
+
+

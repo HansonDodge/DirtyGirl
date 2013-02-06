@@ -1,0 +1,120 @@
+﻿@model CartSummary
+@{
+    Layout = null;    
+}
+
+<div id="cartSummaryMessages">
+    <ul>
+    @foreach (var message in Model.SummaryMessages)
+    {
+        <li>@message</li>
+    }
+    </ul>
+</div>
+
+<div class="cartSummaryHeader">
+    <div class="singleCartHeader item"><h5>Item</h5></div>
+    <div class="singleCartHeader desc"><h5>Description</h5></div>
+    <div class="singleCartHeader cost"><h5>Cost</h5></div>
+    <div class="singleCartHeader remove"><h5></h5></div>
+</div>
+
+<div class="cartSummaryContent">
+    @foreach (var cartItem in Model.CartItems.OrderByDescending(x=> x.ItemTotal))
+    {
+    <div class="singleCartSummaryContent">
+        <div class="singleCartContent item">
+            <p>@cartItem.ItemName</p>
+            <span class="checkoutTooltip feeMsg" title="There is a small fee to switch runs, transfer your run to a friend or cancel a run.">[?]</span>
+            <span class="checkoutTooltip priceDifference" title="You are being changed this price difference because the race you are transferring to has a registration fee higher than what was paid on your original race.">[?]</span>
+        </div>
+        <div class="singleCartContent desc">
+            <p>@cartItem.ItemDescription</p>
+        </div>
+        <div class="singleCartContent cost">
+            <ul>
+                <li><p>Price: <span>@cartItem.ItemCost.ToString("#.00")</span><span class="dollarSign">$</span></p></li>
+
+                @if (cartItem.ProcessType == ProcessType.Individual)
+                {
+                    if (cartItem.DiscountItemId > 0)
+                    {
+                        <li><p class="pink">@cartItem.DiscountDescription <span class="pink">- @cartItem.DiscountTotal.ToString("#.00")</span><span class="dollarSign">$</span></p></li>
+                    }
+                    
+                    if(cartItem.Taxable)
+                    {
+                        <li><p>Local Tax: <span>@cartItem.LocalTax.ToString("#.00")</span><span class="dollarSign">$</span></p></li>
+                        <li><p>State Tax: <span>@cartItem.StateTax.ToString("#.00")</span><span class="dollarSign">$</span></p></li>
+                    }                   
+                    
+                    <li><p>Total: <span>@cartItem.ItemTotal.ToString("#.00")</span><span class="dollarSign">$</span></p></li>
+                }               
+            </ul>
+        </div>
+
+        @if(cartItem.SessionKey.HasValue)
+        {
+            <div class="singleCartContent remove">
+                <p>@Html.ActionLink("remove", "RemoveItem", new { itemId = cartItem.SessionKey }, new AjaxOptions {Confirm = "Are you sure you would like to remove this item?", UpdateTargetId="cartSummary", @*OnSuccess="CartItemRemoved",*@ HttpMethod="POST"})</p>
+            </div>
+        }
+    </div>
+    }
+    
+  </div>
+
+<div class="cartSummaryContent">
+    <div class="singleCartSummaryContent">
+        <div class="singleCartContent item">
+            &nbsp;
+        </div>
+        <div class="singleCartContent desc">
+            &nbsp;
+        </div>
+        <div class="cartSummaryTotal cost">
+            <ul>
+                <li><p>Total Due: <span>@Model.TotalCost.ToString("#.00")<span class="dollarSign">$</span></span></p></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@if (!Model.CartItems.Where(x => x.DiscountItemId != null).Any())
+{
+    using (Html.BeginForm("AddDiscount", "cart", null, FormMethod.Post, new { id = "frmDiscount" }))
+    {
+        <div class="couponContainer">
+            <p>Coupon Code</p>
+            @Html.TextBox("txtCouponCode")            
+            <a href="#" id="lnkAddDiscount"><img src="@Url.Content("~/images/btn_redeem.png")" /></a>        
+        </div>
+    }
+}
+
+@if (Model.CartItems.Count(x => x.PurchaseType == PurchaseType.Registration) == 1)
+{
+    <div class="cartAdditional">
+        <p style="margin-top:5px;">You can add a second event at half price right now!</p>
+        <p><a href="@Url.Action("startnewregistration", "transaction")" class="btnPink">ADD NOW</a></p>
+    </div>
+}
+
+<script>    
+    $(document).ready(function () {
+        $('#lnkAddDiscount').click(function (e) {
+            e.preventDefault();
+            $("#frmDiscount").submit();
+        });        
+
+        //add tooltip on cancellation/transfer run
+        var item = $(".singleCartContent.item p").html().toLowerCase();
+        if (item.indexOf("cancel") != -1 || item.indexOf("change") != -1 || item.indexOf("transfer") != -1) {
+            $(".feeMsg").show();
+            $(".feeMsg").tooltip({ showURL: false });
+        } else if (item.indexOf("fee difference") != -1) {
+            $(".priceDifference").show();
+            $(".priceDifference").tooltip({ showURL: false });
+        }
+    })     
+</script>

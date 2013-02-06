@@ -1,0 +1,44 @@
+﻿@model vmLogon   
+@{Layout = null;}
+
+<div id="overlay">&nbsp;</div>
+<div id="login_modal">
+    <a href="#" id="closemodal">x</a>
+    <div id="login_content">
+        @using (Html.BeginForm("logon", "authorize", new { returnUrl = Model.ReturnUrl }, FormMethod.Post, null))
+        {
+            <h3>LOGIN TO YOUR DIRTY GIRL ACCOUNT</h3>
+            @Html.ValidationSummary(false, " ")
+            <div class="single_input">
+                <p>Login</p>
+                @Html.TextBoxFor(x => x.UserName)
+                @*@Html.ValidationMessageFor(x => x.UserName)*@
+            </div>
+            <div class="single_input">
+                <p>Password</p>
+                @Html.PasswordFor(x => x.Password)
+            </div>
+            <div class="single_checkbox">
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe)
+                <p>@Html.ActionLink("Forgot Username or Password", "ForgotPassword", "Authorize")</p>
+            </div>
+            <div class="login_submit">
+                <div class="submitLoginForm">
+                    <input type="image" value="Logon" src="@Url.Content("~/images/btn_submit_modal.png")" alt="Logon to Dirty Girl" />
+                </div>
+                <p>or</p>
+                <div class="loginFacebookModal">
+                    <a href="@Url.Content(@"~/User/Facebook?state=" + Model.ReturnUrl)">
+                        <img src="@Url.Content("~/images/btn_loginFb.png")" />
+                    </a>
+                </div>
+            </div>
+            <div class="single_input" style="margin: 0;">
+                <p>Don't have an account? @Html.ActionLink("Sign up.", "CreateUser", "User")</p>
+            </div>
+            <img src="@Url.Content("~/images/img_login_modal.png")" class="login_image" />
+        }
+    </div>
+</div>
+

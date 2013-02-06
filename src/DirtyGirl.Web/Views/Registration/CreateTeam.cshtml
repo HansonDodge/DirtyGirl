@@ -1,0 +1,185 @@
+﻿@model vmRegistration_CreateTeam
+
+@{
+    ViewBag.Title = "Registration: Step 1 - A Good Start";
+}
+
+<style>
+    .register { height: 485px;}
+    .register_next { bottom: 20px; overflow: hidden; position: absolute; right: 20px;}
+</style>
+<script>
+    $(document).ready(function () {
+        DG.util.initEventTab();
+        $("#TeamCodeTextBox").val("");
+        $("#lnkSubmit").click(function (e) {
+            e.preventDefault();
+            $("#CreateTeamForm").submit();
+        });
+
+        $("#reg_individual").click(function () {
+            $(".register_step2").addClass("disabled");
+            $(".register_teaminfo").hide();
+        });
+        $("#reg_team").click(function () {
+            $(".register_step2").removeClass("disabled");
+            $(".register_teaminfo").show();
+        });
+        $("#reg_existingteam").click(function () {
+            $(".existing_team").show();
+            $(".new_team").hide();
+        });
+        $("#reg_newteam").click(function () {
+            $(".new_team").show();
+            $(".existing_team").hide();
+        });
+
+        var teamCode = '@Model.TeamCode';
+        var regType = '@Model.RegistrationType';
+
+        if (regType == 'individual'){
+            $("#reg_individual").click();
+        }
+        else{
+            $("#reg_team").click();
+        }
+
+        if (teamCode != ''){
+            $("#reg_existingteam").click();
+        }
+        else{
+            $("#reg_newteam").click();
+        }        
+        DG.util.columns();
+    });
+    
+    function ValidateTeamCode() {
+        if ($('#TeamCodeTextBox').val().length > 4) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ValidateTeamCode")',
+                data: { eventId: "@(Model.EventId)", code: $('#TeamCodeTextBox').val() },
+                success: function(data) {
+                    if (data.Status == 'Failure') {
+                        $('#teamCodeResultsText').html("Team Code Invalid!  Please enter a correct Code for the team you want to join.");
+                    } else {
+                        $('#teamCodeResultsText').html("");
+                        $(".teamcreation_join").show();
+                        $('#newTeamName').html(data.Name);
+                    }
+                },
+                error: function(xmlHttpRequest, textStatus, errorThrown) {
+                    $('#teamCodeResultsText').html("Team can not be verified at this time.");
+                    alert(textStatus + errorThrown);
+                }
+            });
+        } else {
+            $('.teamCodeResultsText').html("Please enter a valid Team Code to Join a team.");
+        }
+    }
+</script>
+
+<div id="eventDetail" class="createTeamContainer">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            @Html.Partial("_Hero")
+            @{Html.RenderPartial("EventHeader", Model.EventOverview);}
+            <div id="eventDetailContent" class="twoColumn">
+                <div class="contentMain">
+
+                    @using (Html.BeginForm("createteam", "registration", new { itemId = Model.ItemId }, FormMethod.Post, new { id = "CreateTeamForm" }))
+                    {                  
+                        <div class="contentMain_copy register">
+
+                            @Html.ValidationSummary(false, "Please address the following Errors")
+                            @Html.HiddenFor(x => x.EventId)
+                                                      
+                            <div class="registration_steps">
+                                <img src="@Url.Content("~/images/reg_progress1.png")" />
+                            </div>
+                            <div class="register_step1">
+                                <p>Are you registering with a team or as an individual? </p>
+                                <div class="radiobuttons">
+                                    <p>@Html.RadioButtonFor(x => x.RegistrationType, "individual", new { name = "step1", id = "reg_individual" })<label for="reg_individual">As an Individual</label></p>
+                                    <p>@Html.RadioButtonFor(x => x.RegistrationType, "team", new { name = "step1", id = "reg_team" })<label for="reg_team">With a Team</label></p>                                                                   
+                                </div>
+                            </div>
+                            <div class="register_step2">
+                                <p>Are you joining an existing team or creating a new team?  </p>
+                                <div class="radiobuttons">
+                                    <p>@Html.RadioButtonFor(x => x.TeamType, "new", new { name = "step2", id = "reg_newteam" })<label for="reg_newteam">I’m creating a new team</label></p>
+                                    <p>@Html.RadioButtonFor(x => x.TeamType, "existing", new { name = "step2", id = "reg_existingteam" })<label for="reg_existingteam">I’m joining an existing team</label></p>                                                                    
+                                </div>
+                                <div class="register_step3">
+                                    <div class="existing_team">
+                                        <div class="single_input">
+                                            <p>Please enter your passcode</p>
+                                            @Html.TextBoxFor(x => x.TeamCode, new {id = "TeamCodeTextBox", onkeyup = "ValidateTeamCode()"})
+                                            @Html.ValidationMessageFor(x => x.TeamCode, "*")                                            
+                                        </div>
+                                        <div id="teamCodeResults" style="position:relative">
+                                            <p id="teamCodeResultsText">&nbsp;</p>
+                                        </div>
+                                    </div>
+                                    <div class="new_team">
+                                        <div class="single_input">
+                                            <p>Enter team name</p>
+                                            @Html.TextBoxFor(x => x.TeamName)
+                                            @Html.ValidationMessageFor(x => x.TeamName, "*")
+                                        </div>                 
+                                    </div>
+                                </div>
+                                <div class="disable_div">&nbsp;</div>
+                            </div>
+                            <div class="register_teamcreation_copy">
+                                <div class="teamcreation_join hide">
+                                    <div class="jointeam_container">
+                                        <h3 id="newTeamName"></h3><h5>TEAM: </h5>
+                                    </div>
+                                    <p>No. This isn't my team. Enter passcode again.</p>
+                                </div>
+                            </div>
+                            <div class="register_next">  
+                                <div class="register_next_button">
+                                    <a href="#" id="lnkSubmit" class="proceed">NEXT</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="contentSidePanel">
+                    <div class="contentSidePanel_top">&nbsp;</div>
+                    <div class="contentSidePanel_side">
+                        <div class="contentSideFaq">
+                            <h3>FAQS</h3>
+                            <p class="bold">What if my team name is taken?  </p>
+                            <p>Team names are special and we want to keep it that way, therefore duplicate team names are not accepted.  You will be notified during the registration process if your team name is taken.  If you’ve given it lots of thought and love that name, you can be creative and outsmart the system to find a unique team name!</p>
+                            <p class="bold">Can I register now and create a team name later?  </p>
+                            <p>Yes. You must register as an individual then later log in to your Dirty Girl profile and edit your registration. You can then switch to a team member and add a team name.  However, some team names go quickly, so do not wait too long!</p>
+                            <p class="bold">How do I register with an existing team? </p>
+                            <p>Registering with an existing team is easy.  As you proceed through the registration process, click “I’m joining an existing team”.  You will be asked to enter the team passcode provide to you by the team captain.  If you are not aware of the passcode, please ask the one who created the name to provide this to you.  Once you confirm the passcode and team name, you are set to go. </p>
+                            <p class="bold">How do I register a new team?</p>
+                            <p>Registering a new team is simple.  As you proceed through the registration process, click “I’m creating a new team”.  You will be asked to enter a team name.  Once you have created your name, you will be given a passcode to provide to other team members to join.  Team names cannot be edited so be sure to double check that it is correct before submitting. </p>
+                            <p class="bold">How can I ensure that our team members are all get in the same wave? </p>
+                            <p>The best way to ensure each member is in the same wave is have everyone register as early as possible.  Each wave has a limited amount of first come, first serve space. Once a wave is full it is sold out. The registration page will indicate if a wave is sold out or if there are 75 or fewer spots remaining. Anyone who is already registered has the ability to switch to another open wave that day if there is still space available. </p>
+                            <p class="bold">What if my team name is taken?  </p>
+                            <p>Team names are special and we want to keep it that way, therefore duplicate team names are not accepted.  You will be notified during the registration process if your team name is taken.  If you’ve given it lots of thought and love that name, you can be creative and outsmart the system to find a new unique team name! </p>
+                            <p class="bold">What is the best team name?  </p>
+                            <p>The name the suits your team!  Keep it clean and have fun!</p>
+                            <p class="bold">Can I register now and create a team name later?  </p>
+                            <p>Yes. You must register as an individual then later log in to your Dirty Girl profile and edit your registration. You can then switch to a team member and add a team name.  However, some team names go quickly, so do not wait too long! </p>
+                            <p class="bold">My team name is not accepted, why not?  </p>
+                            <p>Team names are special and we want to keep it that way but because this is a family friendly event, we appreciate everyone’s sensitivity to their team names. You will be notified during the registration process if your team name contains words considered offensive. Thanks for understanding.  </p>
+                            <p class="bold">Can I register now and create a team name later?  </p>
+                            <p>Yes. You must register as an individual then later log in to your Dirty Girl profile and edit your registration. You can then switch to a team member and add a team name.  However, some team names go quickly, so do not wait too long!</p>
+                            <p class="bold">I am a cancer survivor can I get free admission?  </p>
+                            <p>Dirty Girl offers 300 cancer survivors’ registration for no charge at each event.  This is based on the honor system and you are not required to provide proof simply because we trust you.  Let’s keep that trust.  Whether you are on a team or an individual, when you choose your wave, you will be given a chance to select a cancer survivor category.  It is that simple.  </p>
+                        </div>
+                    </div>
+                    <div class="contentSidePanel_bottom">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>

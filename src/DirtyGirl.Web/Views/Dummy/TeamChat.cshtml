@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "TeamChat";
+}
+<script>
+    $(document).ready(function () {
+        DG.util.initInviteFriendModal();
+    });
+</script>
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            <div class="hero">
+                <img src="@Url.Content("~/images/hero_profile.jpg")" />
+            </div>
+            <div id="eventDetailContent" class="profileColumn">
+                <div class="profileContent">
+                    <div class="viewMyProfile">
+                        <img class="mini_pp" src="@Url.Content("~/images/fpo-pp.jpg")" />
+                        <a href="#"><img src="@Url.Content("~/images/btn_viewprofile.png")" /></a>
+                    </div>
+                    <h2>TEAM COMMUNICATION</h2>
+                    <div class="jointeam_container">
+                        <h5>TEAM: </h5><h3>MUDDING FOR KATIE SUPER LONG NAME</h3>
+                    </div>
+                    <div class="teamChat_container">
+                        <div class="teamChat_left">
+                            <div class="teamChat_runDetail">
+                                <h3>RUN REGISTERED FOR:</h3>
+                                <p><span>Date:</span> September 26, 2012</p>
+                                <p><span>Location:</span> Miami Convention Arena, Miami, Florida</p>
+                                <p><span>Team:</span> The Dirty Girls</p>
+                                <p><span>Team Code:</span> XXXXXX</p>
+                                <p><span>Wave:</span> Wave 3 - 9-30 am</p>
+                                <p><span>Registration Paid:</span> $75.00</p>
+                            </div>
+                            <div class="teamChat_left_separator">&nbsp;</div>
+                            <div class="teammates">
+                                <div class="single_teammate">
+                                    <img src="@Url.Content("~/images/fpo_teammate.jpg")" />
+                                    <p>Dirty Girl</p>
+                                </div>
+                                <div class="single_teammate">
+                                    <img src="@Url.Content("~/images/fpo_teammate.jpg")" />
+                                    <p>Dirty Girl Longer Name</p>
+                                </div>
+                                <div class="single_teammate">
+                                    <img src="@Url.Content("~/images/fpo_teammate.jpg")" />
+                                    <p>Dirty</p>
+                                </div>
+                                <div class="single_teammate">
+                                    <img src="@Url.Content("~/images/fpo_teammate.jpg")" />
+                                    <p>Dirty Girl</p>
+                                </div>
+                                <div class="single_teammate">
+                                    <img src="@Url.Content("~/images/fpo_teammate.jpg")" />
+                                    <p>Dirty Girl</p>
+                                </div>
+                                <div class="single_teammate">
+                                    <img src="@Url.Content("~/images/fpo_teammate.jpg")" />
+                                    <p>Dirty Girl</p>
+                                </div>
+                                <div class="single_teammate">
+                                    <img src="@Url.Content("~/images/fpo_teammate.jpg")" />
+                                    <p>Dirty Girl</p>
+                                </div>
+                                <div class="single_teammate">
+                                    <img src="@Url.Content("~/images/fpo_teammate.jpg")" />
+                                    <p>Dirty Girl</p>
+                                </div>
+                                <div class="single_teammate">
+                                    <img src="@Url.Content("~/images/fpo_teammate.jpg")" />
+                                    <p>Dirty Girl</p>
+                                </div>
+                            </div>
+                            <div class="linkViewAll">
+                                <p><a href="#">View all team members</a></p>
+                            </div>
+                        </div>
+                        <div class="teamChat_right">
+                            <h3>THE DIRTY GIRLS MESSAGE BOARD</h3>
+                            <div class="messageBoard">
+                                <img src="@Url.Content("~/images/fpo_chatbox.jpg")" />
+                            </div>
+                            <div class="teamChat_right_cta">
+                                <a href="#" class="showInviteFriend"><img src="@Url.Content("~/images/btn_invite.png")" /></a>
+                                <a href="#"><img src="@Url.Content("~/images/btn_makeDonation.png")" /></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+
+<div id="inviteFriendContainer">
+    <div id="inviteFriendHeader">
+        <h3>TEAM INVITE</h3>
+        <a href="#" class="closeInviteModal">x</a>
+    </div>
+    <div id="inviteFriendContent">
+        <div class="single_input">
+            <p>Friend's Email Addresses (separate by comma)</p>
+            <input type="text" />
+        </div>
+        <div class="single_input">
+            <p>Message</p>
+            <textarea></textarea>
+        </div>
+    </div>
+    <div class="inviteSubmit">
+        <a href="#" class="submit">SUBMIT</a>
+    </div>
+</div>

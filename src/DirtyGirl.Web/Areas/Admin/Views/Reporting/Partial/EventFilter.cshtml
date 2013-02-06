@@ -1,0 +1,22 @@
+﻿@model vmAdmin_EventFilter
+
+@using (Html.BeginForm())
+{
+  <div id="reportfilter">
+      <table>
+          <tr>
+              <td>
+                  @(Html.Kendo().DropDownListFor(x => x.EventId)
+                    .BindTo(Model.EventList)
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .OptionLabel("Select Event-->")
+                    .HtmlAttributes(new {style = "width:250px" }))
+              </td>
+              <td>
+                    <input type="submit" value="Update Results" />
+              </td>
+          </tr>
+      </table>         
+  </div>
+}

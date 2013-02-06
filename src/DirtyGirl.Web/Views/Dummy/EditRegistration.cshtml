@@ -1,0 +1,236 @@
+﻿@{
+    ViewBag.Title = "EditRegistration";
+}
+
+<script>
+    $(document).ready(function () {
+        $(".single_radio input").prop('checked', false);
+
+        $("#editWave").click(function () {
+            $(".single_edit").hide();
+            $(".editWave").show();
+        });
+
+        $("#editRun").click(function () {
+            $(".single_edit").hide();
+            $(".editRun").show();
+        });
+
+        $("#cancelRun").click(function () {
+            $(".single_edit").hide();
+            $(".cancelRun").show();
+        });
+
+        $("#transferRun").click(function () {
+            $(".single_edit").hide();
+            $(".transferRun").show();
+        });
+    });
+</script>
+<style>
+    .radiox { position:relative; float:left; width:15px; height:15px; margin-right:14px;}
+    .radiox input{float:none; margin:0;position:absolute;top:-100px;left:0;}
+    .radiox img{left: 0; position: absolute; top: 0; z-index: 2;cursor:pointer;}
+    .radiox .chkno{}
+    .radiox .chkyes{display:none;}
+</style>
+
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            <div class="hero">
+                <img src="@Url.Content("~/images/hero_profile.jpg")" />
+            </div>
+            <div id="eventDetailContent" class="profileColumn">
+                <div class="profileContent">
+                    <div class="viewMyProfile">
+                        <img class="mini_pp" src="@Url.Content("~/images/fpo-pp.jpg")" />
+                        <a href="#"><img src="@Url.Content("~/images/btn_viewprofile.png")" /></a>
+                    </div>
+                    <h2>EDIT REGISTRATION</h2>
+                    <div class="editRegistrationContent">
+                        <div class="editRegistrationTop">
+                            <div class="editRegistration_runDetail">
+                                <h3>RUN REGISTERED FOR:</h3>
+                                <p><span>Date:</span> September 26, 2012</p>
+                                <p><span>Location:</span> Miami Convention Arena, Miami, Florida</p>
+                                <p><span>Team:</span> The Dirty Girls</p>
+                                <p><span>Team Code:</span> XXXXXX</p>
+                                <p><span>Wave:</span> Wave 3 - 9-30 am</p>
+                                <p><span>Registration Paid:</span> $75.00</p>
+                            </div>
+                            <div class="editRegistration_editOption">
+                                <h3>RUN REGISTERED FOR:</h3>
+                                <div class="single_radio">
+                                    <div class="radiox">
+                                        <input type="radio" name="edit" id="editWave" />
+                                        <img src="@Url.Content("~/images/check_no.jpg")" class="chkno" />
+                                        <img src="@Url.Content("~/images/check_yes.jpg")" class="chkyes" />
+                                    </div>
+                                    <label for="editWave">Change my wave</label>
+                                </div>
+                                <div class="single_radio">
+                                    <div class="radiox">
+                                        <input type="radio" name="edit" id="editRun" />
+                                        <img src="@Url.Content("~/images/check_no.jpg")" class="chkno" />
+                                        <img src="@Url.Content("~/images/check_yes.jpg")" class="chkyes" />
+                                    </div>
+                                    <label for="editRun">Change my run</label>
+                                </div>
+                                <div class="single_radio">
+                                    <div class="radiox">
+                                        <input type="radio" name="edit" id="cancelRun" />
+                                        <img src="@Url.Content("~/images/check_no.jpg")" class="chkno" />
+                                        <img src="@Url.Content("~/images/check_yes.jpg")" class="chkyes" />
+                                    </div>
+                                    <label for="cancelRun">Cancel my run</label>
+                                </div>
+                                <div class="single_radio">
+                                    <div class="radiox">
+                                        <input type="radio" name="edit" id="transferRun" />
+                                        <img src="@Url.Content("~/images/check_no.jpg")" class="chkno" />
+                                        <img src="@Url.Content("~/images/check_yes.jpg")" class="chkyes" />
+                                    </div>
+                                    <label for="transferRun">Transfer my registration to a friend</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="editRegistrationBottom">
+                            <div class="single_edit editWave">
+                                <div class="pinkborder_left">
+                                    <div class="single_edit_container">
+                                        <div class="single_edit_header">
+                                            <h3>CHANGE YOUR WAVE</h3>
+                                        </div>
+                                        <div class="single_edit_content">
+                                            <div class="editWave_current">
+                                                <p><b>Current wave: </b>Wave 3 - 9:30 am</p>
+                                            </div>
+                                            <div class="editWave_new">
+                                                <div class="single_input">
+                                                    <p>Change to a different wave:</p>
+                                                    <select>
+                                                        <option>Wave 1</option>
+                                                        <option>Wave 2</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="submit_update">
+                                                <a href="#"><img src="@Url.Content("~/images/btn_submitchange.png")" /></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pinkborder_bottom">&nbsp;</div>
+                            </div>
+                            <div class="single_edit editRun">
+                                <div class="pinkborder_left">
+                                    <div class="single_edit_container">
+                                        <div class="single_edit_header">
+                                            <h3>CHANGE YOUR RUN</h3>
+                                        </div>
+                                        <div class="single_edit_content">
+                                            <div class="editRun_option">
+                                                <p class="bold">What would you like to change?</p>
+                                                <div class="inline_radio">
+                                                    <input type="radio" name="editRun" id="editRunDate" /><label for="editRunDate">Change my date</label>
+                                                    <input type="radio" name="editRun" id="editRunLocation" /><label for="editRunLocation">Change my location</label>
+                                                </div>
+                                                <div class="changeFee">
+                                                    <p><span class="pink">Change Fee: </span>$10.00</p>
+                                                </div>
+                                            </div>
+                                            <div class="editRun_date">
+                                                <div class="single_input">
+                                                    <p>Change run date:</p>
+                                                    <select>
+                                                        <option>Wave 1</option>
+                                                        <option>Wave 2</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="editRun_location">
+                                                <div class="single_input">
+                                                    <p>Locations available for this date:</p>
+                                                    <select>
+                                                        <option>Wave 1</option>
+                                                        <option>Wave 2</option>
+                                                    </select>
+                                                </div>
+                                                <div class="changeFee">
+                                                    <p><span class="pink">Registration Difference: </span>$5.00</p>
+                                                </div>
+                                            </div>
+                                            <div class="submit_update">
+                                                <a href="#"><img src="@Url.Content("~/images/btn_submitchange.png")" /></a>
+                                                <div class="changeFee">
+                                                    <p><span class="pink">Total Transfer Cost: </span>$15.00</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pinkborder_bottom">&nbsp;</div>
+                            </div>
+                            <div class="single_edit cancelRun">
+                                <div class="pinkborder_left">
+                                    <div class="single_edit_container">
+                                        <div class="single_edit_header">
+                                            <h3>CANCEL RUN</h3>
+                                        </div>
+                                        <div class="single_edit_content">
+                                            <div class="cancelRun_content">
+                                                <p><b>Cancellation Terms: </b>If you choose to cancel your turn, you'll be given a comp code, via email, which is good for 1 year from today to register for another run of equal or lesser value.</p>
+                                            </div>
+                                            <div class="submit_update">
+                                                <a href="#"><img src="@Url.Content("~/images/btn_cancelrun.png")" /></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pinkborder_bottom">&nbsp;</div>
+                            </div>
+                            <div class="single_edit transferRun">
+                                <div class="pinkborder_left">
+                                    <div class="single_edit_container">
+                                        <div class="single_edit_header">
+                                            <h3>TRANSFER YOUR REGISTRATION TO A FRIEND</h3>
+                                        </div>
+                                        <div class="single_edit_content">
+                                            <div class="transfer_terms">
+                                                <p><b>Transfer Terms: </b>If you choose to transfer your registration to a friend, they'll be sent an email with the transfer code and will have 72 hours to accept the transfer before your spot is opened to the public.</p>
+                                                <div class="changeFee">
+                                                    <p><span class="pink">Transfer Fee: </span>$10.00</p>
+                                                </div>
+                                            </div>
+                                            <div class="transfer_input">
+                                                <div class="single_input">
+                                                    <p>Friend's Name</p>
+                                                    <input type="text" />
+                                                </div>
+                                                <div class="single_input">
+                                                    <p>Friend's Email</p>
+                                                    <input type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="submit_update">
+                                                <a href="#"><img src="@Url.Content("~/images/btn_submittransfer.png")" /></a>
+                                                <div class="changeFee">
+                                                    <p><span class="pink">Total Transfer Cost: </span>$10.00</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pinkborder_bottom">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+
+

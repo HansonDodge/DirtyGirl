@@ -1,0 +1,46 @@
+﻿@model vmAdmin_CreateEventDate
+
+<h2>Create an Event Date</h2>   
+    
+@Html.HiddenFor(x => Model.EventId)
+@Html.ValidationSummary("Please address the following errors")
+
+<div class="entryRow">
+    <div class="entryLabel">Event Date:</div>
+    <div class="entryInput">
+        @Html.Kendo().DatePickerFor(x => x.EventDate).Value(DateTime.Now.Date)
+        @Html.ValidationMessageFor(x => x.EventDate, "*")
+    </div>
+</div>   
+    
+<div class="entryRow">
+    <div class="entryLabel">Start Time:</div>
+    <div class="entryInput">
+        @Html.Kendo().TimePickerFor(x => x.WaveStartTime).Value(new TimeSpan(8, 0, 0))
+        @Html.ValidationMessageFor(x => x.WaveStartTime, "*")
+    </div>
+</div> 
+    
+<div class="entryRow">
+    <div class="entryLabel">End Time:</div>
+    <div class="entryInput">
+        @Html.Kendo().TimePickerFor(x => x.WaveEndTime).Value(new TimeSpan(17, 0, 0))
+        @Html.ValidationMessageFor(x => x.WaveEndTime, "*")
+    </div>
+</div> 
+    
+<div class="entryRow">
+    <div class="entryLabel">Duration of each wave(minutes):</div>
+    <div class="entryInput">
+        @Html.Kendo().IntegerTextBoxFor(x => x.Duration).Spinners(true).Step(5).Min(0).Max(60)
+        @Html.ValidationMessageFor(x => x.Duration, "*")
+    </div>
+</div>
+    
+<div class="entryRow">
+    <div class="entryLabel">Max Registration Count:</div>
+    <div class="entryInput">
+        @Html.Kendo().IntegerTextBoxFor(x => x.MaxRegistrants).Spinners(true).Step(25).Min(0)
+        @Html.ValidationMessageFor(x => x.MaxRegistrants, "*")
+    </div>
+</div>    

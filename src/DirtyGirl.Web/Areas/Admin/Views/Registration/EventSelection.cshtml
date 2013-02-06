@@ -1,0 +1,130 @@
+﻿@model vmRegistration_EventSelection
+
+@{
+    ViewBag.Title = "ChangeEvent";
+    Layout = null;
+}
+<script>
+
+    function filterEventDates() {
+        return { eventId: $('#ddlEvent').val()};
+    }
+    
+    function filterEventWaves() {
+        return { eventDateId: $('#ddlEventDate').val() };
+    }
+
+    function onEventChange(e) {
+        $("#EventNameTitle").html($("#ddlEvent").data("kendoDropDownList").dataSource._data[$("#ddlEvent").data("kendoDropDownList").selectedIndex - 1].Name);
+        $("#EventWaveId").val(0);
+    }
+    
+    function onEventWaveChange(e) {
+        $("#EventWaveId").val($("#ddlWaveSelect").data("kendoDropDownList").dataSource._data[$("#ddlWaveSelect").data("kendoDropDownList").selectedIndex - 1].EventWaveId);
+        $('#submitError').hide();
+    }
+
+    function onEventDataBound(e) {
+        $("#EventNameTitle").html($("#ddlEvent").data("kendoDropDownList").dataSource._data[$("#ddlEvent").data("kendoDropDownList").selectedIndex - 1].Name);
+    }
+    
+    function onEventDateChange(e) {
+    }
+
+    function onEventWaveDataBound(e) {
+    }
+
+    function onEventDateDataBound(e) {
+        $("#EventNameTitle").html($("#ddlEventDate").data("kendoDropDownList").dataSource._data[$("#ddlEventDate").data("kendoDropDownList").selectedIndex - 1].Name);
+    }
+
+
+</script>
+
+<style>
+    .register_next_copy p { text-align: right;}
+</style>
+ 
+                            
+
+                            <div >
+                                <table>
+                                    <tr>
+                                        <td><p>Select Event:</p></td>
+                                        <td>
+                                            @(Html.Kendo().DropDownListFor(x => x.EventId)
+                                                  .Name("ddlEvent")
+                                                  .OptionLabel("Select")
+                                                  .DataTextField("Name")
+                                                  .DataValueField("EventId")
+                                                  .DataSource(source => source.Read(read => read.Action("geteventlist", "Registration")))
+                                                  .Events(evts =>  evts.Change("onEventChange").DataBound("onEventDataBound"))                                                                           
+                                                  .HtmlAttributes(new { style = "width:250px"}))       
+                                        </td>
+
+                                        </tr>
+                                    <tr>
+                                        <td><p>Select Date:</p></td>
+                                        <td>
+                                            @(Html.Kendo().DropDownListFor(x => x.EventDateId)
+                                                  .Name("ddlEventDate")
+                                                  .OptionLabel("Select")
+                                                  .DataTextField("DateOfEvent")
+                                                  .DataValueField("EventDateId")
+                                                  .DataSource(source => source.Read(read => read.Action("geteventdatelist", "Registration").Data("filterEventDates"))
+                                                                              .ServerFiltering(true))
+                                                  .Events(evts =>  evts.Change("onEventDateChange").DataBound("onEventDateDataBound"))                                                                              
+                                                  .Enable(false)
+                                                  .AutoBind(false)
+                                                  .CascadeFrom("ddlEvent"))
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td><p>Select Wave:</p></td>
+                                        <td>
+                                            @(Html.Kendo().DropDownListFor(x => x.EventWaveId)
+                                                  .Name("ddlWaveSelect")
+                                                  .OptionLabel("Select")
+                                                  .DataTextField("Description")
+                                                  .DataValueField("EventWaveId")
+                                                  .DataSource(source => source.Read(read => read.Action("GetWavesByEventDateId", "Registration").Data("filterEventWaves"))
+                                                                              .ServerFiltering(true))
+                                                  .Events(evts =>  evts.Change("onEventWaveChange").DataBound("onEventWaveDataBound")) 
+                                                  .Enable(false)
+                                                  .AutoBind(false)
+                                                  .CascadeFrom("ddlEventDate"))
+                                        </td>
+                                    </tr>
+                                </table>                                                                           
+                            </div>
+
+                        <div >
+
+                            <span class="register_editrun_button">
+                                <span id="submitError" style="display: none;"> Please select a wave first</span>&nbsp;&nbsp;&nbsp;<a href="#" id="lnkWaveSelected" class="proceed">Change Registration</a>
+                            </span>
+                         </div>
+
+
+<form id="frmWaveSelected" action="@Url.Action("EventSelection", "registration")" method="POST">
+    @Html.HiddenFor(x => x.RegistrationId)
+    @Html.HiddenFor(x => x.EventWaveId)
+</form>
+
+
+<script type="text/javascript">
+    
+    DG.util.initEventTab();
+
+$(".wave_time").height($(".wave_time").next().innerHeight() - 20);
+
+    $("#lnkWaveSelected").click(function (e) {
+        e.preventDefault();
+        if ($('#EventWaveId').val() <= 0) {
+            $('#submitError').show();
+        } else {
+            $("#frmWaveSelected").submit();
+        }
+    });
+</script>

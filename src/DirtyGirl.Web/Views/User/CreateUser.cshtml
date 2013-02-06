@@ -1,0 +1,222 @@
+﻿@model vmUser_EditUser
+
+@{
+    ViewBag.Title = "CreateUser";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#frmRegistration').data('validator').settings.ignore = '';
+
+        $("#CheckUsernameAvailability").click(function (e) {
+            e.preventDefault();
+            check_availability();
+        })
+        $(".register_next_button a").click(function (e) {
+            e.preventDefault();
+            $(".register_next_button input").click();
+        });
+
+        $(".showTooltip").tooltip();
+    })
+
+    function check_availability() {
+        var username = document.getElementById('User_UserName').value;
+        if (username.length > 2) {
+            $.get("CheckUsernameAvailability", { username: username },
+                function(result) {
+                    if (result == 1) {
+                        $('#username_availability_result').html('<p>' + username + ' is Available</p>');
+                    } else {
+                        $('#username_availability_result').html('<p>' + username + ' is Not Available</p>');
+                    }
+                });
+        } else {
+            $('#username_availability_result').html('Please enter a username with 3 or more characters to check its availability');
+        }
+    }
+</script>
+<style>
+    .register_next_copy p { text-align: right;}
+</style>
+
+@using (Html.BeginForm("CreateUser", "User", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmRegistration" }))
+{      
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            @Html.Partial("_Hero")
+            <div id="eventDetailContent" class="oneColumn">
+                <div class="contentMain">
+                    <div class="contentMain_copy register form">
+                        <h1 class="pink">Create A New Account</h1>
+                        <div class="registration_form">
+                            <div class="registration_form_message">
+                                @Html.Partial("DisplayMessage")
+                                @Html.ValidationSummary(false, "Please fix the following errors before continuing:")                                
+                                @Html.HiddenFor(u => u.User.UserId)
+                                @Html.HiddenFor(u => u.User.FacebookId)
+                                @Html.HiddenFor(u => u.returnUrl)                             
+                            </div>
+                            <div class="registration_form_content">
+                                <p style="font-weight:normal;">*Required Fields</p>
+                                <div class="single_row">
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Username</p>
+                                        @Html.TextBoxFor(x => x.User.UserName)
+                                        @Html.ValidationMessageFor(x => x.User.UserName, "*")
+                                        <input type="button" id="CheckUsernameAvailability" value="Check Availability" />
+                                        <div id="username_availability_result"></div>
+                                    </div>
+                                </div>
+                                @if (Model.User.FacebookId == null)
+                                {
+                                <div class="single_row">
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Password</p>
+                                        @Html.PasswordFor(x => x.Password)
+                                    </div>
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Verify Password @Html.ValidationMessageFor(x => x.PasswordVerification)</p>
+                                        @Html.PasswordFor(x => x.PasswordVerification)
+                                        
+                                    </div>
+                                </div>
+                                }
+
+                                @if (Model.User.FacebookId != null)
+                                {
+                                    <div class="single_row">
+                                        <div class="single_input">
+                                            <p>Profile Picture</p>
+                                            <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(Model.User.FacebookId.ToString())" />
+                                        </div>
+                                    </div>
+                                    <div class="single_row">
+                                        <div class="single_checkbox">
+                                            @Html.CheckBoxFor(x => x.User.UseFacebookImage)
+                                            <p>Use Facebook photo?</p>
+                                        </div>
+                                    </div>
+                                    <div class="single_row">
+                                        <div class="single_input">
+                                            <p>Upload a different photo</p>
+                                            <input id="profileImage" type="file" name="profileImage" />
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                <div class="single_row">
+                                    <div class="single_input">
+                                        <p>Upload a photo</p>
+                                        <input id="profileImage" type="file" name="profileImage" />
+                                    </div>
+                                </div>
+                                }
+
+                                <div class="single_row">
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>First Name</p>
+                                        @Html.TextBoxFor(x => x.User.FirstName)
+                                        @Html.ValidationMessageFor(x => x.User.FirstName, "*")
+                                    </div>
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Last Name</p>
+                                        @Html.TextBoxFor(x => x.User.LastName)
+                                        @Html.ValidationMessageFor(x => x.User.LastName, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Email Address</p>
+                                        @Html.TextBoxFor(x => x.User.EmailAddress)
+                                        @Html.ValidationMessageFor(x => x.User.EmailAddress, "*")
+                                    </div>
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Confirm Email Address</p>
+                                        @Html.TextBoxFor(x => x.EmailAddressVerification)
+                                        @Html.ValidationMessageFor(x => x.EmailAddressVerification, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text address">
+                                        <p><span class="pink">*</span>Address</p>
+                                        @Html.TextBoxFor(x => x.User.Address1)
+                                        @Html.ValidationMessageFor(x => x.User.Address1, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text address">
+                                        <p><span class="pink"></span>Address2</p>
+                                        @Html.TextBoxFor(x => x.User.Address2)
+                                        @Html.ValidationMessageFor(x => x.User.Address2, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>City</p>
+                                        @Html.TextBoxFor(x => x.User.Locality)
+                                        @Html.ValidationMessageFor(x => x.User.Locality, "*")
+                                    </div>
+                                    <div class="single_input dropdown">
+                                        <p><span class="pink">*</span>State</p>
+                                        @(Html.Kendo().DropDownListFor(x => x.User.RegionId)
+                                            .OptionLabel("Select State")
+                                            .DataTextField("Name")
+                                            .DataValueField("RegionId")
+                                            .BindTo(Model.Regions))
+                                        @Html.ValidationMessageFor(x => x.User.RegionId, "*")
+                                    </div>
+                                    <div class="single_input text short">
+                                        <p><span class="pink">*</span>Zip</p>
+                                        @Html.TextBoxFor(x => x.User.PostalCode)
+                                        @Html.ValidationMessageFor(x => x.User.PostalCode, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_checkbox">
+                                        <span class="pink">*</span>
+                                        @Html.CheckBoxFor(x => x.ImAGirl)
+                                        <p>By checking this box I am verifying that I am female [<span class="showTooltip" title="Sorry guys, Dirty Girl is an event for women only. Men are welcome to watch, cheer and take pictures, but not participate.">?</span>]</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="register_next">
+                            <div class="register_next_copy">
+                                
+                            </div>
+                            <div class="register_next_button">
+                                <a href="#" class="proceed" id="submitForm">NEXT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+}
+
+<script>
+    $(document).ready(function () {
+        $("#submitForm").click(function (e) {
+            e.preventDefault();
+            $("#frmRegistration").submit();
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+

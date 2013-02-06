@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{87150502-D491-4956-BA42-3665C1463DD4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DirtyGirl.Data</RootNamespace>
+    <AssemblyName>DirtyGirl.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataInterfaces\Repositories\ICartDiscountItemRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\ICartItemRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\ICartRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IChargeRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\ICouponRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IDiscountItemRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IEventLeadRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IEventLeadTypeRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IRedemptionCodeRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\ITeamPostRepository.cs" />
+    <Compile Include="DataInterfaces\RepositoryGroups\IRepositoryGroup.cs" />
+    <Compile Include="DataRepositories\CartDiscountItemRepository.cs" />
+    <Compile Include="DataRepositories\CartItemRepository.cs" />
+    <Compile Include="DataRepositories\CartRepository.cs" />
+    <Compile Include="DataRepositories\ChargeRepository.cs" />
+    <Compile Include="DataRepositories\EventLeadTypeRepository.cs" />
+    <Compile Include="DataRepositories\CouponRepository.cs" />
+    <Compile Include="DataRepositories\DiscountItemRepository.cs" />
+    <Compile Include="DataRepositories\EventFeeRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IUser_RoleRepository.cs" />
+    <Compile Include="DataInterfaces\UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="DataRepositories\EventLeadRepository.cs" />
+    <Compile Include="DataRepositories\EventTemplateRepository.cs" />
+    <Compile Include="DataRepositories\EventTemplate_PayScaleRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IEventTemplate_PayScaleRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IEventSponsorRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IEventTemplateRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IEventWaveRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IPurchaseItemRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IEventFeeRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IRegistrationRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\ITeamRepository.cs" />
+    <Compile Include="DataRepositories\EventDateRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IEventDateRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IRegionRepository.cs" />
+    <Compile Include="DataRepositories\RedemptionCodeRepository.cs" />
+    <Compile Include="DataRepositories\TeamPostRepository.cs" />
+    <Compile Include="DBContext.cs" />
+    <Compile Include="DataRepositories\EventRepository.cs" />
+    <Compile Include="DataRepositories\EventSponsorRepository.cs" />
+    <Compile Include="DataRepositories\EventWaveRepository.cs" />
+    <Compile Include="DataRepositories\PurchaseItemRepository.cs" />
+    <Compile Include="DataRepositories\RegionRepository.cs" />
+    <Compile Include="DataRepositories\RegistrationRepository.cs" />
+    <Compile Include="DataRepositories\Repository.cs" />
+    <Compile Include="DataRepositories\RoleRepository.cs" />
+    <Compile Include="DataRepositories\TeamRepository.cs" />
+    <Compile Include="DataRepositories\UserRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IEventRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IRoleRepository.cs" />
+    <Compile Include="DataInterfaces\Repositories\IUserRepository.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryGroups\RepositoryGroup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DirtyGirl.Models\DirtyGirl.Models.csproj">
+      <Project>{e0337b32-d02c-46fc-8459-d39259c42c80}</Project>
+      <Name>DirtyGirl.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReferencedAssemblies\EntityFramework.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,222 @@
+﻿@model vmRegistration_CreateTeam
+@{
+    ViewBag.Title = "Create Team";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .register_next { bottom: 20px; overflow: hidden; position: absolute; right: 20px;}
+    .new_team, .existing_team { position: relative; overflow:hidden;}
+</style>
+<script>
+    $(document).ready(function () {
+        $("#reg_existingteam").click(function () {
+            $(".existing_team").show();
+            $(".new_team").hide();
+        });
+        $("#reg_newteam").click(function () {
+            $(".new_team").show();
+            $(".existing_team").hide();
+        });
+
+        var teamCode = '';
+        var regType = '';
+    });
+
+
+</script>
+
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            @Html.Partial("_Hero")
+            <div id="eventDetailContent" class="oneColumn">
+                <div class="contentMain">
+                    <div class="contentMain_copy register form">
+                        <div class="viewMyProfile" style="z-index: 999">
+                            <a href='@Url.Action("ViewUser", "User", new {username = User.Identity.Name})'>
+                                @if (ViewBag.User.UseFacebookImage)
+                                {
+                                    <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(ViewBag.User.FacebookId.ToString())" alt="Manage my Profile" class="mini_pp" /> 
+                                }
+                                else if (ViewBag.User.Image != null)
+                                {
+                                    <img src='@Url.Action("UserImage", "User", new { id = ViewBag.User.UserName })' alt="Manage my Profile" class="mini_pp" /> 
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/images/fpo_teammate.jpg")" alt="Manage my Profile" class="mini_pp" />
+                                }
+                                <img src="@Url.Content("~/images/btn_viewprofile.png")" />
+                            </a>
+                        </div>
+
+                        <input id="eventId" type="hidden" value="@ViewBag.EventId" />
+                        <input id="registrationId" type="hidden" value="@ViewBag.RegistrationId" />
+                         <div class="register_step2">
+                                <p>Are you joining an existing team or creating a new team?  </p>
+                                <div class="radiobuttons">
+                                    <p>@Html.RadioButton("TeamType", "new", new { name = "step2", id = "reg_newteam" })<label for="reg_newteam">I’m creating a new team</label></p>
+                                    <p>@Html.RadioButton("TeamType", "existing", new { name = "step2", id = "reg_existingteam" })<label for="reg_existingteam">I’m joining an existing team</label></p>                                                                    
+                                </div>
+                                    <div class="existing_team" style="display: none">
+                                        <div class="single_input">
+                                            <p>Please enter your passcode</p>
+                                            <input id="TeamCodeTextBox" type="text" onkeyup="ValidateTeamCodeText()" style="margin-right: 20px; z-index: 999" />                                           
+                                        </div>
+                                        <div class="single_input">
+                                            <br />
+                                            <input id="joinTeamButton" class="btnPink" type="button" value="SUBMIT" onclick="JoinTeam()" />
+                                        </div>
+                                        <br/>
+                                        <br/><br/>
+                                        <div id="teamCodeResults" style="position:relative">
+                                            <p id="teamCodeResultsText">&nbsp;</p>
+                                        </div>
+                                    </div>
+                                    <div class="new_team" style="display: none">
+                                        <div class="single_input">
+                                            <p>Enter team name</p>
+                                            <input id="teamName" type="text" onkeyup="VerifyTeamName()" style="margin-right: 20px; z-index: 999" />
+                                        </div>
+                                        <div class="single_input">
+                                            <br />
+                                            <input id="createTeamButton" class="btnPink" type="button" value="SUBMIT" onclick="CreateTeam()" />
+                                        </div>
+                                        <br/>
+                                        <br/><br/>
+                                        <div id="createTeamResults" style="position:relative">
+                                            <p id="addTeamResult">&nbsp;</p>
+                                        </div>               
+                                    </div>
+                                <div class="disable_div">&nbsp;</div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+
+<script>
+    function VerifyTeamName() {
+        if ($('#teamName').val().length > 3)
+            $.ajax({
+                beforeSend: function () {
+                    $('#addTeamResult')
+                        .html(function () {
+                            return '<img src="../Images/ajax-loader.gif"/>';
+                        });
+                },
+                url: '@Url.Action("VerifyTeamNameAvailability", "Team")',
+                data: { EventId: $('#eventId').val(), TeamName: $('#teamName').val() },
+                type: 'POST',
+                success: function (isValid) {
+                    $('#addTeamResult')
+                        .html(function () {
+                            var list = '';
+                            if (isValid == true) {
+                                list = 'Team Name Available';
+                            } else {
+                                //Service Failure
+                                list = 'Team Name is Unavailable';
+                            }
+                            return list;
+                        });
+                },
+                error: function (data, status, jqXhr) {
+                    //alert("FAILED: " + data.status + " " + data.responseText);
+                }
+            });
+    }
+    
+    function CreateTeam() {
+        if ($('#teamName').val().length > 3)
+            $.ajax({
+                url: '@Url.Action("CreateTeam", "Team")',
+                data: { EventId: "@(ViewBag.EventId)", TeamName: $('#teamName').val(), RegistrationId: $('#registrationId').val() },
+                type: 'POST',
+                beforeSend: function () {
+                    $('#addTeamResult')
+                        .html(function () {
+                            return '<img src="../Images/ajax-loader.gif"/>';
+                        });
+                },
+                success: function (data) {
+                    if (data.redirect) {
+                        // data.redirect contains the string URL to redirect to
+                        window.location.href = data.redirect;
+                    } else {
+                        $('#addTeamResult')
+                            .html(function() {
+                                return 'Failed to Create Team Name';
+                            });
+                    }
+                },
+                error: function (data, status, jqXhr) {
+                    //alert("FAILED: " + data);
+                }
+            });
+    }
+    
+    function ValidateTeamCodeText() {
+        if ($('#TeamCodeTextBox').val().length > 4) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ValidateTeamCode", "Registration")',
+                data: { eventId: "@(ViewBag.EventId)", code: $('#TeamCodeTextBox').val() },
+                beforeSend: function () {
+                    $('#teamCodeResultsText')
+                        .html(function () {
+                            return '<img src="../Images/ajax-loader.gif"/>';
+                        });
+                },
+                success: function (data) {
+                    if (data.Status) {
+                        $('#teamCodeResultsText').html("Team Code Invalid!  Please enter a correct Code for the team you want to join.");
+                    }
+                    else {
+                        $('#teamCodeResultsText').html("Join team: " + data.Name);
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    $('#teamCodeResultsText').html("Team can not be verified at this time.");
+                    //alert(textStatus + errorThrown);
+                }
+            });
+        } else {
+            $('.teamCodeResultsText').html("Please enter a valid Team Code to Join a team.");
+        }
+    }
+    
+    function JoinTeam() {
+        if ($('#TeamCodeTextBox').val().length > 4)
+            $.ajax({
+                url: '@Url.Action("JoinTeam", "Team")',
+                data: { eventId: "@(ViewBag.EventId)", teamCode: $('#TeamCodeTextBox').val(), registrationId: $('#registrationId').val() },
+                type: 'POST',
+                beforeSend: function () {
+                    $('#teamCodeResultsText')
+                        .html(function () {
+                            return '<img src="../Images/ajax-loader.gif"/>';
+                        });
+                },
+                success: function (data) {
+                    if (data.redirect) {
+                        // data.redirect contains the string URL to redirect to
+                        window.location.href = data.redirect;
+                    } else {
+                        $('#teamCodeResultsText')
+                            .html(function () {
+                                return "Error Occurred";
+                            });
+                    }
+                },
+                error: function (data, status, jqXhr) {
+                    //alert("FAILED: " + data);
+                }
+            });
+    }
+
+</script>

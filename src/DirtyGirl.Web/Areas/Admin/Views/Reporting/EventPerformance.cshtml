@@ -1,0 +1,10 @@
+﻿@model vmAdmin_EventPerformance
+
+@{ViewBag.Title = "Dirty Girl - Event Performance Report";}    
+
+@{Html.RenderPartial("partial/EventFilter", Model.Filter);}
+
+@if (Model.Report.FeeReport.Count > 0)
+{
+    Html.RenderPartial("partial/PerformanceReport", Model.Report);
+}

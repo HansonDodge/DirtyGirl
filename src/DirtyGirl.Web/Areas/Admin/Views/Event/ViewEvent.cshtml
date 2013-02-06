@@ -1,0 +1,103 @@
+﻿@model DirtyGirl.Models.Event
+
+@{
+    ViewBag.Title = "ViewEvent";
+}
+
+<h2>View Event</h2>
+
+@Html.Partial("DisplayMessage")
+
+<div id="adminViewEventTop">
+    <div class="singleRow">
+        <div class="singleInfo">
+            <p><b>Where:</b> @Model.Place</p>
+        </div>
+        <div class="singleInfo">
+            <p><b>General Locality:</b> @Model.GeneralLocality</p>
+        </div>
+    </div>
+    <div class="singleRow">
+        <div class="singleInfo">
+            <p><b>Address 1:</b> @Model.Address1</p>
+        </div>
+        <div class="singleInfo">
+            <p><b>Address 2:</b> @Model.Address2</p>
+        </div>
+        <div class="singleInfo">
+            <p><b>City:</b> @Model.Locality</p>
+        </div>
+        <div class="singleInfo">
+            <p><b>State:</b> @Model.Region.Name</p>
+        </div>
+        <div class="singleInfo">
+            <p><b>Zip:</b> @Model.PostalCode</p>
+        </div>
+    </div>
+</div>
+<div>
+    @(Html.Kendo().Grid<vmAdmin_RegistrantListItem>()
+                .Name("grdRegistrations")
+                .Columns(cols =>
+                {
+                    cols.Bound(r => r.FirstName);
+                    cols.Bound(r => r.LastName);
+                    cols.Bound(r => r.TeamName);
+                    cols.Bound(r => r.CreatedByUsername);
+                    cols.Bound(r => r.WaveDateTime).Format("{0:MM/dd/yyyy HH:mm}");
+                    cols.Command(c => c.Custom("Registration Details").Click("ViewRegistrationDetails"));
+                    cols.Bound(u => u.UserId).ClientTemplate("<a href=/admin/user/viewUser/#= UserId#>View User</a>");
+                })
+                .Pageable()
+                .Sortable()
+                .Filterable()
+                .DataSource(datasource => datasource
+                    .Ajax()
+                    .Read(read => read.Action("Ajax_GetEventRegistrants", "Registration", new { eventId = Model.EventId }))
+                    .PageSize(50)
+
+                )
+            )
+
+    @(Html.Kendo().Window().Name("RegistrationDetails")
+    .Title("Registration Details")
+    .Visible(false)
+    .Modal(true)
+    .Draggable(true)
+    .Width(300)
+)
+
+</div>
+
+<script type="text/x-kendo-template" id="registrationDetailsTemplate">
+    <div>First Name: #=FirstName#</div>
+    <div>Last Name: #=LastName#</div>
+    <div>Address #=Address1#<br/>#=Address2#<br/>#=City#, #=State# #=Zip#</div>
+    <div>Phone: #=Phone#</div
+    <div>Email: #=Email#</div>
+    <div>Team Name: #=TeamName#</div>
+    <div>Emergency Contact: #=EmergencyContact#</div>
+    <div>Emergency Phone: #=EmergencyPhone#</div>
+    <div>Medical Information: #=MedicalInformation#</div>
+    <div>Medical Information: #=MedicalInformation#</div>
+    <div>Special Needs: #=SpecialNeeds#</div>
+    <div>Date Added: #=kendo.toString(DateAdded,"MM/dd/yyyy") #</div>
+    <div>Wave: #=kendo.toString(WaveDateTime,"MM/dd/yyyy HH:mm") #</div>
+    <div>Registration Type: #=RegistrationType#</div>
+</script>
+
+<script type="text/javascript">
+    var detailsTemplate = kendo.template($("#registrationDetailsTemplate").html());
+
+    function ViewRegistrationDetails(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var wnd = $("#RegistrationDetails").data("kendoWindow");
+
+        wnd.content(detailsTemplate(dataItem));
+        wnd.center().open();
+    }
+</script>
+
+

@@ -1,4 +1,0 @@
-DirtyGirl
-=========
-
-Dirty Girl Registration

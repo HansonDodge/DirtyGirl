@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "Registration";
+}
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<script>
+    $(document).ready(function () {
+        DG.util.initEventTab();
+        $("#datepicker").datepicker();
+
+        $("#reg_individual").click(function () {
+            $(".register_step2").addClass("disabled");
+            $(".register_teaminfo").hide();
+        });
+        $("#reg_team").click(function () {
+            $(".register_step2").removeClass("disabled");
+            $(".register_teaminfo").show();
+        });
+        $("#reg_existingteam").click(function () {
+            $(".existing_team").show();
+            $(".new_team").hide();
+        });
+        $("#reg_newteam").click(function () {
+            $(".new_team").show();
+            $(".existing_team").hide();
+        });
+
+        $("#reg_team").click();
+        $("#reg_newteam").click();
+    });
+</script>
+
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            <div class="hero">
+                <img src="@Url.Content("~/images/dg-header.jpg")" />
+            </div>
+            <div id="eventDetailContent" class="twoColumn">
+                <div class="contentMain">
+                    <div class="contentMain_header">
+                        <div class="cm_header_city">
+                            <h4>MIAMI, FL</h4>
+                        </div>
+                        <div class="cm_header_where">
+                            <h5>WHERE:</h5>
+                            <p>Greater Miami Area</p>
+                        </div>
+                        <div class="cm_header_dates">
+                            <h5>DATES:</h5>
+                            <p>9/26/2012 - 9/28/2013</p>
+                        </div>
+                    </div>
+                    <div class="contentMain_copy register">
+                        <div class="registration_steps">
+                            <img src="@Url.Content("~/images/reg_progress1.png")" />
+                        </div>
+                        <div class="register_selectdate">
+                            <p>What date would you like to register for?</p>
+                            <input type="text" id="datepicker" />
+                        </div>
+                        <div class="register_step1">
+                            <p>Are you registering with a team or as an individual? </p>
+                            <div class="radiobuttons">
+                                <p><input type="radio" name="step1" id="reg_team" checked="checked" /> <label for="reg_team">With a team</label></p>
+                                <p><input type="radio" name="step1" id="reg_individual" /> <label for="reg_individual">As an individual</label></p>
+                            </div>
+                        </div>
+                        <div class="register_step2">
+                            <p>Are you joining an existing team or creating a new team?  </p>
+                            <div class="radiobuttons">
+                                <p><input type="radio" name="step2" id="reg_existingteam" /> <label for="reg_existingteam">I’m joining an existing team</label></p>
+                                <p><input type="radio" name="step2" id="reg_newteam" checked="checked" /> <label for="reg_newteam">I’m creating a new team</label></p>
+                            </div>
+                            <div class="register_teaminfo">
+                                <div class="existing_team">
+                                    <p>Please enter your passcode</p>
+                                    <p><input type="text" />
+                                </div>
+                                <div class="new_team">
+                                    <p>Enter team name</p>
+                                    <p><input type="text" />
+                                    <a href="#"><img src="@Url.Content("~/images/btn_saveteamname.png")" /></a></p>
+                                </div>
+                            </div>
+                            <div class="disable_div">&nbsp;</div>
+                        </div>
+                        <div class="register_teamcreation_copy hide">
+                            <div class="teamcreation_create">
+                                <p class="bold">You have selected the team name "Red Hot Muddin Mamas"</p>
+                                <p>Here is your team code to share with your other teammates: ABCDEF</p>
+                                <p>This will also be sent to you in your confirmation email.</p>
+                            </div>
+                            <div class="teamcreation_join">
+                                <div class="jointeam_container">
+                                    <h3>MUDDING FOR KATIE SUPER LONG NAME</h3><h5>TEAM: </h5>
+                                </div>
+                                <p>No. This isn't my team. <a href="#">Enter passcode again.</a></p>
+                            </div>
+                        </div>
+                        <div class="register_next">
+                            <div class="register_next_copy hide">
+                                <div class="next_copy_create">
+                                    <p>You'll be able to invite friends to your team after you've completed your registration. So keep going!</p>
+                                </div>
+                                <div class="next_copy_join">
+                                    <p>I would like to join the team "MUDDING FOR KATIE SUPER LONG NAME". Please continue.</p>
+                                </div>
+                            </div>
+                            <div class="register_next_button">
+                                <a href="#">NEXT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contentSidePanel">
+                    <div class="contentSidePanel_top">&nbsp;</div>
+                    <div class="contentSidePanel_side">
+                        <div class="contentSideFaq">
+                            <h3>FAQS</h3>
+                            <p class="bold">How do I register a new team?</p>
+                            <p>To register as a team, first decide on your team name and second determine what time you would like to start. Waves go off every 15 minutes beginning at 8:00 am with our only competitive wave, and our last wave goes out at 4:00 pm. Check in on <a href="http://www.facebook.com/godirtygirl" target="_blank">facebook</a> to get wave updates. Once you have a team name and you’ve found a wave that works, each person needs to register individually and enter that info when prompted during the registration process. Waves fill up quickly, so the sooner each team member can register, the better off you are at getting a spot in that wave. Once a wave is closed, it’s closed. We can’t add more people to a closed wave for safety reasons. We are doing our best to ensure a fun and safe event; we’d appreciate your efforts as well.</p>
+                            <p class="bold">How big/small do teams have to be?</p>
+                            <p>A team can be as big or as small as you’d like.  </p>
+                            <p class="bold">Do I have to be in a team to participate?</p>
+                            <p>No. You can participate as an individual or as a team; whatever suites you best.</p>
+                        </div>
+                    </div>
+                    <div class="contentSidePanel_bottom">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>

@@ -1,0 +1,67 @@
+﻿@model vmCart_ThankYou
+@{
+    ViewBag.Title = "ThankYou";
+}
+
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            @Html.Partial("_Hero")
+            <div id="eventDetailContent" class="oneColumn">
+                <div class="contentMain">
+                    <div class="contentMain_copy register form">
+                        <div class="thankyouContainer">
+                            @switch (Model.CartFocus)
+                            {
+                                case CartFocusType.Registration:
+                                    <div class="thankyouRegistration">
+                                        <h1 class="pink" style="text-align: center;">THANK YOU FOR REGISTERING</h1>
+                                        <div class="thankyouContent">
+                                            <p>Your confirmation code is @Model.ConfirmationCode We've also sent this to you in an email. </p>
+                                            <p>Check out your profile or invite gals to join your team - click <a href="@Url.Content("~/User/ViewUser/"+User.Identity.Name)">here</a>!</p>
+                                            @*<p style="width:163px; margin: 0 auto 15px;">@Html.ActionLink("Invite", "ViewUser", "User", new {username = User.Identity.Name}, htmlAttributes: new { @class = "btnPink" })</p>*@
+
+                                            <p>Tell your Facebook friends and Twitter followers: </p>
+                                            <p>
+                                                <a target="_blank" href="http://www.facebook.com/dialog/feed?app_id=@FacebookSettings.Settings.ClientId&link=http://www.google.com&picture=@DirtyGirlConfig.Settings.ServerUrl/images/login-photo-sm.png&name=Dirty Girl&caption=Gettin Dirty&description=I just registered to be a Dirty Girl!&redirect_uri=@DirtyGirlConfig.Settings.ServerUrl"><img src="@Url.Content("~/images/btn_share_fb.jpg")" /></a>
+                                                <a href="https://twitter.com/intent/tweet?original_referer=http://@DirtyGirlConfig.Settings.ServerUrl&text=I just sined up to get dirty&tw_p=tweetbutton&url=@DirtyGirlConfig.Settings.ServerUrl" target="_blank"><img src="@Url.Content("~/images/btn_share_twitter.jpg")" /></a>
+                                                <a href="#"></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    break;
+                                case CartFocusType.ChangeEvent:
+                                    <div class="thankyouRunChange">
+                                        <h1 class="pink" style="text-align: center;">RUN CHANGE COMPLETED</h1>
+                                        <div class="thankyouContent">
+                                            <p>Your confirmation code is @Model.ConfirmationCode. We've also sent this to you in an email. </p>
+                                        </div>
+                                    </div>
+                                    break;
+                                case CartFocusType.CancelEvent:
+                                    <div class="thankyouCancellation">
+                                        <h1 class="pink" style="text-align: center;">CANCELLATION COMPLETED</h1>
+                                        <div class="thankyouContent">
+                                            <p>Your confirmation code is @Model.ConfirmationCode. We've also sent this to you in an email. </p>
+                                        </div>
+                                    </div>
+                                    break;
+                                case CartFocusType.TransferEvent:
+                                    <div class="thankyouTransfer">
+                                        <h1 class="pink" style="text-align: center;">TRANSFER COMPLETED</h1>
+                                        <div class="thankyouContent">
+                                            <p>Your confirmation code is @Model.ConfirmationCode.  We've also sent this to you in an email</p>
+                                            <p>You have successfully completed the transfer of your run to a friend.<br />You friend has been sent an email from Dirty Girl with all the transfer information.</p>
+                                            <p style="font-size:10px; text-align:left;">*Please note that when transferring to a friend, your spot in this run will only held for 72 hours from the time you submit the transfer. If you friend doesn’t pick up your registration within 72 hours, your registration will be cancelled and you’ll be given compensation code to use on a different run.</p>
+                                        </div>
+                                    </div>
+                                    break;
+                            }            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>

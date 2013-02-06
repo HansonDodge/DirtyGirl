@@ -1,0 +1,26 @@
+﻿@model IList<User>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+
+
+@(Html.Kendo().Grid<User>()
+            .Name("grdUsers")
+            .Columns(cols =>
+                {
+                    cols.Bound(u => u.UserId).Title("Id");
+                    cols.Bound(u => u.UserName).Title("Username");
+                    //cols.Command(command => { command.Edit(); command.Destroy();}).Width(200);
+                })                
+            .DataSource(datasource => datasource
+                .Ajax()
+                .Model(model => model.Id(m => m.UserId))
+                .Read(read => read.Action("Ajax_GetAllUsers", "User"))
+
+                
+             )
+        )
+    

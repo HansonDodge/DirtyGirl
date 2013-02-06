@@ -1,0 +1,26 @@
+﻿html{background:url("../images/bg_container.jpg") repeat scroll 0 0 transparent;}
+h1,h2,h3,h4,h5,h6{color:#ee5192; margin:10px 0;}
+fieldset legend{font-family:"Blackout-Midnight","blackout-midnight-1","blackout-midnight-2",sans-serif;color:#ee5192; margin:10px 0;display:block; font-size:24px;}
+
+#ReportContainer
+{
+    margin-bottom:25px;
+    overflow: auto;
+    overflow-y: hidden;
+    -ms-overflow-y: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    width: auto;
+}
+
+#adminViewUserTop,#adminViewEventTop { position: relative; overflow: hidden;}
+#adminViewUserTop p,#adminViewEventTop p{font-size: 16px;}
+#adminViewUserTop .singleRow, #adminViewEventTop .singleRow{position: relative; overflow: hidden; margin-bottom: 10px;}
+#adminViewUserTop .singleRow .singleInfo, #adminViewEventTop .singleRow .singleInfo{position: relative; float:left;margin-right: 40px;}
+#adminViewUserTop .singleRow .singleInfo p, #adminViewEventTop .singleRow .singleInfo p{font-size: 16px;}
+#adminViewUserTop .singleRow .singleInfo p a, #adminViewEventTop .singleRow .singleInfo p a{}
+#adminViewUserTop .adminViewUserContentLeft{position: relative; float: left; margin-right: 30px;}
+#adminViewUserTop .adminViewUserContentRight{position: relative; float:left;}
+.adminRegDetailsModal { position: relative; padding: 15px; }
+.adminRegDetailsModal .singleRow{position: relative; margin-bottom: 10px;}
+.adminRegDetailsModal .singleRow p{font-size: 14px;}

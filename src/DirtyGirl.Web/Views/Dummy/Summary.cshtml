@@ -1,0 +1,202 @@
+﻿@{
+    ViewBag.Title = "Summary";
+}
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<script>
+    $(document).ready(function () {
+        
+    });
+</script>
+
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            <div class="hero">
+                <img src="@Url.Content("~/images/dg-header.jpg")" />
+            </div>
+            <div id="eventDetailContent" class="twoColumn">
+                <div class="contentMain">
+                    <div class="contentMain_header">
+                        <div class="cm_header_city">
+                            <h4>MIAMI, FL</h4>
+                        </div>
+                        <div class="cm_header_where">
+                            <h5>WHERE:</h5>
+                            <p>Greater Miami Area</p>
+                        </div>
+                        <div class="cm_header_dates">
+                            <h5>DATES:</h5>
+                            <p>9/26/2012 - 9/28/2013</p>
+                        </div>
+                    </div>
+                    <div class="contentMain_copy register summary">
+                        <div class="registration_steps">
+                            <img src="@Url.Content("~/images/reg-progress-finish.png")" />
+                        </div>
+                        <div class="registration_summary">
+                            <div class="summary_content">
+                                <h2>REGISTRATION SUMMARY</h2>
+                                <div class="summary_detail">
+                                    <div class="single_summary_detail">
+                                        <p class="bold">Date: </p>
+                                        <p>September 26th, 2012</p>
+                                        <p><a href="#" class="pink">Change date</a></p>
+                                    </div>
+                                    <div class="single_summary_detail">
+                                        <p class="bold">Location: </p>
+                                        <p>Miami Convention Arena, Miami, FL.</p>
+                                        <p><a href="#" class="pink">Change location</a></p>
+                                    </div>
+                                    <div class="single_summary_detail">
+                                        <p class="bold">Team: </p>
+                                        <p>Red Hot Muddin Mamas</p>
+                                    </div>
+                                    <div class="single_summary_detail">
+                                        <p class="bold">Team Code: </p>
+                                        <p>ABCDEFG</p>
+                                    </div>
+                                    <div class="single_summary_detail">
+                                        <p class="bold">Wave: </p>
+                                        <p>Wave 3 - 9:30 am</p>
+                                        <p><a href="#" class="pink">Change wave</a></p>
+                                    </div>
+                                </div>
+                                <div class="summary_cost">
+                                    <div class="single_summary_cost">
+                                        <p class="bold">Registration Cost:</p>
+                                        <p>$75.00</p>
+                                    </div>
+                                    <div class="single_summary_cost">
+                                        <p class="bold">Donation:</p>
+                                        <p>$25.00</p>
+                                    </div>
+                                    <div class="single_summary_cost">
+                                        <p class="bold pink">Coupon:</p>
+                                        <p class="pink">-$5.00</p>
+                                    </div>
+                                    <div class="single_summary_cost">
+                                        <p class="bold">Tax:</p>
+                                        <p>$5.00</p>
+                                    </div>
+                                    <div class="single_summary_cost">
+                                        <p class="bold">Total:</p>
+                                        <p>$100.00</p>
+                                    </div>
+                                    <div class="couponcode_container">
+                                        <p>Coupon Code</p>
+                                        <input type="text" />
+                                        <a href="#"><img src="@Url.Content("~/images/btn_redeem.png")" /></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="summary_separator">
+                                <img src="@Url.Content("~/images/img_separator_lg.png")" />
+                            </div>
+                            <div class="payment_form">
+                                <h2>PAYMENT</h2>
+                                <div class="payment_form_content">
+                                    <div class="single_row">
+                                        <div class="single_input">
+                                            <p><span class="pink">*</span>Cardholder Name</p>
+                                            <input type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="single_row">
+                                        <div class="single_input cc">
+                                            <p><span class="pink">*</span>Credit Card</p>
+                                            <select>
+                                                <option selected>VISA</option>
+                                                <option>MasterCard</option>
+                                            </select>
+                                            <img src="@Url.Content("~/images/img_cc.png")" />
+                                        </div>
+                                        <div class="single_input cardnumber">
+                                            <p><span class="pink">*</span>Card Number</p>
+                                            <input type="text" />
+                                        </div>
+                                        <div class="single_input expdate">
+                                            <p><span class="pink">*</span>Expiration Date</p>
+                                            <input type="text" /><input type="text" />
+                                        </div>
+                                        <div class="single_input ccv">
+                                            <p><span class="pink">*</span>CCV</p>
+                                            <input type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="single_row">
+                                        <div class="single_checkbox">
+                                            <input type="checkbox" />
+                                            <p>Same address as my profile</p>
+                                        </div>
+                                    </div>
+                                    <div class="single_row">
+                                        <div class="single_input address">
+                                            <p><span class="pink">*</span>Address</p>
+                                            <input type="text" />
+                                        </div>
+                                        <div class="single_input short">
+                                            <p>Apt.#</p>
+                                            <input type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="single_row">
+                                        <div class="single_input text">
+                                            <p><span class="pink">*</span>City</p>
+                                            <input type="text" />
+                                        </div>
+                                        <div class="single_input dropdown">
+                                            <p><span class="pink">*</span>State</p>
+                                            <select>
+                                                <option selected>Wisconsin</option>
+                                                <option>Illinois</option>
+                                            </select>
+                                        </div>
+                                        <div class="single_input text short">
+                                            <p><span class="pink">*</span>Zip</p>
+                                            <input type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="register_next">
+                            <div class="register_next_copy">
+                                
+                            </div>
+                            <div class="register_next_button submit">
+                                <a href="#">NEXT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contentSidePanel">
+                    <div class="contentSidePanel_top">&nbsp;</div>
+                    <div class="contentSidePanel_side">
+                        <div class="contentSideFaq">
+                            <h3>FAQS</h3>
+                            <p class="bold">What do I get with my registration fee?</p>
+                            <p>In addition to the time of your life, your registration fee entitles you to a Dirty Girl tee-shirt, a Dirty Girl silhouette charm and other cool stuff like music, entertainment, and the benefit of knowing that you are helping the National Breast Cancer Foundation in the fight against cancer.</p>
+                            <p class="bold">I can no longer participate, can I get a refund?</p>
+                            <p>We have a strict no refund policy and refunds will not be issued under any circumstances. If you are simply unable to make it you do have options. You can either transfer your registration to someone else or apply your registration to another Dirty Girl Mud Run for a small fee. *All changes need to be made prior to the registration deadline for the event.  *You will receive a credit for 100% of your registration that can be applied towards another event. </p>
+                            <p class="bold">How much is the registration fee?</p>
+                            <p>The registration fee varies depending on the event and how much time is left before the event itself. Our early registration fee is $65 for a limited time, so get it while it’s hot. After that, the price will increase to $75, $85 and finally $100 right before the event.  </p>
+                            <p>Check the <a href="#">registration page</a> for the Dirty Girl run you are interested in for exact pricing schedule and valid dates.</p>
+                            <p>Please note that the registration fee is per person and we do not have group discounts. </p>
+                            <p class="bold">I need to transfer my registration to someone else, how do I do that?</p>
+                            <p>"Insert new transfer instructions here"</p>
+                        </div>
+                    </div>
+                    <div class="contentSidePanel_bottom">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+
+
+
+

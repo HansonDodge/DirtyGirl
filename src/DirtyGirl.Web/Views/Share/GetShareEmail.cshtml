@@ -1,0 +1,68 @@
+﻿@model DirtyGirl.Web.Models.vmCommon_Share
+@{
+    Layout = null;
+}
+    <div id="inviteFriendHeader">
+        <h3>@Model.Title</h3>
+        <a href="#" class="closeInviteModal">x</a>
+    </div>
+    <div id="inviteFriendContent">
+        <div class="single_input">
+            <p>Friend's Email Addresses (separate by comma)</p>
+            <input id="emailAddresses" type="text" value="@Model.EmailAddresses"/>
+        </div>
+            <input id="subject" type="text" value="@Model.MessageSubject" style="visibility: hidden"/>
+        <div class="single_input">
+            <p>Message</p>
+           @* <input id="messageBody" type="text" value=""/>*@
+            <textarea cols="40" rows="5" name="messageBody">@Model.MessageBody</textarea>
+        </div>
+    </div>
+    <div class="inviteSubmit">
+        <input id="sendInvite" class="btnPink" type="button" title="Send Invite" value="Send Invite" onclick="SharePost()"/>
+    </div>
+    <div id="shareResult"> <input style="visibility: hidden"/></div>
+
+<script>
+    function SharePost() {
+        $.ajax({
+            url: "/Share/ShareEmail",
+            data: { EmailAddresses: $('#emailAddresses').val(), MessageSubject: $('#subject').val(), MessageBody: $('#messageBody').val() },
+            type: 'POST',
+            success: function (data) {
+                $('#shareResult')
+                    .html(function () {
+                        var list = '';
+                        if (data == "Success") {
+                            list = 'Success';
+                        } else {
+                            //Service Failure
+                            list = 'Failure';
+                        }
+                        return list;
+                    });
+            },
+            error: function (data, status, jqXhr) {
+                alert("FAILED: " + data.status + " " + data.responseText);
+            }
+        });
+    };
+    
+
+    $(document).ready(function() {
+        {
+            $(".closeInviteModal").click(function(e) {
+                e.preventDefault();
+                $("#overlay").hide();
+                $("#inviteFriendContainer").hide();
+            });
+            $("#overlay").click(function(e) {
+                e.preventDefault();
+                $("#inviteFriendContainer").hide();
+                $("#overlay").hide();
+            });
+        }
+    });
+
+</script>
+klasdgjksdfklgjlsdfgjkksdl

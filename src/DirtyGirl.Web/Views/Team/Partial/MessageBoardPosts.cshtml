@@ -1,0 +1,33 @@
+﻿@model IList<TeamPost>
+@{
+    Layout = null;    
+}
+                                    @if (Model != null)
+                                    {
+                                        foreach (TeamPost eventPost in Model)
+                                        {
+                                            <div class="singlePost">
+                                                <div class="singlePostAvatar">
+                                                    @if (eventPost.User.UseFacebookImage)
+                                                                        {
+                                                                            <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(eventPost.User.FacebookId.ToString())" /> 
+                                                                        }
+                                                                        else if (eventPost.User.Image != null)
+                                                                        {
+                                                                            <img src='@Url.Action("UserImage", "User", new { id = eventPost.User.UserName })' /> 
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <img src="@Url.Content("~/images/fpo_teammate.jpg")" />
+                                                                        }
+                                                </div>
+                                                <div class="singlePostContent">
+                                                    <p class="pink bold">@eventPost.User.UserName</p>
+                                                    <p>@eventPost.Post</p>
+                                                </div>
+                                                <div class="singlePostTime">
+                                                    <p>@eventPost.DateAdded.ToShortDateString()<br />@eventPost.DateAdded.ToShortTimeString()</p>
+                                                </div>
+                                            </div>
+                                        }
+                                    }

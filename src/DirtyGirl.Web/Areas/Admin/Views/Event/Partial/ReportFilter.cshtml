@@ -1,0 +1,15 @@
+﻿@model vmAdmin_ReportFilter
+
+@using (Html.BeginForm())
+{
+    <div id="reportfilter">
+        Event @(Html.Kendo()
+            .ComboBoxFor(x => x.EventId)
+            .BindTo((List<SelectListItem>)ViewBag.EventFilterList)
+            .HtmlAttributes(new {style = "width:342px" }))            
+        <br />
+        From @(Html.Kendo().DatePickerFor(x => x.StartDate)) 
+        To  @(Html.Kendo().DatePickerFor(x => x.EndDate)) 
+            <input type="submit" value="Update Results" />
+    </div>
+}

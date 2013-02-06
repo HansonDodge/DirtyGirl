@@ -1,0 +1,148 @@
+﻿@model CartCheckOut
+@{    
+    ViewBag.Title = "Check Out";
+}
+<script src="@Url.Content("~/Scripts/jquery.tooltip.min.js")" type="text/javascript"></script>
+
+<script>
+    $(document).ready(function () {
+        $(".ccv p a").tooltip({ showURL: false });
+        $('#frmMakePayment').data('validator').settings.ignore = '';
+    });
+</script>
+
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            @Html.Partial("_Hero")
+            <div class="contentMain_header">
+                <h6>CHECK OUT</h6>
+            </div>
+            <div id="eventDetailContent" class="twoColumn">
+                <div class="contentMain">
+                    <div id="checkoutContainer">
+                        <div id="cartSummary">
+                            @{Html.RenderPartial("Partial/CartDisplay", @Model.CartSummary);}
+                        </div>        
+                        <div class="summary_separator">
+                            <img src="@Url.Content("~/images/img_separator_lg.png")" width="700" />
+                        </div>               
+                        
+                        <div id="cartPayment">
+                            @using (Html.BeginForm("checkout", "cart", null, FormMethod.Post, new { id = "frmMakePayment" }))
+                            {
+                                 @Html.ValidationSummary(false, "Please address the following errors");
+                                
+                                if (Model.CartSummary.TotalCost > 0)
+                                {                               
+                                <div class="payment_form">
+                                    <h2>PAYMENT</h2>
+                                    <div class="payment_form_content">                                        
+                                        <div class="single_row">
+                                            <div class="single_input cardnumber">
+                                                <p>Credit Card Number:</p>
+                                                @Html.TextBoxFor(x => x.CardNumber)
+                                                @Html.ValidationMessageFor(x => x.CardNumber, "*")  
+                                            </div>     
+                                            <div class="single_input ccv">
+                                                <p><span class="pink">*</span>CCV [<a class="pink" href="javascript:void(0);" title="CCV are three or four-digit number on the back of a credit card (on the front for American Express)">?</a>]</p>
+                                                @Html.TextBoxFor(x => x.CCVNumber,null, new { @autocomplete = "off"})
+                                                @Html.ValidationMessageFor(x => x.CCVNumber, "*")
+                                            </div>                                       
+                                            <div class="single_input expdate">
+                                                <p><span class="pink">*</span>Expiration Date</p>
+                                                @(Html.Kendo()
+                                                    .DropDownListFor(x => x.ExpirationMonth)
+                                                    .BindTo(Model.ExpirationMonthList)
+                                                    .OptionLabel("Select Month")
+                                                    .DataTextField("Text")
+                                                    .DataValueField("Value")
+                                                )
+                                                @Html.ValidationMessageFor(x => x.ExpirationMonth, "*")
+                                                @(Html.Kendo()
+                                                    .DropDownListFor(x => x.ExpirationYear)
+                                                    .OptionLabel("Select Year")
+                                                    .BindTo(Model.ExpirationYearList)
+                                                    .DataTextField("Text")
+                                                    .DataValueField("Value")
+                                                )
+                                                @Html.ValidationMessageFor(x => x.ExpirationYear, "*")
+                                            </div> 
+                                        </div>     
+                                        <div class="single_row">
+                                            <div class="single_input cardnumber">
+                                                <p><span class="pink">*</span>Cardholder First Name</p>
+                                                @Html.TextBoxFor(x => x.CardHolderFirstname)
+                                                @Html.ValidationMessageFor(x => x.CardHolderFirstname, "*")
+                                            </div>
+                                            <div class="single_input cardnumber">
+                                                <p><span class="pink">*</span>Cardholder Last Name</p>
+                                                @Html.TextBoxFor(x => x.CardHolderLastname)
+                                                @Html.ValidationMessageFor(x => x.CardHolderLastname, "*")
+                                            </div>
+                                            <div class="single_input zip">
+                                                <p><span class="pink">*</span>Cardholder Zip</p>
+                                                @Html.TextBoxFor(x => x.CardHolderZipCode)
+                                                @Html.ValidationMessageFor(x => x.CardHolderZipCode, "*")
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                }
+                                <div style="text-align:right;">
+                                    <input type="submit" value="Finish" class="btnPink" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="contentSidePanel">
+                    <div class="contentSidePanel_top">&nbsp;</div>
+                    <div class="contentSidePanel_side">
+                        <div class="contentSideFaq">
+                            <h3>FAQS</h3>
+                            <p class="bold">What is the cancellation policy?  </p>
+                            <p>We are sorry but Dirty Girl has a strict no refund policy.  If you cannot make it, you can either transfer your registration to someone else or receive credit towards another Dirty Girl Mud Run. </p>
+                            <p class="bold">If I cannot make an event, what are my options?  </p>
+                            <p>Sometimes, things happen and women cannot run the date they intended.  While we have a no refund policy, you have many options to consider.  You can transfer to another person; switch to another date; receive a credit for another Dirty Girl Mud Run in the future.</p>
+                            <p class="bold">Can I switch my dates?</p>
+                            <p>Yes, switching to a new date is not a problem however there is a fee to change your registration. If you would like to switch to a new date, you will need to log back in to your account and under edit registration select the option to choose a new date and event. </p>
+                            <p class="bold">Can I transfer my registration to another person?</p>
+                            <p>Yes, swapping of registrations is not a problem however there is a fee to transfer your registration. The person who can no longer participate will have to log back in to their account and select the option to cancel their registration. They’ll then be issued a coupon code, which they can give/sell to somebody else. The new person will have to register for the event. </p>
+                            <p class="bold">How much is the registration fee?</p>
+                            <p>The registration fee varies depending on the event and how much time is left before the event itself. Our early registration fee is $65 for a limited time, so get it while it’s hot. After that, the price will increase to $75, $85 and finally $100 right before the event.<br />Check the registration page for the Dirty Girl run you are interested in for exact pricing schedule and valid dates. Please note that the registration fee is per person and we do not have group discounts. </p>
+                            <p class="bold">What is a coupon code, can I get a discount?</p>
+                            <p>Coupon codes may occasionally be available from sponsors for specific promotions.  Unless you have that code from a sponsor or promotion, there may not be one available.  We are unable to give coupon codes to registrants. </p>
+                            <p class="bold">I served in the United State military, do you have a special rate for service women?</p>
+                            <p>Yes, service women are eligible for a $10 discount off the current rate.  Reminder, you will be required to show your military ID at packet pick up so please honor those who have served and allow them this opportunity.  Please bring your ID as it is embarrassing for us to turn down someone who has served and shows up at an event without proof.  When checking out, use the following coupon code –DGserves_2013– for your $10 credit.  Again, this is for women who have served and not women of husbands or family who have served.   </p>
+                        </div>
+                    </div>
+                    <div class="contentSidePanel_bottom">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>    
+<script type="text/javascript">
+
+</script>
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+

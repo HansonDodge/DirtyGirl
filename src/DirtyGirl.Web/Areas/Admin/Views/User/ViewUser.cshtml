@@ -1,0 +1,340 @@
+﻿@model vmUser_EditUser
+@{
+    ViewBag.Title = "ViewUser";
+}
+@*@Scripts.Render("~/Scripts/DirtyGirl.js")*@
+
+@Html.Partial("DisplayMessage")
+<br />
+<div id="adminViewUserTop">
+@if (!Model.User.IsActive)
+{
+        <p><b>**Account Currently Inactive***</b></p>
+}
+    <div class="adminViewUserContentLeft">
+        <div class="singleRow">
+            <div class="singleInfo">
+                <p><b>Current Image:</b></p>
+    @if (Model.User.UseFacebookImage)
+    {
+        <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(Model.User.FacebookId.ToString())" width="180" height="180"/> 
+    }
+    else if (Model.User.Image != null)
+    {
+        <img src='@Url.Action("UserImage", "User", new { id = Model.User.UserId })' width="180" height="180"/> 
+    }
+    else
+    {
+                    <img src="@Url.Content("~/images/fpo_pp.jpg")" />
+    }
+</div>
+        </div>
+    </div>
+    <div class="adminViewUserContentLeft">
+        <div class="singleRow">
+            <div class="singleInfo">
+                <p><b>Username:</b> @Model.User.UserName</p>
+            </div>
+            <div class="singleInfo">
+                <p><b>First Name:</b> @Model.User.FirstName</p>
+            </div>
+            <div class="singleInfo">
+                <p><b>Last Name:</b> @Model.User.LastName</p>
+            </div>
+        </div>
+        <div class="singleRow">
+            <div class="singleInfo">
+                <p><b>Address1:</b> @Model.User.Address1</p>
+            </div>
+            <div class="singleInfo">
+                <p><b>Address2:</b> @Model.User.Address2</p>
+            </div>
+            <div class="singleInfo">
+                <p><b>City:</b> @Model.User.Locality</p>
+            </div>
+            <div class="singleInfo">
+                <p><b>State:</b> @Model.User.Region.Name</p>
+            </div>
+            <div class="singleInfo">
+                <p><b>Zip:</b> @Model.User.PostalCode</p>
+            </div>
+        </div>
+        <div class="singleRow">
+            <div class="singleInfo">
+                <p><b>Date Added:</b> @Model.User.DateAdded.ToShortDateString()</p>
+            </div>
+            <div class="singleInfo">
+                <p><b>Email Address:</b> @Model.User.EmailAddress</p>
+            </div>
+        </div>
+        <div class="singleRow">
+@if (Model.User.FacebookId != null)
+{
+                <div class="singleInfo">
+                    <p><b>Facebook ID:</b> @Model.User.FacebookId</p>
+                </div>
+}
+else
+{
+                <div class="singleInfo">
+                    <p><b>Is Account Verified?:</b> @(Model.User.EmailVerificationCode == null ? "Yes" : "No")</p>
+                </div>
+}
+        </div>
+        <div class="singleRow">
+            <div class="singleInfo">
+                <p>@Html.ActionLink("Edit User", "EditUser", new { id = @Model.User.UserId })</p>
+            </div>
+            <div class="singleInfo">
+                <p>@Html.ActionLink("User List", "ListUsers")</p>
+            </div>
+        </div>
+    </div>
+<div id="updateStatus" style="float: right">&nbsp;</div>
+</div>
+<h3>Upcoming Runs:</h3>
+@(Html.Kendo().Grid<vmAdmin_RegistrationListItem>()
+                .Name("grdRegistrations")
+                .Columns(cols =>
+                             {
+                                cols.Bound(r => r.RegistrationId).Hidden();
+                                cols.Bound(r => r.EventLocation);
+                                cols.Bound(r => r.WaveDateTime).Format("{0:MM/dd/yyyy HH:mm}");
+                                cols.Command(c => c.Custom("Edit").Click("EditRegistration"));
+                                cols.Command(c => c.Custom("Cancel").Click("CancelRegistration"));
+                                cols.Bound(r => r.TeamName);
+                                cols.Command(c => c.Custom("Registration Details").Click("ViewRegistrationDetails"));
+                                cols.Bound(r => r.EventId).ClientTemplate("<a href=/admin/event/viewEvent/#=EventId#>View Event</a>");
+                })
+                .Pageable()
+                .Sortable()
+                .Filterable()
+                .DataSource(datasource => datasource
+                    .Ajax()
+                    .Read(read => read.Action("Ajax_GetUserRegistrations", "Registration", new { userId = Model.User.UserId, futureOnly = true }))
+                    .PageSize(50)
+
+                )
+)
+
+@(Html.Kendo().Window().Name("RegistrationDetails")
+    .Title("Registration Details")
+    .Visible(false)
+    .Modal(true)
+    .Draggable(true)
+    .Width(600)
+    .Height(400)
+      )
+
+
+<script type="text/x-kendo-template" id="registrationDetailsTemplate">
+    <div class="adminRegDetailsModal">
+    <div class="singleRow">
+        <p><b>First Name:</b> #=FirstName#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Last Name:</b> #=LastName#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Address:</b> #=Address1#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Address 2:</b>#=Address2#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>City:</b> #=City#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>State:</b> #=State#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Zip:</b> #=Zip#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Phone:</b> #=Phone#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Email:</b> #=Email#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Team Name:</b> #=TeamName#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Team Code:</b> <span class="pink bold">#=TeamCode#</span></p>
+    </div>
+    <div class="singleRow">
+        <p><b>Emergency Contact:</b> #=EmergencyContact#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Emergency Phone:</b> #=EmergencyPhone#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Medical Information:</b> #=MedicalInformation#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Medical Information:</b> #=MedicalInformation#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Special Needs:</b> #=SpecialNeeds#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Date Added:</b> #=kendo.toString(DateAdded,"MM/dd/yyyy") #</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Wave:</b> #=kendo.toString(WaveDateTime,"MM/dd/yyyy HH:mm") #</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Registration Type:</b> #=RegistrationType#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Third Party Registration:</b> #=IsThirdPartyRegistration#</p></div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    var detailsTemplate = kendo.template($("#registrationDetailsTemplate").html());
+    
+    function ViewRegistrationDetails(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var wnd = $("#RegistrationDetails").data("kendoWindow");
+
+        wnd.content(detailsTemplate(dataItem));
+        wnd.center().open();
+    }
+
+    function EditRegistration(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.get('@Url.Action("EventSelection", "Registration")?registrationId=' + dataItem.RegistrationId, function(data) {
+            modal.open({ content: data });
+        });
+    }
+
+    function CancelRegistration(e) {
+        
+        e.preventDefault();
+        // Show Cancel Confirm
+        
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        e.preventDefault();
+        $.get('@Url.Action("CancelRegistration", "Registration")?registrationId=' + dataItem.RegistrationId, function (data) {
+            modal.open({ content: data });
+        });
+    }
+</script>
+
+<style>
+			* {
+				margin:0; 
+				padding:0;
+			}
+
+			#customoverlay {
+				position:fixed; 
+				top:0;
+				left:0;
+				width:100%;
+				height:100%;
+				background:#000;
+				opacity:0.5;
+				filter:alpha(opacity=50);
+			}
+
+			#custommodal {
+			    position:absolute;
+				background:url(@Url.Content("~/Images/tint20.png")) 0 0 repeat;
+			    background:#000000;
+			    background:rgba(0,0,0,0.2);
+				border-radius:14px;
+				padding:8px;
+			}
+
+			#customcontent {
+				border-radius:8px;
+				background:#fff;
+				padding:20px;
+			}
+
+			#customclose {
+				position:absolute;
+				background:url(@Url.Content("~/Images/x.png")) 0 0 no-repeat;
+				width:24px;
+				height:27px;
+				display:block;
+				text-indent:-9999px;
+				top:-7px;
+				right:-7px;
+			}
+
+</style>
+<script>
+    var modal = (function () {
+        var
+        method = {},
+        $overlay,
+        $modal,
+        $content,
+        $close;
+
+        // Center the modal in the viewport
+        method.center = function () {
+            var top, left;
+
+            top = Math.max($(window).height() - $modal.outerHeight(), 0) / 2;
+            left = Math.max($(window).width() - $modal.outerWidth(), 0) / 2;
+
+            $modal.css({
+                top: top + $(window).scrollTop(),
+                left: left + $(window).scrollLeft()
+            });
+        };
+
+        // Open the modal
+        method.open = function (settings) {
+            $content.empty().append(settings.content);
+
+            $modal.css({
+                width: settings.width || 'auto',
+                height: settings.height || 'auto'
+            });
+
+            method.center();
+            $(window).bind('resize.modal', method.center);
+            $modal.show();
+            $overlay.show();
+        };
+
+        // Close the modal
+        method.close = function () {
+            $modal.hide();
+            $overlay.hide();
+            $content.empty();
+            $(window).unbind('resize.modal');
+        };
+
+        // Generate the HTML and add it to the document
+        $overlay = $('<div id="customoverlay"></div>');
+        $modal = $('<div id="custommodal"></div>');
+        $content = $('<div id="customcontent"></div>');
+        $close = $('<a id="customclose" href="#">close</a>');
+
+        $modal.hide();
+        $overlay.hide();
+        $modal.append($content, $close);
+
+        $(document).ready(function () {
+            $('body').append($overlay, $modal);
+        });
+
+        $close.click(function (e) {
+            e.preventDefault();
+            method.close();
+        });
+
+        return method;
+    }());
+</script>
+
+

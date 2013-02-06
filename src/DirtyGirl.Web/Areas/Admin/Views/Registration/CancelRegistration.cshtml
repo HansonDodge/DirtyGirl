@@ -1,0 +1,14 @@
+﻿@model Registration
+
+@{
+    ViewBag.Title = "Cancel Registration";
+    Layout = null;
+}
+
+Do you really want to cancel the registration for @Model.FirstName on @Model.EventWave.EventDate.DateOfEvent?
+@using (Html.BeginForm("ConfirmCancelRegistration", "Registration", new {registrationId = @Model.RegistrationId}, FormMethod.Post, null))
+{
+    <div style="float: right"><input type="submit" value="Yes" title="Yes" style="width: 50px; height: 25px; border-spacing: 5px; font-size: 14pt"/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="No" title="No" onclick="modal.close()" style="width: 50px; height: 25px; border-spacing: 5px; font-size: 14pt"/></div>
+}
+

@@ -1,0 +1,299 @@
+﻿@model vmRegistration_Details
+@{
+    ViewBag.Title = "RegistrationDetails";
+}
+
+<script type="text/javascript">
+
+    var formPreviousValues = [];
+
+    $(document).ready(function () {
+
+        $("#lnkSubmit").click(function(e) {
+            e.preventDefault();
+            $("#RegistrationForm").submit();
+        });
+        $(".TextBoxInput").each(function (index) {
+            formPreviousValues.push([$(this).val()]);
+        });
+
+        $("#RegistrationForm").validate({
+            errorPlacement: function (error, element) {
+                
+                if ($(element).parent().hasClass("chkBoxContainer")) {
+                    $(element).parent().addClass("required");
+                }
+            }
+        });
+
+        $(".form_waiver_content").mCustomScrollbar({
+            set_width: 650,
+            set_height: 200,
+            scrollButtons: {
+                scrollSpeed: 100,
+                scrollAmount: 60
+            }
+        });
+        DG.util.columns();
+    });
+    
+    
+
+
+    function ClearForm() {
+        formPreviousValues = [];
+        $(".TextBoxInput").each(function (index) {
+            formPreviousValues.push([$(this).val()]);
+            $(this).val("");
+        });
+
+    }
+    
+    function RestoreFormValues() {
+        $(".TextBoxInput").each(function (index) {
+            $(this).val(formPreviousValues[index]);
+        });
+    }    
+
+</script>
+<style>
+    .register_next_copy p { text-align: right;}
+    
+</style>
+@using (Html.BeginForm("registrationdetails", "registration", null, FormMethod.Post, new { id = "RegistrationForm" }))
+{ 
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            @Html.Partial("_Hero")
+            @{Html.RenderPartial("EventHeader", Model.EventOverview);}
+            <div id="eventDetailContent" class="twoColumn">
+                <div class="contentMain">
+                    <div class="contentMain_copy register form">
+                        <div class="registration_steps">
+                            <img src="@Url.Content("~/images/reg-progress-muddier.png")" />
+                        </div>
+                        <div class="registration_form">
+                            <div class="registration_form_header">
+                                <p>You have selected to run on @Model.EventWave.EventDate.DateOfEvent.ToString("dddd  MMMM, dd yyyy") at @Model.EventWave.StartTime.ToString("h:mm tt")</p>
+                                    <p><a href="@Url.Action("EventSelection", new { eventwaveid = Model.EventWave.EventWaveId, itemId = Model.ItemId })" >Select a different wave</a></p>
+
+                                @Html.ValidationSummary(false, "Please Fix the following errors")
+                                @Html.HiddenFor(x => x.ItemId)
+
+                            </div>
+                            <div class="registration_form_content">
+                                <p style="font-weight:normal;">*Required Fields</p>
+                                <div class="single_row">
+                                    <div class="inlineRadio">
+                                        <p><span class="pink">*</span>Are you registering for someone else?</p>
+                                        <div class="inlineRadioOptions">
+                                            <div class="single_inlineRadio">
+                                                @Html.RadioButtonFor(x => x.RegistrationDetails.IsThirdPartyRegistration, true, new { onclick = "ClearForm()" })
+                                                <label for="IsThirdPartyRegistrationTrue">Yes</label>
+                                            </div>
+                                            <div class="single_inlineRadio">
+                                                @Html.RadioButtonFor(x => x.RegistrationDetails.IsThirdPartyRegistration, false, new { onclick = "RestoreFormValues()", @checked = "checked" })
+                                                <label for="IsThirdPartyRegistrationFalse">No</label>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.RegistrationDetails.IsThirdPartyRegistration, "*")
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input dropdown">
+                                        <p><span class="pink">*</span>Registration Type</p>
+                                            @(Html.Kendo().DropDownListFor(x => x.RegistrationDetails.RegistrationType)
+                                                .OptionLabel("Select")
+                                                .DataTextField("Text")
+                                                .DataValueField("Value")
+                                            .BindTo(Model.RegistrationTypeList))
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.RegistrationType, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>First Name</p>
+                                        @Html.TextBoxFor(x => x.RegistrationDetails.FirstName, new { @class = "TextBoxInput" })
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.FirstName, "*")
+                                    </div>
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Last Name</p>
+                                        @Html.TextBoxFor(x => x.RegistrationDetails.LastName, new { @class = "TextBoxInput" })
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.LastName, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Email</p>
+                                        @Html.TextBoxFor(x => x.RegistrationDetails.Email, new { @class = "TextBoxInput" })
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.Email, "*")
+                                    </div>
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Phone</p>
+                                        @Html.TextBoxFor(x => x.RegistrationDetails.Phone, new { @class = "TextBoxInput" })
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.Phone, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text address">
+                                        <p><span class="pink">*</span>Address</p>
+                                        @Html.TextBoxFor(x => x.RegistrationDetails.Address1, new { @class = "TextBoxInput" })
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.Address1, "*")
+                                    </div>
+                                    <div class="single_input text short">
+                                        <p>Apt #</p>
+                                        @Html.TextBoxFor(x => x.RegistrationDetails.Address2, new { @class = "TextBoxInput" })
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.Address2, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>City</p>
+                                        @Html.TextBoxFor(x => x.RegistrationDetails.Locality, new { @class = "TextBoxInput" })
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.Locality, "*")
+                                    </div>
+                                    <div class="single_input dropdown">
+                                        <p><span class="pink">*</span>State</p>
+                                        @(Html.Kendo().DropDownListFor(x => x.RegistrationDetails.RegionId)
+                                            .OptionLabel("Select State")
+                                            .DataTextField("Name")
+                                            .DataValueField("RegionId")
+                                            .BindTo(Model.RegionList))
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.RegionId)
+                                    </div>
+                                    <div class="single_input text short">
+                                        <p><span class="pink">*</span>Zip</p>
+                                        @Html.TextBoxFor(x => x.RegistrationDetails.PostalCode, new { @class = "TextBoxInput" })
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.PostalCode, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Emergency Contact</p>
+                                        @Html.TextBoxFor(x => x.RegistrationDetails.EmergencyContact, new { @class = "TextBoxInput" })
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.EmergencyContact, "*")
+                                    </div>
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Emergency Contact Phone</p>
+                                        @Html.TextBoxFor(x => x.RegistrationDetails.EmergencyPhone, new { @class = "TextBoxInput" })
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.EmergencyPhone, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input textarea">
+                                        <p>Please list important medical information</p>
+                                        @Html.TextAreaFor(x => x.RegistrationDetails.MedicalInformation, new { @class = "TextBoxInput" })
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.MedicalInformation, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input textarea">
+                                        <p>Please list any special needs or accommodations</p>
+                                        @Html.TextAreaFor(x => x.RegistrationDetails.SpecialNeeds, new { @class = "TextBoxInput" })
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.SpecialNeeds, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input dropdown">
+                                        <p><span class="pink">*</span>How did you hear about us?</p>
+                                        @(Html.Kendo().DropDownListFor(x => x.RegistrationDetails.EventLeadId)
+                                            .OptionLabel("Select")
+                                            .DataTextField("DisplayText")
+                                            .DataValueField("EventLeadId")
+                                            .BindTo(Model.EventLeadList))
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.EventLeadId, "*")
+                                    </div>
+                                </div>
+                                <div class="form_waiver">
+                                    <h3>WAIVER <span>(<a href="@Url.Content("~/Content/waiver.pdf")" target="_blank">Open as PDF</a>)</span></h3>
+                                    <div class="form_waiver_content">
+                                        <p style="text-align:center;">Waiver and Release Of Claims, Assumption Of Risk and Warning Of Risk</p>
+                                        <ol>
+                                            <li><p>I acknowledge, understand and agree that my participation in the Dirty Girl&trade; Event is voluntary. </p></li>
+                                            <li><p>I acknowledge that the Dirty Girl&trade; Event is a risky activity.</p></li>
+                                            <li><p>I acknowledge that the Dirty Girl&trade; Event presents extreme obstacles including, but not limited to, difficult climbs, fire, mud pits, water obstacles and hills.</p></li>
+                                            <li><p>I agree not to participate unless I am medically able.</p></li>
+                                            <li><p>I agree to not consume alcohol prior to the Dirty Girl&trade; Event or ingest any medicines or substances that will inhibit my mental or physical ability to safely and effectively participate in the Dirty Girl&trade; Event.</p></li>
+                                            <li><p>I acknowledge and agree that participation in the Dirty Girl&trade; Event requires extreme feats of a person’s physical and mental limits and carries with it the potential for death, serious injury or property loss.</p></li>
+                                            <li><p>I acknowledge and expressly assume the risks of participating in the Dirty Girl&trade; Event with full understanding of such potential risks and expressly waive, release and discharge 100, LLC, GMR Marketing LLC,  Live Nation Worldwide, Inc., the landlord of the event venue and each of their respective affiliates, parent companies, subsidiaries and assigns and their members, shareholders, directors, officers, agents and employees (the “Releasees”) from any and all claims, costs, expenses or liabilities (including those involving death, disability, personal injury or property damage) arising out of or relating to my participation in the Dirty Girl&trade; Event whether caused, in whole or in part, by the sole or concurrent negligence (whether active or passive) or wrongdoing, strict liability or fault of the Releasees or otherwise ("Claims").</p></li>
+                                            <li><p>I hereby release, discharge, wave and relinquish the Releasees from any and all Claims caused by the condition and/or maintenance of the Dirty Girl&trade; Event venue or any of its structures. </p></li>
+                                            <li><p>I acknowledge that I need to maintain my own medical, disability and life insurance sufficient in determination to cover any expenses and damages that I, or my family, may incur, including loss of income, arising from my injury, disability or death.</p></li>
+                                            <li><p>I agree to abide by any decision of a race official/organizer/director relative to my ability to safely complete the race.</p></li>
+                                            <li><p>I agree to obey all civil and criminal laws at all times.</p></li>
+                                            <li><p>I assume all risks associated with competing in the Dirty Girl&trade; Event, including but not limited to falls, contact with other participants, negligent or wanton acts of other participants, completing all obstacles, defects or condition of premises, the effects of the weather, including high heat and/or humidity, cold weather, rainy and wet weather, tornados or any other adverse weather conditions, and all such risks being known and appreciated by me.</p></li>
+                                            <li><p>I agree that the Releasees are not responsible in any way for any of my personal items or property that are lost or stolen in the gear check area. </p></li>
+                                            <li><p>I consent to emergency medical care and transportation in order to obtain treatment in the event of injury to me as medical professionals may deem appropriate. This Release extends to any liability arising out of or in any way connected with the medical treatment and transportation provided in the event of an emergency.</p></li>
+                                            <li><p>I acknowledge and will abide by the rule that no wheeled baby conveyances or other wheeled devices of conveyance, are permitted in the race.</p></li>
+                                            <li><p>I acknowledge no animals are permitted at the event.</p></li>
+                                            <li><p>I grant permission to 100, LLC, GMR Marketing LLC, and their affiliates, sponsors, and assigns to use any photographs, motion pictures, recordings or any other record of this Dirty Girl&trade; Event for any purpose including but not limited to promoting, advertising and marketing purposes. Any and all photographs, motion pictures, recordings or other records of the event are the sole property of 100, LLC.</p></li>
+                                            <li><p>I acknowledge that all entries are final with no refunds.</p></li>
+                                            <li><p>I acknowledge that the official race directors reserve the right in any event of emergency, severe weather, local or national disaster to cancel the race and in the event of cancellation or change there is no refund of entry fees.</p></li>
+                                            <li><p>I acknowledge that participants are expected to exhibit appropriate behavior at all times, including obeying all laws. This includes respect for all people, equipment, and facilities, and cooperative, positive participation. The Dirty Girl&trade; Event may dismiss, without refund, anyone whose behavior endangers safety or negatively endangers safety or negatively affects a race, a person, a facility, or property of any type or kind. I also agree to indemnify the Releasees from any and all third party claims caused in whole or in part by my actions.</p></li>
+                                            <li><p>I am at least 18 years old or, my Parent/Guardian has reviewed this document and consented to its terms.</p></li>
+                                            <li><p>I recognize and acknowledge that there are certain risks of physical injury to participants in the Dirty Girl&trade; Event, and I voluntarily agree to assume the full risk of any and all injuries, damages or loss, regardless of severity. I do hereby fully release and forever discharge the Releasees from any and all claims for injuries, illnesses, damages, expenses, or loss which may accrue to me or my minor child/ward arising out of, connected with, or in any way associated with the Dirty Girl&trade; Event or related activities. </p></li>
+                                            <li><p>I ACKNOWLEDGE I HAVE CAREFULLY READ, ACCEPTED AND AGREED TO THE TERMS ON THIS WAIVER AND RELEASE OF CLAIMS, ASSUMPTION OF RISK AND WARNING OF RISK (THE “RELEASE AND WAIVER”), AND KNOW AND FULLY UNDERSTAND ITS CONTENT AND I SIGN THE SAME ON MY OWN FREE ACT AND DEED.  I HAVE HAD ANY QUESTIONS REGARDING ITS EFFECT OR THE MEANING OF ITS TERMS ANSWERED TO MY SATISFACTION, ALL PRIOR TO ITS EXECUTION, AND AGREE TO THOSE TERMS FREELY AND VOLUNTARILY WITHOUT ANY INDUCEMENT OR COMPULSION.  I HAVE BEEN GIVEN AN OPPORTUNITY TO BARGAIN IN REGARD TO ITS TERMS.  I UNDERSTAND THAT I HAVE GIVEN UP SUBSTANTIAL RIGHTS BY SIGNING IT.  I INTEND MY SIGNATURE TO BE A COMPLETE AND UNCONDITIONAL RELEASE OF ALL LIABILITY TO THE GREATEST EXTENT ALLOWED BY LAW.  THIS RELEASE AND WAIVER SHALL BE BINDING UPON ME AND MY HEIRS, LEGAL REPRESENTATIVES AND ASSIGNS.
+                                                    <br /><br />The undersigned further agrees that this Release and Waiver is intended to be as broad and inclusive as permitted by law in the State of Wisconsin, and that if any portion hereof is found invalid, it is agreed that the balance shall, notwithstanding, continue in full force and effect.</p></li>
+                                            <li><p>ONLY COMPLETE BELOW SECTION IF YOU ARE A PARENT OR GUARDIAN OF A PARTICIPANT UNDER THE AGE OF 18:
+                                                    <br /><br />I, the parent or guardian of the above named participant, hereby gives my approval to this child’s participation in the Dirty Girl&trade; Event and related activities.  I assume all risks and hazards incidental to such participation in the The Dirty Girl&trade; Event as stated above, and I hereby waive, release, absolve, indemnify, and agree to hold harmless the Releasees, for any claim arising or of any injury to my child and from any and all claims, causes of actions, obligations, lawsuits, charges, complaints, contracts, controversies, covenants, agreements, promises, damages, costs, expenses, responsibilities, of whatsoever kind, nature or description, whether, direct or indirect, in law or in equity, in contract or in tort, or otherwise, whether known or unknown, from all claims or liabilities of any kind arising out of or connected with my child’s participation in this Dirty Girl&trade; Event and related activities.  I consent to the foregoing and grant permission for him/her to participate in The Dirty Girl&trade; Event and related activities.</p></li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_checkbox">
+                                        @Html.CheckBoxFor(x => x.RegistrationDetails.AgreeToTerms)
+                                        <p><span class="pink">*</span>@Html.DisplayNameFor(x => x.RegistrationDetails.AgreeToTerms)</p>
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.AgreeToTerms, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_checkbox">
+                                        @Html.CheckBoxFor(x => x.RegistrationDetails.IsFemale)
+                                        <p><span class="pink">*</span>@Html.DisplayNameFor(x => x.RegistrationDetails.IsFemale)</p>
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.IsFemale, "*")
+                                        
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_checkbox">
+                                        @Html.CheckBoxFor(x => x.RegistrationDetails.IsOfAge)
+                                        <p><span class="pink">*</span>@Html.DisplayNameFor(x => x.RegistrationDetails.IsOfAge)&nbsp;&nbsp;<a href="http://www.coppa.org/coppa.htm" target="_blank">Read COPPA Rules.</a></p>
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.IsOfAge, "*")
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="register_next">
+                            <div class="register_next_copy">
+                                
+                            </div>
+                            <div class="register_next_button">
+                                <a id="lnkSubmit" href="#" class="proceed">NEXT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contentSidePanel">
+                    <div class="contentSidePanel_top">&nbsp;</div>
+                    <div class="contentSidePanel_side">
+                        <div class="contentSideFaq">
+                            <h3>FAQS</h3>
+                            <p class="bold">What is the minimum age?  </p>
+                            <p>The minimum age to participate is 14. Anyone under the age of 18 participating must have a parent/guardian accompany them to packet pick-up and the parent/guardian will sign a waiver.</p>
+                            <p class="bold">Can men participate? </p>
+                            <p>No. Dirty Girl was created for women to be in an environment they feel comfortable and with other friends.  Men are welcome to watch, cheer and take pictures but not to participate.  There are plenty other mud run/obstacle events for men and we have heard they are fun, and well, manly. </p>
+                            <p class="bold">Why do I need to list medical information?</p>
+                            <p>The safety of each participant is of primary concern.  In the unlikely event, a participant is in a situation they are unable to talk, having their medical information on record is vital for a medical team. </p>
+                            <p class="bold">Why do I need to special needs or accommodations?</p>
+                            <p>Dirty Girl makes an effort to meet your needs whatever they are.  Please tell us if you have any special needs and we will do our best to accommodate. </p>
+                        </div>
+                    </div>
+                    <div class="contentSidePanel_bottom">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+}

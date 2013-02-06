@@ -1,0 +1,190 @@
+﻿@model vmUser_EditUser
+
+@{
+    ViewBag.Title = "EditUser";
+}
+
+@Html.Partial("DisplayMessage")
+
+@using (Html.BeginForm("EditUser", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{  
+    <fieldset>
+        <legend>Edit User</legend>
+
+        @Html.ValidationSummary(false, "Please fix the following errors before continuing.")
+        @Html.HiddenFor(u => u.User.UserId)
+
+        @if (!Model.User.IsActive)
+        {
+            <div>
+                **Account Currently Inactive***
+            </div>
+        }
+        <br />
+        Active Account: @Html.CheckBoxFor(u => u.User.IsActive)
+        <br />
+
+        @if (Model.User.UserId > 0 && Model.User.FacebookId != null)
+        {
+            <div class="entryRow">
+                <div class="entryLabel">Facebook ID: @Model.User.FacebookId.ToString()</div>
+            </div>
+        }
+
+        <div class="entryRow">
+            <div class="entryLabel">Username:</div>
+            <div class="entryInput">
+                @Html.TextBoxFor(x => x.User.UserName)
+                @Html.ValidationMessageFor(x => x.User.UserName, "*")
+            </div>
+        </div>
+
+        @if (Model.User.UserId <= 0)
+        {
+            <div class="entryRow">
+                <div class="entryLabel">Password:</div>
+                <div class="entryInput">
+                    @Html.TextBoxFor(x => x.Password)
+                </div>
+            </div>
+            
+            <div class="entryRow">
+                <div class="entryLabel">Verify Password:</div>
+                <div class="entryInput">
+                    @Html.TextBoxFor(x => x.PasswordVerification)
+                </div>
+            </div>
+        }
+
+
+        <div class="entryRow">
+            <div class="entryLabel">First Name:</div>
+            <div class="entryInput">
+                @Html.TextBoxFor(x => x.User.FirstName)
+                @Html.ValidationMessageFor(x => x.User.FirstName, "*")
+            </div>
+        </div>
+
+        <div class="entryRow">
+            <div class="entryLabel">Last Name:</div>
+            <div class="entryInput">
+                @Html.TextBoxFor(x => x.User.LastName)
+                @Html.ValidationMessageFor(x => x.User.LastName, "*")
+            </div>
+        </div>
+
+        <div class="entryRow">
+            <div class="entryLabel">Email Address:</div>
+            <div class="entryInput">
+                @Html.TextBoxFor(x => x.User.EmailAddress)
+                @Html.ValidationMessageFor(x => x.User.EmailAddress, "*")
+            </div>
+        </div>
+
+        <div class="entryRow">
+            <div class="entryLabel">Confirm Email Address:</div>
+            <div class="entryInput">
+                @Html.TextBoxFor(x => x.EmailAddressVerification)
+                @Html.ValidationMessageFor(x => x.EmailAddressVerification, "*")
+            </div>
+        </div>
+
+        <div class="entryRow">
+            <div class="entryLabel">Address1:</div>
+            <div class="entryInput">
+                @Html.TextBoxFor(x => x.User.Address1)
+                @Html.ValidationMessageFor(x => x.User.Address1, "*")
+            </div>
+        </div>
+
+        <div class="entryRow">
+            <div class="entryLabel">Address2:</div>
+            <div class="entryInput">
+                @Html.TextBoxFor(x => x.User.Address2)
+                @Html.ValidationMessageFor(x => x.User.Address2, "*")
+            </div>
+        </div>
+
+        <div class="entryRow">
+            <div class="entryLabel">City:</div>
+            <div class="entryInput">
+                @Html.TextBoxFor(x => x.User.Locality)
+                @Html.ValidationMessageFor(x => x.User.Locality, "*")
+            </div>
+        </div>
+
+        <div class="entryRow">
+            <div class="entryLabel">State:</div>
+            <div class="entryInput">
+                @(Html.Kendo().DropDownListFor(x => x.User.RegionId)
+                .DataTextField("Name")
+                .DataValueField("RegionId")
+                .BindTo(Model.Regions))
+                @Html.ValidationMessageFor(x => x.User.RegionId)
+            </div>
+        </div>
+
+        <div class="entryRow">
+            <div class="entryLabel">Postal Code:</div>
+            <div class="entryInput">
+                @Html.TextBoxFor(x => x.User.PostalCode)
+                @Html.ValidationMessageFor(x => x.User.PostalCode, "*")
+            </div>
+        </div>
+
+        @if (Model.User.UserId > 0)
+        {
+            <div>
+                Current Image:
+            <br />
+                @if (Model.User.UseFacebookImage)
+                {
+                    <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(Model.User.FacebookId.ToString())" width="180" height="180"/> 
+                }
+                else if (Model.User.Image != null)
+                {
+                    <img src='@Url.Action("UserImage", "User", new { id = Model.User.UserId })' width="180" height="180"/> 
+                }
+                else
+                {
+                    <text>No Image (generic image here?)</text>
+                }
+            </div>
+        }
+
+        @if (Model.User.FacebookId != null)
+        {
+            <div>
+                Facebok Image:
+                <br />
+                <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(Model.User.FacebookId.ToString())" width="180" height="180" />
+                <br />
+                User Facebook Image?
+                @Html.CheckBoxFor(x => x.User.UseFacebookImage);
+                <br />
+                Or upload a photo
+            </div>
+        }
+
+        <div class="entryRow">
+            <div class="entryLabel">Upload New User Image:</div>
+            <div class="entryInput">
+                <input type="file" name="image" />
+            </div>
+        </div>
+        
+        <br />
+        @if (Model.User.UserId > 0 && Model.User.FacebookId == null)
+        {
+            @Html.ActionLink("Set Password", "SetPassword", new { id = Model.User.UserId })
+        }
+        <br />
+        <br />
+        <input type="submit" value="Save" />
+        <br />
+        @Html.ActionLink("Cancel", "ViewUser", new { id = Model.User.UserId })
+        <br />
+        @Html.ActionLink("User List", "ListUsers")
+    </fieldset>
+    
+}

@@ -1,0 +1,80 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/* some custom fonts via google font api */
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+@import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:extralight);
+/* content block 1 */
+.landingScroll{position:relative; width:1040px; height:600px;}
+.landingScroll .customScrollBox{position:relative; height:100%; overflow:hidden;}
+.landingScroll .customScrollBox .scroller_container{position:relative; width:1030px; top:0; float:left;}
+.landingScroll .customScrollBox .scroller_content{clear:both; width: 1000px;}
+.landingScroll .dragger_container{position:relative; width:8px; height:600px; float:left; background:#000; cursor:pointer -moz-border-radius:2px; -khtml-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; cursor:s-resize;}
+.landingScroll .dragger{position:absolute; width:8px; height:60px; background:#999; text-align:center; line-height:60px; color:#666; overflow:hidden; cursor:pointer; -moz-border-radius:2px; -khtml-border-radius:2px; -webkit-border-radius:2px; border-radius:2px;}
+.landingScroll .dragger_pressed{position:absolute; width:12px; margin-left:-2px; height:60px; background:#999; text-align:center; line-height:60px; color:#666; overflow:hidden; -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; cursor:s-resize;}
+.landingScroll .scrollUpBtn,.landingScroll .scrollDownBtn{position:absolute; display:inline-block; width:14px; height:15px; margin-right:12px; text-decoration:none; right:0; filter:alpha(opacity=20); -moz-opacity:0.20; -khtml-opacity:0.20; opacity:0.20;}
+.landingScroll .scrollUpBtn{top:16px; background:url(../images/mcs_btnUp.png) center center no-repeat;}
+.landingScroll .scrollDownBtn{bottom:12px; background:url(../images/mcs_btnDown.png) center center no-repeat;}
+.landingScroll .scrollUpBtn:hover,.landingScroll .scrollDownBtn:hover{filter:alpha(opacity=60); -moz-opacity:0.60; -khtml-opacity:0.60; opacity:0.60;}
+/* eventScroll */
+.eventScroll{position:relative; width:730px; height:534px;}
+.eventScroll .customScrollBox{position:relative; height:100%; overflow:hidden;}
+.eventScroll .customScrollBox .scroller_container{position:relative; width:720px; top:0; float:left;}
+.eventScroll .customScrollBox .scroller_content{clear:both; width: 690px;}
+.eventScroll .dragger_container{position:relative; width:8px; height:534px; float:left; background:#000; cursor:pointer -moz-border-radius:2px; -khtml-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; cursor:s-resize;}
+.eventScroll .dragger{position:absolute; width:8px; height:60px; background:#999; text-align:center; line-height:60px; color:#666; overflow:hidden; cursor:pointer; -moz-border-radius:2px; -khtml-border-radius:2px; -webkit-border-radius:2px; border-radius:2px;}
+.eventScroll .dragger_pressed{position:absolute; width:12px; margin-left:-2px; height:60px; background:#999; text-align:center; line-height:60px; color:#666; overflow:hidden; -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; cursor:s-resize;}
+.eventScroll .scrollUpBtn,.eventScroll .scrollDownBtn{position:absolute; display:inline-block; width:14px; height:15px; margin-right:12px; text-decoration:none; right:0; filter:alpha(opacity=20); -moz-opacity:0.20; -khtml-opacity:0.20; opacity:0.20;}
+.eventScroll .scrollUpBtn{top:16px; background:url(../images/mcs_btnUp.png) center center no-repeat;}
+.eventScroll .scrollDownBtn{bottom:12px; background:url(../images/mcs_btnDown.png) center center no-repeat;}
+.eventScroll .scrollUpBtn:hover,.eventScroll .scrollDownBtn:hover{filter:alpha(opacity=60); -moz-opacity:0.60; -khtml-opacity:0.60; opacity:0.60;}
+/*sidefaq scroll*/
+.sideFaqScroll{position:relative; width:730px; }
+.sideFaqScroll .customScrollBox{position:relative; height:100%; overflow:hidden;}
+.sideFaqScroll .customScrollBox .scroller_container{position:relative; width:238px; top:0; float:left;}
+.sideFaqScroll .customScrollBox .scroller_content{clear:both; width: 208px;}
+.sideFaqScroll .dragger_container{position:relative; width:8px; float:left; background:#000; cursor:pointer -moz-border-radius:2px; -khtml-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; cursor:s-resize;}
+.sideFaqScroll .dragger{position:absolute; width:8px; height:60px; background:#999; text-align:center; line-height:60px; color:#666; overflow:hidden; cursor:pointer; -moz-border-radius:2px; -khtml-border-radius:2px; -webkit-border-radius:2px; border-radius:2px;}
+.sideFaqScroll .dragger_pressed{position:absolute; width:12px; margin-left:-2px; height:60px; background:#999; text-align:center; line-height:60px; color:#666; overflow:hidden; -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; cursor:s-resize;}
+.sideFaqScroll .scrollUpBtn,.sideFaqScroll .scrollDownBtn{position:absolute; display:inline-block; width:14px; height:15px; margin-right:12px; text-decoration:none; right:0; filter:alpha(opacity=20); -moz-opacity:0.20; -khtml-opacity:0.20; opacity:0.20;}
+.sideFaqScroll .scrollUpBtn{top:16px; background:url(../images/mcs_btnUp.png) center center no-repeat;}
+.sideFaqScroll .scrollDownBtn{bottom:12px; background:url(../images/mcs_btnDown.png) center center no-repeat;}
+.sideFaqScroll .scrollUpBtn:hover,.sideFaqScroll .scrollDownBtn:hover{filter:alpha(opacity=60); -moz-opacity:0.60; -khtml-opacity:0.60; opacity:0.60;}
+/*teamchat scroll*/
+.teamChatScroll{position:relative; width:628px; }
+.teamChatScroll .customScrollBox{position:relative; height:100%; overflow:hidden;}
+.teamChatScroll .customScrollBox .scroller_container{position:relative; width:618px; top:0; float:left;}
+.teamChatScroll .customScrollBox .scroller_content{clear:both; width: 610px;}
+.teamChatScroll .dragger_container{position:relative; width:8px; float:left; background:#000; cursor:pointer -moz-border-radius:2px; -khtml-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; cursor:s-resize;}
+.teamChatScroll .dragger{position:absolute; width:8px; height:60px; background:#999; text-align:center; line-height:60px; color:#666; overflow:hidden; cursor:pointer; -moz-border-radius:2px; -khtml-border-radius:2px; -webkit-border-radius:2px; border-radius:2px;}
+.teamChatScroll .dragger_pressed{position:absolute; width:12px; margin-left:-2px; height:60px; background:#999; text-align:center; line-height:60px; color:#666; overflow:hidden; -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; cursor:s-resize;}
+.teamChatScroll .scrollUpBtn,.teamChatScroll .scrollDownBtn{position:absolute; display:inline-block; width:14px; height:15px; margin-right:12px; text-decoration:none; right:0; filter:alpha(opacity=20); -moz-opacity:0.20; -khtml-opacity:0.20; opacity:0.20;}
+.teamChatScroll .scrollUpBtn{top:16px; background:url(../images/mcs_btnUp.png) center center no-repeat;}
+.teamChatScroll .scrollDownBtn{bottom:12px; background:url(../images/mcs_btnDown.png) center center no-repeat;}
+.teamChatScroll .scrollUpBtn:hover,.teamChatScroll .scrollDownBtn:hover{filter:alpha(opacity=60); -moz-opacity:0.60; -khtml-opacity:0.60; opacity:0.60;}
+/*teammate scroll*/
+.teammateScroll{position:relative; width:365px;height:330px; }
+.teammateScroll .customScrollBox{position:relative; height:100%; overflow:hidden;}
+.teammateScroll .customScrollBox .scroller_container{position:relative; width:340px; top:0; float:left;}
+.teammateScroll .customScrollBox .scroller_content{clear:both; width: 340px; overflow:hidden;}
+.teammateScroll .dragger_container{position:relative; width:8px; float:left; background:#000; cursor:pointer -moz-border-radius:2px; -khtml-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; cursor:s-resize; height:330px; }
+.teammateScroll .dragger{position:absolute; width:8px; height:60px; background:#999; text-align:center; line-height:60px; color:#666; overflow:hidden; cursor:pointer; -moz-border-radius:2px; -khtml-border-radius:2px; -webkit-border-radius:2px; border-radius:2px;}
+.teammateScroll .dragger_pressed{position:absolute; width:12px; margin-left:-2px; height:60px; background:#999; text-align:center; line-height:60px; color:#666; overflow:hidden; -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; cursor:s-resize;}
+.teammateScroll .scrollUpBtn,.teammateScroll .scrollDownBtn{position:absolute; display:inline-block; width:14px; height:15px; margin-right:12px; text-decoration:none; right:0; filter:alpha(opacity=20); -moz-opacity:0.20; -khtml-opacity:0.20; opacity:0.20;}
+.teammateScroll .scrollUpBtn{top:16px; background:url(../images/mcs_btnUp.png) center center no-repeat;}
+.teammateScroll .scrollDownBtn{bottom:12px; background:url(../images/mcs_btnDown.png) center center no-repeat;}
+.teammateScroll .scrollUpBtn:hover,.teammateScroll .scrollDownBtn:hover{filter:alpha(opacity=60); -moz-opacity:0.60; -khtml-opacity:0.60; opacity:0.60;}
+/* content block 2 */
+.form_waiver_content #mcs_container{position:relative; width:650px; height:200px;}
+.form_waiver_content #mcs_container .customScrollBox{position:relative; height:100%; overflow:hidden;}
+.form_waiver_content #mcs_container .customScrollBox .scroller_container{position:relative; width:640px; top:0; float:left;}
+.form_waiver_content #mcs_container .customScrollBox .scroller_content{clear:both; width:610px;}
+.form_waiver_content #mcs_container .dragger_container{position:relative; width:8px; height:200px; float:left; background:#000; cursor:pointer -moz-border-radius:2px; -khtml-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; cursor:s-resize;}
+.form_waiver_content #mcs_container .dragger{position:absolute; width:8px; height:60px; background:#999; text-align:center; line-height:60px; color:#666; overflow:hidden; cursor:pointer; -moz-border-radius:2px; -khtml-border-radius:2px; -webkit-border-radius:2px; border-radius:2px;}
+.form_waiver_content #mcs_container .dragger_pressed{position:absolute; width:12px; margin-left:-2px; height:60px; background:#999; text-align:center; line-height:60px; color:#666; overflow:hidden; -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; cursor:s-resize;}
+.form_waiver_content #mcs_container .scrollUpBtn,#mcs_container .scrollDownBtn{position:absolute; display:inline-block; width:14px; height:15px; margin-right:12px; text-decoration:none; right:0; filter:alpha(opacity=20); -moz-opacity:0.20; -khtml-opacity:0.20; opacity:0.20;}
+.form_waiver_content #mcs_container .scrollUpBtn{top:16px; background:url(../images/mcs_btnUp.png) center center no-repeat;}
+.form_waiver_content #mcs_container .scrollDownBtn{bottom:12px; background:url(../images/mcs_btnDown.png) center center no-repeat;}
+.form_waiver_content #mcs_container .scrollUpBtn:hover,#mcs_container .scrollDownBtn:hover{filter:alpha(opacity=60); -moz-opacity:0.60; -khtml-opacity:0.60; opacity:0.60;}
+/*EVENT DETAIL*/
+.viewEventSidePanel .sideFaqScroll .customScrollBox .scroller_container { width:250px;}
+.viewEventSidePanel .sideFaqScroll .customScrollBox .scroller_content { width:250px;}

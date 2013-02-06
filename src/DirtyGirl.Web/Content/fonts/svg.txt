@@ -1,0 +1,11 @@
+
+@font-face {
+	font-family: 'Rockwell-Bold';
+	src: url('../fonts/blackout-midnight.eot');
+	src: url('../fonts/blackout-midnight.eot#iefix') format('embedded-opentype'),
+		 url('../fonts/blackout-midnight.woff') format('woff'),
+		 url('../fonts/blackout-midnight.ttf') format('truetype'),
+		 url('../fonts/blackout-midnight.svg#blackout-midnight') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}

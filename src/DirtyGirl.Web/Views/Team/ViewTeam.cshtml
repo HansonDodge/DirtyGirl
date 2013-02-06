@@ -1,0 +1,160 @@
+﻿@model vmTeam_Details
+@{
+    ViewBag.Title = "ViewTeam";
+}
+
+
+
+<script>
+    $(document).ready(function () {
+        //DG.util.initInviteFriendModal();
+        DG.util.teamChatScrollbar();
+        //$("#mcs_container2").mCustomScrollbar("vertical", 365, "easeOutCirc", 1.05, "auto", "yes", "yes", 10);
+    });
+</script>
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            @Html.Partial("_Hero")
+            <div id="eventDetailContent" class="profileColumn">
+                <div class="profileContent">
+                    <div class="viewMyProfile">
+                        @*<img class="mini_pp" src="@Url.Content("~/images/fpo_teammate.jpg")" />*@
+                        <a href='@Url.Action("ViewUser", "User", new {username = User.Identity.Name})'>
+                            @if (Model.User.UseFacebookImage)
+                            {
+                                <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(Model.User.FacebookId.ToString())" alt="Manage my Profile" class="mini_pp" /> 
+                            }
+                            else if (Model.User.Image != null)
+                            {
+                                <img src='@Url.Action("UserImage", "User", new { id = Model.User.UserName })' alt="Manage my Profile" class="mini_pp" /> 
+                            }
+                            else
+                            {
+                                <img src="@Url.Content("~/images/fpo_teammate.jpg")" alt="Manage my Profile" class="mini_pp" />
+                            }
+                            <img src="@Url.Content("~/images/btn_viewprofile.png")" />
+                        </a>
+                    </div>
+                    <h2>TEAM COMMUNICATION</h2>
+                    <div class="jointeam_container">
+                        <h5>TEAM: </h5><h3>@Html.DisplayFor(model => model.Team.Name)</h3>
+                    </div>
+                    <div class="teamChat_container">
+                        <div class="teamChat_left">
+                            @if (Model.EventWave != null)
+                            {
+                                foreach (EventWave eventWave in Model.EventWave)
+                                {
+                                    <div class="teamChat_runDetail">
+                                        <h3>RUN REGISTERED FOR:</h3>
+                                        <p><span>Date:</span> @eventWave.StartTime.ToString("M/d/yyyy") </p>
+                                        <p><span>Location:</span>@Html.DisplayFor(model => model.Team.Event.GeneralLocality) </p>
+                                        <p><span>Team Code:</span>@Html.DisplayFor(model => model.Team.Code) </p>
+                                        @*<p><span>Time:</span> @eventWave.StartTime.ToString("hh:mm tt") </p>*@
+                                    </div>
+                                    <div class="teamChat_left_separator">&nbsp;</div>
+                                    <div class="teammates">
+                                        <p class="teammates_instructions">Hover over your teammate to see what wave she's in</p>
+                                        <div class="teammate_container">
+                                            <div id="mcs_container2" class="teammateScroll">
+                                                <div class="customScrollBox">
+                                                    <div class="scroller_container">
+                                                        <div class="scroller_content">
+                                                            @foreach (Registration registration in eventWave.Registrations)
+                                                            {
+                                                                <div class="single_teammate">
+                                                                    <a href="javascript:void(0);" class="single_avatar">
+                                                                        @if (registration.User.UseFacebookImage)
+                                                                        {
+                                                                            <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(registration.User.FacebookId.ToString())" /> 
+                                                                        }
+                                                                        else if (registration.User.Image != null)
+                                                                        {
+                                                                            <img src='@Url.Action("UserImage", "User", new { id = registration.User.UserName })' /> 
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <img src="@Url.Content("~/images/fpo_teammate.jpg")" />
+                                                                        }
+                                                                        <span>@eventWave.StartTime.ToString("hh:mm tt")</span>
+                                                                    </a>
+                                                                    <p>
+                                                                        <span>@registration.FirstName</span><br /><span>@registration.LastName</span>
+                                                                    </p>
+                                                                </div>    
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="dragger_container">
+                                                        <div class="dragger"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <div class="teamChat_right">
+                            <h3>@Html.DisplayFor(model => model.Team.Name) MESSAGE BOARD</h3>
+                            <div class="messageBoard">
+                                <div class="messageBoardContent">
+                                    @Html.Partial("Partial/MessageBoardPosts", @Model.Team.TeamPosts)
+                                </div>
+                                <div class="messageBoardPost">
+                                    <input class="text" type="text" id="postText" />
+                                    <span class="postError"></span><input class="button btnPink" type="submit" value="post" onclick="CreatePost()" />
+                                </div>
+                            </div>
+                            <div class="teamChat_right_cta">
+                                @if (Model.IsTeamMember)
+                                {
+                                    <a href="#" class="showInviteFriend" onclick="ShowInviteDialog_1()"><img src="@Url.Content("~/images/btn_invite.png")" /></a>
+                                }
+                                
+                                <a href="#"><img src="@Url.Content("~/images/btn_makeDonation.png")" /></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+
+@Html.Partial("ShareWithOthers", new vmCommon_Share
+                                   {
+                                       InstanceNumber = 1,
+                                       EmailAddresses = "",
+                                       MessageBody = ViewBag.ShareBody,
+                                       MessageSubject = "Come join my Dirty Girl team!",
+                                       Title = "Team Invite"
+                                   })
+
+<script>
+    function CreatePost() {
+        if ($('#postText').val().length > 0) {
+            $.ajax({
+                url: '@Url.Action("CreateTeamPost", "Team")',
+                data: { teamId: "@(Model.Team == null ? -1 : Model.Team.TeamId)", post: $('#postText').val() },
+                type: 'POST',
+                success: function(data) {
+                    $(".messageBoardContent").html(data);
+                    $('#postText').val("");
+
+                    DG.util.teamChatScrollbar();
+                    
+                    $(".postError").html("");
+
+                },
+                error: function(data, status, jqXhr) {
+                    $(".postError").html("FAILED: " + data.status + " " + data.responseText);
+                }
+            });
+        } else {
+            $(".postError").html("Please enter a message to share.");
+        }
+    }
+</script>

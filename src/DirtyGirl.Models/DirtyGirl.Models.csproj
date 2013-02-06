@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E0337B32-D02C-46FC-8459-D39259C42C80}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DirtyGirl.Models</RootNamespace>
+    <AssemblyName>DirtyGirl.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DataAnnotationsExtensions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=358a5681c50fd84c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\DataAnnotationsExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cart.cs" />
+    <Compile Include="CartDiscountItem.cs" />
+    <Compile Include="ChangeWaveAction.cs" />
+    <Compile Include="ChargeReport.cs" />
+    <Compile Include="Enums\CartFocusType.cs" />
+    <Compile Include="Enums\CreditCardType.cs" />
+    <Compile Include="Enums\RegistrationType.cs" />
+    <Compile Include="FeeReport.cs" />
+    <Compile Include="PaymentRequest.cs" />
+    <Compile Include="PaymentResponse.cs" />
+    <Compile Include="CartCheckOut.cs" />
+    <Compile Include="CartCouponCode.cs" />
+    <Compile Include="CartRedemptionCode.cs" />
+    <Compile Include="CartFeeDifferenceItem.cs" />
+    <Compile Include="CartItem.cs" />
+    <Compile Include="CartSummaryLineItem.cs" />
+    <Compile Include="CartSummary.cs" />
+    <Compile Include="ChangeEventAction.cs" />
+    <Compile Include="CartCharge.cs" />
+    <Compile Include="Coupon.cs" />
+    <Compile Include="CreateNewEvent.cs" />
+    <Compile Include="Enums\Months.cs" />
+    <Compile Include="Enums\PurchaseType.cs" />
+    <Compile Include="Enums\ProcessType.cs" />
+    <Compile Include="Enums\CartType.cs" />
+    <Compile Include="Enums\CouponType.cs" />
+    <Compile Include="Enums\DiscountType.cs" />
+    <Compile Include="Enums\EventActionType.cs" />
+    <Compile Include="CancellationAction.cs" />
+    <Compile Include="Enums\RedemptionCodeType.cs" />
+    <Compile Include="EventLead.cs" />
+    <Compile Include="EventLeadType.cs" />
+    <Compile Include="Enums\RegistrationStatus.cs" />
+    <Compile Include="FeeIcon.cs" />
+    <Compile Include="RedemptionCode.cs" />
+    <Compile Include="SessionCart.cs" />
+    <Compile Include="Enums\CartActionType.cs" />
+    <Compile Include="Enums\EventFeeType.cs" />
+    <Compile Include="DiscountItem.cs" />
+    <Compile Include="EventDateDetails.cs" />
+    <Compile Include="EventDateOverview.cs" />
+    <Compile Include="EventDetails.cs" />
+    <Compile Include="EventFee.cs" />
+    <Compile Include="EventOverview.cs" />
+    <Compile Include="EventTemplate.cs" />
+    <Compile Include="DisplayMessage.cs" />
+    <Compile Include="EventDate.cs" />
+    <Compile Include="EventSponsor.cs" />
+    <Compile Include="EventTemplate_PayScale.cs" />
+    <Compile Include="EventWave.cs" />
+    <Compile Include="GeocodingResult.cs" />
+    <Compile Include="ActionItem.cs" />
+    <Compile Include="TeamPost.cs" />
+    <Compile Include="ModelBase.cs" />
+    <Compile Include="PurchaseItem.cs" />
+    <Compile Include="Registration.cs" />
+    <Compile Include="ServiceResult.cs" />
+    <Compile Include="Country.cs" />
+    <Compile Include="Event.cs" />
+    <Compile Include="LogonModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Region.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="Team.cs" />
+    <Compile Include="TransferAction.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="EventWaveDetails.cs" />
+    <Compile Include="User_Role.cs" />
+    <Compile Include="Validation\MustBeTrueAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReferencedAssemblies\DataAnnotationsExtensions.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Exten\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

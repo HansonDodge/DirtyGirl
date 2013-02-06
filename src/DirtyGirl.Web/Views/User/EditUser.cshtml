@@ -1,0 +1,134 @@
+﻿@model DirtyGirl.Web.Models.vmUser_EditUser
+
+@{
+    ViewBag.Title = "EditUser";
+}
+
+
+
+@using (Html.BeginForm("EditUser", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{  
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            @Html.Partial("_Hero")
+            <div id="eventDetailContent" class="oneColumn">
+                <div class="contentMain">
+                    <div class="contentMain_copy register form account">
+                        <h2>EDIT USER</h2>
+                        <div class="registration_form">
+                            <div class="registration_form_message">
+                                @Html.Partial("DisplayMessage")
+                                @Html.ValidationSummary(false, "Please fix the following errors before continuing.")
+                                @* We need to encrypt userID so it can't be changed by a malicious user. *@
+                                @Html.HiddenFor(u => u.User.UserId)
+                            </div>
+                            <div class="registration_form_content">
+                                <div class="single_row">
+                                    <div class="single_input text">
+                                        @Html.HiddenFor(x => x.User.UserName)
+                                    </div>
+                                </div>
+                                @if (Model.User.FacebookId != null)
+                                {
+                                <div class="single_row">
+                                        <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(Model.User.FacebookId.ToString())" width="180" height="180" />
+                                        <br />
+                                        User Facebook Image?
+                                        @Html.CheckBoxFor(x => x.User.UseFacebookImage);
+                                    <br />
+                                        Or upload a photo
+                                    </div>
+                                }
+                                <div class="single_row">
+                                    <div class="single_input">
+                                        <p>Upload a different photo</p>
+                                        <input type="file" name="image" />
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>First Name</p>
+                                        @Html.TextBoxFor(x => x.User.FirstName)
+                                        @Html.ValidationMessageFor(x => x.User.FirstName, "*")
+                                    </div>
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Last Name</p>
+                                        @Html.TextBoxFor(x => x.User.LastName)
+                                        @Html.ValidationMessageFor(x => x.User.LastName, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Email Address</p>
+                                        @Html.TextBoxFor(x => x.User.EmailAddress)
+                                        @Html.ValidationMessageFor(x => x.User.EmailAddress, "*")
+                                    </div>
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>Confirm Email Address</p>
+                                        @Html.TextBoxFor(x => x.EmailAddressVerification)
+                                        @Html.ValidationMessageFor(x => x.EmailAddressVerification, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text address">
+                                        <p><span class="pink">*</span>Address</p>
+                                        @Html.TextBoxFor(x => x.User.Address1)
+                                        @Html.ValidationMessageFor(x => x.User.Address1, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text address">
+                                        <p><span class="pink"></span>Address2</p>
+                                        @Html.TextBoxFor(x => x.User.Address2)
+                                        @Html.ValidationMessageFor(x => x.User.Address2, "*")
+                                    </div>
+                                </div>
+                                <div class="single_row">
+                                    <div class="single_input text">
+                                        <p><span class="pink">*</span>City</p>
+                                        @Html.TextBoxFor(x => x.User.Locality)
+                                        @Html.ValidationMessageFor(x => x.User.Locality, "*")
+                                    </div>
+                                    <div class="single_input dropdown">
+                                        <p><span class="pink">*</span>State</p>
+                                        @(Html.Kendo().DropDownListFor(x => x.User.RegionId)
+                                            .OptionLabel("Select State")
+                                            .DataTextField("Name")
+                                            .DataValueField("RegionId")
+                                            .BindTo(Model.Regions))
+                                        @Html.ValidationMessageFor(x => x.User.RegionId)
+                                    </div>
+                                    <div class="single_input text short">
+                                        <p><span class="pink">*</span>Zip</p>
+                                        @Html.TextBoxFor(x => x.User.PostalCode)
+                                        @Html.ValidationMessageFor(x => x.User.PostalCode, "*")
+                                    </div>
+                                </div>
+                                <br /><br />
+                                <div class="single_row">
+                                    <div class="single_input" style="margin-right:20px;">
+                                        <a style="margin-right:10px;" class="btnPink" href="@Url.Content("~/User/ViewUser/"+Model.User.UserName)">CANCEL</a>
+                                    </div>
+                                    <div class="single_input" style="margin-right:20px;">
+                                    @if (Model.User.FacebookId == null)
+                                    {
+                                        <a class="btnPinkLg" href="@Url.Content("~/User/ChangePassword/"+Model.User.UserName)">CHANGE PASSWORD</a>
+                                    }
+                                    </div>
+                                    <div class="single_input" style="margin-right:20px;">
+                                        <input type="submit" value="Save" class="btnPink" style="cursor:pointer;" />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+}
+

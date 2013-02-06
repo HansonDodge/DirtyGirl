@@ -1,0 +1,326 @@
+﻿@{
+    ViewBag.Title = "Wave";
+}
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<script>
+    $(document).ready(function () {
+        DG.util.initEventTab();
+        
+        $(".wave_time").height($(".wave_time").next().innerHeight() - 20);
+
+        $(".clickarea").click(function (e) {
+            e.preventDefault();
+            $(".clickarea.selected").removeClass("selected");
+            $(this).addClass("selected");
+            $(".register_next_button a").removeClass("proceed").addClass("proceed");
+        });
+    });
+</script>
+<style>
+    .register_next_copy p { text-align: right;}
+</style>
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            <div class="hero">
+                <img src="@Url.Content("~/images/dg-header.jpg")" />
+            </div>
+            <div id="eventDetailContent" class="twoColumn">
+                <div class="contentMain">
+                    <div class="contentMain_header">
+                        <div class="cm_header_city">
+                            <h4>MIAMI, FL</h4>
+                        </div>
+                        <div class="cm_header_where">
+                            <h5>WHERE:</h5>
+                            <p>Greater Miami Area</p>
+                        </div>
+                        <div class="cm_header_dates">
+                            <h5>DATES:</h5>
+                            <p>9/26/2012 - 9/28/2013</p>
+                        </div>
+                    </div>
+                    <div class="contentMain_copy register wave">
+                        <div class="registration_steps">
+                            <img src="@Url.Content("~/images/reg_progress1.png")" />
+                        </div>
+                        <div class="registration_wave">
+                            <div class="wave_category">
+                                <p>Registration Category:</p>
+                                <select>
+                                    <option>CATEGORY 1</option>
+                                    <option>CATEGORY 2</option>
+                                </select>
+                            </div>
+                            <div class="wave_content">
+                                <h3>PICK YOUR WAVE</h3>
+                                <div class="wave_section">
+                                    <div class="wave_time">
+                                        <h4>AM</h4>
+                                    </div>
+                                    <div class="wave_list">
+                                        <div class="single_wave">
+                                            <p>Wave 1</p>
+                                            <div class="half_wave">
+                                                <p>8:00 AM</p>
+                                                <p>42 spots left</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 2</p>
+                                            <div class="full_wave">
+                                                <p>8:00 AM</p>
+                                                <p>SOLD OUT</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 3</p>
+                                            <div class="empty_wave">
+                                                <p>8:00 AM</p>
+                                                <p>spots open</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 4</p>
+                                            <div class="half_wave">
+                                                <p>8:00 AM</p>
+                                                <p>42 spots left</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 5</p>
+                                            <div class="full_wave">
+                                                <p>8:00 AM</p>
+                                                <p>SOLD OUT</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 6</p>
+                                            <div class="empty_wave">
+                                                <p>8:00 AM</p>
+                                                <p>spots open</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 7</p>
+                                            <div class="half_wave">
+                                                <p>8:00 AM</p>
+                                                <p>42 spots left</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 8</p>
+                                            <div class="half_wave">
+                                                <p>8:00 AM</p>
+                                                <p>42 spots left</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 9</p>
+                                            <div class="full_wave">
+                                                <p>8:00 AM</p>
+                                                <p>SOLD OUT</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 10</p>
+                                            <div class="empty_wave">
+                                                <p>8:00 AM</p>
+                                                <p>spots open</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 11</p>
+                                            <div class="half_wave">
+                                                <p>8:00 AM</p>
+                                                <p>42 spots left</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 12</p>
+                                            <div class="full_wave">
+                                                <p>8:00 AM</p>
+                                                <p>SOLD OUT</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 13</p>
+                                            <div class="empty_wave">
+                                                <p>8:00 AM</p>
+                                                <p>spots open</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 14</p>
+                                            <div class="half_wave">
+                                                <p>8:00 AM</p>
+                                                <p>42 spots left</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wave_section">
+                                    <div class="wave_time">
+                                        <h4>PM</h4>
+                                    </div>
+                                    <div class="wave_list">
+                                        <div class="single_wave">
+                                            <p>Wave 1</p>
+                                            <div class="half_wave">
+                                                <p>8:00 AM</p>
+                                                <p>42 spots left</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 2</p>
+                                            <div class="full_wave">
+                                                <p>8:00 AM</p>
+                                                <p>SOLD OUT</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 3</p>
+                                            <div class="empty_wave">
+                                                <p>8:00 AM</p>
+                                                <p>spots open</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 4</p>
+                                            <div class="half_wave">
+                                                <p>8:00 AM</p>
+                                                <p>42 spots left</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 5</p>
+                                            <div class="full_wave">
+                                                <p>8:00 AM</p>
+                                                <p>SOLD OUT</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 6</p>
+                                            <div class="empty_wave">
+                                                <p>8:00 AM</p>
+                                                <p>spots open</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 7</p>
+                                            <div class="half_wave">
+                                                <p>8:00 AM</p>
+                                                <p>42 spots left</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 8</p>
+                                            <div class="half_wave">
+                                                <p>8:00 AM</p>
+                                                <p>42 spots left</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 9</p>
+                                            <div class="full_wave">
+                                                <p>8:00 AM</p>
+                                                <p>SOLD OUT</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 10</p>
+                                            <div class="empty_wave">
+                                                <p>8:00 AM</p>
+                                                <p>spots open</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 11</p>
+                                            <div class="half_wave">
+                                                <p>8:00 AM</p>
+                                                <p>42 spots left</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 12</p>
+                                            <div class="full_wave">
+                                                <p>8:00 AM</p>
+                                                <p>SOLD OUT</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 13</p>
+                                            <div class="empty_wave">
+                                                <p>8:00 AM</p>
+                                                <p>spots open</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                        <div class="single_wave">
+                                            <p>Wave 14</p>
+                                            <div class="half_wave">
+                                                <p>8:00 AM</p>
+                                                <p>42 spots left</p>
+                                            </div>
+                                            <a href="#" class="clickarea">&nbsp;</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="register_next">
+                            <div class="register_next_copy">
+                                <p>You have selected "WAVE DETAIL"</p>
+                            </div>
+                            <div class="register_next_button">
+                                <a href="#">NEXT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contentSidePanel">
+                    <div class="contentSidePanel_top">&nbsp;</div>
+                    <div class="contentSidePanel_side">
+                        <div class="contentSideFaq">
+                            <h3>FAQS</h3>
+                            <p class="bold">What if a wave is sold out?</p>
+                            <p>Each wave has a limited amount of space and once a wave is full it is sold out. Anyone who is already registered has the ability to switch to another open wave that day if there is still space available. </p>
+                        </div>
+                    </div>
+                    <div class="contentSidePanel_bottom">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+

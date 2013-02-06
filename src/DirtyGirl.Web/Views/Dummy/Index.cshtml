@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<script>
+    $(document).ready(function () {
+        DG.util.initPin();
+        DG.util.initMapTab();
+    });
+
+</script>
+<div id="registration">
+    <div id="registration_map">
+        <div class="registration_map_content">
+            
+        </div>
+        <div class="registration_map_copy">
+            <div class="registration_map_copy_content">
+                <p>Click on the map to get new coordinate:</p>
+                <div>
+                    <p>X</p>
+                    <input id="x-coord" type="text" />
+                </div>
+                <div>
+                    <p>Y</p>
+                    <input id="y-coord" type="text" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var x;
+        var y;
+        var counter = 0;
+        $('.registration_map_content').mousemove(function (e) {
+            var parentOffset = $(this).parent().offset();
+            x = e.pageX - parentOffset.left;
+            y = e.pageY - parentOffset.top;
+            $('#x-coord').val(x);
+            $('#y-coord').val(y-25);
+        });
+        $('.registration_map_content').click(function (e) {
+            e.preventDefault();
+            $(this).html("");
+            var el = '<div class="single_location _'+counter+'"> \
+                        <div class="single_location_content"> \
+                        <div class="pin"><a href="#">&nbsp;</a></div> \
+                        <div class="popup"> \
+                        <div class="popup_content"> \
+                        <h3>Milwaukee, WI</h3> \
+                        <p>October 3, 2012</p> \
+                        <p>Cost: $100.00</p> \
+                        <p><span class="white">1263</span> spots left!</p> \
+                        <a href="#"> \
+                            <img src="../images/map-signup.png" /></a> \
+                        </div> \
+                        </div> \
+                        </div> \
+                        </div>';
+            
+            $(this).append(el);
+            $("._" + counter).css("top", y-25);
+            $("._" + counter).css("left", x);
+            
+            counter += 1;
+        });
+    });
+</script>

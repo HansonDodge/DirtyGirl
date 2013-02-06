@@ -1,0 +1,82 @@
+﻿@model vmRegistration_Transfer
+@{
+    ViewBag.Title = "Transfer Registration";
+}
+
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            @Html.Partial("_Hero")
+            @{Html.RenderPartial("EventHeader", Model.EventOverview);}
+            <div id="eventDetailContent" class="twoColumn">
+                <div class="contentMain">
+                    @using (Html.BeginForm("transfer", "registration", new { itemId = Model.ItemId }, FormMethod.Post, new { id = "CreateTeamForm" }))
+                    { 
+                    <div class="contentMain_copy register form">
+                        <h1 class="pink">TRANSFER YOUR RUN</h1>
+                        <p style="font-size: 14px; font-weight:normal;">To transfer your Dirty Girl registration to a friend, please enter your friend’s name and email address below. We’ll then shoot her an email with details on how to pick up your registration. </p>
+                        <p style="font-size: 10px; font-weight:normal;">*Please note that when transferring to a friend, your spot in this run will only held for 72 hours from the time you submit the transfer. If you friend doesn’t pick up your registration within 72 hours, your registration will be cancelled and you’ll be given compensation code to use on a different run.</p>
+                        @Html.ValidationSummary(false, "Please address the following Errors")                            
+                        <div class="registration_form_content">
+                            <p style="font-weight:normal;">*Required Fields</p>
+                            <div class="single_row">
+                                <div class="single_input text">
+                                    <p><span class="pink">*</span>First Name:</p>
+                                    @Html.TextBoxFor(x => x.FirstName)
+                                    @Html.ValidationMessageFor(x => x.FirstName, "*")
+                                </div>
+                                <div class="single_input text">
+                                    <p><span class="pink">*</span>Last Name:</p>
+                                    @Html.TextBoxFor(x => x.LastName)
+                                    @Html.ValidationMessageFor(x => x.LastName, "*")
+                                </div>
+                            </div>
+                            <div class="single_row">
+                                <div class="single_input text">
+                                    <p><span class="pink">*</span>Email:</p>
+                                    @Html.TextBoxFor(x => x.Email)
+                                    @Html.ValidationMessageFor(x => x.Email, "*")
+                                </div>
+                                <div class="single_input text">
+                                    <p><span class="pink">*</span>Confirm Email:</p>
+                                    @Html.TextBoxFor(x => x.ConfirmationEmail)
+                                    @Html.ValidationMessageFor(x => x.ConfirmationEmail, "*")
+                                </div>
+                            </div>
+                        </div>
+                        <div style="overflow:hidden;">
+                            <input type="submit" value="SUBMIT" class="btnPink" style="float:right;" />
+                        </div>
+                    </div>                   
+                    
+                    }
+                </div>
+                <div class="contentSidePanel">
+                    <div class="contentSidePanel_top">&nbsp;</div>
+                    <div class="contentSidePanel_side">
+                        <div class="contentSideFaq">
+                            <h3>FAQS</h3>
+                            <p class="bold">What is the cancellation policy?  </p>
+                            <p>We are sorry but Dirty Girl has a strict no refund policy.  If you cannot make it, you can either transfer your registration to someone else or receive credit towards another Dirty Girl Mud Run. </p>
+                            <p class="bold">If I cannot make an event, what are my options?  </p>
+                            <p>Sometimes, things happen and women cannot run the date they intended.  While we have a no refund policy, you have many options to consider.  You can transfer to another person; switch to another date; receive a credit for another Dirty Girl Mud Run in the future.</p>
+                            <p class="bold">Can I switch my dates?</p>
+                            <p>Yes, switching to a new date is not a problem however there is a fee to change your registration. If you would like to switch to a new date, you will need to log back in to your account and under edit registration select the option to choose a new date and event. </p>
+                            <p class="bold">Can I transfer my registration to another person?</p>
+                            <p>Yes, swapping of registrations is not a problem however there is a fee to transfer your registration. The person who can no longer participate will have to log back in to their account and select the option to cancel their registration. They’ll then be issued a coupon code, which they can give/sell to somebody else. The new person will have to register for the event. </p>
+                            <p class="bold">How much is the registration fee?</p>
+                            <p>The registration fee varies depending on the event and how much time is left before the event itself. Our early registration fee is $65 for a limited time, so get it while it’s hot. After that, the price will increase to $75, $85 and finally $100 right before the event.<br />Check the registration page for the Dirty Girl run you are interested in for exact pricing schedule and valid dates. Please note that the registration fee is per person and we do not have group discounts. </p>
+                            <p class="bold">What is a coupon code, can I get a discount?</p>
+                            <p>Coupon codes may occasionally be available from sponsors for specific promotions.  Unless you have that code from a sponsor or promotion, there may not be one available.  We are unable to give coupon codes to registrants. </p>
+                            <p class="bold">I served in the United State military, do you have a special rate for service women?</p>
+                            <p>Yes, service women are eligible for a $10 discount off the current rate.  Reminder, you will be required to show your military ID at packet pick up so please honor those who have served and allow them this opportunity.  Please bring your ID as it is embarrassing for us to turn down someone who has served and shows up at an event without proof.  When checking out, use the following coupon code –DGserves_2013– for your $10 credit.  Again, this is for women who have served and not women of husbands or family who have served.   </p>
+                        </div>
+                    </div>
+                    <div class="contentSidePanel_bottom">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+

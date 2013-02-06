@@ -1,0 +1,73 @@
+﻿@model vmUser_UserList
+
+@{
+    ViewBag.Title = "ListUsers";
+}
+
+<h2>List Users</h2>
+<p>Name</p>
+<p><input id="name" type="text" onkeyup="LookupName()"/></p>
+<br/>
+<br/>
+<p>UserName or Email</p>
+<p><input id="userNameEmail" type="text" onkeyup="LookupUserName()"/></p>
+<br/>
+<br/>
+<div id="GridResult"></div>
+
+<div id="dataview"></div>
+
+@(Html.Kendo().Grid(Model.Users)
+    .Name("Grid")
+    .Columns(cols =>
+    {
+        cols.Bound(u => u.IsActive);
+        cols.Bound(u => u.UserId);
+        cols.Bound(u => u.UserName).ClientTemplate("<a data-ajax='true' data-ajax-mode='replace' data-ajax-update='\\#result' href='" + Url.Action("ViewUser", "User", new { id = "#=UserId#" }) + "'>#= UserName#</a>");
+        cols.Bound(u => u.FirstName);
+        cols.Bound(u => u.LastName);
+        cols.Bound(u => u.UserName).ClientTemplate("<a href='" + Url.Action("ViewUser", "User", new { id = "#=UserId#" }) + "'>Edit Registrant</a>").Title("");
+    })
+    .Pageable()
+    .Sortable()
+    .Scrollable() 
+    .Filterable()  
+    .DataSource(dataSource => dataSource
+        .Ajax() // Specify that the data source is of ajax type
+        .ServerOperation(true)
+        .Read(read => read.Action("SearchUsers", "User" ).Data("SearchData")) // Specify the action method and controller name
+    )
+    .Pageable()
+)
+
+
+
+<script>
+    var dataList;
+    
+    function LookupName() {
+        if ($('#name').val().length > 2)
+            $("#Grid").data("kendoGrid").dataSource.read();
+        else if ($('#name').val().length == 0) {
+            $("#Grid").data("kendoGrid").dataSource.read();
+        }
+    }
+    
+    function LookupUserName() {
+        if ($('#userNameEmail').val().length > 2)
+            $("#Grid").data("kendoGrid").dataSource.read();
+        else if ($('#userNameEmail').val().length == 0) {
+            $("#Grid").data("kendoGrid").dataSource.read();
+        }
+    }
+    
+    function SearchData() {
+        return {
+            name: $('#name').val(),
+            userNameEmail: $('#userNameEmail').val()
+        };
+    }
+
+</script>
+
+

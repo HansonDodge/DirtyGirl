@@ -1,0 +1,20 @@
+﻿@{
+    var message = (DisplayMessage)TempData[DirtyGirlConfig.Settings.DisplayMessageKey] ?? null;
+}
+
+@if (message != null)
+{
+    if (message.Message.ToLower().IndexOf("updated your event wave") != -1)
+    {
+        //Do this for Change Wave message
+        <h2>@message.Message</h2>
+        <style>
+            .profileCustomMessage { display: none;}
+            .changeWaveMsg { display: block;}
+            .changeWaveMsg h2{margin-left: 20px; padding: 20px 0 0; font-size: 18px;}
+        </style>
+    }else{
+        // Do this for other message
+        <div>@message.Message</div>
+    }
+}

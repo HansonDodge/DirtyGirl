@@ -1,0 +1,103 @@
+﻿@model vmAdmin_EventIndex
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#frmAddEvent').data('validator').settings.ignore = '';
+
+        $("#AddEventWindow").kendoWindow({
+            title: "Add a new event",
+            visible: false,
+            draggable : false,
+            modal : true
+        }).data("kendoWindow");;
+
+        $("#NewEventButton").click(function (e) {
+            e.preventDefault();
+            var window = $("#AddEventWindow").show().data("kendoWindow").open().center();
+        });
+
+    })    
+</script>
+
+<h2>Upcoming Event List</h2>
+
+@(Html.Kendo().Grid(Model.EventList)
+    .Name("grdEventList")   
+    .ToolBar(commands => commands.Custom().Text(" + Add Event").HtmlAttributes(new {id = "NewEventButton"})) 
+    .Columns(cols =>
+        {
+            cols.Bound(c => c.EventId).Visible(false);
+            cols.Bound(c => c.Location);
+            cols.Bound(c => c.Place);
+            cols.Template(c => string.Format("{0}  /  {1}", c.RegistrationCount, c.MaxRegistrants)).HtmlAttributes(new { style = "text-align:center" }).HeaderTemplate("Registrants/Capacity").HeaderHtmlAttributes(new { style = "font-weight:bold" }).Width(160);
+            cols.Bound(c => c.StartDate);
+            cols.Bound(c => c.EndDate);
+            cols.Bound(c => c.IsLive).HtmlAttributes(new { style = "text-align:center" }).Sortable(true);
+            cols.Template(c => @Html.ActionLink("view event", "ViewEvent", new { id = c.EventId })); 
+            cols.Template(c => @Html.ActionLink("edit event", "EditEvent", new { id = c.EventId }));           
+        })            
+    .Sortable()
+    .Pageable()
+    .Filterable()       
+)
+
+<div id="AddEventWindow">
+    
+    @using (Html.BeginForm("AddEvent", "Event", null, FormMethod.Post, new { id = "frmAddEvent" }))
+    {
+        @Html.ValidationSummary(false, "Please fix the following errors before creating your event");
+    
+        <div class="entryRow">
+            <div class="entryLabel">Select Event Template:</div>
+            <div class="entryInput"> 
+                 @(Html.Kendo().DropDownListFor(x => x.NewEvent.SelectedTemplateId)
+                    .OptionLabel("Selected Template")
+                    .DataTextField("Name")
+                    .DataValueField("EventTemplateId")
+                    .BindTo(Model.TemplateList))
+                @Html.ValidationMessageFor(x => x.NewEvent.SelectedTemplateId, "*")
+            </div>
+        </div>
+     
+        <div class="entryRow">
+            <div class="entryLabel">General Locality:</div>
+            <div class="entryInput"> 
+                @Html.TextBoxFor(x => x.NewEvent.GeneralLocality)
+                @Html.ValidationMessageFor(x => x.NewEvent.GeneralLocality, "*")
+            </div>
+        </div>
+    
+        <div class="entryRow">
+            <div class="entryLabel">State:</div>
+            <div class="entryInput"> 
+                @(Html.Kendo().DropDownListFor(x => x.NewEvent.RegionId)
+                    .OptionLabel("Select State")
+                    .DataTextField("Name")
+                    .DataValueField("RegionId")
+                    .BindTo(Model.RegionList))
+                @Html.ValidationMessageFor(x => x.NewEvent.RegionId, "*")
+            </div>
+        </div>
+    
+        <div class="entryRow">
+            <div class="entryLabel">Date Of Event:</div>
+            <div class="entryInput"> 
+                @Html.Kendo().DatePickerFor(x => x.NewEvent.EventDate)
+                @Html.ValidationMessageFor(x => x.NewEvent.EventDate, "*")
+            </div>
+        </div>
+    
+        <div>
+            <input type="submit" value="Create New Event" />
+        </div>       
+       
+    }
+</div>
+
+
+

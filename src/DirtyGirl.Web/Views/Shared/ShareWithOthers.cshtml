@@ -1,0 +1,108 @@
+﻿@model DirtyGirl.Web.Models.vmCommon_Share
+<style type="text/css">
+#inviteFriendContainer_@(Model.InstanceNumber) {background: none repeat scroll 0 0 #FFFFFF; border: 4px solid #372825; height: 400px; left: 50%; margin-left: -300px; position: absolute; top: 300px;  width: 600px;  z-index: 10000000; display:none;}
+#inviteFriendHeader_@(Model.InstanceNumber) { position: relative; background:#ED5192;}
+#inviteFriendHeader_@(Model.InstanceNumber) h3{color: #ffffff;  font-size: 24px; padding: 10px;}
+#inviteFriendHeader_@(Model.InstanceNumber) .closeInviteModal_@(Model.InstanceNumber) { color: #FFFFFF; display: block; font-family: arial; font-size: 30px; font-weight: bold; height: 30px; line-height: 30px; position: absolute; right: 10px;  text-align: center;  text-decoration: none;  top: 0;  width: 30px;}
+#inviteFriendContent_@(Model.InstanceNumber) { position: relative; overflow: hidden; margin: 20px 0 0; padding: 0 10px;}
+#inviteFriendContent_@(Model.InstanceNumber) .single_input{ position: relative; margin: 0 0 15px; float: none;}
+#inviteFriendContent_@(Model.InstanceNumber) .single_input p{ font-size: 14px; color:#2c1d13; margin: 0 0 5px;}
+#inviteFriendContent_@(Model.InstanceNumber) .single_input input{ width: 575px;}
+#inviteFriendContent_@(Model.InstanceNumber) .single_input textarea{ height: 110px; width: 575px;}
+#inviteFriendContainer_@(Model.InstanceNumber) .inviteSubmit{position: absolute; bottom:10px; right: 15px;}
+#inviteFriendContainer_@(Model.InstanceNumber) a.submit{position: relative; display: block; width: 94px; height: 46px; text-indent: -5000px; text-decoration: none; background: url(../images/sprite-submit.png) 0 0 no-repeat transparent;}
+
+/*SHARE MODAL*/
+#share_modal_@(Model.InstanceNumber) {position: fixed; width: 732px; height:369px; top: 50%; left: 50%; margin-top: -185px; margin-left: -366px; background: url(../images/login_modal.png) 0 0 no-repeat transparent; display: none; z-index:10000000;}
+#share_content_@(Model.InstanceNumber) {position: relative; padding: 60px 70px;}
+#share_content_@(Model.InstanceNumber) h3{ font-size: 18px; color:#EF5192;}
+#share_content_@(Model.InstanceNumber) .single_input{position: relative; float:none; margin: 20px 0 0;}
+#share_content_@(Model.InstanceNumber) .single_input p{font-size: 12px; color:#2C1D13; }
+#share_content_@(Model.InstanceNumber) .single_input input{ }
+#share_content_@(Model.InstanceNumber) .single_checkbox{position: relative; float:none; margin: 20px 0 0;}
+#share_content_@(Model.InstanceNumber) .single_checkbox input{}
+#share_content_@(Model.InstanceNumber) .single_checkbox label{font-size: 12px; color:#2C1D13; }
+#share_content_@(Model.InstanceNumber) .single_checkbox p{font-size: 12px; color:#2C1D13; margin-top:10px;}
+.share_submit_@(Model.InstanceNumber) {position: relative; margin: 20px 0 0; }
+.share_image_@(Model.InstanceNumber) {position: absolute; top:1px; right: 0px; }
+#share_content_@(Model.InstanceNumber) .validation-summary-errors { display:none;}
+#share_content_@(Model.InstanceNumber) input.input-validation-error { border:1px solid #ff0000;}
+.shareResult{font-family:"Blackout-Midnight","blackout-midnight-1","blackout-midnight-2",sans-serif;color:#ee5192;font-size: 14px; padding: 0 10px;}
+</style>
+
+<div id="overlay_@Model.InstanceNumber" onclick="Overlay_@(Model.InstanceNumber)()" class="overlay">&nbsp;</div>
+<div id="inviteFriendContainer_@Model.InstanceNumber" class="inviteFriendContainer">
+    <div id="inviteFriendHeader_@Model.InstanceNumber">
+        <h3>@Model.Title</h3>
+        <a href="#" class="closeInviteModal_@Model.InstanceNumber" onclick="CloseInviteModal_@(Model.InstanceNumber)()">x</a>
+    </div>
+    <div id="inviteFriendContent_@Model.InstanceNumber" class="inviteFriendContent">
+        <p class="instructions">To invite friends to your team, please enter their email address and a custom message. We'll then shoot them an email with your Dirty Girl run and team information.</p>
+        <div class="single_input">
+            <p>Friend's Email Addresses (separate by comma) *</p>
+            <input id="emailAddresses_@Model.InstanceNumber" value="@Model.EmailAddresses"/>
+            @Html.ValidationMessageFor(x => x.EmailAddresses, "*")
+        </div>
+        <input id="subject_@Model.InstanceNumber" type="text" value="@Model.MessageSubject" style="visibility: hidden"/>
+        <input id="messageBody_@Model.InstanceNumber" type="text" value="@Model.MessageBody" style="visibility: hidden"/>
+        <div class="single_input">
+            <p>Message *</p>
+            <textarea id="userMessageBody_@Model.InstanceNumber" >@Model.UserMessageBody</textarea>
+            @Html.ValidationMessageFor(x => x.UserMessageBody, "*")
+        </div>
+    </div>
+    <div class="inviteSubmit">
+        <input id="sendInvite_@Model.InstanceNumber" class="button btnPink" type="button" title="Send Invite" value="Send Invite" onclick="SharePost_@(Model.InstanceNumber)()"/>
+    </div>
+    <div id="shareResult_@(Model.InstanceNumber)" class="shareResult"></div>
+</div>
+
+
+<script>
+
+    function ShowInviteDialog_@(Model.InstanceNumber)() {
+        $("#overlay_@Model.InstanceNumber").show();
+        $("#inviteFriendContainer_@Model.InstanceNumber").show();
+        $('html, body').animate({ scrollTop: 300 }, 1500);
+    }
+    
+    function CloseInviteModal_@(Model.InstanceNumber)() {
+        $("#overlay_@Model.InstanceNumber").hide();
+            $("#inviteFriendContainer_@Model.InstanceNumber").hide();
+    }
+    
+    function Overlay_@(Model.InstanceNumber)() {
+        $("#inviteFriendContainer_@Model.InstanceNumber").hide();
+            $("#overlay_@Model.InstanceNumber").hide();
+    }
+
+    function SharePost_@(Model.InstanceNumber)() {
+        $.ajax({
+            url: "/Share/ShareEmail",
+            data: { EmailAddresses: $('#emailAddresses_@Model.InstanceNumber').val(), MessageSubject: $('#subject_@Model.InstanceNumber').val(), MessageBody: $('#messageBody_@Model.InstanceNumber').val(), UserMessageBody: $('#userMessageBody_@Model.InstanceNumber').val() },
+            type: 'POST',
+            success: function (data) {
+                $('#shareResult_@Model.InstanceNumber')
+                    .html(function () {
+                        var list = '';
+                        if (data == "Success") {
+                            list = 'Your invitation was successfully sent.';
+                            $('#userMessageBody_@Model.InstanceNumber').val('');
+                            $('#emailAddresses_@Model.InstanceNumber').val('');
+                        } else {
+                            //Service Failure
+                            list = 'Failure:  Please verify the email address(es) entered.';
+                        }
+                        return list;
+                    });
+            },
+            error: function (data, status, jqXhr) {
+                $('#shareResult_@Model.InstanceNumber')
+                    .html(function () {
+                        var list = ("FAILED: " + data.status + " " + data.responseText);
+                        return list;
+                    });
+            }
+        });
+    };
+</script>

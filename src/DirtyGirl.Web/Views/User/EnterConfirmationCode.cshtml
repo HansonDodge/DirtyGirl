@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "EnterConfirmationCode";
+}
+
+<h2>EnterConfirmationCode</h2>
+
+@Html.Partial("DisplayMessage")
+<br />
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(false)
+    <div>
+        Confirmation Code: @Html.TextBox("confirmationCode")
+    </div>
+    <input type="submit" value="Confirm" />
+}

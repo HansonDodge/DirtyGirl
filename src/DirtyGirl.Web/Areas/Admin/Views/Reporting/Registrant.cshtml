@@ -1,0 +1,55 @@
+﻿@model vmAdmin_EventFilter
+@{
+    ViewBag.Title = "Registrant";
+}
+
+<h2>Registrants</h2>
+
+@{Html.RenderPartial("partial/eventfilter", Model);}
+
+<br />
+
+<div id="ReportContainer">
+    @(Html.Kendo().Grid<vmAdmin_RegistrantListItem>()
+        .Name("grdRegistrants")
+        .ToolBar(toolBar =>
+                    toolBar.Custom()
+                        .Text("Export To Excel")
+                        .HtmlAttributes(new { id = "regExport" })
+                        .Action("ExportRegistrants", "reporting", new { eventId = Model.EventId })
+                        )
+        .Columns(cols =>
+        {
+            cols.Bound(r => r.LastName);
+            cols.Bound(r => r.FirstName);
+            cols.Bound(r => r.WaveDate).Format("{0:MM/dd/yyyy}");
+            cols.Bound(r => r.WaveTime).Format("{0:hh:mm tt}");
+            cols.Bound(r => r.RegistrationType).Title("Registration Type");
+            cols.Bound(r => r.RegistrationValue);
+            cols.Bound(r => r.Address1);
+            cols.Bound(r => r.Address2);
+            cols.Bound(r => r.City);
+            cols.Bound(r => r.State);
+            cols.Bound(r => r.Zip);
+            cols.Bound(r => r.Email);
+            cols.Bound(r => r.Phone);
+            cols.Bound(r => r.EmergencyContact);
+            cols.Bound(r => r.EmergencyPhone);
+            cols.Bound(r => r.MedicalInformation);
+            cols.Bound(r => r.SpecialNeeds);
+            cols.Bound(r => r.AgreeToTerms).Title("Agreed to Legal Terms");
+            cols.Bound(r => r.DateAdded).Format("{0:MM/dd/yyyy}").Title("Registration Date");
+        })
+        .HtmlAttributes(new { style = "width:1000px" })
+        .Pageable()
+        .Sortable()
+        .Filterable()
+        .DataSource(datasource => datasource
+            .Ajax()
+            .Read(read => read.Action("_RegistrantReport", "Reporting", new { eventId = Model.EventId }))
+            .PageSize(25)
+        )
+    )
+
+</div>
+

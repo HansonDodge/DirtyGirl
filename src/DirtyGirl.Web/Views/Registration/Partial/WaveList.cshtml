@@ -1,0 +1,36 @@
+﻿@model vmRegistration_WaveList
+
+@if (Model.MorningWaves.Count() > 0 || Model.EveningWaves.Count() > 0)
+{
+    
+
+    if (Model.MorningWaves.Count() > 0)
+    {
+        <div class="wave_section">
+            <div class="wave_time">
+                <h4>AM</h4>
+            </div>
+            <div class="wave_list">
+                @foreach (var wave in Model.MorningWaves)
+                {
+                    Html.RenderPartial("Partial/WaveListItem", wave);
+                }            
+            </div>
+        </div>
+    }
+
+    if (Model.EveningWaves.Count() > 0)
+    {
+        <div class="wave_section">
+            <div class="wave_time">
+                <h4>PM</h4>
+            </div>
+            <div class="wave_list">
+                @foreach (var wave in Model.EveningWaves)
+                {
+                    Html.RenderPartial("Partial/WaveListItem", wave);
+                }            
+            </div>
+        </div>
+    }
+}

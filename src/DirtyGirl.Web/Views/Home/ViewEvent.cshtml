@@ -1,0 +1,202 @@
+﻿@model vmViewEvent
+
+@{
+    ViewBag.Title = string.Format("View Event {0}", Model.EventDetails.Location);
+}
+
+@section includes
+{
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=@DirtyGirlConfig.Settings.GooleAPIKey&sensor=false"></script>
+}
+
+<script>
+    $(document).ready(function () {
+        DG.util.initEventTab();
+
+        var location = new google.maps.LatLng("@Model.EventDetails.Latitude", "@Model.EventDetails.Longitude");
+
+        var mapOptions = {
+            zoom: 12,
+            center: location,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        var image = '/images/location-pin-map.png';
+
+        marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+
+        DG.util.registerDetailColumn();
+    });
+</script>
+
+<style>
+    .mCSB_container { margin-right:10px;}
+</style>
+
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            @Html.Partial("_Hero")
+            @{Html.RenderPartial("EventHeader", Model.OverView);}
+            <div id="eventDetailContent" class="twoColumn">
+                <div class="contentMain">
+                    <div class="contentMain_copy">
+                        <p>@Html.Raw(Model.EventDetails.EventNews)</p>
+                    </div>
+                    <div class="contentMain_info">
+                        <div class="contentMain_info_tab">
+                            <a href="#" class="infotab-map active">MAP</a>
+                            <a href="#" class="infotab-eventinfo">EVENT INFO</a>
+                            <a href="#" class="infotab-faq">FAQS</a>
+                        </div>
+                        <div class="contentMain_info_content">
+                            <div class="contentMain_info_singlecontent map">
+                                <div class="event_map_content">
+                                    <div id="map_canvas" style="width: 750px; height: 530px"></div>
+                                    <div class="event_map_copy">
+                                        <img src="@Url.Content("~/images/dot.png")" />
+                                        <h5>LOCATION ADDRESS:</h5>
+                                        <p>@Model.EventDetails.Address @Model.EventDetails.City, @Model.EventDetails.State, @Model.EventDetails.Zip</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contentMain_info_singlecontent info hide">
+                                <div class="event_info_content">
+                                    <div class="reg-eventinfo_content">
+                                        <div class="eventScroll eventInfo">
+                                            <h3>RACE DAY INSTRUCTIONS</h3>
+                                            <h5>PACKET PICK-UP</h5>
+                                            <p>We ask that you show up a minimum of 1hr before your respective wave starts in order to pick up your event goodies. You will need a photo ID for check in that day. If you’re under 16 and you do not have a photo ID, no worries, just bring a print out of your registration with you instead. When you check in you will receive your Dirty Girl bib# with safety pins, a super cool Dirty Girl charm necklace and a unique one-of-a kind Dirty Girl shirt. You will need to secure the bib to the front of your shirt using the provided safety pins.</p>
+                                            <p>Please note, you can only pick up your things the day of at check in and they are not mailed out prior. If you are not able to make it, someone can pick up your shirt/necklace for you and will just need a copy of your registration confirmation. <b>Sorry ladies, but shirts and necklaces will not be shipped out after the event so plan accordingly</b>. </p>
+                                            <h5>PARKING</h5>
+                                            <p>What’s cooler than a day in the mud? Well, obviously nothing. But free parking is pretty cool, too. Most Dirty Girl Mud Runs have free parking but space will be limited so go green, save some gas money and carpool!</p>
+                                            <h5>WHAT TO WEAR</h5>
+                                            <p>We encourage you to wear anything you feel comfortable racing in– anything. Like to race in your bikini? Fine. It just has to be anything you don’t mind getting dirty. We do, however, recommend a solid pair of running shoes, towels, a garbage bag, and a change of clothes. And since dirt and sunburns don’t mix, plan ahead by packing some waterproof sunscreen.</p>
+                                            <h5>THINGS TO BRING</h5>
+                                            <p><b>Proper footwear</b>. Leave the stilettos at home. We recommend a lightly used trail shoe with decent tread to help get you up, over, around, and through our obstacles. Feel free to donate your unwanted shoes because we have an awesome team who will clean, sanitize and send those shoes all over the world to be reused in developing countries. </p>
+                                            <p><b>Proper clothing</b>. Dress for the elements and for being active and muddy. </p>
+                                            <p><b>Cash</b>. Don’t forget cash for libations and local fare which will be available in our Expo Village.</p>
+                                            <p><b>Change of clothes/towel</b>. We will have a secure bag check, so you can leave your change of clothes/towel with us while you participate and retrieve after. If you’d like to hose yourself down and tidy-up before hitting the Expo Village and getting your party on, a rinse station and enclosed changing tent will be available. Ladies, it not a shower it is a rinse station. The goal here is to get the majority of the mud off, not to be squeaky clean. A word to the wise, bring an old towel and garbage bag for all your wet and Dirty clothing. Please leave your valuables at home.</p>
+                                            <p><b>Great attitude!</b> This will be the most fun you have all year.</p>
+                                            <p>No outside alcoholic beverages or glass bottles allowed</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contentMain_info_singlecontent faq hide">
+                                <div class="faq_content">
+                                    <div class="reg-faq_content">
+                                        <div class="eventScroll eventFaq">
+                                            <h3>FAQs</h3>
+                                            <h5>How do I register a team?</h5>
+                                            <p>To register as a team, first decide on your team name and second determine what time you would like to start. Waves go off every 15 minutes beginning at 8:00 am with our only competitive wave, and our last wave goes out at 4:00 pm. Check in on facebook to get wave updates. Once you have a team name and you’ve found a wave that works, each person needs to register individually and enter that info when prompted during the registration process. Waves fill up quickly, so the sooner each team member can register, the better off you are at getting a spot in that wave. Once a wave is closed, it’s closed. We can’t add more people to a closed wave for safety reasons. We are doing our best to ensure a fun and safe event; we’d appreciate your efforts as well.</p>
+                                            <h5>How big/small do teams have to be?</h5>
+                                            <p>A team can be as big or as small as you’d like.  </p>
+                                            <h5>Do I have to be in a team to participate?</h5>
+                                            <p>No. You can participate as an individual or as a team; whatever suites you best.</p>
+                                            <h5>Do I have to know how to swim to do the “H2OMG” water pit?</h5>
+                                            <p>No. The water pit will be knee to waist deep and you’ll have to traverse through it. Water wings are optional, and if you don’t feel comfortable you may always bypass the obstacle.</p>
+                                            <h5>What do I get with my registration fee?</h5>
+                                            <p>In addition to the time of your life, your registration fee entitles you to a Dirty Girl tee-shirt, a Dirty Girl silhouette charm and other cool stuff like music, entertainment, and the benefit of knowing that you are helping the National Breast Cancer Foundation in the fight against cancer.</p>
+                                            <h5>I am not in the best of shape, can I still participate?</h5>
+                                            <p>Absolutely. The event is non-competitive and will not be timed, so there is no need to hustle to get through the course. We do recommend some light cardio a couple times per week paired with some upper body strengthening to help you get up and over the obstacles. However, you’ll have the option to bypass any obstacle that you’re not comfortable tackling.</p>
+                                            <h5>I am pregnant/have a medical issue, can I still participate?</h5>
+                                            <p>We may know how to put on an awesome event, but our prenatal/medical knowledge is limited. Consult your doctor before registering.</p>
+                                            <h5>What if I can’t complete a particular obstacle?</h5>
+                                            <p>All obstacles will be manageable. The more difficult obstacles will have varying degrees of difficulty to accommodate to different fitness levels. We would like you to try to complete each obstacle, but if you feel you can’t then you can go around.</p>
+                                            <h5>Will the obstacles be the same at every location?</h5>
+                                            <p>For the most part yes, however there might be slight variations at each event.</p>
+                                            <h5>When is the latest I can register?</h5>
+                                            <p>Unless an event sells out first, registration will be open until 6pm CDT the day before the event, but don’t wait too long to get your Dirty on because waves (start times) fill up quickly and there is limited space in each.</p>
+                                            <h5>Can I register the day of the event?</h5>
+                                            <p>No. Registration closes the day before the event 6pm CDT. All registrations need to be final prior to that. </p>
+                                            @*<h5>I need to transfer my registration to someone else, how do I do that?</h5>*@
+                                            <h5>Can I transfer the day of the event?</h5>
+                                            <p>No. Due to various reasons, day of transfers will not be accepted.  </p>
+                                            <h5>How much is the registration fee?</h5>
+                                            <p>The registration fee varies depending on the event and how much time is left before the event itself. Our early registration fee is $65 for a limited time, so get it while it’s hot. After that, the price will increase to $75, $85 and finally $100 right before the event.  </p>
+                                            <p>Check the registration page for the Dirty Girl you are interested in for exact pricing schedule and valid dates. *insert link to event schedule*</p>
+                                            <p>Please note that the registration fee is per person and we do not have group discounts. </p>
+                                            <h5>I can no longer participate, can I get a refund?</h5>
+                                            <p>We have a strict no refund policy and refunds will not be issued under any circumstances. If you are simply unable to make it you do have options. You can either transfer your registration to someone else or apply your registration to another Dirty Girl Mud Run for a small fee. *All changes need to be made prior to the registration deadline for the event.  *You will receive a credit for 100% of your registration that can be applied towards another event. </p>
+                                            <h5>What if a wave is sold out?</h5>
+                                            <p>Each wave has a limited amount of space and once a wave is full it is sold out. Anyone who is already registered has the ability to switch to another open wave that day if there is still space available. </p>
+                                            <h5>What is the minimum age to participate?</h5>
+                                            <p>Dirty Girls need to be at least 14 years old at the time of the event. Sorry, but no exceptions will be made. If you are under 18 years old, you will need to be accompanied by an adult the day of the event. Have a team with more than one girl under 18? No worries, bring along one adult that day for the whole team.  </p>
+                                            <h5>Is the Dirty Girl Mud Run really for women only?</h5>
+                                            <p>Yes. But, great news, spectators are more and welcome to come cheer you on that day! Even better news, there is no charge. About the dogs (pets of any kind) though, we love em’ as much as you but they will need to stay at home that day. </p>
+                                            <h5>Why can’t I register from my phone/tablet?</h5>
+                                            <p>It is important to know that we are not compatible with smart phones or tablets yet so all registrations need to be completed from a computer. </p>
+                                            <h5>What is there for spectators to do?</h5>
+                                            <p>We will have a robust sponsor village for them to check out what our awesome sponsors are up to. There is plenty of mouth-watering event style concessions for them to enjoy. They will be able to soak up the vibe and energy at the start area. They will be able to cheer on their Dirty Girls as they cross the finish. We give access to view as much of the course as possible but safety of the participants is our #1 concern which means they may not have access to view the entire course and will not be allowed on the actual course at any point in time throughout the event.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contentSidePanel viewEventSidePanel">
+                    <div class="contentSidePanel_top">&nbsp;</div>
+                    <div class="contentSidePanel_side">
+                        <div class="contentSideRegister">
+                        <div class="contentSide_registration">
+                            @if (Request.IsAuthenticated)
+                            {   
+                                <h3>Welcome, @(User.Identity.Name)!</h3>
+                                <a class="btnPink" href="@Url.Action("startnewregistration", "transaction", new { eventId = @Model.EventDetails.EventId })">SIGN UP FOR @Model.EventDetails.StateCode</a>           
+                                <br />
+                            }
+                            else
+                            {
+                                <h3>BEGIN REGISTRATION</h3>
+                                <p>To continue with registration please login with your Dirty Girl account or create a new account below.</p>
+                                <div class="cta">
+                                    <p><a href="#" class="showloginmodal">
+                                        <img src="@Url.Content("~/images/btn_login.png")" /></a><span>OR</span></p>
+                                    <p><a href="@Url.Action("createuser", "user", new { eventId = @Model.EventDetails.EventId, redirectUrl = Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Authority + "/transaction/StartNewRegistration?eventId=" + Model.EventDetails.EventId })">
+                                        <img src="@Url.Content("~/images/btn_createAccount.png")" /></a></p>
+                                </div>
+                                <p>Register using Facebook so you can share your Dirty Girl experience with friends.</p>
+                                <p><a href="@Url.Content(@"~/User/Facebook?state=" + Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Authority + "/transaction/StartNewRegistration?eventId=" + Model.EventDetails.EventId)">
+                                    <img src="@Url.Content("~/images/btn_loginFb.png")" /></a></p>   
+                            }
+                        </div>
+                        <div class="contentSide_separator">
+                            <img src="@Url.Content("~/images/img_contentSide_separator.png")" />
+                        </div>
+                        <div class="contentSide_sponsors">
+                            <h4>SPONSORS</h4>
+                            <div class="sponsors">
+                                <img src="@Url.Content("~/images/sponsors/sponsor-fleet.jpg")" />
+                                <img src="@Url.Content("~/images/sponsors/sponsor-fleet.jpg")" />
+                                <img src="@Url.Content("~/images/sponsors/sponsor-fleet.jpg")" />
+                                <img src="@Url.Content("~/images/sponsors/sponsor-fleet.jpg")" />
+                                <img src="@Url.Content("~/images/sponsors/sponsor-fleet.jpg")" />
+                            </div>
+                            @if (Model.EventDetails.Sponsors != null && Model.EventDetails.Sponsors.Any())
+                            {
+                                <h4>LOCAL SPONSORS</h4>
+                                <div class="sponsors">
+                                    @foreach (var sponsor in Model.EventDetails.Sponsors)
+                                    {
+                                        <img src="@Url.Content(sponsor.thumbnailUrl)" alt="@sponsor.SponsorName" />
+                                    }
+                                </div>
+                            }
+                        </div>
+                        </div>
+                    </div>
+                    <div class="contentSidePanel_bottom">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+
+

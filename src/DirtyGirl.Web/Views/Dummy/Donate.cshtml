@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "Donate";
+}
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#yes-donate").click(function (e) {
+            $(".donate_amount").show();
+        });
+        $("#no-donate").click(function (e) {
+            $(".donate_amount").hide();
+        });
+
+        $("#yes-donate").click();
+
+    });
+</script>
+<style>
+    .register_next_copy p { text-align: right;}
+</style>
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            <div class="hero">
+                <img src="@Url.Content("~/images/dg-header.jpg")" />
+            </div>
+            <div id="eventDetailContent" class="twoColumn">
+                <div class="contentMain">
+                    <div class="contentMain_header">
+                        <div class="cm_header_city">
+                            <h4>MIAMI, FL</h4>
+                        </div>
+                        <div class="cm_header_where">
+                            <h5>WHERE:</h5>
+                            <p>Greater Miami Area</p>
+                        </div>
+                        <div class="cm_header_dates">
+                            <h5>DATES:</h5>
+                            <p>9/26/2012 - 9/28/2013</p>
+                        </div>
+                    </div>
+                    <div class="contentMain_copy register donate">
+                        <div class="registration_steps">
+                            <img src="@Url.Content("~/images/reg-progress-muddier.png")" />
+                        </div>
+                        <div class="registration_donate">
+                            <div class="registration_donate_top">
+                                <h2>DONATE</h2>
+                                <h4>DONATE FOR A GOOD CAUSE</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat dignissim egestas. In hac habitasse platea dictumst. Etiam eu nulla vel eros fermentum venenatis et ac libero. Nullam ultricies dolor in tellus bibendum commodo. Maecenas nulla dui, malesuada eget luctus a, tincidunt vel justo. Etiam cursus, felis vel pellentesque venenatis, lectus ipsum aliquet purus, eget sodales est nunc pharetra urna.</p>
+                                <p><a class="pink" href="http://www.nationalbreastcancer.org" target="_blank">www.nationalbreastcancer.org</a></p>
+                                <p style="width:230px;">Nullam ultricies dolor in tellus bibendum commodo. Maecenas nulla dui, malesuada eget luctus a, tincidunt.</p>
+                                <img class="nbc_logo" src="@Url.Content("~/images/national-breast-cancer-logo.jpg")" />
+                            </div>
+                            <div class="registration_donate_separator">
+                                <img src="@Url.Content("~/images/img_separator.png")" />
+                            </div>
+                            <div class="registration_donate_bottom">
+                                <p>Would you like to make a personal donation to The National Breast Cancer Foundation? </p>
+                                <div class="donate_input">
+                                    <div class="donate_check">
+                                        <div class="single_donate_check">
+                                            <input type="radio" name="donate" id="yes-donate" checked="checked" /><label for="yes-donate">Yes, I would</label>
+                                        </div>
+                                        <div class="single_donate_check">
+                                            <input type="radio" name="donate" id="no-donate" /><label for="no-donate">No thank you, not at this time</label>
+                                        </div>
+                                    </div>
+                                    <div class="donate_amount">
+                                        <select>
+                                            <option selected>Select an amount</option>
+                                            <option>$1</option>
+                                        </select>
+                                        <input type="text" placeholder="Enter a custom amount" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="register_next">
+                            <div class="register_next_copy">
+                                <p>Thank you! Your donation will be added to your total.</p>
+                            </div>
+                            <div class="register_next_button">
+                                <a href="#">NEXT</a>
+                            </div>
+                        </div>
+                        <div class="donation_bar">
+                            <h3>GOAL: $2500</h3>
+                            <div class="donation_bar_content">
+                                <div class="current_donation">
+                                    <p>Current<br />Total:</p>
+                                    <p class="bold">$498</p>
+                                </div>
+                                <div class="current_donation_mud" style="height:115px;">
+                                    &nbsp;
+                                </div>
+                                <div class="donation_amount">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contentSidePanel">
+                    <div class="contentSidePanel_top">&nbsp;</div>
+                    <div class="contentSidePanel_side">
+                        <div class="contentSideFaq">
+                            <h3>FAQS</h3>
+                            <p class="bold">Is the Dirty Girl Mud Run really for women only?</p>
+                            <p>Yes. But, great news, spectators are more and welcome to come cheer you on that day! Even better news, there is no charge. About the dogs (pets of any kind) though, we love em’ as much as you but they will need to stay at home that day. </p>
+                            <p class="bold">What is the minimum age to participate?</p>
+                            <p>Dirty Girls need to be at least 14 years old at the time of the event. Sorry, but no exceptions will be made. If you are under 18 years old, you will need to be accompanied by an adult the day of the event. Have a team with more than one girl under 18? No worries, bring along one adult that day for the whole team.  </p>
+                            <p class="bold">I am not in the best of shape, can I still participate?</p>
+                            <p>Absolutely. The event is non-competitive and will not be timed, so there is no need to hustle to get through the course. We do recommend some light cardio a couple times per week paired with some upper body strengthening to help you get up and over the obstacles. However, you’ll have the option to bypass any obstacle that you’re not comfortable tackling.</p>
+                            <p class="bold">I am pregnant/have a medical issue, can I still participate?</p>
+                            <p>We may know how to put on an awesome event, but our prenatal/medical knowledge is limited. Consult your doctor before registering.</p>
+                            <p class="bold">What if I can’t complete a particular obstacle?</p>
+                            <p>All obstacles will be manageable. The more difficult obstacles will have varying degrees of difficulty to accommodate to different fitness levels. We would like you to try to complete each obstacle, but if you feel you can’t then you can go around.</p>
+                            <p class="bold">When is the latest I can register?</p>
+                            <p>Unless an event sells out first, registration will be open until 6pm CDT the day before the event, but don’t wait too long to get your Dirty on because waves (start times) fill up quickly and there is limited space in each.</p>
+                            <p class="bold">Can I register the day of the event?</p>
+                            <p>No. Registration closes the day before the event 6pm CDT. All registrations need to be final prior to that. </p>
+                            <p class="bold">I need to transfer my registration to someone else, how do I do that?</p>
+                            <p>"Insert new transfer instructions here"</p>
+                            <p class="bold">Can I transfer the day of the event?</p>
+                            <p>No. Due to various reasons, day of transfers will not be accepted.  </p>
+                            <p class="bold">How much is the registration fee?</p>
+                            <p>The registration fee varies depending on the event and how much time is left before the event itself. Our early registration fee is $65 for a limited time, so get it while it’s hot. After that, the price will increase to $75, $85 and finally $100 right before the event.  </p>
+                            <p><a href="#">Check the registration page for the Dirty Girl you are interested in for exact pricing schedule and valid dates</a>.</p>
+                            <p>Please note that the registration fee is per person and we do not have group discounts. </p>
+                        </div>
+                    </div>
+                    <div class="contentSidePanel_bottom">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+
+
+

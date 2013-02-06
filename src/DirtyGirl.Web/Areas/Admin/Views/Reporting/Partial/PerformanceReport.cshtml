@@ -1,0 +1,145 @@
+﻿@model vmAdmin_PerformanceReport
+
+@{
+    ViewBag.Title = "Performance Report";
+    Layout = null;
+}
+
+<h2>Performance Report</h2>
+
+<div id="PerformanceReport">
+    <div class="PerformanceColumn">
+        <table>
+            <tr>
+                <td>Event Revenue:</td>
+                <td style="text-align:right;">@Model.TotalRevenue.ToString("C")</td>
+            </tr>
+            <tr>
+                <td>Days count:</td>
+                <td style="text-align:right;">@Model.DayCount</td>
+            </tr>
+            <tr>
+                <td>Event Count:</td>
+                <td style="text-align:right;">@Model.EventCount</td>
+            </tr>
+            <tr>
+                <td>Revenue Per Day:</td>
+                <td style="text-align:right;">@Model.RevenuePerDay.ToString("C")</td>
+            </tr>
+            <tr>
+                <td>Revenue Per Event:</td>
+                <td style="text-align:right;">@Model.RevenuePerEvent.ToString("C")</td>
+            </tr>
+        </table>
+    </div>
+    <div class="PerformanceColumn">
+        <table>            
+            <tr>
+                <td>Available Spots:</td>
+                <td style="text-align:right;">@Model.TotalSpots</td>
+            </tr>
+            <tr>
+                <td>Active Registrations:</td>
+                <td style="text-align:right;">@Model.SpotsTaken</td>
+            </tr>             
+             <tr>
+                <td>Spots Available:</td>
+                <td style="text-align:right;">@Model.SpotsLeft</td>
+            </tr>
+             <tr>
+                <td>Registrations Per Day:</td>
+                <td style="text-align:right;">@Model.RegPerDay</td>
+            </tr>
+        </table>
+    </div>
+    <div class="PerformanceColumn">
+        <table>
+            <tr>
+                <td>Fee Total:</td>
+                <td style="text-align:right;">@Model.FeeValue.ToString("C")</td>
+            </tr>             
+             <tr>
+                <td>Discount value:</td>
+                <td style="text-align:right;">@Model.DiscountValue.ToString("C")</td>
+            </tr>
+             <tr>
+                <td>Local Tax:</td>
+                <td style="text-align:right;">@Model.LocalTaxValue.ToString("C")</td>
+            </tr>
+            <tr>
+                <td>State Tax:</td>
+                <td style="text-align:right;">@Model.StateTaxValue.ToString("C")</td>
+            </tr>            
+            <tr>
+                <td>Total Revenue:</td>
+                <td style="text-align:right;">@Model.FeeActualRevenue.ToString("C")</td>
+            </tr>
+        </table>
+    </div>
+        <div class="PerformanceColumn">
+        <table>
+            <tr>
+                <td>Charge Total:</td>
+                <td style="text-align:right;">@Model.ChargeValue.ToString("C")</td>
+            </tr>             
+             <tr>
+                <td>Local Tax:</td>
+                <td style="text-align:right;">@Model.ChargeLocalTaxValue.ToString("C")</td>
+            </tr>
+            <tr>
+                <td>State Tax:</td>
+                <td style="text-align:right;">@Model.ChargeStateTaxValue.ToString("C")</td>
+            </tr>            
+            <tr>
+                <td>Total Revenue:</td>
+                <td style="text-align:right;">@Model.ChargeActualRevenue.ToString("C")</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div style="clear:both;"></div>
+
+@if (Model.FeeReport.Count > 0)
+{
+    <fieldset>
+        <legend>Event Fees</legend>        
+        <div class="feeReport">
+            @foreach (var feeType in Model.FeeReport.GroupBy(x => x.FeeType).Select(x => x.Key))
+            {
+                <h3>@feeType</h3>  
+                    @(Html.Kendo()
+                    .Grid(Model.FeeReport.Where(x => x.FeeType == feeType).OrderBy(x => x.Cost))
+                    .Name("grd" + feeType.ToString())
+                    .Columns(cols =>
+                        {
+                            cols.Bound(x => x.Cost).Format("{0:C}");
+                            cols.Bound(x => x.UseCount);
+                            cols.Bound(x => x.CostTotal).Format("{0:C}");
+                            cols.Bound(x => x.DiscountTotal).Format("{0:C}");
+                            cols.Bound(x => x.LocalTaxTotal).Format("{0:C}");
+                            cols.Bound(x => x.StateTaxTotal).Format("{0:C}");
+                            cols.Bound(x => x.ActualTotal).Format("{0:C}");                      
+                        }))        
+            }
+        </div>
+    </fieldset>  
+    
+    if (Model.ChargeReport.Count > 0)
+    {
+        <div class="feeReport">
+            <h3>Event Charges</h3>              
+                @(Html.Kendo()
+                .Grid(Model.ChargeReport.OrderBy(x => x.Name))
+                .Name("grdCharge")
+                .Columns(cols =>
+                    {
+                        cols.Bound(x => x.Name);
+                        cols.Bound(x => x.CostTotal).Format("{0:C}");
+                        cols.Bound(x => x.DiscountTotal).Format("{0:C}");
+                        cols.Bound(x => x.LocalTaxTotal).Format("{0:C}");
+                        cols.Bound(x => x.StateTaxTotal).Format("{0:C}");
+                        cols.Bound(x => x.ActualTotal).Format("{0:C}");                      
+                    }))                    
+        </div>
+    }  
+}

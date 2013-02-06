@@ -1,0 +1,13 @@
+﻿@model int
+
+@{Layout = null;}
+
+@(Html.Kendo().Upload()
+    .Name("logos")
+    .Async(async => async
+        .Save("Ajax_AddLogo", "Event", new {masterEventId = Model})
+        .Remove("Ajax_RemoveLogo", "Event", new {masterEventId = Model})
+        .AutoUpload(true)
+        )
+)  
+

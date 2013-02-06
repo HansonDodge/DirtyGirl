@@ -1,0 +1,72 @@
+﻿@model vmLogon
+
+@{
+    ViewBag.Title = "LogOn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            @Html.Partial("_Hero")
+            <div id="eventDetailContent" class="oneColumn loginbox">
+                @using (Html.BeginForm()) 
+                {
+                    <div class="contentMain">
+                        <div class="contentMain_copy register form">
+                            <h1 class="pink">LOGIN TO YOUR DIRTY GIRL ACCOUNT</h1>
+                            <br />
+                            <div class="registration_form">
+                                <div Id="LogInBox">
+                                @Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")                            
+                                    <div class="single_input">
+                                        @Html.LabelFor(m => m.UserName)
+                                        @Html.TextBoxFor(m => m.UserName)
+                                        @Html.ValidationMessageFor(m => m.UserName)
+                                    </div>
+                                    <div class="single_input">
+                                        @Html.LabelFor(m => m.Password)
+                                        @Html.PasswordFor(m => m.Password)
+                                        @Html.ValidationMessageFor(m => m.Password)
+                                    </div>
+                                    <div class="single_checkbox">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe)
+                                        <p>@Html.ActionLink("Forgot Username or Password", "ForgotPassword", "Authorize")</p>
+                                    </div>
+                                    <div class="login_submit" style="margin:20px 0 5px;">
+                                        <div class="submitLoginForm">
+                                            <input type="image" value="Logon" src="@Url.Content("~/images/btn_submit_modal.png")" alt="Logon to Dirty Girl" />
+                                        </div>
+                                        <p>or</p>
+                                        <div class="loginFacebookModal">
+                                            <a href="@Url.Content(@"~/User/Facebook?state=" + Model.ReturnUrl)">
+                                                <img src="@Url.Content("~/images/btn_loginFb.png")" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="single_input" style="margin: 0;">
+                                        <p>Don't have an account? @Html.ActionLink("Sign up.", "CreateUser", "User")</p>
+                                    </div>
+                                </div>
+                            </div>                        
+                            @*<div class="register_next">
+                                <div class="register_next_button authLoginSubmit">
+                                    <input type="submit" class="btnPink" value="Log On" style="position:relative;cursor:pointer;" />
+                                    <p>or <a href="@Url.Content(@"~/User/Facebook?state=" + Model.ReturnUrl)"><img src="@Url.Content("~/images/btn_loginFb.png")" /></a></p>
+                                </div>
+                            </div>*@
+                            </div>
+                    </div>
+                }
+                
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+
+
+
+
+

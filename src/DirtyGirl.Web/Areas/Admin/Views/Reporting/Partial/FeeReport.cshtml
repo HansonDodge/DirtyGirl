@@ -1,0 +1,30 @@
+﻿@model List<FeeReport>
+
+@{Layout = null;}
+
+<fieldset>
+    <legend>Event Fees</legend>
+
+    @foreach (var feeType in Model.GroupBy(x => x.FeeType).Select(x => x.Key))
+    {
+        <h3>@feeType</h3>
+        foreach (var fee in Model.Where(x => x.FeeType == EventFeeType.Registration))
+        {    
+            @(
+                Html.Kendo()
+                .Grid(Model.Where(x => x.FeeType == feeType).OrderBy(x => x.Cost))
+                .Name("grd" + feeType.ToString())
+                .Columns(cols =>
+                    {
+                        cols.Bound(x => x.Cost).Format("{0:C}");
+                        cols.Bound(x => x.UseCount);
+                        cols.Bound(x => x.CostTotal).Format("{0:C}");
+                        cols.Bound(x => x.DiscountTotal).Format("{0:C}");
+                        cols.Bound(x => x.LocalTaxTotal).Format("{0:C}");
+                        cols.Bound(x => x.StateTaxTotal).Format("{0:C}");
+                        cols.Bound(x => x.ActualTotal).Format("{0:C}");                      
+                   })
+            )
+        }    
+    }
+</fieldset>

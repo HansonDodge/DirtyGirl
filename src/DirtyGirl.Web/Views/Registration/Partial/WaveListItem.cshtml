@@ -1,0 +1,12 @@
+﻿@model vmRegistration_WaveItem
+
+<div class="single_wave">
+    <p id="WaveNumber_@Model.EventWaveId">Wave @Model.WaveNumber</p>
+    <div class="@Model.cssClassName" >
+        <p id="WaveTime_@Model.EventWaveId">@Model.StartTime.ToString("h:mm tt")</p>
+        <p>@Model.WaveNotification</p>
+    </div>
+    @if(!Model.isFull){
+        <a href="#" class="clickarea" id="@Model.EventWaveId" >&nbsp;</a>
+    }
+</div>

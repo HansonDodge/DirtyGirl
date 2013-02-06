@@ -1,0 +1,607 @@
+﻿@model vmAdmin_EditEvent
+
+@{
+    ViewBag.Title = "Edit Event";
+}
+
+@section includes
+{
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=@DirtyGirlConfig.Settings.GooleAPIKey&sensor=false"></script>
+}
+
+@Html.Partial("DisplayMessage")
+
+@using (Html.BeginForm("EditEvent", "Event", FormMethod.Post, new { id = "EditEventForm" }))
+{  
+    <h3>@Html.ActionLink("Preview Event", "ViewEvent", "Home", new { id = @Model.Event.EventId, Area = "" }, new { target = "_blank", title = "Only displays saved event data" })</h3>
+    <div>
+        <div style="position: relative; overflow: hidden;">
+            <fieldset>
+                <legend>Event Details</legend>
+                <div style="float: left; width: 300px; margin-right: 80px;">
+                    @Html.ValidationSummary(false, "Please fix the following errors before continuing.")
+                    @Html.HiddenFor(x => x.Event.EventId)
+
+                    <div class="entryRow">
+                        <div class="entryLabel">Is Active:</div>
+                        <div class="entryInput">
+                            @Html.CheckBoxFor(x => x.Event.IsActive)
+                            @Html.ValidationMessageFor(x => x.Event.IsActive)
+                        </div>
+                    </div>
+                    <div class="entryRow">
+                        <div class="entryLabel">Where:</div>
+                        <div class="entryInput">
+                            @Html.TextBoxFor(x => x.Event.Place)
+                            @Html.ValidationMessageFor(x => x.Event.Place, "*")
+                        </div>
+                    </div>
+
+                    <div class="entryRow">
+                        <div class="entryLabel">General Locality:</div>
+                        <div class="entryInput">
+                            @Html.TextBoxFor(x => x.Event.GeneralLocality)
+                            @Html.ValidationMessageFor(x => x.Event.GeneralLocality)
+                        </div>
+                    </div>
+
+                    <div class="entryRow">
+                        <div class="entryLabel">Address 1:</div>
+                        <div class="entryInput">
+                            @Html.TextBoxFor(x => x.Event.Address1)
+                            @Html.ValidationMessageFor(x => x.Event.Address1)
+                        </div>
+                    </div>
+
+                    <div class="entryRow">
+                        <div class="entryLabel">Address 2:</div>
+                        <div class="entryInput">
+                            @Html.TextBoxFor(x => x.Event.Address2)
+                            @Html.ValidationMessageFor(x => x.Event.Address2)
+                        </div>
+                    </div>
+
+                    <div class="entryRow">
+                        <div class="entryLabel">City:</div>
+                        <div class="entryInput">
+                            @Html.TextBoxFor(x => x.Event.Locality)
+                            @Html.ValidationMessageFor(x => x.Event.Locality)
+                        </div>
+                    </div>
+
+                    <div class="entryRow">
+                        <div class="entryLabel">State:</div>
+                        <div class="entryInput">
+                            @(Html.Kendo().DropDownListFor(x => x.Event.RegionId)
+                            .DataTextField("Name")
+                            .DataValueField("RegionId")
+                            .BindTo(Model.RegionList))
+                            @Html.ValidationMessageFor(x => x.Event.RegionId)
+                        </div>
+                    </div>
+
+                    <div class="entryRow">
+                        <div class="entryLabel">Postal Code:</div>
+                        <div class="entryInput">
+                            @Html.TextBoxFor(x => x.Event.PostalCode)
+                            @Html.ValidationMessageFor(x => x.Event.PostalCode)
+                        </div>
+                    </div>
+                    <div class="entryRow">
+                        <div class="entryLabel">State Tax:</div>
+                        <div class="entryInput">
+                            @Html.Kendo().NumericTextBoxFor(x => x.Event.StateTax).Max(100).Min(0).Decimals(2).Step(1)                          
+                            @Html.ValidationMessageFor(x => x.Event.StateTax)
+                        </div>
+                    </div>
+                    <div class="entryRow">
+                        <div class="entryLabel">Local Tax:</div>
+                        <div class="entryInput">
+                            @Html.Kendo().NumericTextBoxFor(x => x.Event.LocalTax).Max(100).Min(0).Decimals(2).Step(1)
+                            @Html.ValidationMessageFor(x => x.Event.StateTax)
+                        </div>
+                    </div>
+
+                </div>
+                <div style="float: left; position: relative; width: 800px;">
+                    <div id="map_canvas" style="width: 100%; height: 300px"></div>
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <input type="button" onclick="setCurrentLocation()" value="Set Marker using address" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Latitude:</td>
+                            <td>@Html.TextBoxFor(x => x.Event.Latitude)</td>
+                        </tr>
+                        <tr>
+                            <td>Longitude:</td>
+                            <td>@Html.TextBoxFor(x => x.Event.Longitude)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input id="PlaceMarker" type="button" value="Set Marker on Main Map" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>X Coordinate (Pixel):</td>
+                            <td>@Html.TextBoxFor(x => x.Event.PinXCoordinate, new { id = "xCoordinate" })</td>
+                        </tr>
+                        <tr>
+                            <td>Y Coordinate (Pixel):</td>
+                            <td>@Html.TextBoxFor(x => x.Event.PinYCoordinate, new { id = "yCoordinate" })</td>
+                        </tr>
+
+                    </table>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div style="margin: 20px 0;">
+        <fieldset>
+            <legend>Event Details</legend>
+            @(Html.Kendo().EditorFor(x => x.Event.EventDetails).HtmlAttributes(new { style = "width: 100%;height:440px" }))
+        </fieldset>
+    </div>
+    <div style="margin: 20px 0;">
+        <fieldset>
+            <legend>Event Dates</legend>
+
+            @(Html.Kendo().Grid<EventDate>()
+                .Name("grdEventDates")
+                .ToolBar(commands => commands.Custom().Text(" + Add Event Date").HtmlAttributes(new { id = "NewEventDate" }))
+                .Columns(cols =>
+                {
+                    cols.Bound(e => e.DateOfEvent).Title("Date Of the Event");
+                    cols.Bound(e => e.IsActive).Title("Active");
+                    cols.Command(command => { command.Edit(); command.Destroy(); }).Width(500);
+                })
+                .Editable(editable => editable.Mode(GridEditMode.InLine))
+                .DataSource(datasource => datasource
+                    .Ajax()
+                    .Events(events => events.Error("error_handler"))
+                    .Model(model => model.Id("EventDateId"))
+                    .Read(read => read.Action("Ajax_GetEventDates", "Event", new { masterEventId = @Model.Event.EventId }))
+                    .Create(add => add.Action("Ajax_CreateEventDate", "Event", new { masterEventId = @Model.Event.EventId }))
+                    .Update(save => save.Action("Ajax_UpdateEventDate", "Event"))
+                    .Destroy(delete => delete.Action("Ajax_DeleteEventDate", "Event"))
+                )
+                .ClientDetailTemplateId("EventWaveTemplate")
+            )
+
+            <script id="EventWaveTemplate" type="text/kendo-tmpl">
+                @(Html.Kendo().Grid<EventWave>()
+                    .Name("Waves_#=EventDateId#")
+                    .ToolBar(toolbar => toolbar.Create())
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.StartTime);
+                        columns.Bound(x => x.EndTime);
+                        columns.Bound(x => x.IsActive);
+                        columns.Bound(x => x.MaxRegistrants);
+                        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(400);
+                    })
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Events(events => events.Error("error_handler"))
+                        .Model(model => model.Id("EventWaveId"))
+                        .Read(read => read.Action("Ajax_GetEventWaves", "Event", new { masterEventDateId = "#= EventDateId #" }))
+                        .Create(add => add.Action("Ajax_CreateEventWave", "Event", new { masterEventDateId = "#= EventDateId #" }))
+                        .Update(save => save.Action("Ajax_UpdateEventWave", "Event"))
+                        .Destroy(delete => delete.Action("Ajax_DeleteEventWave", "Event"))
+                    )
+                    .ToClientTemplate()
+                )            
+            </script>
+
+        </fieldset>
+    </div>
+    <div style="margin: 20px 0;">
+        <fieldset>
+            <legend>Registration Fees</legend>
+            @(Html.Kendo().Grid<EventFee>()
+                .Name("grdRegistrationFees")
+                .ToolBar(toolbar => toolbar.Create())
+                .Columns(columns =>
+                {
+                    columns.ForeignKey("EventFeeType", new SelectList(Model.FeeTypes, "value", "text")).Title("Fee Type");
+                    columns.Bound(x => x.EffectiveDate);
+                    columns.Bound(x => x.Cost);
+                    columns.Command(command => { command.Edit(); command.Destroy(); }).Width(400);
+                })
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Events(events => events.Error("error_handler"))
+                    .Model(model => model.Id("PurchaseItemId"))
+                    .Read(read => read.Action("Ajax_GetEventFees", "Event", new { masterEventId = @Model.Event.EventId }))
+                    .Create(add => add.Action("Ajax_CreateEventFee", "Event", new { masterEventId = @Model.Event.EventId }))
+                    .Update(save => save.Action("Ajax_UpdateEventFee", "Event"))
+                    .Destroy(delete => delete.Action("Ajax_DeleteEventFee", "Event")))
+                )
+        </fieldset>
+    </div>   
+    
+    
+        <div style="margin: 20px 0;">
+        <fieldset>
+            <legend>Event Leads</legend>
+            @(Html.Kendo().Grid<vmAdmin_EventLeadItem>()
+                .Name("grdEventLeads")
+                .ToolBar(toolbar => toolbar.Create())
+                .Columns(columns =>
+                {
+                    columns.ForeignKey("EventLeadTypeId", new SelectList(Model.EventLeadTypes, "value", "text")).Title("Lead Type");
+                    columns.Bound(x => x.Title);
+                    columns.Bound(x => x.DisplayText);
+                    columns.ForeignKey("IsGlobal", new SelectList(Model.IsGlobal, "value", "text")).Title("Is Global?");
+                    columns.Command(command => { command.Edit(); command.Destroy(); }).Width(400);
+                })
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Events(events => events.Error("error_handler"))
+                    .Model(model => model.Id("EventLeadId"))
+                    .Read(read => read.Action("Ajax_GetEventLeads", "Event", new { masterEventId = @Model.Event.EventId }))
+                    .Create(add => add.Action("Ajax_CreateEventLead", "Event", new { masterEventId = @Model.Event.EventId }))
+                    .Update(save => save.Action("Ajax_UpdateEventLead", "Event", new { masterEventId = @Model.Event.EventId }))
+                    .Destroy(delete => delete.Action("Ajax_DeleteEventLead", "Event")))
+                )
+        </fieldset>
+    </div> 
+    
+    
+    
+    <div style="margin: 20px 0;">
+        <fieldset>
+            <legend>Event Sponsors</legend>
+
+            @(Html.Kendo().Grid<EventSponsor>()
+                .Name("grdEventSponsors")
+                .ToolBar(commands => commands.Custom().Text(" + Add Event Sponsor").HtmlAttributes(new { id = "NewEventSponsor" }))
+                .Columns(columns =>
+                {
+                    columns.Bound(x => x.thumbnailUrl).ClientTemplate("<img src=\"#=thumbnailUrl#\" />");
+                    columns.Bound(x => x.SponsorName);
+                    columns.Bound(x => x.Description);
+                    columns.Bound(x => x.Url).Visible(false);
+                    columns.Command(command => { command.Edit(); command.Destroy(); }).Width(400);
+                })
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Events(events => events.Error("error_handler"))
+                    .Model(model => model.Id("EventSponsorId"))
+                    .Read(read => read.Action("Ajax_GetEventSponsors", "Event", new { masterEventId = @Model.Event.EventId }))
+                    .Update(save => save.Action("Ajax_UpdateEventSponsor", "Event"))
+                    .Destroy(delete => delete.Action("Ajax_DeleteEventSponsor", "Event")))
+                )
+
+        </fieldset>
+    </div>
+    <div style="margin: 20px 0; overflow: auto;">
+        <fieldset>
+            <legend>Event Coupons</legend>
+
+            @(Html.Kendo().Grid<Coupon>()
+                .Name("grdCoupons")
+                .ToolBar(commands => commands.Create())
+                .Columns(cols =>
+                {
+                    cols.ForeignKey("CouponType",new SelectList(Model.CouponTypeList, "value", "text"));
+                    cols.Bound(x => x.Code);
+                    cols.Bound(x => x.Value);
+                    cols.ForeignKey("DiscountType", new SelectList(Model.DiscountTypeList, "value", "text")).Title("Discount");
+                    cols.Bound(x => x.IsActive).Title("Active");
+                    cols.Bound(x => x.IsReusable).Title("Reusable");
+                    cols.Bound(x => x.StartDateTime).Title("Start Date");
+                    cols.Bound(x => x.EndDateTime).Title("End Date");
+                    cols.Bound(x => x.MaxRegistrantCount).Title("Max Registrants");
+                    cols.Bound(x => x.Description);
+                    cols.Bound(x => x.EventId).Visible(false);
+                    cols.Command(command => { command.Edit(); command.Destroy(); });
+                })
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Events(events => events.Error("error_handler"))
+                    .Model(model => model.Id("DiscountItemId"))
+                    .Read(read => read.Action("Ajax_GetCoupons", "Discount", new { masterEventId = @Model.Event.EventId }))
+                    .Create(add => add.Action("Ajax_CreateCoupon", "Discount", new { masterEventId = @Model.Event.EventId }))
+                    .Update(save => save.Action("Ajax_UpdateCoupon", "Discount"))
+                    .Destroy(delete => delete.Action("Ajax_DeleteCoupon", "Discount"))
+                )
+            )
+
+        </fieldset>
+    </div>
+    <div style="margin: 20px 0;">
+        <input type="submit" value="Save" />
+    </div>
+}
+
+@(Html.Kendo().Window()
+                .Name("EventDateGeneratorWindow")
+                .Title("Add Event Date")
+                .Modal(true)
+                .Visible(false)
+                .Draggable(false)
+                .Width(500)
+                .Content("Loading Date Generator...")
+                .LoadContentFrom("GenerateEventDate", "Event", new { eventId = Model.Event.EventId }))
+
+@(Html.Kendo().Window()
+            .Name("EventSponsorWindow")
+            .Title("Add Event Sponsor")
+            .Modal(true)
+            .Visible(false)
+            .Draggable(false)
+            .Width(500)
+            .Content("Loading Sponsorship Form...")
+            .LoadContentFrom("AddEventSponsor", "Event", new { eventId = Model.Event.EventId })
+            .Events(events => events
+                .Close("onSponsorshipClosed")
+                ))
+
+    @(Html.Kendo().Window()
+            .Name("PlaceMarkerWindow")
+            .Title("Place marker on the Map")
+            .Modal(true)
+            .Visible(false)
+            .Draggable(true)
+            .Width(1000)
+            .Content(
+                Html.Partial("Partial/PlaceMarker").ToHtmlString()
+            ))
+
+
+
+<script type="text/kendo-template" id="message">
+        <div class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" style="margin: 0.5em; display: block; " data-for="#=field#" data-valmsg-for="#=field#" id="#=field#_validationMessage">
+            <span class="k-icon k-warning"> </span>#=message#<div class="k-callout k-callout-n"></div>
+        </div>
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+        $('#EditEventForm').data('validator').settings.ignore = '';
+        
+        $("#NewEventDate").click(function(e) {
+            e.preventDefault();
+            var window = $("#EventDateGeneratorWindow").data("kendoWindow");
+            window.open();
+            window.center();
+        });
+
+
+        $("#NewEventSponsor").click(function(e) {
+            e.preventDefault();
+            var window = $("#EventSponsorWindow").data("kendoWindow");
+            window.open();
+            window.center();
+        });
+
+        $("#NewEventCoupon").click(function(e) {
+            e.preventDefault();
+            window.location.href = "http://localhost:35563/Admin/Discount/CreateCoupon?eventid=@Model.Event.EventId";
+        });
+
+        LoadGoogleMap();
+
+        //***********************************        
+
+        $("#PlaceMarker").click(function(e) {
+            e.preventDefault();
+            var window = $("#PlaceMarkerWindow").data("kendoWindow");
+            window.open();
+            window.center();
+        });
+
+        //DG.util.initPin();
+        //DG.util.initMapTab();
+        var x;
+        var y;
+        var counter = 0;
+        $('.registration_map_content').mousemove(function(e) {
+            var parentOffset = $(this).parent().offset();
+            x = e.pageX - parentOffset.left;
+            y = e.pageY - parentOffset.top;
+            //$('#x-coord').val(x);
+            //$('#y-coord').val(y-25);
+        });
+        $('.registration_map_content').click(function(e) {
+            e.preventDefault();
+            $(this).html("");
+            var el = '<div class="single_location _' + counter + '"> \
+                        <div class="single_location_content"> \
+                        <div class="pin"><a href="#">&nbsp;</a></div> \
+                        <div class="popup"> \
+                        <div class="popup_content"> \
+                        </div> \
+                        </div> \
+                        </div> \
+                        </div>';
+
+            $(this).append(el);
+            $("._" + counter).css("top", y - 25);
+            $("._" + counter).css("left", x);
+            var parentOffset = $(this).parent().offset();
+            x = e.pageX - parentOffset.left;
+            y = e.pageY - parentOffset.top;
+            $('#xCoordinate').val(x.toFixed(0));
+            $('#yCoordinate').val(y.toFixed(0) - 25);
+            counter += 1;
+        });
+        @{
+            if (Model.Event.PinXCoordinate != null && Model.Event.PinYCoordinate != null)
+            {
+                int conversionDummy;
+                if (Int32.TryParse(Model.Event.PinYCoordinate, out conversionDummy))
+                {
+                    @: $('._-1').css('top',  @Model.Event.PinYCoordinate);
+                }
+                if (Int32.TryParse(Model.Event.PinXCoordinate, out conversionDummy))
+                {
+                    @: $('._-1').css('left', @Model.Event.PinXCoordinate);
+                }
+
+                //***********************************
+            }
+        }
+    });
+
+        //Handling grid errors to display properly ------------------------------------------------------
+
+        var validationMessageTmpl = kendo.template($("#message").html());
+
+
+        function error_handler(args) {
+            if (args.errors) {
+                var dataSource = this,
+                    grid = $.grep($("[data-role=grid]"), function(element) {
+                        return $(element).data("kendoGrid").dataSource === dataSource;
+                    })[0];
+
+                grid = $(grid).data("kendoGrid");
+
+                grid.one("dataBinding", function(e) {
+                    e.preventDefault(); // cancel grid rebind if error occurs                             
+
+                    for (var error in args.errors) {
+                        showMessage(grid.editable.element, error, args.errors[error].errors);
+                    }
+                });
+            }
+        }
+
+        function showMessage(container, name, errors) {
+            //add the validation message to the form
+            container.find("[data-valmsg-for=" + name + "]")
+                .replaceWith($(validationMessageTmpl({ field: name, message: errors[0] })));
+        }
+
+
+        //Event Date created ---------------------------------------------------------------------------
+
+        function onEventDateCreated(result) {
+
+            $("#GenerateEventDateContainer").html(result[1]);
+
+            if (result[0]) {
+                var window = $("#EventDateGeneratorWindow").data("kendoWindow").close();
+                var grid = $("#grdEventDates").data("kendoGrid");
+                grid.dataSource.read();
+            } else {
+                $.validator.unobtrusive.parse("GenerateEventDateForm");
+            }
+        }
+
+        function onEventDateCreatedFail(result) {
+        }
+
+
+        //Sponsorship Window closed -------------------------------------------------------------------
+
+        function onSponsorshipClosed(e) {
+            var grid = $("#grdEventSponsors").data("kendoGrid");
+            grid.dataSource.read();
+        }
+
+
+        //Load Google Maps ----------------------------------------------------------------------------
+        var geocoder;
+        var map;
+        var markerArray = [];
+
+        function LoadGoogleMap() {
+
+            geocoder = new window.google.maps.Geocoder();
+
+            var currentLocation = new window.google.maps.LatLng("@Model.Event.Latitude", "@Model.Event.Longitude");
+
+            var mapOptions = {
+                zoom: 12,
+                center: currentLocation,
+                mapTypeId: window.google.maps.MapTypeId.ROADMAP
+            };
+            map = new window.google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+            if (currentLocation.Xa != 0 && currentLocation.Ya != 0) {
+                addMarker(currentLocation);
+            } else {
+                geocoder.geocode({ 'address': 'America' }, function(results, status) {
+                    if (status == window.google.maps.GeocoderStatus.OK) {
+                        var currentLocation = results[0].geometry.location;
+                        map.setCenter(currentLocation);
+                        map.setZoom(3);
+                    } else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+            }
+        }
+
+
+    function setCurrentLocation() {
+        var generalLocality = $("#Event_GeneralLocality").val();
+        var address = $("#Event_Address1").val();
+        var city = $("#Event_Locality").val();
+        var state = $("#Event_RegionId").data("kendoDropDownList").text();
+        var zip = $("#Event_PostalCode").val();
+
+            
+            var streetAddress;
+            var statePart = ", " + state + " " + zip;
+
+            if (city != "") {
+                streetAddress = (address + " " + city + statePart).trim();
+            } else {
+                streetAddress = (generalLocality + statePart).trim();
+            }
+            
+            geocoder.geocode({ 'address': streetAddress }, function(results, status) {
+                if (status == window.google.maps.GeocoderStatus.OK) {
+                    var currentLocation = results[0].geometry.location;
+                    deleteOverlays();
+                    addMarker(currentLocation);
+
+                    $("#Event_Latitude").val(currentLocation.lat());
+                    $("#Event_Longitude").val(currentLocation.lng());
+                    
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+
+        }
+
+        function addMarker(location) {
+            var marker = new window.google.maps.Marker({
+                position: location,
+                map: map
+            });
+
+            markerArray.push(marker);
+
+            map.setCenter(marker.position);
+            map.setZoom(12);
+
+        }
+
+        function clearOverlays() {
+            if (markerArray) {
+                for (i in markerArray) {
+                    markerArray[i].setMap(null);
+                }
+            }
+        }
+
+        function deleteOverlays() {
+            if (markerArray) {
+                for (i in markerArray) {
+                    markerArray[i].setMap(null);
+                }
+                markerArray.length = 0;
+            }
+        }
+
+</script>

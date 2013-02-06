@@ -1,0 +1,35 @@
+﻿@model vmAdmin_PerformanceFilter
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm())
+{
+  <div id="reportfilter">
+      <table>
+          <tr>
+              <td colspan="3"> 
+                  @(Html.Kendo()
+                    .DropDownListFor(x => x.EventId)
+                    .BindTo(Model.EventList)
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .OptionLabel("All Events Within Time Frame -->")
+                    .HtmlAttributes(new {style = "width:250px" }))
+              </td>              
+          </tr>
+          <tr>
+              <td>@(Html.Kendo().DatePickerFor(x => x.startDate))</td>
+              <td> to </td>
+              <td>@(Html.Kendo().DatePickerFor(x => x.endDate))</td>
+          </tr>
+          <tr>
+              <td colspan="3">
+                  <input type="submit" value="Update Results" />
+              </td>
+          </tr>
+      </table>    
+  </div>
+}
+
+

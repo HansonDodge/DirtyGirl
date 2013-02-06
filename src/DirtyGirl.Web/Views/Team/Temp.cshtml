@@ -1,0 +1,22 @@
+﻿@model DirtyGirl.Web.Models.vmTeam_Details
+
+@{
+    ViewBag.Title = "Temp";
+}
+
+<h2>Temp</h2>
+
+<fieldset>
+    <legend>vmTeam_Details</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TeamId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TeamId)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

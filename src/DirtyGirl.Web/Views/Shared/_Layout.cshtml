@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="icon" type="image/png" href="@Url.Content("~/Images/favicon.ico")" />
+        <!--[if IE]>
+            <link rel="shortcut icon" href="@Url.Content("~/Images/favicon.ico")" type="image/vnd.microsoft.icon" /><![endif]-->
+
+
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+  
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+        @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/Kendo/css")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/ajax")
+        @Scripts.Render("~/bundles/kendo")
+        @Styles.Render("~/Content/jquery.mCustomScrollbar.new.css")
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+        @Scripts.Render("~/Scripts/jquery.easing.1.3.js")
+        @Scripts.Render("~/Scripts/jquery.mousewheel.min.js")
+        @Scripts.Render("~/Scripts/jquery.tooltip.min.js")
+        @Scripts.Render("~/Scripts/jquery.mCustomScrollbar.new.js")
+        @Scripts.Render("~/Scripts/DirtyGirl.js")
+
+        @RenderSection("includes", false)
+    </head>
+    <body>    
+        <div class="loginStatusContainer">
+            @Html.Partial("_LoginStatus")
+        </div>
+
+        <div id="fullWrapper">
+            <div id="container">
+                <div id="header">
+                    <div id="headerContainer">
+                        <div id="utilities">
+                            <a class="elhover" href="http://www.godirtygirl.com/become-a-volunteer/" id="util-voluteer"><img width="124" height="20" alt="Volunteer" src="@Url.Content("~/images/voluteer.jpg")"></a>
+                            <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.godirtygirl.com&amp;media=http%3A%2F%2Fwww.godirtygirl.com%2Fwp-content%2Fthemes%2Fdirtygirl%2Fstyle%2Fimages%2Fspa.png&amp;description=Dirty%20Girl%20Mud%20Run" class="elhover" id="pinterest" target="_blank"><img alt="Pin on Pinterest" src="@Url.Content("~/images/pinterest.jpg")"></a>
+                            <a target="_blank" class="elhover" href="http://www.twitter.com/godirtygirl"><img width="42" height="36" alt="Follow Dirty Girl Mud Run on Twitter" src="@Url.Content("~/images/twitter.gif")"></a>
+                            <a target="_blank" class="elhover" href="http://www.facebook.com/godirtygirl"><img width="40" height="36" alt="Like Dirty Girl Mud Run on Facebook" src="@Url.Content("~/images/fb.gif")"></a>
+                            <a target="_blank" class="elhover" href="http://itunes.apple.com/us/album/dirty-girl-workout-mix-vol./id527855735 "><img width="42" height="36" src="@Url.Content("~/images/itunes.jpg")"></a>
+                            <a class="elhover" href="/store/cart/"><img width="41" height="36" alt="Shopping Cart" src="@Url.Content("~/images/shopping-cart.jpg")"></a>
+                            <div style="float: right; margin-top: 7px;"><div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like font="" show_faces="true" width="90" layout="button_count" send="false" href="http://www.facebook.com/godirtygirl" fb-xfbml-state="rendered" class="fb_edge_widget_with_comment fb_iframe_widget"><span style="height: 20px; width: 79px;"><iframe scrolling="no" id="f106ccf3542d4a" name="f3ef1d244953b1e" style="border: medium none; overflow: hidden; height: 20px; width: 79px;" title="Like this content on Facebook." class="fb_ltr" src="http://www.facebook.com/plugins/like.php?api_key=130977823636539&amp;channel_url=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter.php%3Fversion%3D11%23cb%3Df193d47a9a80672%26origin%3Dhttp%253A%252F%252Fwww.godirtygirl.com%252Ff1075d51b849966%26domain%3Dwww.godirtygirl.com%26relation%3Dparent.parent&amp;extended_social_context=false&amp;href=http%3A%2F%2Fwww.facebook.com%2Fgodirtygirl&amp;layout=button_count&amp;locale=en_US&amp;node_type=link&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=90"></iframe></span></fb:like></div>
+                        </div>
+                        <div id="global_nav">
+                            <div id="logoContainer">
+                                <h1><a href="http://www.godirtygirl.com/">Dirty Girl</a></h1>
+                            </div>
+                            <div class="menu-main-menu-container">
+                                <ul class="main-nav" id="menu-main-menu">
+                                    <li class="menu-item menu-item-type-post_type menu-item-26" id="menu-item-26"><a href="http://www.godirtygirl.com/about/">About</a></li>
+                                    <li class="menu-item menu-item-type-post_type menu-item-29" id="menu-item-29"><a href="http://www.godirtygirl.com/event-schedule/">Event Schedule</a></li>
+                                    <li class="menu-item menu-item-type-post_type menu-item-30" id="menu-item-30"><a href="http://www.godirtygirl.com/blog/">Blog</a></li>
+                                    <li class="menu-item menu-item-type-custom menu-item-1568" id="menu-item-1568"><a href="http://godirtygirl.csepromo.com/">Store</a></li>
+                                    <li class="menu-item menu-item-type-post_type menu-item-27" id="menu-item-27"><a href="http://www.godirtygirl.com/sponsors/">Sponsors</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="newSignup2">
+                            <div>
+                                <a onclick="_gaq.push(['_trackEvent', 'Sign Up Today', 'Button on All Pages']);" target="_blank"  href="http://www.imathlete.com/events/EventSearch.aspx?fMainSearchTerms=Dirty%20Girl#SearchResults">Sign Up</a>
+                                <a onclick="_gaq.push(['_trackEvent', 'Sign Up Today', 'Button on All Pages']);"  href="@Url.Action("CreateUser", "User")">Sign Up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="content">
+                    @RenderBody()
+                </div>
+            </div>
+            <div id="footerTop">&nbsp;</div>
+            <div id="footer">
+                <div id="footerContent">
+                    <div id="contactinfo">
+                        <img width="164" height="38" src="http://www.godirtygirl.com/wp-content/themes/dirtygirl/style/images/contactFooter.png">
+                        <h3 style="color: #FFF;">Still have questions? We can help.</h3>
+                        <p><a href="mailto:help@godirtygirl.com">Email us with your questions</a> and we will get back to you shortly. Otherwise, give us a ring, we'd love to chat: 1-800-370-0179</p>
+                        <p class="copy">Dirty Girl &copy;2012</p>
+                    </div>
+                    <div id="socialContainer">
+                        <a target="_blank" href="http://www.facebook.com/pages/Dirty-Girl-Mud-Run/106437286097865?v=wall" class="facebook">Facebook</a>
+                        <a target="_blank" href="http://www.twitter.com/godirtygirl" class="twitter">Twitter</a>
+                    </div>
+                    <div class="trek">
+                        <a target="_blank" href="http://www.trekbikes.com/us/en/collections/womens">Trek Women</a>
+                        <p>The official bike sponsor of the Dirty Girl Mud Run Series.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content to show if javascript is disabled -->
+        <noscript>
+            <style type="text/css">
+                #mcs_container .customScrollBox,#mcs2_container .customScrollBox,#mcs3_container .customScrollBox,#mcs4_container .customScrollBox,#mcs5_container .customScrollBox{overflow:auto;}
+                #mcs_container .dragger_container,#mcs2_container .dragger_container,#mcs3_container .dragger_container,#mcs4_container .dragger_container,#mcs5_container .dragger_container{display:none;}
+            </style>
+        </noscript>
+        <script>
+            function scrollTo(hash) {
+                location.hash = "#" + hash;
+            }
+        </script>
+        
+    </body>
+</html>
+
+<!--Login overlay -->
+@{Html.RenderAction("LogonModal", "Authorize", new { returnUrl = (Request.Url != null ? (@Request.Url.PathAndQuery.Contains("viewevent") ? "/transaction/StartNewRegistration?eventId=" + Model.EventDetails.EventId : @Request.Url.PathAndQuery) : string.Empty) });}

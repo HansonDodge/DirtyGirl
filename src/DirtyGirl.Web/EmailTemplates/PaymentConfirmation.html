@@ -1,0 +1,59 @@
+﻿<tr>
+    <td style="padding: 0 0 0 4px; background:#f05193;">
+        <table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff">
+            <tr>
+                <td><img src="{ServerUrl}/email/images/spacer.gif" width="576" height="20" /></td>
+            </tr>
+            <tr>
+                <td style="padding: 0 10px 0 20px;"><p style="font-family: Arial; font-size: 13px; color:#573f3f; margin:0; padding: 0 10px 0 0;">{FirstName} {LastName} thank you for your purchase, here is your payment summary.</p></td>
+            </tr>
+            <tr>
+                <td><img src="{ServerUrl}/email/images/spacer.gif" width="576" height="10" /></td>
+            </tr>
+            <tr>
+                <td style="padding: 0 10px 0 20px;"><p style="font-family: Arial; font-size: 13px; color:#573f3f; margin:0; padding: 0 10px 0 0;">Payment Confirmation Code: {PaymentId}</p></td>
+            </tr>
+            <tr>
+                <td><img src="{ServerUrl}/email/images/spacer.gif" width="576" height="20" /></td>
+            </tr>
+            <tr>
+                <td style="padding: 0 10px 0 20px;">
+                    <table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff">
+                        <tr>
+                            <td>
+                                <table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff">
+                                    <tr>
+                                        <td width="150" align="left"><p style="font-weight:bold;font-family: Arial; font-size: 11px; color:#573f3f;">Item</p></td>
+                                        <td width="350" align="left"><p style="font-weight:bold;padding:0 40px 0 0;font-family: Arial; font-size: 11px; color:#573f3f;">Description</p></td>
+                                        <td width="30" align="left"><p style="font-weight:bold;font-family: Arial; font-size: 11px; color:#573f3f;">Cost</p></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="{ServerUrl}/email/images/spacer.gif" width="480" height="10" /></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff">
+                                    {Cart}
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td><img src="{ServerUrl}/email/images/spacer.gif" width="576" height="20" /></td>
+            </tr>
+            <tr>
+                <td style="padding: 0 0 0 20px;"><img src="{ServerUrl}/email/images/divider.jpg" width="568" height="15" /></td>
+            </tr>
+            <tr>
+                <td><img src="{ServerUrl}/email/images/spacer.gif" width="576" height="20" /></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+

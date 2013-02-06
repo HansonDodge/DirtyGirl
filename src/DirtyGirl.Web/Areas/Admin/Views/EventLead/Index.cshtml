@@ -1,0 +1,74 @@
+﻿@model vmAdmin_EventLead
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+ <div>
+    <div style="position: relative; overflow: hidden;">
+        <fieldset>
+            <legend>Event Lead Management</legend>
+            
+            @(Html.Kendo().Grid<vmAdmin_EventLeadItem>()
+                .Name("grdEventLeads")
+                .ToolBar(toolbar => toolbar.Create())
+                .Columns(columns =>
+                {                    
+                    columns.ForeignKey("EventLeadTypeId", new SelectList(Model.EventLeadTypes, "value", "text")).Title("Lead Type");
+                    columns.Bound(x => x.Title);
+                    columns.Bound(x => x.DisplayText);
+                    columns.Command(command => { command.Edit(); command.Destroy(); }).Width(400);
+                })
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Events(events => events.Error("error_handler"))
+                    .Model(model => model.Id("EventLeadId"))
+                    .Read(read => read.Action("Ajax_GetEventLeads", "EventLead"))
+                    .Create(add => add.Action("Ajax_CreateEventLead", "EventLead"))
+                    .Update(save => save.Action("Ajax_UpdateEventLead", "EventLead"))
+                    .Destroy(delete => delete.Action("Ajax_DeleteEventLead", "EventLead")))
+                )
+            
+
+        </fieldset>
+    </div>
+</div>
+
+<script type="text/kendo-template" id="message">
+
+        <div class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" style="margin: 0.5em; display: block; " data-for="#=field#" data-valmsg-for="#=field#" id="#=field#_validationMessage">
+        <span class="k-icon k-warning"> </span>#=message#<div class="k-callout k-callout-n"></div>
+    </div>
+    </script>
+
+<script type="text/javascript">
+
+    var validationMessageTmpl = kendo.template($("#message").html());
+
+    function error_handler(args) {
+        if (args.errors) {
+            var dataSource = this,
+                grid = $.grep($("[data-role=grid]"), function (element) {
+                    return $(element).data("kendoGrid").dataSource === dataSource;
+                })[0];
+
+            grid = $(grid).data("kendoGrid");
+
+            grid.one("dataBinding", function (e) {
+                e.preventDefault();   // cancel grid rebind if error occurs                             
+
+                for (var error in args.errors) {
+                    showMessage(grid.editable.element, error, args.errors[error].errors);
+                }
+            });
+        }
+    }
+
+    function showMessage(container, name, errors) {
+        //add the validation message to the form
+        container.find("[data-valmsg-for=" + name + "]")
+            .replaceWith($(validationMessageTmpl({ field: name, message: errors[0] })));
+    }
+
+</script>
