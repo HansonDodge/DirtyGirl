@@ -61,6 +61,7 @@
     <Compile Include="Enums\CartFocusType.cs" />
     <Compile Include="Enums\CreditCardType.cs" />
     <Compile Include="Enums\RegistrationType.cs" />
+    <Compile Include="Enums\TShirtSize.cs" />
     <Compile Include="FeeReport.cs" />
     <Compile Include="PaymentRequest.cs" />
     <Compile Include="PaymentResponse.cs" />
