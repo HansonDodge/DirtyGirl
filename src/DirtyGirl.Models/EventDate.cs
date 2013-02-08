@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DirtyGirl.Models
 {
-    public class EventDate
+    public class EventDate : IComparable
     {
         public int EventDateId { get; set; }
         
@@ -24,5 +24,10 @@ namespace DirtyGirl.Models
 
         #endregion
 
+
+        public int CompareTo(object obj)
+        {
+            return this.DateOfEvent.CompareTo((obj as EventDate).DateOfEvent);
+        }
     }
 }

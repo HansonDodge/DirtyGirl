@@ -235,7 +235,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                 {
                     FeeReport = _service.GetFeeReport(filter.EventId, filter.startDate.Value, filter.endDate.Value),
                     ChargeReport = _service.GetEventChargeReport(filter.EventId, filter.startDate.Value, filter.endDate.Value),
-                    DayCount = (filter.endDate.Value - filter.startDate.Value).Days,
+                    DayCount = (filter.endDate.Value - filter.startDate.Value).Days + 1,
                     TotalSpots = _service.GetSpotsAvailable(filter.EventId, filter.startDate.Value, filter.endDate.Value),
                     SpotsTaken = _service.GetSpotsTaken(filter.EventId, filter.startDate.Value, filter.endDate.Value),
                     RedemptionRegCount = _service.GetRedemptionSpots(filter.EventId, filter.startDate.Value, filter.endDate.Value),
