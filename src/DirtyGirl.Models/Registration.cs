@@ -67,6 +67,8 @@ namespace DirtyGirl.Models
 
         public string SpecialNeeds { get; set; }
 
+        public string TShirtSize { get; set; }
+
         public string Gender { get; set; }
 
         [MustBeTrue(ErrorMessage = "Only women may register for this event.")]

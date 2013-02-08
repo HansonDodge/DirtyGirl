@@ -151,6 +151,7 @@ namespace DirtyGirl.Services
                     target.RegistrationStatus = r.RegistrationStatus;
                     target.RegistrationType = r.RegistrationType;
                     target.SpecialNeeds = r.SpecialNeeds;
+                    target.TShirtSize = r.TShirtSize;
                     target.TeamId = r.TeamId;
                     target.UserId = r.UserId;
                     target.DateUpdated = DateTime.Now;
@@ -286,6 +287,7 @@ namespace DirtyGirl.Services
                 newReg.EmergencyContact = existingReg.EmergencyContact;
                 newReg.EmergencyPhone = existingReg.EmergencyPhone;
                 newReg.SpecialNeeds = existingReg.SpecialNeeds;
+                newReg.TShirtSize = existingReg.TShirtSize;
                 newReg.Gender = existingReg.Gender;                
                 newReg.UserId = existingReg.UserId;
                 newReg.CartItemId = cartItemId;
