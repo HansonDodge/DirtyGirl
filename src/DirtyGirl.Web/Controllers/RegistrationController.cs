@@ -173,6 +173,7 @@ namespace DirtyGirl.Web.Controllers
                     EventOverview = _service.GetEventOverviewById(eventId),
                     RegionList = _service.GetRegionsByCountry(DirtyGirlConfig.Settings.DefaultCountryId),
                     RegistrationTypeList = DirtyGirlExtensions.ConvertToSelectList<RegistrationType>(),
+                    TShirtSizeList = DirtyGirlExtensions.ConvertToSelectList<TShirtSize>(),
                     EventLeadList = _service.GetEventLeads(eventId, true),
                     RegistrationDetails = reg,
                     ItemId = itemId
@@ -214,6 +215,7 @@ namespace DirtyGirl.Web.Controllers
                 reg.RegistrationStatus = RegistrationStatus.Active;
                 reg.RegistrationType = model.RegistrationDetails.RegistrationType;
                 reg.SpecialNeeds = model.RegistrationDetails.SpecialNeeds;
+                reg.TShirtSize = model.RegistrationDetails.TShirtSize;
                 reg.TeamId = model.RegistrationDetails.TeamId;
                 reg.UserId = CurrentUser.UserId;
 
@@ -229,7 +231,8 @@ namespace DirtyGirl.Web.Controllers
             model.EventOverview = _service.GetEventOverviewById(wave.EventDate.EventId);
             model.RegionList = _service.GetRegionsByCountry(DirtyGirlConfig.Settings.DefaultCountryId);
             model.RegistrationTypeList = DirtyGirlExtensions.ConvertToSelectList<RegistrationType>();
-            model.EventLeadList = _service.GetEventLeads(wave.EventDate.EventId, true);         
+            model.EventLeadList = _service.GetEventLeads(wave.EventDate.EventId, true);
+            model.TShirtSizeList = DirtyGirlExtensions.ConvertToSelectList<TShirtSize>();
 
             return View(model);
         }        

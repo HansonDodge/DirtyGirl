@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using DirtyGirl.Models.Validation;
 using DirtyGirl.Web.Helpers;
+using DirtyGirl.Models.Enums;
 
 namespace DirtyGirl.Web.Models
 {
@@ -19,6 +20,7 @@ namespace DirtyGirl.Web.Models
 
         public IList<Region> RegionList { get; set; }
         public IList<SelectListItem> RegistrationTypeList { get; set; }
+        public IList<SelectListItem> TShirtSizeList { get; set; }
         public IList<EventLead> EventLeadList { get; set; }
 
         public vmRegistration_Details()

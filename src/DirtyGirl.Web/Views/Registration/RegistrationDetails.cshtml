@@ -192,9 +192,9 @@
                                         <p><span class="pink">*</span>What is your T shirt size?</p>
                                         @(Html.Kendo().DropDownListFor(x => x.RegistrationDetails.TShirtSize)
                                             .OptionLabel("Select")
-                                            .DataTextField("DisplayText")
-                                            .DataValueField("TShirtSize")
-                                            .BindTo(TShirtSize.GetValues(typeof(String))))
+                                            .DataTextField("Text")
+                                            .DataValueField("Value")
+                                            .BindTo(Model.TShirtSizeList))
                                         @Html.ValidationMessageFor(x => x.RegistrationDetails.TShirtSize, "*")
                                     </div>
                                 </div>
