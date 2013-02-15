@@ -25,6 +25,7 @@ namespace DirtyGirl.Web.Areas.Admin.Models
         public string EmergencyPhone { get; set; }
         public string MedicalInformation { get; set; }
         public string SpecialNeeds { get; set; }
+        public string TShirtSize { get; set; }
         public string RegistrationValue { get; set; }
         public bool AgreeToTerms { get; set; }
         public DateTime DateAdded { get; set; }
