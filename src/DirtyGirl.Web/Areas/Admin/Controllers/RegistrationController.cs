@@ -192,6 +192,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                 r.EmergencyPhone,
                 r.MedicalInformation,
                 r.SpecialNeeds,
+                r.TShirtSize,
                 r.DateAdded,
                 WaveDateTime = r.EventWave.StartTime,
                 r.RegistrationType,
@@ -222,6 +223,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                 r.EmergencyPhone,
                 r.MedicalInformation,
                 r.SpecialNeeds,
+                r.TShirtSize,
                 r.DateAdded,
                 WaveDateTime = r.EventWave.StartTime,
                 r.RegistrationType,
@@ -240,6 +242,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             var result = registrations.Select(reg => new vmAdmin_RegistrationListItem
                                                          {
                                                              RegistrationId = reg.RegistrationId,
+                                                             UserId = reg.UserId,
                                                              WaveDateTime = reg.EventWave.StartTime,
                                                              EventLocation =
                                                                  string.Format("{0}, {1}",
@@ -264,6 +267,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                                                              EmergencyPhone = reg.EmergencyPhone ?? string.Empty,
                                                              MedicalInformation = reg.MedicalInformation ?? string.Empty,
                                                              SpecialNeeds = reg.SpecialNeeds ?? string.Empty,
+                                                             TShirtSize = (reg.TShirtSize != null) ? reg.TShirtSize.ToString() : String.Empty,
                                                              DateAdded = reg.DateAdded,
                                                              RegistrationType = reg.RegistrationType.ToString(),
                                                              RegistrationStatus = reg.RegistrationStatus.ToString(),
