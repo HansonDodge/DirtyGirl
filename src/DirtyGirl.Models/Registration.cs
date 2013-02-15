@@ -68,7 +68,7 @@ namespace DirtyGirl.Models
         public string SpecialNeeds { get; set; }
 
         [Required(ErrorMessage = "T-shirt size is required")]
-        public TShirtSize TShirtSize { get; set; }
+        public TShirtSize? TShirtSize { get; set; }
 
         public string Gender { get; set; }
 
