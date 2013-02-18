@@ -282,6 +282,7 @@
     <Compile Include="Utils\ControllerExtensions.cs" />
     <Compile Include="Utils\Detective.cs" />
     <Compile Include="Utils\DirtyGirlConfig.cs" />
+    <Compile Include="Utils\FileAttribute.cs" />
     <Compile Include="Utils\FileType.cs" />
     <Compile Include="Utils\SessionManager.cs" />
     <Compile Include="Utils\Utilities.cs" />

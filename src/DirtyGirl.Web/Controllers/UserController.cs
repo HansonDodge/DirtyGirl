@@ -149,15 +149,15 @@ namespace DirtyGirl.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditUser(vmUser_EditUser vm, HttpPostedFileBase image)
+        public ActionResult EditUser(vmUser_EditUser vm)
         {
-            bool validImageFile = true;
+            //bool validImageFile = true;
 
             OnlyOwnerAccess(vm.User.UserId);
-
+            
             if (ModelState.IsValid)
             {
-
+                /*
                 if (image != null && image.ContentLength > 0 && image.ContentLength <= 2048000)
                 {
                     var target = new MemoryStream();
@@ -167,12 +167,12 @@ namespace DirtyGirl.Web.Controllers
                     else
                         validImageFile = false;
                 }
-
+                */
                 ServiceResult result = UserService.UpdateUser(vm.User, false);
-
+                /*
                 if (!validImageFile)
                     result.AddServiceError("Images must be .jpg, .png, .gif, and less than 2 megabytes in size");
-
+                */
 
                 if (result.Success)
                 {

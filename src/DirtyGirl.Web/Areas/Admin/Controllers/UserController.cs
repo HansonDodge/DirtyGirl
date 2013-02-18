@@ -13,6 +13,7 @@ using System.Linq;
 using DirtyGirl.Web.Models;
 using DirtyGirl.Web.Controllers;
 using System.IO;
+using System.Web.Configuration;
 
 namespace DirtyGirl.Web.Areas.Admin.Controllers
 {
@@ -80,37 +81,15 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditUser(vmUser_EditUser vm, HttpPostedFileBase image)
+        public ActionResult EditUser(vmUser_EditUser vm)
         {
 
             if (ModelState.IsValid)
             {
-              bool ValidImageFile = true;
                 OnlyOwnerAccess(vm.User.UserId);
-
-                if (image != null && image.ContentLength > 0 && image.ContentLength <= 2048000 &&
-                        (image.FileName.EndsWith(".jpg")
-                        || image.FileName.EndsWith(".bmp")
-                        || image.FileName.EndsWith(".png")
-                        || image.FileName.EndsWith(".gif")
-                        || image.FileName.EndsWith(".tiff"))
-                    )
-                {
-                  var target = new MemoryStream();
-                  image.InputStream.CopyTo(target);
-                  vm.User.Image = target.ToArray();
-                }
-                else
-                {
-                  if (image != null && image.ContentLength > 0)
-                    ValidImageFile = false;
-                }
-
+                
                 var result = vm.User.UserId <= 0 ? UserService.CreateUser(vm.User) : UserService.UpdateUser(vm.User, true);
-
-                if (!ValidImageFile)
-                  result.AddServiceError("Images must be .jpg, .bmp, .png, .gif, .tiff and < 2MB in size");
-
+                
                 if (result.Success)
                 {
                     DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "User has been saved successfully"));

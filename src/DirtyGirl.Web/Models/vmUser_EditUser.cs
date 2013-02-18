@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DirtyGirl.Web.Utils;
 
 namespace DirtyGirl.Web.Models
 {
@@ -23,6 +24,9 @@ namespace DirtyGirl.Web.Models
             get { return User.Password; }
             set { User.Password = value; }
         }
+
+        [File (AllowedFileExtensions = new String[] { ".jpg", ".gif", ".png", ".bmp", ".tiff"}, MaxContentLength = 2097152)]
+        public HttpPostedFileBase Image { get; set; }
 
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Passwords Must Match")]
         public string PasswordVerification { get; set; }
