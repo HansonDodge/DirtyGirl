@@ -63,9 +63,9 @@ namespace DirtyGirl.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult CreateUser(vmUser_EditUser vm, HttpPostedFileBase profileImage)
+        public ActionResult CreateUser(vmUser_EditUser vm)
         {
-            bool validImageFile = true;
+            //bool validImageFile = true;
             if (!vm.ImAGirl)
                 ModelState.AddModelError("ImAGirl", "You must confirm you are a female.");
             if(vm.User.UserName.Length < 3)
@@ -73,7 +73,7 @@ namespace DirtyGirl.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                if (profileImage != null && profileImage.ContentLength > 0 && profileImage.ContentLength <= 2048000)
+                /*if (profileImage != null && profileImage.ContentLength > 0 && profileImage.ContentLength <= 2048000)
                 {
                     var target = new MemoryStream();
                     profileImage.InputStream.CopyTo(target);
@@ -81,13 +81,13 @@ namespace DirtyGirl.Web.Controllers
                         vm.User.Image = target.ToArray();
                     else
                         validImageFile = false;
-                }                        
+                }    */                    
 
                 ServiceResult result = UserService.CreateUser(vm.User);
-
+                /*
                 if (!validImageFile)
                     result.AddServiceError("Images must be .jpg, .png, .gif, and less than 2 megabytes in size");
-
+                */
                 if (result.Success)
                 {                
                     FormsAuthentication.SetAuthCookie(vm.User.UserName, false);
