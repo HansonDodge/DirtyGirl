@@ -73,21 +73,20 @@ namespace DirtyGirl.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                /*if (profileImage != null && profileImage.ContentLength > 0 && profileImage.ContentLength <= 2048000)
+                if (vm.Image != null)
                 {
-                    var target = new MemoryStream();
-                    profileImage.InputStream.CopyTo(target);
-                    if (Utilities.VerifyFileIsImage(target))
-                        vm.User.Image = target.ToArray();
-                    else
-                        validImageFile = false;
-                }    */                    
+                    MemoryStream m = new MemoryStream();
+                    vm.Image.InputStream.CopyTo(m);
+                    vm.User.Image = m.ToArray();
+                }
 
                 ServiceResult result = UserService.CreateUser(vm.User);
                 /*
                 if (!validImageFile)
                     result.AddServiceError("Images must be .jpg, .png, .gif, and less than 2 megabytes in size");
                 */
+                
+
                 if (result.Success)
                 {                
                     FormsAuthentication.SetAuthCookie(vm.User.UserName, false);
