@@ -85,8 +85,12 @@
                                 </div>
                                 }
 
+                                @{
+                                    string different = "";
+                                }
                                 @if (Model.User.FacebookId != null)
                                 {
+                                    { different = "different"; }
                                     <div class="single_row">
                                         <div class="single_input">
                                             <p>Profile Picture</p>
@@ -99,22 +103,13 @@
                                             <p>Use Facebook photo?</p>
                                         </div>
                                     </div>
-                                    <div class="single_row">
-                                        <div class="single_input">
-                                            <p>Upload a different photo</p>
-                                            <input id="profileImage" type="file" name="Image" />
-                                        </div>
-                                    </div>
                                 }
-                                else
-                                {
                                 <div class="single_row">
                                     <div class="single_input">
-                                        <p>Upload a photo</p>
+                                        <p>Upload a @different photo</p>
                                         <input id="profileImage" type="file" name="Image" />
                                     </div>
                                 </div>
-                                }
 
                                 <div class="single_row">
                                     <div class="single_input text">
