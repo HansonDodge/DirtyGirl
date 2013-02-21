@@ -141,7 +141,7 @@
     <div style="margin: 20px 0;">
         <fieldset>
             <legend>Event Details</legend>
-            @(Html.Kendo().EditorFor(x => x.Event.EventDetails).HtmlAttributes(new { style = "width: 100%;height:440px" }))
+            @(Html.Kendo().EditorFor(x => x.Event.EventDetails).HtmlAttributes(new { style = "width: 100%;height:440px" }).Tools(tool => tool.Clear().FormatBlock().Bold().Italic().Underline().InsertOrderedList().InsertUnorderedList()))
         </fieldset>
     </div>
     <div style="margin: 20px 0;">
