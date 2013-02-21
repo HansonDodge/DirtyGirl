@@ -1,0 +1,1 @@
+ALTER TABLE DirtyGirl.dbo.Registration ADD PacketDeliveryOption int NULL

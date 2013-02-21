@@ -146,6 +146,7 @@ namespace DirtyGirl.Services
                     target.ParentRegistrationId = r.ParentRegistrationId;
                     target.Phone = r.Phone;
                     target.PostalCode = r.PostalCode;
+                    target.PacketDeliveryOption = r.PacketDeliveryOption;
                     target.ReferenceAnswer = r.ReferenceAnswer;
                     target.RegionId = r.RegionId;
                     target.RegistrationStatus = r.RegistrationStatus;
@@ -282,6 +283,7 @@ namespace DirtyGirl.Services
                 newReg.Locality = existingReg.Locality;
                 newReg.RegionId = existingReg.RegionId;
                 newReg.PostalCode = existingReg.PostalCode;
+                newReg.PacketDeliveryOption = existingReg.PacketDeliveryOption;
                 newReg.Email = existingReg.Email;
                 newReg.Phone = existingReg.Phone;
                 newReg.EmergencyContact = existingReg.EmergencyContact;

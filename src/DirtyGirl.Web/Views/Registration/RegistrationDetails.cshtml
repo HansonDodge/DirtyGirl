@@ -134,6 +134,10 @@
                                         @Html.ValidationMessageFor(x => x.RegistrationDetails.Phone, "*")
                                     </div>
                                 </div>
+
+                                <!-- Mailing address -->
+
+                                <p>Event Materials Mailing Address</p>
                                 <div class="single_row">
                                     <div class="single_input text address">
                                         <p><span class="pink">*</span>Address</p>
@@ -167,6 +171,18 @@
                                         @Html.ValidationMessageFor(x => x.RegistrationDetails.PostalCode, "*")
                                     </div>
                                 </div>
+                                <div class="single_row">
+                                    <div class="single dropdown">
+                                        <p>Registration materials delivery option:</p>
+                                        @(Html.Kendo().DropDownListFor(x => x.RegistrationDetails.PacketDeliveryOption)
+                                            .DataTextField("Text")
+                                            .DataValueField("Value")
+                                            .BindTo(Model.PacketDeliveryOptionList))
+                                    </div>
+                                </div>
+
+                                <!-- End mailing address -->
+
                                 <div class="single_row">
                                     <div class="single_input text">
                                         <p><span class="pink">*</span>Emergency Contact</p>
@@ -269,7 +285,6 @@
                                         @Html.CheckBoxFor(x => x.RegistrationDetails.IsOfAge)
                                         <p><span class="pink">*</span>@Html.DisplayNameFor(x => x.RegistrationDetails.IsOfAge)&nbsp;&nbsp;<a href="http://www.coppa.org/coppa.htm" target="_blank">Read COPPA Rules.</a></p>
                                         @Html.ValidationMessageFor(x => x.RegistrationDetails.IsOfAge, "*")
-                                        
                                     </div>
                                 </div>
                             </div>

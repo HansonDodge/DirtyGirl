@@ -20,6 +20,7 @@ namespace DirtyGirl.Web.Models
 
         public IList<Region> RegionList { get; set; }
         public IList<SelectListItem> RegistrationTypeList { get; set; }
+        public IList<SelectListItem> PacketDeliveryOptionList { get; set; }
         public IList<SelectListItem> TShirtSizeList { get; set; }
         public IList<EventLead> EventLeadList { get; set; }
 

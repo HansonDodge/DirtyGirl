@@ -80,9 +80,11 @@ namespace DirtyGirl.Models
         [DisplayName("I acknowledge I have carefully read, accept and agree to the terms on this Release and Waiver, and know and understand their contents and I sign the same on my own free act and deed.")]
         public bool AgreeToTerms { get; set; }
 
-        [MustBeTrue(ErrorMessage = "Registrant must be 14+ years old the day of the event.")]
+        [MustBeTrue(ErrorMessage = "Registrant must be 15 years old the day of the event.")]
         [DisplayName("By checking this box I am verifying that I, or the person I’m registering for, is 15 years of age of older.")]
         public bool IsOfAge { get; set; }
+
+        public RegistrationMaterialsDeliveryOption? PacketDeliveryOption { get; set; }
 
         public string ReferenceAnswer { get; set; }
 

@@ -29,6 +29,7 @@ namespace DirtyGirl.Models
         [Required(ErrorMessage = "City is Required")]
         public string Locality { get; set; }
 
+        [Required(ErrorMessage = "State is Required")]
         public int RegionId { get; set; }
 
         [Required(ErrorMessage = "Postal Code is Required")]
