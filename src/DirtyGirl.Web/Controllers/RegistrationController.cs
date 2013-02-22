@@ -168,7 +168,6 @@ namespace DirtyGirl.Web.Controllers
 
             var vm = new vmRegistration_Details 
                 { 
-
                     EventWave = _service.GetEventWaveById(reg.EventWaveId),
                     EventOverview = _service.GetEventOverviewById(eventId),
                     RegionList = _service.GetRegionsByCountry(DirtyGirlConfig.Settings.DefaultCountryId),

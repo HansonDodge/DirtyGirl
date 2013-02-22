@@ -224,9 +224,9 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .contentMain_header h6{font-size: 24px;color:#ef5192; margin: 22px 0;}
 .contentMain_copy { position: relative;}
 .contentMain_copy h1{font-size: 24px;}
-.contentMain_copy h2{font-size:18px; color:#ffffff;}
-.contentMain_copy h5 {font-size: 14px; color:#ee5192; line-height: 20px; }
-.contentMain_copy p { font-size: 14px; color:#ffffff;}
+.contentMain_copy h2{font-size:18px; }
+.contentMain_copy h5 {font-size: 14px; line-height: 20px; }
+.contentMain_copy p { font-size: 14px; }
 .cm_header_city {position: relative; float:left; padding: 25px 0 0; margin-right: 40px;}
 .cm_header_city h4 { font-size: 22px;color:#ef5192;}
 .cm_header_where { position: relative; float: left; padding-top: 25px; margin-right: 40px; overflow: hidden}
@@ -242,7 +242,7 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .contentMain_info_tab a.infotab-eventinfo {background:url(../images/sprite-tabdetail-eventinfo.png) 0 0 no-repeat transparent; width:180px; }
 .contentMain_info_tab a.infotab-faq {background:url(../images/sprite-tabdetail-faq.png) 0 0 no-repeat transparent; width:106px; }
 .contentMain_info_tab a.active{background-position: 0 -40px !important;}
-.contentMain_info_content { position: relative; background:#ffffff; width: 770px;}
+.contentMain_info_content { position: relative; background:#ffffff;}
 .event_map_content { position: relative; padding: 10px;}
 .event_map_copy {position: relative; overflow: hidden; margin: 5px 0 0;}
 .event_map_copy img{ position: relative; float: left; margin-right: 10px;}

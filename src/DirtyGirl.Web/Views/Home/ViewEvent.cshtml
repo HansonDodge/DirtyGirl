@@ -46,28 +46,18 @@
                 <div class="contentMain">
                     <div class="contentMain_info">
                         <div class="contentMain_info_tab">
-                            <a href="#" class="infotab-map active">MAP</a>
-                            <a href="#" class="infotab-eventinfo">EVENT INFO</a>
+                            <a href="#" class="infotab-eventinfo active">EVENT INFO</a>
+                            <a href="#" class="infotab-map">MAP</a>
                             <a href="#" class="infotab-faq">FAQS</a>
                         </div>
                         <div class="contentMain_info_content">
-                            <div class="contentMain_info_singlecontent map">
-                                <div class="event_map_content">
-                                    <div id="map_canvas" style="width: 750px; height: 530px"></div>
-                                    <div class="event_map_copy">
-                                        <img src="@Url.Content("~/images/dot.png")" />
-                                        <h5>LOCATION ADDRESS:</h5>
-                                        <p>@Model.EventDetails.Address @Model.EventDetails.City, @Model.EventDetails.State, @Model.EventDetails.Zip</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="contentMain_info_singlecontent info hide">
+                            <div class="contentMain_info_singlecontent info">
                                 <div class="event_info_content">
                                     <div class="reg-eventinfo_content">
                                         <div class="eventScroll eventInfo">
-                                            <div class="contentMain_copy">
-                                                <p>@Html.Raw(Model.EventDetails.EventNews)</p>
-                                            </div>
+                                            <!-- event overview -->
+                                            @Html.Raw(Model.EventDetails.EventNews)
+                                            <!-- end event overview -->
                                             <h3>RACE DAY INSTRUCTIONS</h3>
                                             <h5>PACKET PICK-UP</h5>
                                             <p>We ask that you show up a minimum of 1hr before your respective wave starts in order to pick up your event goodies. You will need a photo ID for check in that day. If you’re under 16 and you do not have a photo ID, no worries, just bring a print out of your registration with you instead. When you check in you will receive your Dirty Girl bib# with safety pins, a super cool Dirty Girl charm necklace and a unique one-of-a kind Dirty Girl shirt. You will need to secure the bib to the front of your shirt using the provided safety pins.</p>
@@ -84,6 +74,16 @@
                                             <p><b>Great attitude!</b> This will be the most fun you have all year.</p>
                                             <p>No outside alcoholic beverages or glass bottles allowed</p>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contentMain_info_singlecontent map hide">
+                                <div class="event_map_content">
+                                    <div id="map_canvas" style="width: 740px; height: 530px"></div>
+                                    <div class="event_map_copy">
+                                        <img src="@Url.Content("~/images/dot.png")" />
+                                        <h5>LOCATION ADDRESS:</h5>
+                                        <p>@Model.EventDetails.Address @Model.EventDetails.City, @Model.EventDetails.State, @Model.EventDetails.Zip</p>
                                     </div>
                                 </div>
                             </div>
