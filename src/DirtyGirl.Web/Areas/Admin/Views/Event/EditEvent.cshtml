@@ -141,7 +141,36 @@
     <div style="margin: 20px 0;">
         <fieldset>
             <legend>Event Details</legend>
-            @(Html.Kendo().EditorFor(x => x.Event.EventDetails).HtmlAttributes(new { style = "width: 100%;height:440px" }).Tools(tool => tool.Clear().FormatBlock().Bold().Italic().Underline().InsertOrderedList().InsertUnorderedList()))
+            @(Html.Kendo()
+                .EditorFor(x => x.Event.EventDetails)
+                .HtmlAttributes(new { style = "width: 100%;height:440px" })
+                .Tools(tool => tool
+                    .Clear()
+                    .FormatBlock(format => format
+                        .Add("Paragraph", "p")
+                        .Add("Heading", "h3")
+                        .Add("Subheading", "h5")
+                        )
+                    .Bold()
+                    .Italic()
+                    .Underline()
+                    .InsertOrderedList()
+                    .InsertUnorderedList()
+                    .ViewHtml()
+                    .CustomButton(cb => cb.Name("Remove Formatting").ToolTip("Strip undesirable font, size, and color information.").Exec(@<text>
+                        function(e) {
+                            var editor = $(this).data("kendoEditor");
+                            var val = editor.value();
+                            var jqVal = $('<div>'+val+'</div>');
+                            jqVal.find('*').each(function(){
+                                var self = $(this);
+                                
+                                self.removeClass().removeAttr('style');
+                            });
+                            editor.value(jqVal.html());
+                        }</text>
+                    ))
+             ))
         </fieldset>
     </div>
     <div style="margin: 20px 0;">

@@ -11,9 +11,9 @@
 	font-style: normal;
 }
 
-body { background:url("../images/bg_container.jpg") 0 0 repeat transparent;}
+body { background:url("../images/bg_container.jpg") 0 0 repeat transparent; font-family: sans-serif; }
 h1, h2, h3, h4, h5, h6, h5 a { font-family:"Blackout-Midnight","blackout-midnight-1","blackout-midnight-2",sans-serif;}
-p, label, span, a { font-family: Arial;}
+/*p, label, span, a { font-family: Arial;}*/
 span.k-widget{font-size: 13px;}
 span.k-widget *{font-size: 13px;  font-family: Arial;}
 img, a img { border:none;}
