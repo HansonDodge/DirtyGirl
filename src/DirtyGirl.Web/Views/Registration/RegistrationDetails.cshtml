@@ -84,7 +84,7 @@
                             </div>
                             <div class="registration_form_content">
                                 <p style="font-weight:normal;">*Required Fields</p>
-                                <div class="single_row">
+                                <div class="single_row" style="display:none;">
                                     <div class="inlineRadio">
                                         <p><span class="pink">*</span>Are you registering for someone else?</p>
                                         <div class="inlineRadioOptions">
@@ -104,7 +104,6 @@
                                     <div class="single_input dropdown">
                                         <p><span class="pink">*</span>Registration Type</p>
                                             @(Html.Kendo().DropDownListFor(x => x.RegistrationDetails.RegistrationType)
-                                                .OptionLabel("Select")
                                                 .DataTextField("Text")
                                                 .DataValueField("Value")
                                             .BindTo(Model.RegistrationTypeList))
