@@ -1,0 +1,1 @@
+ALTER TABLE DirtyGirl.dbo.EventTemplate ADD DefaultShippingFeeCost decimal(18,0) NOT NULL DEFAULT 5.00
