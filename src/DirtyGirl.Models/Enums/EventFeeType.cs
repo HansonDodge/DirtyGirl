@@ -15,6 +15,8 @@ namespace DirtyGirl.Models.Enums
         [Display(Name="Event Transfer", Description="The Fee that applies to transfering your event")]
         Transfer = 3,
         [Display(Name="Cancel Event", Description="The Fee applied to cancelling your event")]
-        Cancellation = 4
+        Cancellation = 4,
+        [Display(Name = "Shipping & Handling", Description = "The Fee applied for mailing your registration materials")]
+        Shipping = 5
     }
 }
