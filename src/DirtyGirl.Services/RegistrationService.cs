@@ -429,7 +429,13 @@ namespace DirtyGirl.Services
         {
             EventService eventService = new EventService(this._repository, false);
             return eventService.GetCurrentFeeForWave(eventWaveId, feeType);
-        }       
+        }
+
+        public EventFee GetShippingFeeForEvent(int eventId)
+        {
+            EventService eventService = new EventService(this._repository, false);
+            return eventService.GetCurrentFeeForEvent(eventId, EventFeeType.Shipping);
+        } 
 
         public IList<EventDateDetails> GetActiveDateDetailsByEvent(int eventId)
         {
