@@ -60,7 +60,21 @@ namespace DirtyGirl.Services
         {
             return _repository.Registrations.Filter(r => r.TeamId == TeamId).ToList();            
         }
-        
+
+        public IList<Dictionary<String,int>> GetTShirtSizeTotalsByEvent(int EventId)
+        {
+            var registrations = GetRegistrationsByEvent(EventId);
+            var values = Enum.GetValues(typeof(TShirtSize)).Cast<TShirtSize>();
+            var totals = new List<Dictionary<String, int>>();
+            foreach (var val in values) {
+                var count = registrations.Count(r => r.TShirtSize.Value == val);
+                var total = new Dictionary<String, int>(1);
+                total.Add(val.ToString(), count);
+                totals.Add(total);
+            }
+            return totals;
+        }
+
         public ServiceResult CreateNewRegistration(Registration r)
         {
             ServiceResult result = new ServiceResult();
