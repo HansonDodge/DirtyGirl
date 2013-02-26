@@ -51,6 +51,21 @@ namespace DirtyGirl.Services
             return eList.Count();
         }
 
+        public IList<Dictionary<String, int>> GetTShirtSizeTotalsByEventId(int EventId)
+        {
+            var registrations = GetRegistrationsByEventId(EventId);
+            var values = Enum.GetValues(typeof(TShirtSize)).Cast<TShirtSize>();
+            var totals = new List<Dictionary<String, int>>();
+            foreach (var val in values)
+            {
+                var count = registrations.Count(r => r.TShirtSize.Value == val);
+                var total = new Dictionary<String, int>(1);
+                total.Add(val.ToString(), count);
+                totals.Add(total);
+            }
+            return totals;
+        }
+
         public int GetSpotsAvailable(int? eventId, DateTime startDate, DateTime endDate)
         {
             var eList = _repository.EventFees.Filter(x => x.EffectiveDate <= endDate && x.Event.EventDates.Max(y => y.DateOfEvent) >= startDate).GroupBy(x => x.Event).Select(x => x.Key);
