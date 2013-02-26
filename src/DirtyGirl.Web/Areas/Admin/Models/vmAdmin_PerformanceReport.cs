@@ -17,7 +17,8 @@ namespace DirtyGirl.Web.Areas.Admin.Models
         public int SpotsTaken { get; set; }
         public int SpotsLeft { get { return TotalSpots - SpotsTaken < 0 ? 0 : TotalSpots - SpotsTaken; } }
         public decimal RegPerDay { get { return Math.Round(((decimal)SpotsTaken / DayCount), 2); } }
-       
+
+        public List<Dictionary<String, int>> TShirtSizes { get; set; }
 
         public int EventCount { get; set; }        
         public int RedemptionRegCount { get; set; }  
@@ -48,8 +49,6 @@ namespace DirtyGirl.Web.Areas.Admin.Models
         {
             get { return FeeReport.Sum(x => x.ActualTotal); }
         }
-
-
 
         public decimal ChargeValue
         {

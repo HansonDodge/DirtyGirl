@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using DirtyGirl.Services;
 
 namespace DirtyGirl.Web.Areas.Admin.Controllers
 {    
@@ -62,11 +63,15 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                 var performanceFilter = new vmAdmin_PerformanceFilter { EventId = filter.EventId };
                 performanceFilter = SetPerformanceFilter(performanceFilter);
 
+                var sizeTotals = (_service as ReportingService).GetTShirtSizeTotalsByEventId((int)filter.EventId);
+
                 var vm = new vmAdmin_EventPerformance
                 {
                     Filter = eventFilter,
                     Report = GetPerformanceReport(performanceFilter)
                 };
+
+                vm.Report.TShirtSizes = (List<Dictionary<String,int>>)sizeTotals;
 
                 return View(vm);
             }
