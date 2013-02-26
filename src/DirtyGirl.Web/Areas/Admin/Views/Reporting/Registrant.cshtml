@@ -37,6 +37,7 @@
             cols.Bound(r => r.EmergencyPhone);
             cols.Bound(r => r.MedicalInformation);
             cols.Bound(r => r.SpecialNeeds);
+            cols.Bound(r => r.TShirtSize).Title("T-Shirt Size");
             cols.Bound(r => r.AgreeToTerms).Title("Agreed to Legal Terms");
             cols.Bound(r => r.DateAdded).Format("{0:MM/dd/yyyy}").Title("Registration Date");
         })

@@ -113,6 +113,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                          RegistrationValue = _service.GetRegistrationPathValue(x.RegistrationId).ToString("c"),
                          SpecialNeeds = x.SpecialNeeds,
                          State = x.Region.Code,
+                         TShirtSize = x.TShirtSize.Value.ToString(),
                          ThirdParty = (x.IsThirdPartyRegistration.HasValue && x.IsThirdPartyRegistration.Value) ? "Yes" : "No",
                          WaveDate = x.EventWave.EventDate.DateOfEvent,
                          WaveTime = x.EventWave.StartTime,
@@ -166,8 +167,9 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             headerRow.CreateCell(15).SetCellValue("Medical Information");
 
             headerRow.CreateCell(16).SetCellValue("Special Needs");
-            headerRow.CreateCell(17).SetCellValue("Agreed to Legal Terms");
-            headerRow.CreateCell(18).SetCellValue("Registration Date");
+            headerRow.CreateCell(17).SetCellValue("T-Shirt Size");
+            headerRow.CreateCell(18).SetCellValue("Agreed to Legal Terms");
+            headerRow.CreateCell(19).SetCellValue("Registration Date");
 
             //(Optional) freeze the header row so it is not scrolled
             sheet.CreateFreezePane(0, 1, 0, 1);
@@ -202,8 +204,9 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                 row.CreateCell(15).SetCellValue(reg.MedicalInformation);
 
                 row.CreateCell(16).SetCellValue(reg.SpecialNeeds);
-                row.CreateCell(17).SetCellValue(reg.AgreeToTerms);
-                row.CreateCell(18).SetCellValue(reg.DateAdded.ToShortDateString());
+                row.CreateCell(17).SetCellValue(reg.TShirtSize);
+                row.CreateCell(18).SetCellValue(reg.AgreeToTerms);
+                row.CreateCell(19).SetCellValue(reg.DateAdded.ToShortDateString());
             }
 
             //Write the workbook to a memory stream
