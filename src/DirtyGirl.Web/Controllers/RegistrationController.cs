@@ -82,8 +82,7 @@ namespace DirtyGirl.Web.Controllers
                     action.ItemReadyForCheckout = true;
                     return RedirectToAction("checkout", "cart");
 
-                case CartActionType.WaveChange:  
-                case CartActionType.WaveChange:                    
+                case CartActionType.WaveChange:                   
                     
                     ServiceResult waveChangeResult = _service.ChangeWave(((ChangeWaveAction)action.ActionObject).RegistrationId, eventWaveId);
 
