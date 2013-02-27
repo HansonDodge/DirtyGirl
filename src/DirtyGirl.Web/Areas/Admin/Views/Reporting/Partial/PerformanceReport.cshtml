@@ -76,7 +76,7 @@
             </tr>
         </table>
     </div>
-        <div class="PerformanceColumn">
+    <div class="PerformanceColumn">
         <table>
             <tr>
                 <td>Charge Total:</td>
@@ -96,6 +96,20 @@
             </tr>
         </table>
     </div>
+    @{
+        if (Model.TShirtSizes != null && Model.TShirtSizes.Count > 0) {
+    <div class="PerformanceColumn">
+        <table>
+            @foreach (var size in Model.TShirtSizes) {
+            <tr>
+                <td>@size.Keys.ElementAt(0) T-Shirts:</td>
+                <td style="text-align:right;">@size.Values.ElementAt(0)</td>
+            </tr>
+            }
+        </table>
+    </div>
+        }
+    }
 </div>
 <div style="clear:both;"></div>
 

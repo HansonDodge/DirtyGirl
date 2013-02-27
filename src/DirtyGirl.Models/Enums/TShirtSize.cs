@@ -8,17 +8,19 @@ namespace DirtyGirl.Models.Enums
 {
     public enum TShirtSize
     {
+        [Display(Name = "Unknown", Description="Unknown/Not selected")]
+        Unknown = 0,
         [Display(Name = "Small", Description = "Small")]
         S = 1,
         [Display(Name = "Medium", Description = "Medium")]
         M = 2,
         [Display(Name = "Large", Description = "Large")]
         L = 3,
-        [Display(Name = "Extra Large", Description = "Extra Large")]
+        [Display(Name = "XL", Description = "XL")]
         XL = 4,
-        [Display(Name = "Double XL", Description = "Double XL")]
+        [Display(Name = "XXL", Description = "XXL")]
         XXL = 5,
-        [Display(Name = "Triple XL", Description = "Triple XL")]
+        [Display(Name = "XXXL", Description = "XXXL")]
         XXXL = 6
     }
 }

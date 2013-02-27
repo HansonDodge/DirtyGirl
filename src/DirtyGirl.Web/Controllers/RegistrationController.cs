@@ -83,6 +83,7 @@ namespace DirtyGirl.Web.Controllers
                     return RedirectToAction("checkout", "cart");
 
                 case CartActionType.WaveChange:  
+                case CartActionType.WaveChange:                    
                     
                     ServiceResult waveChangeResult = _service.ChangeWave(((ChangeWaveAction)action.ActionObject).RegistrationId, eventWaveId);
 
@@ -157,7 +158,7 @@ namespace DirtyGirl.Web.Controllers
 
         #endregion
 
-        #region Registration
+        #region RegistrationDirtyGirlExtensions.ConvertToSelectList<TShirtSize>()
 
         public ActionResult RegistrationDetails(Guid itemId) 
         {
@@ -166,6 +167,9 @@ namespace DirtyGirl.Web.Controllers
             var wave = _service.GetEventWaveById(reg.EventWaveId);
             int eventId = wave.EventDate.EventId;
 
+            var tShirtSizeList = DirtyGirlExtensions.ConvertToSelectList<TShirtSize>();
+            tShirtSizeList.RemoveAt(0);
+
             var vm = new vmRegistration_Details 
                 { 
 
@@ -173,7 +177,7 @@ namespace DirtyGirl.Web.Controllers
                     EventOverview = _service.GetEventOverviewById(eventId),
                     RegionList = _service.GetRegionsByCountry(DirtyGirlConfig.Settings.DefaultCountryId),
                     RegistrationTypeList = DirtyGirlExtensions.ConvertToSelectList<RegistrationType>(),
-                    TShirtSizeList = DirtyGirlExtensions.ConvertToSelectList<TShirtSize>(),
+                    TShirtSizeList = tShirtSizeList,
                     PacketDeliveryOptionList = DirtyGirlExtensions.ConvertToSelectList<RegistrationMaterialsDeliveryOption>(),
                     EventLeadList = _service.GetEventLeads(eventId, true),
                     RegistrationDetails = reg,
@@ -236,6 +240,7 @@ namespace DirtyGirl.Web.Controllers
             model.EventLeadList = _service.GetEventLeads(wave.EventDate.EventId, true);
             model.PacketDeliveryOptionList = DirtyGirlExtensions.ConvertToSelectList<RegistrationMaterialsDeliveryOption>();
             model.TShirtSizeList = DirtyGirlExtensions.ConvertToSelectList<TShirtSize>();
+            model.TShirtSizeList.RemoveAt(0);
 
             return View(model);
         }        

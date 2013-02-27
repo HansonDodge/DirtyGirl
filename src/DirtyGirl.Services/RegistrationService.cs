@@ -60,7 +60,9 @@ namespace DirtyGirl.Services
         {
             return _repository.Registrations.Filter(r => r.TeamId == TeamId).ToList();            
         }
+
         
+
         public ServiceResult CreateNewRegistration(Registration r)
         {
             ServiceResult result = new ServiceResult();
