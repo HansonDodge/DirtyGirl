@@ -157,7 +157,7 @@ namespace DirtyGirl.Web.Controllers
 
         #endregion
 
-        #region RegistrationDirtyGirlExtensions.ConvertToSelectList<TShirtSize>()
+        #region Registration
 
         public ActionResult RegistrationDetails(Guid itemId) 
         {
