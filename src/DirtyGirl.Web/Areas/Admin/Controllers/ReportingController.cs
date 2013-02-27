@@ -71,7 +71,14 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                     Report = GetPerformanceReport(performanceFilter)
                 };
 
-                vm.Report.TShirtSizes = (List<Dictionary<String,int>>)sizeTotals;
+                if (sizeTotals != null)
+                {
+                    vm.Report.TShirtSizes = (List<Dictionary<String, int>>)sizeTotals;
+                }
+                else
+                {
+                    vm.Report.TShirtSizes = new List<Dictionary<String, int>>();
+                }
 
                 return View(vm);
             }

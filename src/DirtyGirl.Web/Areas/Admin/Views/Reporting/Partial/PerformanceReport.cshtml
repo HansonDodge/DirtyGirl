@@ -97,7 +97,7 @@
         </table>
     </div>
     @{
-        if (@Model.TShirtSizes != null) {
+        if (Model.TShirtSizes != null && Model.TShirtSizes.Count > 0) {
     <div class="PerformanceColumn">
         <table>
             @foreach (var size in Model.TShirtSizes) {

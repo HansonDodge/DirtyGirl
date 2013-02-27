@@ -58,7 +58,7 @@ namespace DirtyGirl.Services
             var totals = new List<Dictionary<String, int>>();
             foreach (var val in values)
             {
-                var count = registrations.Count(r => r.TShirtSize.Value == val);
+                var count = registrations.Count(r => r.TShirtSize.HasValue && r.TShirtSize.Value == val);
                 var total = new Dictionary<String, int>(1);
                 total.Add(val.ToString(), count);
                 totals.Add(total);
