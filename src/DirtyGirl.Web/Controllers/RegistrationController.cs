@@ -166,13 +166,16 @@ namespace DirtyGirl.Web.Controllers
             var wave = _service.GetEventWaveById(reg.EventWaveId);
             int eventId = wave.EventDate.EventId;
 
+            var tShirtSizeList = DirtyGirlExtensions.ConvertToSelectList<TShirtSize>();
+            tShirtSizeList.RemoveAt(0);
+
             var vm = new vmRegistration_Details 
                 { 
                     EventWave = _service.GetEventWaveById(reg.EventWaveId),
                     EventOverview = _service.GetEventOverviewById(eventId),
                     RegionList = _service.GetRegionsByCountry(DirtyGirlConfig.Settings.DefaultCountryId),
                     RegistrationTypeList = DirtyGirlExtensions.ConvertToSelectList<RegistrationType>(),
-                    TShirtSizeList = DirtyGirlExtensions.ConvertToSelectList<TShirtSize>(),
+                    TShirtSizeList = tShirtSizeList,
                     EventLeadList = _service.GetEventLeads(eventId, true),
                     RegistrationDetails = reg,
                     ItemId = itemId
@@ -232,6 +235,7 @@ namespace DirtyGirl.Web.Controllers
             model.RegistrationTypeList = DirtyGirlExtensions.ConvertToSelectList<RegistrationType>();
             model.EventLeadList = _service.GetEventLeads(wave.EventDate.EventId, true);
             model.TShirtSizeList = DirtyGirlExtensions.ConvertToSelectList<TShirtSize>();
+            model.TShirtSizeList.RemoveAt(0);
 
             return View(model);
         }        
