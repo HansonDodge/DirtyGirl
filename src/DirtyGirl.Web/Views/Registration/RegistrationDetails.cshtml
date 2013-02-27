@@ -101,13 +101,19 @@
                                     </div>
                                 </div>
                                 <div class="single_row">
-                                    <div class="single_input dropdown">
-                                        <p><span class="pink">*</span>Registration Type</p>
+                                    <p><span class="pink">*</span>Registration Type</p>
+                                    <div class="radiobuttons">
+                                        @foreach (SelectListItem regType in Model.RegistrationTypeList)
+                                        {
+                                            <p><label>@Html.RadioButtonFor(x => x.RegistrationDetails.RegistrationType, regType.Value) @regType.Text</label></p>
+                                        }
+
+                                        @*
                                             @(Html.Kendo().DropDownListFor(x => x.RegistrationDetails.RegistrationType)
                                                 .DataTextField("Text")
                                                 .DataValueField("Value")
                                             .BindTo(Model.RegistrationTypeList))
-                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.RegistrationType, "*")
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.RegistrationType, "*") *@
                                     </div>
                                 </div>
                                 <div class="single_row">
@@ -185,7 +191,7 @@
 
                                 <div class="single_row">
                                     <div class="single_input text">
-                                        <p><span class="pink">*</span>Emergency Contact</p>
+                                        <p><span class="pink">*</span>Emergency Contact Name</p>
                                         @Html.TextBoxFor(x => x.RegistrationDetails.EmergencyContact, new { @class = "TextBoxInput" })
                                         @Html.ValidationMessageFor(x => x.RegistrationDetails.EmergencyContact, "*")
                                     </div>
