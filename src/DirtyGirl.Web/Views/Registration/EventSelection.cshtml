@@ -40,11 +40,11 @@
                             <div class="wave_category">
                                 <table>
                                     <tr>
-                                        <td><p>Select Event:</p></td>
+                                        @*<td><p>Select Event:</p></td>*@
                                         <td><p>Select Date:</p></td>
                                     </tr>
                                     <tr>
-                                        <td>
+@*                                        <td>
                                             @(Html.Kendo().DropDownListFor(x => x.EventId)
                                                 .Name("ddlEvent")
                                                 .OptionLabel("Select")
@@ -53,7 +53,7 @@
                                                 .DataSource(source => source.Read(read => read.Action("geteventlist", "registration")))
                                                 .Events(evts => evts.Change("onEventChange").DataBound("onEventDataBound"))
                                                 .HtmlAttributes(new { style = "width:250px" }))       
-                                        </td>
+                                        </td>*@
                                         <td>
                                             @(Html.Kendo().DropDownListFor(x => x.EventDateId)
                                                 .Name("ddlEventDate")

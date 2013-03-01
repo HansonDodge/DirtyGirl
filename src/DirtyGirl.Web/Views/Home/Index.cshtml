@@ -207,39 +207,39 @@
     
     $(document).ready(function () {
         
-        $("#filterForm").submit(function (e) {
-            e.preventDefault();
+        var loadEventData = function(){
+
             $.ajax({
                 type: "POST",
                 url: 'Home/FilterEventDetails',
-                data: $(this).serialize(),
+                data: $("#filterForm").serialize(),
                 beforeSend: function () {
-                    $('#event_scroller')
+                    $('#EventDetail_List')
                         .html(function () {
                             return '<img src="../Images/ajax-loader-lg.gif"/>';
                         });
                 },
                 success: function (data) {
-                    $("#event_scroller").html(data[0]);
+                    $("#EventDetail_List").html(data[0]);
                 }
             });
-            return false;
-        });
+
+        }
 
         $(".filterItem").change(function () {
-            $("#filterForm").submit();
+            loadEventData();
         });
 
         $("#lnkDate").click(function (e) {
             e.preventDefault();
             setSort("Date", this);
-            $("#filterForm").submit();
+            loadEventData();
         });
 
         $("#lnkLocation").click(function (e) {
             e.preventDefault();
             setSort("Location", this);
-            $("#filterForm").submit();
+            loadEventData();
         });
 
     });

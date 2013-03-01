@@ -28,6 +28,10 @@
 
 @(Html.Kendo().Grid(Model.EventList)
     .Name("grdEventList")   
+    .DataSource(dataSource => dataSource
+        .Server()
+        .PageSize(200)
+    ) 
     .ToolBar(commands => commands.Custom().Text(" + Add Event").HtmlAttributes(new {id = "NewEventButton"})) 
     .Columns(cols =>
         {
@@ -41,6 +45,7 @@
             cols.Template(c => @Html.ActionLink("view event", "ViewEvent", new { id = c.EventId })); 
             cols.Template(c => @Html.ActionLink("edit event", "EditEvent", new { id = c.EventId }));           
         })            
+
     .Sortable()
     .Pageable()
     .Filterable()       
