@@ -142,6 +142,15 @@
                                 </div>
 
                                 <!-- Mailing address -->
+                                <p style="font-weight:normal;">
+                                    <b>Mailing Addresss:</b><br />
+                                    @Model.RegistrationDetails.Address1<br />
+                                    @if(!String.IsNullOrEmpty(Model.RegistrationDetails.Address2)) {
+                                    @Model.RegistrationDetails.Address2<br />
+                                    }
+                                    @Model.RegistrationDetails.Locality, @Model.RegionList.Where(r => r.RegionId == Model.RegistrationDetails.RegionId).FirstOrDefault().Name @Model.RegistrationDetails.PostalCode
+                                </p>
+                                <p style="font-weight:normal;">You can change your mailing address from your profile page.</p>
                                 <div style="display:none;">
                                     <p>Event Materials Mailing Address</p>
                                     <div class="single_row">
