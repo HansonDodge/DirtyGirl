@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DirtyGirl.Models;
 
 namespace DirtyGirl.Web.Models
 {
@@ -10,5 +11,6 @@ namespace DirtyGirl.Web.Models
     {
         public string ConfirmationCode { get; set; }
         public CartFocusType CartFocus { get; set; }
+        public User CurrentUser { get; set; }
     }
 }

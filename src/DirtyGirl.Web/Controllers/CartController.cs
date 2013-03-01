@@ -54,7 +54,6 @@ namespace DirtyGirl.Web.Controllers
             {
                 var confirmationCode = SessionManager.CurrentCart.ResultingConfirmationCode;
                 var CartFocusType = SessionManager.CurrentCart.CheckOutFocus;
-
                 SessionManager.CurrentCart = null;
                 return RedirectToAction("ThankYou", new {id = CartFocusType, confirm = confirmationCode});
             }
@@ -77,7 +76,8 @@ namespace DirtyGirl.Web.Controllers
             vmCart_ThankYou vm = new vmCart_ThankYou
                 {
                     CartFocus = id,
-                    ConfirmationCode = confirm
+                    ConfirmationCode = confirm,
+                    CurrentUser = CurrentUser
                 };
             
             return View(vm);
