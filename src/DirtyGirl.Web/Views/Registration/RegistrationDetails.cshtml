@@ -142,40 +142,44 @@
                                 </div>
 
                                 <!-- Mailing address -->
-
-                                <p>Event Materials Mailing Address</p>
-                                <div class="single_row">
-                                    <div class="single_input text address">
-                                        <p><span class="pink">*</span>Address</p>
-                                        @Html.TextBoxFor(x => x.RegistrationDetails.Address1, new { @class = "TextBoxInput" })
-                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.Address1, "*")
+                                <div style="display:none;">
+                                    <p>Event Materials Mailing Address</p>
+                                    <div class="single_row">
+                                        <div class="single_input text address">
+                                            <p><span class="pink">*</span>Address</p>
+                                            @Html.TextBoxFor(x => x.RegistrationDetails.Address1, new { @class = "TextBoxInput" })
+                                            @Html.ValidationMessageFor(x => x.RegistrationDetails.Address1, "*")
+                                        </div>
+                                        <div class="single_input text short">
+                                            <p>Apt #</p>
+                                            @Html.TextBoxFor(x => x.RegistrationDetails.Address2, new { @class = "TextBoxInput" })
+                                            @Html.ValidationMessageFor(x => x.RegistrationDetails.Address2, "*")
+                                        </div>
                                     </div>
-                                    <div class="single_input text short">
-                                        <p>Apt #</p>
-                                        @Html.TextBoxFor(x => x.RegistrationDetails.Address2, new { @class = "TextBoxInput" })
-                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.Address2, "*")
+                                    <div class="single_row">
+                                        <div class="single_input text">
+                                            <p><span class="pink">*</span>City</p>
+                                            @Html.TextBoxFor(x => x.RegistrationDetails.Locality, new { @class = "TextBoxInput" })
+                                            @Html.ValidationMessageFor(x => x.RegistrationDetails.Locality, "*")
+                                        </div>
+                                        <div class="single_input dropdown">
+                                            <p><span class="pink">*</span>State</p>
+                                            @Html.HiddenFor(x => x.RegistrationDetails.RegionId)
+                                            @*
+                                            @(Html.Kendo().DropDownListFor(x => x.RegistrationDetails.RegionId)
+                                                .OptionLabel("Select State")
+                                                .DataTextField("Name")
+                                                .DataValueField("RegionId")
+                                                .BindTo(Model.RegionList))
+                                            @Html.ValidationMessageFor(x => x.RegistrationDetails.RegionId) *@
+                                        </div>
+                                        <div class="single_input text short">
+                                            <p><span class="pink">*</span>Zip</p>
+                                            @Html.TextBoxFor(x => x.RegistrationDetails.PostalCode, new { @class = "TextBoxInput" })
+                                            @Html.ValidationMessageFor(x => x.RegistrationDetails.PostalCode, "*")
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="single_row">
-                                    <div class="single_input text">
-                                        <p><span class="pink">*</span>City</p>
-                                        @Html.TextBoxFor(x => x.RegistrationDetails.Locality, new { @class = "TextBoxInput" })
-                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.Locality, "*")
-                                    </div>
-                                    <div class="single_input dropdown">
-                                        <p><span class="pink">*</span>State</p>
-                                        @(Html.Kendo().DropDownListFor(x => x.RegistrationDetails.RegionId)
-                                            .OptionLabel("Select State")
-                                            .DataTextField("Name")
-                                            .DataValueField("RegionId")
-                                            .BindTo(Model.RegionList))
-                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.RegionId)
-                                    </div>
-                                    <div class="single_input text short">
-                                        <p><span class="pink">*</span>Zip</p>
-                                        @Html.TextBoxFor(x => x.RegistrationDetails.PostalCode, new { @class = "TextBoxInput" })
-                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.PostalCode, "*")
-                                    </div>
+                                    
                                 </div>
                                 <div class="single_row">
                                     <div class="single dropdown">
@@ -186,7 +190,6 @@
                                             .BindTo(Model.PacketDeliveryOptionList))
                                     </div>
                                 </div>
-
                                 <!-- End mailing address -->
 
                                 <div class="single_row">
