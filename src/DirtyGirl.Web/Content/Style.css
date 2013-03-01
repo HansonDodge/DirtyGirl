@@ -606,12 +606,25 @@ span.field-validation-error { color:#ff0000;}
 .register_editrun_button input{position: absolute; top:0; left:0;}
 
 /* Reporting */
-#reportfilter {
-    padding: 0 0 10px 0;
+#reporting  input[type="submit"]
+{
+    padding: 5px 10px;
 }
 
-#PerformanceReport {
-    padding: 0 0 10px 0;    
+#reportfilter {
+    padding: 0 0 10px 0;
+    width: 400px;
+    float:left;
+}
+
+#reporting .ExportButton
+{
+    float: left;
+}
+
+#PerformanceReport
+{
+    clear:both;
 }
 
 .PerformanceColumn {

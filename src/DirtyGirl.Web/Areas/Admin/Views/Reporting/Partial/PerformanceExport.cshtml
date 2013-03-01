@@ -1,0 +1,12 @@
+﻿@model vmAdmin_PerformanceFilter
+
+
+<div class="ExportButton">
+@using (Html.BeginForm("ExportPerformance", "reporting"))
+{
+<input data-val="true" id="EventId" name="EventId" type="hidden" value="@Model.EventId" />
+<input data-val="true" id="startDate" name="startDate" type="hidden" value="@Model.startDate.ToString()" />
+<input data-val="true" id="endDate" name="endDate" type="hidden" value="@Model.endDate.ToString()" />    
+<input id="ExportPerformance" type="submit" value="Export" />  
+}
+</div>
