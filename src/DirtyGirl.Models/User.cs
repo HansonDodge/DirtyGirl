@@ -22,7 +22,7 @@ namespace DirtyGirl.Models
         [Required(ErrorMessage = "Last Name is Required")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Address1 is Required")]
+        [Required(ErrorMessage = "Address is Required")]
         public string Address1 { get; set; }
         public string Address2 { get; set; }
 
