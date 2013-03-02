@@ -109,10 +109,10 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             {
                 rList = _service.GetRegistrationsByEventId(eventId.Value).Select(x => new vmAdmin_RegistrantListItem
                      {
-                         Address1 = x.Address1,
-                         Address2 = x.Address2,
+                         Address1 = x.User.Address1,
+                         Address2 = x.User.Address2,
                          AgreeToTerms = x.AgreeToTerms,
-                         City = x.Locality,
+                         City = x.User.Locality,
                          Email = x.Email,
                          EmergencyContact = x.EmergencyContact,
                          EmergencyPhone = x.EmergencyPhone,
@@ -124,12 +124,12 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                          RegistrationType = x.RegistrationType.ToString(),
                          RegistrationValue = _service.GetRegistrationPathValue(x.RegistrationId).ToString("c"),
                          SpecialNeeds = x.SpecialNeeds,
-                         State = x.Region.Code,
+                         State = x.User.Region.Code,
                          TShirtSize = x.TShirtSize.Value.ToString(),
                          ThirdParty = (x.IsThirdPartyRegistration.HasValue && x.IsThirdPartyRegistration.Value) ? "Yes" : "No",
                          WaveDate = x.EventWave.EventDate.DateOfEvent,
                          WaveTime = x.EventWave.StartTime,
-                         Zip = x.PostalCode,
+                         Zip = x.User.PostalCode,
                          DateAdded = x.DateAdded
                      }).OrderBy(x => x.LastName).ToList();
             }

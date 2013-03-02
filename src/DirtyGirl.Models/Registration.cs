@@ -42,7 +42,7 @@ namespace DirtyGirl.Models
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone number is not valid.")]
         public string Phone { get; set; }
 
-        [Required(ErrorMessage="Address is required")]
+        [Required(ErrorMessage = "Address is required")]
         public string Address1 { get; set; }
 
         public string Address2 { get; set; }
