@@ -137,6 +137,9 @@ DG.util = {
             $(".contentMain_info_content .map").show();
             $(".contentMain_info_tab a.active").removeClass("active");
             $(this).addClass("active");
+            google.maps.event.trigger(marker.map, 'resize');
+            marker.map.setCenter(marker.position); // be sure to reset the map center as well
+
         });
 
         $(".infotab-eventinfo").click(function (e) {
