@@ -7,5 +7,6 @@ namespace DirtyGirl.Data.DataInterfaces.Repositories
     public interface IEventRepository : IRepository<Event>
     {
         List<EventDateDetails> GetAllEventDateDetails();
+        EventDateDetails GetEventDateDetails(int ID);
     }
 }

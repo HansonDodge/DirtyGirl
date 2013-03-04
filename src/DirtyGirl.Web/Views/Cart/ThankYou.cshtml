@@ -17,7 +17,7 @@
                                     <div class="thankyouRegistration">
                                         <h1 class="pink" style="text-align: center;">THANK YOU FOR REGISTERING</h1>
                                         <div class="thankyouContent">
-                                            <p>Your confirmation code is @Model.ConfirmationCode We've also sent this to you in an email. </p>
+                                            <p>Your confirmation code is @Model.ConfirmationCode. We've also sent this to you in an email. </p>
                                             <p>Check out your profile or invite girls to join your team - click <a href="@Url.Content("~/User/ViewUser/"+User.Identity.Name)">here</a>!</p>
                                             @*<p style="width:163px; margin: 0 auto 15px;">@Html.ActionLink("Invite", "ViewUser", "User", new {username = User.Identity.Name}, htmlAttributes: new { @class = "btnPink" })</p>*@
 

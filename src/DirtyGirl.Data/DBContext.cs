@@ -2,6 +2,7 @@
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Objects;
+using System.Data.SqlClient;
 using DirtyGirl.Models;
 
 namespace DirtyGirl.Data
@@ -11,7 +12,7 @@ namespace DirtyGirl.Data
         public DB()
             : base("name=DirtyGirlContext")
         {
-            Configuration.LazyLoadingEnabled = true;                        
+           Configuration.LazyLoadingEnabled = true;                        
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -35,6 +36,13 @@ namespace DirtyGirl.Data
         {
             ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(EventDateDetails).Assembly);
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteStoreQuery<EventDateDetails>("GetAllEventDateCounts");
+        }
+        public virtual ObjectResult<EventDateDetails> SpGetEventDateCounts(int EventID)
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(EventDateDetails).Assembly);
+            var prams = new object[] {new SqlParameter("@EventId", EventID)};
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteStoreQuery<EventDateDetails>("GetAllEventDateCounts", prams);
         }
     }
 }

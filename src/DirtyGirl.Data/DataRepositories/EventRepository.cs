@@ -33,5 +33,25 @@ namespace DirtyGirl.Data.DataRepositories
 
             return eventDateDetailsList;
         }
+
+
+        public EventDateDetails GetEventDateDetails(int ID)
+        {
+            EventDateDetails eventDateDetail = null;
+            var ctx = Context;
+            var regCounts = ctx.SpGetEventDateCounts(ID);
+            if (regCounts != null)
+            {
+                var regCount = regCounts.First();
+                eventDateDetail = new EventDateDetails() ;
+                eventDateDetail.EventId = regCount.EventId;
+                eventDateDetail.EventDateId = regCount.EventDateId;
+                eventDateDetail.DateOfEvent = regCount.DateOfEvent;
+                eventDateDetail.MaxRegistrants = regCount.MaxRegistrants;
+                eventDateDetail.RegistrationCount = regCount.RegistrationCount;                 
+            }
+
+            return eventDateDetail;
+        }
     }
 }
