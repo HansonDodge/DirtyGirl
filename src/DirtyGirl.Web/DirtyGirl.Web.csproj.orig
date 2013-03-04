@@ -1,0 +1,2000 @@
+<<<<<<< HEAD
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{012794FB-1C53-458D-8BA2-0AE1ADF96C95}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DirtyGirl.Web</RootNamespace>
+    <AssemblyName>DirtyGirl.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Mvc">
+      <HintPath>..\packages\Elmah.MVC.2.0.2\lib\net40\Elmah.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="FacebookOpenGraph, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\FacebookOpenGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Kendo.Mvc, Version=2012.3.1114.340, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\Kendo.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Optimization.0.1\lib\net40\Microsoft.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="NinjectAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\NinjectAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=1.2.5.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.5.1\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.20710.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DiscountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EventController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EventLeadController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RegistrationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_AddEvent.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_CouponList.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_CreateCoupon.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_CreateEventDate.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_EditEvent.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_EventIndex.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_EventLead.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_EventLeadItem.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_EventFilter.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_EventPerformance.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_Performance.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_PerformanceFilter.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_PerformanceReport.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_RegistrantListItem.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportingController.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_RegistrationListItem.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_ReportCoupon.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_ReportPerformance.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_ReportTransfer.cs" />
+    <Compile Include="Controllers\AuthorizeController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\DummyController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\ShareController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DirtyGirlExtensions.cs" />
+    <Compile Include="Helpers\DistinctByExtension.cs" />
+    <Compile Include="Helpers\LamdaComparer.cs" />
+    <Compile Include="Helpers\NinjectResolver.cs" />
+    <Compile Include="Models\vmCart_ThankYou.cs" />
+    <Compile Include="Models\vmErrorViewModel.cs" />
+    <Compile Include="Models\vmPasswordReset.cs" />
+    <Compile Include="Models\vmRegistration_EventSelection.cs" />
+    <Compile Include="Models\vmCommon_Share.cs" />
+    <Compile Include="Models\vmEvent.cs" />
+    <Compile Include="Models\vmHomePage.cs" />
+    <Compile Include="Models\vmLogon.cs" />
+    <Compile Include="Models\vmLogonStatus.cs" />
+    <Compile Include="Models\vmRegistration_Details.cs" />
+    <Compile Include="Models\vmRegistration_CreateTeam.cs" />
+    <Compile Include="Models\vmRegistration_Transfer.cs" />
+    <Compile Include="Models\vmRegistration_WaveItem.cs" />
+    <Compile Include="Models\vmRegistration_WaveList.cs" />
+    <Compile Include="Models\vmRegistration_WaveSelection.cs" />
+    <Compile Include="Models\vmTeam_Create.cs" />
+    <Compile Include="Models\vmTeam_Details.cs" />
+    <Compile Include="Models\vmUser_ChangePassword.cs" />
+    <Compile Include="Models\vmUser_Detail.cs" />
+    <Compile Include="Models\vmUser_Registrations.cs" />
+    <Compile Include="Models\vmUser_SetPassword.cs" />
+    <Compile Include="Models\vmUser_EditUser.cs" />
+    <Compile Include="Models\vmUser_UserList.cs" />
+    <Compile Include="Models\vmUser_ViewUser.cs" />
+    <Compile Include="Models\vmViewEvent.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\ControllerExtensions.cs" />
+    <Compile Include="Utils\Detective.cs" />
+    <Compile Include="Utils\DirtyGirlConfig.cs" />
+    <Compile Include="Utils\FileAttribute.cs" />
+    <Compile Include="Utils\FileType.cs" />
+    <Compile Include="Utils\SessionManager.cs" />
+    <Compile Include="Utils\Utilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Admin.css" />
+    <Content Include="Content\fonts\blackout-2am.svg" />
+    <Content Include="Content\fonts\blackout-midnight.svg" />
+    <Content Include="Content\fonts\notefromtyler.txt" />
+    <Content Include="Content\fonts\svg.txt" />
+    <Content Include="Content\jquery.mCustomScrollbar.css" />
+    <Content Include="Content\jquery.mCustomScrollbar.new.css" />
+    <Content Include="Content\kendo\Black\editor.png" />
+    <Content Include="Content\kendo\Black\imagebrowser.png" />
+    <Content Include="Content\kendo\Black\loading-image.gif" />
+    <Content Include="Content\kendo\Black\loading.gif" />
+    <Content Include="Content\kendo\Black\slider-h.gif" />
+    <Content Include="Content\kendo\Black\slider-v.gif" />
+    <Content Include="Content\kendo\Black\sprite.png" />
+    <Content Include="Content\kendo\BlueOpal\editor.png" />
+    <Content Include="Content\kendo\BlueOpal\imagebrowser.png" />
+    <Content Include="Content\kendo\BlueOpal\loading-image.gif" />
+    <Content Include="Content\kendo\BlueOpal\loading.gif" />
+    <Content Include="Content\kendo\BlueOpal\slider-h.gif" />
+    <Content Include="Content\kendo\BlueOpal\slider-v.gif" />
+    <Content Include="Content\kendo\BlueOpal\sprite.png" />
+    <Content Include="Content\kendo\Bootstrap\editor.png" />
+    <Content Include="Content\kendo\Bootstrap\imagebrowser.png" />
+    <Content Include="Content\kendo\Bootstrap\loading-image.gif" />
+    <Content Include="Content\kendo\Bootstrap\loading.gif" />
+    <Content Include="Content\kendo\Bootstrap\slider-h.gif" />
+    <Content Include="Content\kendo\Bootstrap\slider-v.gif" />
+    <Content Include="Content\kendo\Bootstrap\sprite.png" />
+    <Content Include="Content\kendo\Default\editor.png" />
+    <Content Include="Content\kendo\Default\imagebrowser.png" />
+    <Content Include="Content\kendo\Default\loading-image.gif" />
+    <Content Include="Content\kendo\Default\loading.gif" />
+    <Content Include="Content\kendo\Default\slider-h.gif" />
+    <Content Include="Content\kendo\Default\slider-v.gif" />
+    <Content Include="Content\kendo\Default\sprite.png" />
+    <Content Include="Content\kendo\HighContrast\editor.png" />
+    <Content Include="Content\kendo\HighContrast\imagebrowser.png" />
+    <Content Include="Content\kendo\HighContrast\loading-image.gif" />
+    <Content Include="Content\kendo\HighContrast\loading.gif" />
+    <Content Include="Content\kendo\HighContrast\slider-h.gif" />
+    <Content Include="Content\kendo\HighContrast\slider-v.gif" />
+    <Content Include="Content\kendo\HighContrast\sprite.png" />
+    <Content Include="Content\kendo\images\back.png" />
+    <Content Include="Content\kendo\kendo.black.min.css" />
+    <Content Include="Content\kendo\kendo.blueopal.min.css" />
+    <Content Include="Content\kendo\kendo.bootstrap.min.css" />
+    <Content Include="Content\kendo\kendo.common.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.black.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.blueopal.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.bootstrap.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.default.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.highcontrast.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.metro.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.metroblack.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.moonlight.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.silver.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.uniform.min.css" />
+    <Content Include="Content\kendo\kendo.default.min.css" />
+    <Content Include="Content\kendo\kendo.highcontrast.min.css" />
+    <Content Include="Content\kendo\kendo.metro.min.css" />
+    <Content Include="Content\kendo\kendo.metroblack.min.css" />
+    <Content Include="Content\kendo\kendo.mobile.all.min.css" />
+    <Content Include="Content\kendo\kendo.mobile.android4.min.css" />
+    <Content Include="Content\kendo\kendo.mobile.blackberry.min.css" />
+    <Content Include="Content\kendo\kendo.mobile.ios.min.css" />
+    <Content Include="Content\kendo\kendo.mobile.meego.min.css" />
+    <Content Include="Content\kendo\kendo.moonlight.min.css" />
+    <Content Include="Content\kendo\kendo.rtl.min.css" />
+    <Content Include="Content\kendo\kendo.silver.min.css" />
+    <Content Include="Content\kendo\kendo.uniform.min.css" />
+    <Content Include="Content\kendo\MetroBlack\editor.png" />
+    <Content Include="Content\kendo\MetroBlack\imagebrowser.png" />
+    <Content Include="Content\kendo\MetroBlack\loading-image.gif" />
+    <Content Include="Content\kendo\MetroBlack\loading.gif" />
+    <Content Include="Content\kendo\MetroBlack\slider-h.gif" />
+    <Content Include="Content\kendo\MetroBlack\slider-v.gif" />
+    <Content Include="Content\kendo\MetroBlack\sprite.png" />
+    <Content Include="Content\kendo\Metro\editor.png" />
+    <Content Include="Content\kendo\Metro\imagebrowser.png" />
+    <Content Include="Content\kendo\Metro\loading-image.gif" />
+    <Content Include="Content\kendo\Metro\loading.gif" />
+    <Content Include="Content\kendo\Metro\slider-h.gif" />
+    <Content Include="Content\kendo\Metro\slider-v.gif" />
+    <Content Include="Content\kendo\Metro\sprite.png" />
+    <Content Include="Content\kendo\Moonlight\editor.png" />
+    <Content Include="Content\kendo\Moonlight\imagebrowser.png" />
+    <Content Include="Content\kendo\Moonlight\loading-image.gif" />
+    <Content Include="Content\kendo\Moonlight\loading.gif" />
+    <Content Include="Content\kendo\Moonlight\slider-h.gif" />
+    <Content Include="Content\kendo\Moonlight\slider-v.gif" />
+    <Content Include="Content\kendo\Moonlight\sprite.png" />
+    <Content Include="Content\kendo\Silver\editor.png" />
+    <Content Include="Content\kendo\Silver\imagebrowser.png" />
+    <Content Include="Content\kendo\Silver\loading-image.gif" />
+    <Content Include="Content\kendo\Silver\loading.gif" />
+    <Content Include="Content\kendo\Silver\slider-h.gif" />
+    <Content Include="Content\kendo\Silver\slider-v.gif" />
+    <Content Include="Content\kendo\Silver\sprite.png" />
+    <Content Include="Content\kendo\textures\brushed-metal.png" />
+    <Content Include="Content\kendo\textures\dots1.png" />
+    <Content Include="Content\kendo\textures\dots10.png" />
+    <Content Include="Content\kendo\textures\dots11.png" />
+    <Content Include="Content\kendo\textures\dots12.png" />
+    <Content Include="Content\kendo\textures\dots13.png" />
+    <Content Include="Content\kendo\textures\dots2.png" />
+    <Content Include="Content\kendo\textures\dots3.png" />
+    <Content Include="Content\kendo\textures\dots4.png" />
+    <Content Include="Content\kendo\textures\dots5.png" />
+    <Content Include="Content\kendo\textures\dots6.png" />
+    <Content Include="Content\kendo\textures\dots7.png" />
+    <Content Include="Content\kendo\textures\dots8.png" />
+    <Content Include="Content\kendo\textures\dots9.png" />
+    <Content Include="Content\kendo\textures\glass-lighter.png" />
+    <Content Include="Content\kendo\textures\glass.png" />
+    <Content Include="Content\kendo\textures\highlight.png" />
+    <Content Include="Content\kendo\textures\leather1.png" />
+    <Content Include="Content\kendo\textures\leather2.png" />
+    <Content Include="Content\kendo\textures\noise.png" />
+    <Content Include="Content\kendo\textures\stripe1.png" />
+    <Content Include="Content\kendo\textures\stripe2.png" />
+    <Content Include="Content\kendo\textures\stripe3.png" />
+    <Content Include="Content\kendo\textures\stripe4.png" />
+    <Content Include="Content\kendo\textures\stripe5.png" />
+    <Content Include="Content\kendo\textures\stripe6.png" />
+    <Content Include="Content\kendo\Uniform\editor.png" />
+    <Content Include="Content\kendo\Uniform\imagebrowser.png" />
+    <Content Include="Content\kendo\Uniform\loading-image.gif" />
+    <Content Include="Content\kendo\Uniform\loading.gif" />
+    <Content Include="Content\kendo\Uniform\slider-h.gif" />
+    <Content Include="Content\kendo\Uniform\slider-v.gif" />
+    <Content Include="Content\kendo\Uniform\sprite.png" />
+    <Content Include="Content\Style.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="EmailTemplates\Cancellation.html" />
+    <Content Include="EmailTemplates\PasswordResetRequest.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\RegistrationWithoutConfirmation.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\DirtyGirlTeamShare_Body.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\PaymentConfirmation.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\Template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\Transfer.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\html\email.html" />
+    <Content Include="Email\images\bg_email.jpg" />
+    <Content Include="Email\images\bg_raceinstructions.jpg" />
+    <Content Include="Email\images\btn_continueaccount.jpg" />
+    <Content Include="Email\images\btn_invite.jpg" />
+    <Content Include="Email\images\btn_invite.png" />
+    <Content Include="Email\images\btn_raceinstructions.png" />
+    <Content Include="Email\images\btn_register.jpg" />
+    <Content Include="Email\images\btn_viewmerch.jpg" />
+    <Content Include="Email\images\btn_viewmerch.png" />
+    <Content Include="Email\images\continue-account.jpg" />
+    <Content Include="Email\images\dirty-girl-attire.jpg" />
+    <Content Include="Email\images\divider.jpg" />
+    <Content Include="Email\images\donate-nbcf-hdr.jpg" />
+    <Content Include="Email\images\dont-forget-hdr.jpg" />
+    <Content Include="Email\images\email-footer.jpg" />
+    <Content Include="Email\images\facebook.jpg" />
+    <Content Include="Email\images\header-attire.jpg" />
+    <Content Include="Email\images\header-donate.jpg" />
+    <Content Include="Email\images\header-share.jpg" />
+    <Content Include="Email\images\header_attire.png" />
+    <Content Include="Email\images\header_donate.png" />
+    <Content Include="Email\images\header_questions.png" />
+    <Content Include="Email\images\header_share.png" />
+    <Content Include="Email\images\img_dghat.jpg" />
+    <Content Include="Email\images\img_facebook.jpg" />
+    <Content Include="Email\images\img_facebook.png" />
+    <Content Include="Email\images\img_header.jpg" />
+    <Content Include="Email\images\img_nbcf.jpg" />
+    <Content Include="Email\images\img_raceinstructions.jpg" />
+    <Content Include="Email\images\img_twitter.jpg" />
+    <Content Include="Email\images\img_twitter.png" />
+    <Content Include="Email\images\nbcf.jpg" />
+    <Content Include="Email\images\race-day-hdr.jpg" />
+    <Content Include="Email\images\raceday-image.jpg" />
+    <Content Include="Email\images\setup-donate.jpg" />
+    <Content Include="Email\images\spacer.gif" />
+    <Content Include="Email\images\tell-your-friends-hdr.jpg" />
+    <Content Include="Email\images\twitter.jpg" />
+    <Content Include="Email\images\ui-left-separator.jpg" />
+    <Content Include="Email\images\ui-mud.jpg" />
+    <Content Include="Email\images\ui-separator.jpg" />
+    <Content Include="Email\images\ui-top.jpg" />
+    <Content Include="Email\images\ui-top2-left.jpg" />
+    <Content Include="Email\images\ui-top2-right.jpg" />
+    <Content Include="Email\images\ui-topleft.jpg" />
+    <Content Include="Email\images\ui-topright.jpg" />
+    <Content Include="Email\images\view-all-merch.jpg" />
+    <Content Include="Global.asax" />
+    <Content Include="Areas\Admin\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml">
+      <BrowseToURL>~/Admin/Shared/_Layout</BrowseToURL>
+    </Content>
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\EditEvent.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\User\EditUser.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\Admin\Views\User\ListUsers.cshtml" />
+    <Content Include="Areas\Admin\Views\User\SetPassword.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\Partial\GenerateEventDateForm.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\Partial\GenerateEventDate.cshtml" />
+    <Content Include="Content\fonts\.DS_Store" />
+    <Content Include="Content\fonts\blackout-2am.eot" />
+    <Content Include="Content\fonts\blackout-2am.ttf" />
+    <Content Include="Content\fonts\blackout-2am.woff" />
+    <Content Include="Content\fonts\blackout-midnight.eot" />
+    <Content Include="Content\fonts\blackout-midnight.ttf" />
+    <Content Include="Content\fonts\blackout-midnight.woff" />
+    <Content Include="Areas\Admin\Views\Event\Partial\AddEventSponsor.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\ViewEvent.cshtml" />
+    <Content Include="Areas\Admin\Views\User\ViewUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Registrant.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Performance.cshtml" />
+    <Content Include="Areas\Admin\Views\Discount\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\Partial\PlaceMarker.cshtml" />
+    <Content Include="Areas\Admin\Views\EventLead\Index.cshtml" />
+    <Content Include="Content\kendo\images\KendoUI.ttf" />
+    <Content Include="Content\kendo\images\KendoUI.woff" />
+    <Content Include="Content\waiver.pdf" />
+    <Content Include="Areas\Admin\Views\Registration\EventSelection.cshtml" />
+    <Content Include="Areas\Admin\Views\Registration\CancelRegistration.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\Partial\ReportFilter.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Partial\EventFilter.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Partial\FeeReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Partial\PerformanceFilter.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Partial\PerformanceReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\EventPerformance.cshtml" />
+    <None Include="Properties\PublishProfiles\register-godirtygirl-qa - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\register-godirtygirl-qa - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Staging.pubxml" />
+    <Content Include="Images\ajax-loader-lg.gif" />
+    <Content Include="Images\ajax-loader.gif" />
+    <Content Include="Images\ajax-loader1.gif" />
+    <Content Include="Images\arrow.png" />
+    <Content Include="Images\arrow_down.png" />
+    <Content Include="Images\arrow_select.png" />
+    <Content Include="Images\arrow_up.png" />
+    <Content Include="Images\bg_container.jpg" />
+    <Content Include="Images\bg_donate_bar.jpg" />
+    <Content Include="Images\bg_jointeam.png" />
+    <Content Include="Images\bg_map_copy.png" />
+    <Content Include="Images\bg_map_list.png" />
+    <Content Include="Images\bg_profile.jpg" />
+    <Content Include="Images\bg_sidebox_bottom.png" />
+    <Content Include="Images\bg_sidebox_content.png" />
+    <Content Include="Images\bg_sidebox_side.png" />
+    <Content Include="Images\bg_sidebox_top.png" />
+    <Content Include="Images\bg_transparent.png" />
+    <Content Include="Images\bg_white.jpg" />
+    <Content Include="Images\border-pink-left-full.png" />
+    <Content Include="Images\box-bottom.gif" />
+    <Content Include="Images\box-bottom.png" />
+    <Content Include="Images\btn_cancelrun.png" />
+    <Content Include="Images\btn_createAccount.png" />
+    <Content Include="Images\btn_createjointeam.png" />
+    <Content Include="Images\btn_createTeam.png" />
+    <Content Include="Images\btn_editProfile.png" />
+    <Content Include="Images\btn_editRun.png" />
+    <Content Include="Images\btn_invite.png" />
+    <Content Include="Images\btn_joinTeam.png" />
+    <Content Include="Images\btn_login.png" />
+    <Content Include="Images\btn_loginFb.png" />
+    <Content Include="Images\btn_makeDonation.png" />
+    <Content Include="Images\btn_pink.png" />
+    <Content Include="Images\btn_pink_lg.png" />
+    <Content Include="Images\btn_redeem.png" />
+    <Content Include="Images\btn_registerRun.png" />
+    <Content Include="Images\btn_saveteamname.png" />
+    <Content Include="Images\btn_share_fb.jpg" />
+    <Content Include="Images\btn_share_twitter.jpg" />
+    <Content Include="Images\btn_submitchange.png" />
+    <Content Include="Images\btn_submittransfer.png" />
+    <Content Include="Images\btn_submit_modal.png" />
+    <Content Include="Images\btn_viewmerch.png" />
+    <Content Include="Images\btn_viewprofile.png" />
+    <Content Include="Images\btn_viewschedule.png" />
+    <Content Include="Images\button.gif" />
+    <Content Include="Images\check_no.jpg" />
+    <Content Include="Images\check_yes.jpg" />
+    <Content Include="Images\contactFooter.png" />
+    <Content Include="Images\dg-header.jpg" />
+    <Content Include="Images\donate-bar.png" />
+    <Content Include="Images\donation-bar-dirt.png" />
+    <Content Include="Images\dot.png" />
+    <Content Include="Images\Events\deploy.txt" />
+    <Content Include="Images\favicon.ico" />
+    <Content Include="Images\fb.gif" />
+    <Content Include="Images\footerbase.jpg" />
+    <Content Include="Images\footertop.png" />
+    <Content Include="Images\fpo-pp.jpg" />
+    <Content Include="Images\fpo_chatbox.jpg" />
+    <Content Include="Images\fpo_map.jpg" />
+    <Content Include="Images\fpo_pp.jpg" />
+    <Content Include="Images\fpo_teammate.jpg" />
+    <Content Include="Images\header.gif" />
+    <Content Include="Images\header_eventdetail.png" />
+    <Content Include="Images\header_eventdetail_lg.png" />
+    <Content Include="Images\hero_profile.jpg" />
+    <Content Include="Images\hero_rotate1.jpg" />
+    <Content Include="Images\hero_rotate2.jpg" />
+    <Content Include="Images\hero_rotate3.jpg" />
+    <Content Include="Images\hero_rotate4.jpg" />
+    <Content Include="Images\img_attire.jpg" />
+    <Content Include="Images\img_cc.png" />
+    <Content Include="Images\img_contentSide_separator.png" />
+    <Content Include="Images\img_facebook.png" />
+    <Content Include="Images\img_login_modal.png" />
+    <Content Include="Images\img_map.png" />
+    <Content Include="Images\img_pinterest.png" />
+    <Content Include="Images\img_remove.png" />
+    <Content Include="Images\img_separator.png" />
+    <Content Include="Images\img_separator_lg.png" />
+    <Content Include="Images\img_twitter.png" />
+    <Content Include="Images\itunes.jpg" />
+    <Content Include="Images\location-pin-map.png" />
+    <Content Include="Images\login-invite-people-btn.jpg" />
+    <Content Include="Images\login-photo-sm.png" />
+    <Content Include="Images\login-photo.png" />
+    <Content Include="Images\login-talk-to-my-team-btn.jpg" />
+    <Content Include="Images\login_modal.png" />
+    <Content Include="Images\logo-facebook2.png" />
+    <Content Include="Images\logo-small.png" />
+    <Content Include="Images\logo-twitter2.png" />
+    <Content Include="Images\map-rolloverbox.png" />
+    <Content Include="Images\map-signup.png" />
+    <Content Include="Images\map-soldout.png" />
+    <Content Include="Images\map-viewevent.png" />
+    <Content Include="Images\mcs_btnDown.png" />
+    <Content Include="Images\mcs_btnUp.png" />
+    <Content Include="Images\national-breast-cancer-logo.jpg" />
+    <Content Include="Images\nav-about.png" />
+    <Content Include="Images\nav-blog.png" />
+    <Content Include="Images\nav-events.png" />
+    <Content Include="Images\nav-sponsors.png" />
+    <Content Include="Images\nav-store.png" />
+    <Content Include="Images\On-Sale-Icon.jpg" />
+    <Content Include="Images\pinterest.jpg" />
+    <Content Include="Images\reg-progress-finish.png" />
+    <Content Include="Images\reg-progress-muddier.png" />
+    <Content Include="Images\reg-progress-start.png" />
+    <Content Include="Images\reg-progress.png" />
+    <Content Include="Images\reg_progress1.png" />
+    <Content Include="Images\shopping-cart.jpg" />
+    <Content Include="Images\signup-new.png" />
+    <Content Include="Images\sponsors\sponsor-breastcancerjpg.jpg" />
+    <Content Include="Images\sponsors\sponsor-fleet.jpg" />
+    <Content Include="Images\sponsors\sponsor-loa.jpg" />
+    <Content Include="Images\sponsors\sponsor-redpaw.jpg" />
+    <Content Include="Images\sponsors\sponsor-stark.jpg" />
+    <Content Include="Images\sponsors\sponsor-trekwoman.jpg" />
+    <Content Include="Images\sponsors\sponsor-xseries.jpg" />
+    <Content Include="Images\sponsors\sponsorwheelsprocket.jpg" />
+    <Content Include="Images\sprite-nextbutton.png" />
+    <Content Include="Images\sprite-submit.png" />
+    <Content Include="Images\sprite-tab-eventinfo.png" />
+    <Content Include="Images\sprite-tab-eventschedule.png" />
+    <Content Include="Images\sprite-tab-faq.png" />
+    <Content Include="Images\sprite-tabdetail-eventinfo.png" />
+    <Content Include="Images\sprite-tabdetail-faq.png" />
+    <Content Include="Images\sprite-tabdetail-faq_.png" />
+    <Content Include="Images\sprite-tabdetail-map.png" />
+    <Content Include="Images\tint20.png" />
+    <Content Include="Images\trek-women.png" />
+    <Content Include="Images\twitter.gif" />
+    <Content Include="Images\ui-horizontal-pink.png" />
+    <Content Include="Images\ui-rundetail-bottom.png" />
+    <Content Include="Images\ui-rundetail-top.png" />
+    <Content Include="Images\ui-vertical-pink.png" />
+    <Content Include="Images\voluteer.jpg" />
+    <Content Include="Images\wave-open-soldout.jpg" />
+    <Content Include="Images\wave-open.jpg" />
+    <Content Include="Images\wave-rollover.png" />
+    <Content Include="Images\wave-spots-open.jpg" />
+    <Content Include="Images\x.png" />
+    <Content Include="ReferencedAssemblies\Antlr3.Runtime.dll" />
+    <Content Include="ReferencedAssemblies\DotNetOpenAuth.AspNet.dll" />
+    <Content Include="ReferencedAssemblies\DotNetOpenAuth.Core.dll" />
+    <Content Include="ReferencedAssemblies\DotNetOpenAuth.OAuth.Consumer.dll" />
+    <Content Include="ReferencedAssemblies\DotNetOpenAuth.OAuth.dll" />
+    <Content Include="ReferencedAssemblies\DotNetOpenAuth.OpenId.dll" />
+    <Content Include="ReferencedAssemblies\DotNetOpenAuth.OpenId.RelyingParty.dll" />
+    <Content Include="ReferencedAssemblies\Elmah.dll" />
+    <Content Include="ReferencedAssemblies\FacebookOpenGraph.dll" />
+    <Content Include="ReferencedAssemblies\Ionic.Zip.dll" />
+    <Content Include="ReferencedAssemblies\Kendo.Mvc.dll" />
+    <Content Include="ReferencedAssemblies\Microsoft.Practices.ServiceLocation.dll" />
+    <Content Include="ReferencedAssemblies\Microsoft.Web.Optimization.dll" />
+    <Content Include="ReferencedAssemblies\Mono.Math.dll" />
+    <Content Include="ReferencedAssemblies\Newtonsoft.Json.dll" />
+    <Content Include="ReferencedAssemblies\Ninject.dll" />
+    <Content Include="ReferencedAssemblies\Ninject.Web.Common.dll" />
+    <Content Include="ReferencedAssemblies\Ninject.Web.Mvc.dll" />
+    <Content Include="ReferencedAssemblies\NinjectAdapter.dll" />
+    <Content Include="ReferencedAssemblies\NPOI.dll" />
+    <Content Include="ReferencedAssemblies\Org.Mentalis.Security.Cryptography.dll" />
+    <Content Include="ReferencedAssemblies\System.Web.Optimization.dll" />
+    <Content Include="ReferencedAssemblies\WebGrease.dll" />
+    <Content Include="Scripts\jquery.mCustomScrollbar.min.js" />
+    <Content Include="Scripts\jquery.mCustomScrollbar.new.js" />
+    <Content Include="Scripts\jquery.mCustomScrollbar_v2.js" />
+    <Content Include="Scripts\DirtyGirl.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-1.8.3.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.3.js" />
+    <Content Include="Scripts\jquery-1.8.3.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.easing.1.3.js" />
+    <Content Include="Scripts\jquery.mCustomScrollbar.js" />
+    <Content Include="Scripts\jquery.mousewheel.min.js" />
+    <Content Include="Scripts\jquery.tooltip.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\kendo\jquery.min.js" />
+    <Content Include="Scripts\kendo\kendo.all.min.js" />
+    <Content Include="Scripts\kendo\kendo.aspnetmvc.min.js" />
+    <Content Include="Scripts\kendo\kendo.autocomplete.min.js" />
+    <Content Include="Scripts\kendo\kendo.binder.min.js" />
+    <Content Include="Scripts\kendo\kendo.calendar.min.js" />
+    <Content Include="Scripts\kendo\kendo.columnmenu.min.js" />
+    <Content Include="Scripts\kendo\kendo.combobox.min.js" />
+    <Content Include="Scripts\kendo\kendo.core.min.js" />
+    <Content Include="Scripts\kendo\kendo.data.min.js" />
+    <Content Include="Scripts\kendo\kendo.data.odata.min.js" />
+    <Content Include="Scripts\kendo\kendo.data.xml.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.chart.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.core.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.gauge.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.stock.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.svg.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.themes.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.vml.min.js" />
+    <Content Include="Scripts\kendo\kendo.datepicker.min.js" />
+    <Content Include="Scripts\kendo\kendo.datetimepicker.min.js" />
+    <Content Include="Scripts\kendo\kendo.draganddrop.min.js" />
+    <Content Include="Scripts\kendo\kendo.dropdownlist.min.js" />
+    <Content Include="Scripts\kendo\kendo.editable.min.js" />
+    <Content Include="Scripts\kendo\kendo.editor.min.js" />
+    <Content Include="Scripts\kendo\kendo.filtermenu.min.js" />
+    <Content Include="Scripts\kendo\kendo.fx.min.js" />
+    <Content Include="Scripts\kendo\kendo.grid.min.js" />
+    <Content Include="Scripts\kendo\kendo.groupable.min.js" />
+    <Content Include="Scripts\kendo\kendo.history.min.js" />
+    <Content Include="Scripts\kendo\kendo.imagebrowser.min.js" />
+    <Content Include="Scripts\kendo\kendo.list.min.js" />
+    <Content Include="Scripts\kendo\kendo.listview.min.js" />
+    <Content Include="Scripts\kendo\kendo.menu.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.actionsheet.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.application.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.button.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.buttongroup.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.listview.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.loader.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.modalview.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.navbar.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.pane.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.popover.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.scroller.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.scrollview.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.shim.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.splitview.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.switch.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.tabstrip.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.view.min.js" />
+    <Content Include="Scripts\kendo\kendo.numerictextbox.min.js" />
+    <Content Include="Scripts\kendo\kendo.pager.min.js" />
+    <Content Include="Scripts\kendo\kendo.panelbar.min.js" />
+    <Content Include="Scripts\kendo\kendo.popup.min.js" />
+    <Content Include="Scripts\kendo\kendo.reorderable.min.js" />
+    <Content Include="Scripts\kendo\kendo.resizable.min.js" />
+    <Content Include="Scripts\kendo\kendo.selectable.min.js" />
+    <Content Include="Scripts\kendo\kendo.slider.min.js" />
+    <Content Include="Scripts\kendo\kendo.sortable.min.js" />
+    <Content Include="Scripts\kendo\kendo.splitter.min.js" />
+    <Content Include="Scripts\kendo\kendo.tabstrip.min.js" />
+    <Content Include="Scripts\kendo\kendo.timepicker.min.js" />
+    <Content Include="Scripts\kendo\kendo.touch.min.js" />
+    <Content Include="Scripts\kendo\kendo.treeview.min.js" />
+    <Content Include="Scripts\kendo\kendo.upload.min.js" />
+    <Content Include="Scripts\kendo\kendo.userevents.min.js" />
+    <Content Include="Scripts\kendo\kendo.validator.min.js" />
+    <Content Include="Scripts\kendo\kendo.web.min.js" />
+    <Content Include="Scripts\kendo\kendo.window.min.js" />
+    <Content Include="Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Images\accent.png" />
+    <Content Include="Images\bullet.png" />
+    <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\orderedList0.png" />
+    <Content Include="Images\orderedList1.png" />
+    <Content Include="Images\orderedList2.png" />
+    <Content Include="Images\orderedList3.png" />
+    <Content Include="Images\orderedList4.png" />
+    <Content Include="Images\orderedList5.png" />
+    <Content Include="Images\orderedList6.png" />
+    <Content Include="Images\orderedList7.png" />
+    <Content Include="Images\orderedList8.png" />
+    <Content Include="Images\orderedList9.png" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Authorize\LogOn.cshtml" />
+    <Content Include="Views\Shared\DisplayMessage.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Integer.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Number.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
+    <Content Include="Views\User\CreateUser.cshtml" />
+    <Content Include="Views\User\ViewUser.cshtml" />
+    <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\Dummy\Index.cshtml" />
+    <Content Include="Views\Dummy\Registration.cshtml" />
+    <Content Include="Views\Dummy\Wave.cshtml" />
+    <Content Include="Views\Dummy\Form.cshtml" />
+    <Content Include="Views\Dummy\Donate.cshtml" />
+    <Content Include="Views\Dummy\Summary.cshtml" />
+    <Content Include="Views\Dummy\Profile.cshtml" />
+    <Content Include="Views\Dummy\TeamChat.cshtml" />
+    <Content Include="Views\Dummy\EditRegistration.cshtml" />
+    <Content Include="Views\Dummy\ThankYou.cshtml" />
+    <Content Include="Views\User\EnterConfirmationCode.cshtml" />
+    <Content Include="Views\Team\CreateTeam.cshtml" />
+    <Content Include="Views\Home\Partial\EventList.cshtml" />
+    <Content Include="Views\Home\ViewEvent.cshtml" />
+    <Content Include="Views\Shared\LoginModal.cshtml" />
+    <Content Include="Views\Shared\_LoginStatus.cshtml" />
+    <Content Include="Views\Team\TeamRegistration.cshtml" />
+    <Content Include="Views\Registration\CreateTeam.cshtml" />
+    <Content Include="Views\Shared\EventHeader.cshtml" />
+    <Content Include="Views\Registration\RegistrationDetails.cshtml" />
+    <Content Include="Views\Registration\Partial\WaveList.cshtml" />
+    <Content Include="Views\Registration\Partial\WaveListItem.cshtml" />
+    <Content Include="Views\Team\ViewTeam.cshtml" />
+    <Content Include="Views\Team\Temp.cshtml" />
+    <Content Include="Views\Shared\ShareWithOthers.cshtml" />
+    <Content Include="Views\Shared\_ModalLayout.cshtml" />
+    <Content Include="Views\Cart\Partial\CartDisplay.cshtml" />
+    <Content Include="Views\Cart\CheckOut.cshtml" />
+    <Content Include="Views\Cart\ThankYou.cshtml" />
+    <Content Include="Views\Registration\EventSelection.cshtml" />
+    <Content Include="Views\Shared\_Hero.cshtml" />
+    <Content Include="Views\Registration\Transfer.cshtml" />
+    <Content Include="Views\Shared\AuthError.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml" />
+    <Content Include="Views\Share\GetShareEmail.cshtml" />
+    <Content Include="Views\Team\Partial\MessageBoardPosts.cshtml" />
+    <Content Include="Views\Authorize\ForgotPassword.cshtml" />
+    <Content Include="Views\Authorize\PasswordResetRequest.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DirtyGirl.Data\DirtyGirl.Data.csproj">
+      <Project>{87150502-d491-4956-ba42-3665c1463dd4}</Project>
+      <Name>DirtyGirl.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DirtyGirl.Models\DirtyGirl.Models.csproj">
+      <Project>{e0337b32-d02c-46fc-8459-d39259c42c80}</Project>
+      <Name>DirtyGirl.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DirtyGirl.Services\DirtyGirl.Services.csproj">
+      <Project>{dcf37db6-dabc-4c38-b449-ad1d8987f76f}</Project>
+      <Name>DirtyGirl.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>37547</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:35563/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+=======
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{012794FB-1C53-458D-8BA2-0AE1ADF96C95}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DirtyGirl.Web</RootNamespace>
+    <AssemblyName>DirtyGirl.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Mvc">
+      <HintPath>..\packages\Elmah.MVC.2.0.2\lib\net40\Elmah.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="FacebookOpenGraph, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\FacebookOpenGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Kendo.Mvc, Version=2012.3.1114.340, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\Kendo.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Optimization.0.1\lib\net40\Microsoft.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="NinjectAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\NinjectAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=1.2.5.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.5.1\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.20710.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DiscountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EventController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EventLeadController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RegistrationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_AddEvent.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_CouponList.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_CreateCoupon.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_CreateEventDate.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_EditEvent.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_EventIndex.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_EventLead.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_EventLeadItem.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_EventFilter.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_EventPerformance.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_Performance.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_PerformanceFilter.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_PerformanceReport.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_RegistrantListItem.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportingController.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_RegistrationListItem.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_ReportCoupon.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_ReportPerformance.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_ReportTransfer.cs" />
+    <Compile Include="Controllers\AuthorizeController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\DummyController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\ShareController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DirtyGirlExtensions.cs" />
+    <Compile Include="Helpers\DistinctByExtension.cs" />
+    <Compile Include="Helpers\LamdaComparer.cs" />
+    <Compile Include="Helpers\NinjectResolver.cs" />
+    <Compile Include="Models\vmCart_ThankYou.cs" />
+    <Compile Include="Models\vmErrorViewModel.cs" />
+    <Compile Include="Models\vmPasswordReset.cs" />
+    <Compile Include="Models\vmRegistration_EventSelection.cs" />
+    <Compile Include="Models\vmCommon_Share.cs" />
+    <Compile Include="Models\vmEvent.cs" />
+    <Compile Include="Models\vmHomePage.cs" />
+    <Compile Include="Models\vmLogon.cs" />
+    <Compile Include="Models\vmLogonStatus.cs" />
+    <Compile Include="Models\vmRegistration_Details.cs" />
+    <Compile Include="Models\vmRegistration_CreateTeam.cs" />
+    <Compile Include="Models\vmRegistration_Transfer.cs" />
+    <Compile Include="Models\vmRegistration_WaveItem.cs" />
+    <Compile Include="Models\vmRegistration_WaveList.cs" />
+    <Compile Include="Models\vmRegistration_WaveSelection.cs" />
+    <Compile Include="Models\vmTeam_Create.cs" />
+    <Compile Include="Models\vmTeam_Details.cs" />
+    <Compile Include="Models\vmUser_ChangePassword.cs" />
+    <Compile Include="Models\vmUser_Detail.cs" />
+    <Compile Include="Models\vmUser_Registrations.cs" />
+    <Compile Include="Models\vmUser_SetPassword.cs" />
+    <Compile Include="Models\vmUser_EditUser.cs" />
+    <Compile Include="Models\vmUser_UserList.cs" />
+    <Compile Include="Models\vmUser_ViewUser.cs" />
+    <Compile Include="Models\vmViewEvent.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\ControllerExtensions.cs" />
+    <Compile Include="Utils\Detective.cs" />
+    <Compile Include="Utils\DirtyGirlConfig.cs" />
+    <Compile Include="Utils\FileAttribute.cs" />
+    <Compile Include="Utils\FileType.cs" />
+    <Compile Include="Utils\SessionManager.cs" />
+    <Compile Include="Utils\Utilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Admin.css" />
+    <Content Include="Content\fonts\blackout-2am.svg" />
+    <Content Include="Content\fonts\blackout-midnight.svg" />
+    <Content Include="Content\fonts\notefromtyler.txt" />
+    <Content Include="Content\fonts\svg.txt" />
+    <Content Include="Content\jquery.mCustomScrollbar.css" />
+    <Content Include="Content\jquery.mCustomScrollbar.new.css" />
+    <Content Include="Content\kendo\Black\editor.png" />
+    <Content Include="Content\kendo\Black\imagebrowser.png" />
+    <Content Include="Content\kendo\Black\loading-image.gif" />
+    <Content Include="Content\kendo\Black\loading.gif" />
+    <Content Include="Content\kendo\Black\slider-h.gif" />
+    <Content Include="Content\kendo\Black\slider-v.gif" />
+    <Content Include="Content\kendo\Black\sprite.png" />
+    <Content Include="Content\kendo\BlueOpal\editor.png" />
+    <Content Include="Content\kendo\BlueOpal\imagebrowser.png" />
+    <Content Include="Content\kendo\BlueOpal\loading-image.gif" />
+    <Content Include="Content\kendo\BlueOpal\loading.gif" />
+    <Content Include="Content\kendo\BlueOpal\slider-h.gif" />
+    <Content Include="Content\kendo\BlueOpal\slider-v.gif" />
+    <Content Include="Content\kendo\BlueOpal\sprite.png" />
+    <Content Include="Content\kendo\Bootstrap\editor.png" />
+    <Content Include="Content\kendo\Bootstrap\imagebrowser.png" />
+    <Content Include="Content\kendo\Bootstrap\loading-image.gif" />
+    <Content Include="Content\kendo\Bootstrap\loading.gif" />
+    <Content Include="Content\kendo\Bootstrap\slider-h.gif" />
+    <Content Include="Content\kendo\Bootstrap\slider-v.gif" />
+    <Content Include="Content\kendo\Bootstrap\sprite.png" />
+    <Content Include="Content\kendo\Default\editor.png" />
+    <Content Include="Content\kendo\Default\imagebrowser.png" />
+    <Content Include="Content\kendo\Default\loading-image.gif" />
+    <Content Include="Content\kendo\Default\loading.gif" />
+    <Content Include="Content\kendo\Default\slider-h.gif" />
+    <Content Include="Content\kendo\Default\slider-v.gif" />
+    <Content Include="Content\kendo\Default\sprite.png" />
+    <Content Include="Content\kendo\HighContrast\editor.png" />
+    <Content Include="Content\kendo\HighContrast\imagebrowser.png" />
+    <Content Include="Content\kendo\HighContrast\loading-image.gif" />
+    <Content Include="Content\kendo\HighContrast\loading.gif" />
+    <Content Include="Content\kendo\HighContrast\slider-h.gif" />
+    <Content Include="Content\kendo\HighContrast\slider-v.gif" />
+    <Content Include="Content\kendo\HighContrast\sprite.png" />
+    <Content Include="Content\kendo\images\back.png" />
+    <Content Include="Content\kendo\kendo.black.min.css" />
+    <Content Include="Content\kendo\kendo.blueopal.min.css" />
+    <Content Include="Content\kendo\kendo.bootstrap.min.css" />
+    <Content Include="Content\kendo\kendo.common.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.black.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.blueopal.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.bootstrap.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.default.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.highcontrast.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.metro.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.metroblack.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.moonlight.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.silver.min.css" />
+    <Content Include="Content\kendo\kendo.dataviz.uniform.min.css" />
+    <Content Include="Content\kendo\kendo.default.min.css" />
+    <Content Include="Content\kendo\kendo.highcontrast.min.css" />
+    <Content Include="Content\kendo\kendo.metro.min.css" />
+    <Content Include="Content\kendo\kendo.metroblack.min.css" />
+    <Content Include="Content\kendo\kendo.mobile.all.min.css" />
+    <Content Include="Content\kendo\kendo.mobile.android4.min.css" />
+    <Content Include="Content\kendo\kendo.mobile.blackberry.min.css" />
+    <Content Include="Content\kendo\kendo.mobile.ios.min.css" />
+    <Content Include="Content\kendo\kendo.mobile.meego.min.css" />
+    <Content Include="Content\kendo\kendo.moonlight.min.css" />
+    <Content Include="Content\kendo\kendo.rtl.min.css" />
+    <Content Include="Content\kendo\kendo.silver.min.css" />
+    <Content Include="Content\kendo\kendo.uniform.min.css" />
+    <Content Include="Content\kendo\MetroBlack\editor.png" />
+    <Content Include="Content\kendo\MetroBlack\imagebrowser.png" />
+    <Content Include="Content\kendo\MetroBlack\loading-image.gif" />
+    <Content Include="Content\kendo\MetroBlack\loading.gif" />
+    <Content Include="Content\kendo\MetroBlack\slider-h.gif" />
+    <Content Include="Content\kendo\MetroBlack\slider-v.gif" />
+    <Content Include="Content\kendo\MetroBlack\sprite.png" />
+    <Content Include="Content\kendo\Metro\editor.png" />
+    <Content Include="Content\kendo\Metro\imagebrowser.png" />
+    <Content Include="Content\kendo\Metro\loading-image.gif" />
+    <Content Include="Content\kendo\Metro\loading.gif" />
+    <Content Include="Content\kendo\Metro\slider-h.gif" />
+    <Content Include="Content\kendo\Metro\slider-v.gif" />
+    <Content Include="Content\kendo\Metro\sprite.png" />
+    <Content Include="Content\kendo\Moonlight\editor.png" />
+    <Content Include="Content\kendo\Moonlight\imagebrowser.png" />
+    <Content Include="Content\kendo\Moonlight\loading-image.gif" />
+    <Content Include="Content\kendo\Moonlight\loading.gif" />
+    <Content Include="Content\kendo\Moonlight\slider-h.gif" />
+    <Content Include="Content\kendo\Moonlight\slider-v.gif" />
+    <Content Include="Content\kendo\Moonlight\sprite.png" />
+    <Content Include="Content\kendo\Silver\editor.png" />
+    <Content Include="Content\kendo\Silver\imagebrowser.png" />
+    <Content Include="Content\kendo\Silver\loading-image.gif" />
+    <Content Include="Content\kendo\Silver\loading.gif" />
+    <Content Include="Content\kendo\Silver\slider-h.gif" />
+    <Content Include="Content\kendo\Silver\slider-v.gif" />
+    <Content Include="Content\kendo\Silver\sprite.png" />
+    <Content Include="Content\kendo\textures\brushed-metal.png" />
+    <Content Include="Content\kendo\textures\dots1.png" />
+    <Content Include="Content\kendo\textures\dots10.png" />
+    <Content Include="Content\kendo\textures\dots11.png" />
+    <Content Include="Content\kendo\textures\dots12.png" />
+    <Content Include="Content\kendo\textures\dots13.png" />
+    <Content Include="Content\kendo\textures\dots2.png" />
+    <Content Include="Content\kendo\textures\dots3.png" />
+    <Content Include="Content\kendo\textures\dots4.png" />
+    <Content Include="Content\kendo\textures\dots5.png" />
+    <Content Include="Content\kendo\textures\dots6.png" />
+    <Content Include="Content\kendo\textures\dots7.png" />
+    <Content Include="Content\kendo\textures\dots8.png" />
+    <Content Include="Content\kendo\textures\dots9.png" />
+    <Content Include="Content\kendo\textures\glass-lighter.png" />
+    <Content Include="Content\kendo\textures\glass.png" />
+    <Content Include="Content\kendo\textures\highlight.png" />
+    <Content Include="Content\kendo\textures\leather1.png" />
+    <Content Include="Content\kendo\textures\leather2.png" />
+    <Content Include="Content\kendo\textures\noise.png" />
+    <Content Include="Content\kendo\textures\stripe1.png" />
+    <Content Include="Content\kendo\textures\stripe2.png" />
+    <Content Include="Content\kendo\textures\stripe3.png" />
+    <Content Include="Content\kendo\textures\stripe4.png" />
+    <Content Include="Content\kendo\textures\stripe5.png" />
+    <Content Include="Content\kendo\textures\stripe6.png" />
+    <Content Include="Content\kendo\Uniform\editor.png" />
+    <Content Include="Content\kendo\Uniform\imagebrowser.png" />
+    <Content Include="Content\kendo\Uniform\loading-image.gif" />
+    <Content Include="Content\kendo\Uniform\loading.gif" />
+    <Content Include="Content\kendo\Uniform\slider-h.gif" />
+    <Content Include="Content\kendo\Uniform\slider-v.gif" />
+    <Content Include="Content\kendo\Uniform\sprite.png" />
+    <Content Include="Content\Style.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="EmailTemplates\Cancellation.html" />
+    <Content Include="EmailTemplates\PasswordResetRequest.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\RegistrationWithoutConfirmation.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\DirtyGirlTeamShare_Body.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\PaymentConfirmation.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\Template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\Transfer.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\html\email.html" />
+    <Content Include="Email\images\bg_email.jpg" />
+    <Content Include="Email\images\bg_raceinstructions.jpg" />
+    <Content Include="Email\images\btn_continueaccount.jpg" />
+    <Content Include="Email\images\btn_invite.jpg" />
+    <Content Include="Email\images\btn_invite.png" />
+    <Content Include="Email\images\btn_raceinstructions.png" />
+    <Content Include="Email\images\btn_register.jpg" />
+    <Content Include="Email\images\btn_viewmerch.jpg" />
+    <Content Include="Email\images\btn_viewmerch.png" />
+    <Content Include="Email\images\continue-account.jpg" />
+    <Content Include="Email\images\dirty-girl-attire.jpg" />
+    <Content Include="Email\images\divider.jpg" />
+    <Content Include="Email\images\donate-nbcf-hdr.jpg" />
+    <Content Include="Email\images\dont-forget-hdr.jpg" />
+    <Content Include="Email\images\email-footer.jpg" />
+    <Content Include="Email\images\facebook.jpg" />
+    <Content Include="Email\images\header-attire.jpg" />
+    <Content Include="Email\images\header-donate.jpg" />
+    <Content Include="Email\images\header-share.jpg" />
+    <Content Include="Email\images\header_attire.png" />
+    <Content Include="Email\images\header_donate.png" />
+    <Content Include="Email\images\header_questions.png" />
+    <Content Include="Email\images\header_share.png" />
+    <Content Include="Email\images\img_dghat.jpg" />
+    <Content Include="Email\images\img_facebook.jpg" />
+    <Content Include="Email\images\img_facebook.png" />
+    <Content Include="Email\images\img_header.jpg" />
+    <Content Include="Email\images\img_nbcf.jpg" />
+    <Content Include="Email\images\img_raceinstructions.jpg" />
+    <Content Include="Email\images\img_twitter.jpg" />
+    <Content Include="Email\images\img_twitter.png" />
+    <Content Include="Email\images\nbcf.jpg" />
+    <Content Include="Email\images\race-day-hdr.jpg" />
+    <Content Include="Email\images\raceday-image.jpg" />
+    <Content Include="Email\images\setup-donate.jpg" />
+    <Content Include="Email\images\spacer.gif" />
+    <Content Include="Email\images\tell-your-friends-hdr.jpg" />
+    <Content Include="Email\images\twitter.jpg" />
+    <Content Include="Email\images\ui-left-separator.jpg" />
+    <Content Include="Email\images\ui-mud.jpg" />
+    <Content Include="Email\images\ui-separator.jpg" />
+    <Content Include="Email\images\ui-top.jpg" />
+    <Content Include="Email\images\ui-top2-left.jpg" />
+    <Content Include="Email\images\ui-top2-right.jpg" />
+    <Content Include="Email\images\ui-topleft.jpg" />
+    <Content Include="Email\images\ui-topright.jpg" />
+    <Content Include="Email\images\view-all-merch.jpg" />
+    <Content Include="Global.asax" />
+    <Content Include="Areas\Admin\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml">
+      <BrowseToURL>~/Admin/Shared/_Layout</BrowseToURL>
+    </Content>
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\EditEvent.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\User\EditUser.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\Admin\Views\User\ListUsers.cshtml" />
+    <Content Include="Areas\Admin\Views\User\SetPassword.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\Partial\GenerateEventDateForm.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\Partial\GenerateEventDate.cshtml" />
+    <Content Include="Content\fonts\.DS_Store" />
+    <Content Include="Content\fonts\blackout-2am.eot" />
+    <Content Include="Content\fonts\blackout-2am.ttf" />
+    <Content Include="Content\fonts\blackout-2am.woff" />
+    <Content Include="Content\fonts\blackout-midnight.eot" />
+    <Content Include="Content\fonts\blackout-midnight.ttf" />
+    <Content Include="Content\fonts\blackout-midnight.woff" />
+    <Content Include="Areas\Admin\Views\Event\Partial\AddEventSponsor.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\ViewEvent.cshtml" />
+    <Content Include="Areas\Admin\Views\User\ViewUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Registrant.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Performance.cshtml" />
+    <Content Include="Areas\Admin\Views\Discount\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\Partial\PlaceMarker.cshtml" />
+    <Content Include="Areas\Admin\Views\EventLead\Index.cshtml" />
+    <Content Include="Content\kendo\images\KendoUI.ttf" />
+    <Content Include="Content\kendo\images\KendoUI.woff" />
+    <Content Include="Content\waiver.pdf" />
+    <Content Include="Areas\Admin\Views\Registration\EventSelection.cshtml" />
+    <Content Include="Areas\Admin\Views\Registration\CancelRegistration.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\Partial\ReportFilter.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Partial\EventFilter.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Partial\FeeReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Partial\PerformanceFilter.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Partial\PerformanceReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\EventPerformance.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Partial\EventExport.cshtml" />
+    <Content Include="Areas\Admin\Views\Reporting\Partial\PerformanceExport.cshtml" />
+    <None Include="Properties\PublishProfiles\Staging.pubxml" />
+    <Content Include="Images\ajax-loader-lg.gif" />
+    <Content Include="Images\ajax-loader.gif" />
+    <Content Include="Images\ajax-loader1.gif" />
+    <Content Include="Images\arrow.png" />
+    <Content Include="Images\arrow_down.png" />
+    <Content Include="Images\arrow_select.png" />
+    <Content Include="Images\arrow_up.png" />
+    <Content Include="Images\bg_container.jpg" />
+    <Content Include="Images\bg_donate_bar.jpg" />
+    <Content Include="Images\bg_jointeam.png" />
+    <Content Include="Images\bg_map_copy.png" />
+    <Content Include="Images\bg_map_list.png" />
+    <Content Include="Images\bg_profile.jpg" />
+    <Content Include="Images\bg_sidebox_bottom.png" />
+    <Content Include="Images\bg_sidebox_content.png" />
+    <Content Include="Images\bg_sidebox_side.png" />
+    <Content Include="Images\bg_sidebox_top.png" />
+    <Content Include="Images\bg_transparent.png" />
+    <Content Include="Images\bg_white.jpg" />
+    <Content Include="Images\border-pink-left-full.png" />
+    <Content Include="Images\box-bottom.gif" />
+    <Content Include="Images\box-bottom.png" />
+    <Content Include="Images\btn_cancelrun.png" />
+    <Content Include="Images\btn_createAccount.png" />
+    <Content Include="Images\btn_createjointeam.png" />
+    <Content Include="Images\btn_createTeam.png" />
+    <Content Include="Images\btn_editProfile.png" />
+    <Content Include="Images\btn_editRun.png" />
+    <Content Include="Images\btn_invite.png" />
+    <Content Include="Images\btn_joinTeam.png" />
+    <Content Include="Images\btn_login.png" />
+    <Content Include="Images\btn_loginFb.png" />
+    <Content Include="Images\btn_makeDonation.png" />
+    <Content Include="Images\btn_pink.png" />
+    <Content Include="Images\btn_pink_lg.png" />
+    <Content Include="Images\btn_redeem.png" />
+    <Content Include="Images\btn_registerRun.png" />
+    <Content Include="Images\btn_saveteamname.png" />
+    <Content Include="Images\btn_share_fb.jpg" />
+    <Content Include="Images\btn_share_twitter.jpg" />
+    <Content Include="Images\btn_submitchange.png" />
+    <Content Include="Images\btn_submittransfer.png" />
+    <Content Include="Images\btn_submit_modal.png" />
+    <Content Include="Images\btn_viewmerch.png" />
+    <Content Include="Images\btn_viewprofile.png" />
+    <Content Include="Images\btn_viewschedule.png" />
+    <Content Include="Images\button.gif" />
+    <Content Include="Images\check_no.jpg" />
+    <Content Include="Images\check_yes.jpg" />
+    <Content Include="Images\contactFooter.png" />
+    <Content Include="Images\dg-header.jpg" />
+    <Content Include="Images\donate-bar.png" />
+    <Content Include="Images\donation-bar-dirt.png" />
+    <Content Include="Images\dot.png" />
+    <Content Include="Images\Events\deploy.txt" />
+    <Content Include="Images\favicon.ico" />
+    <Content Include="Images\fb.gif" />
+    <Content Include="Images\footerbase.jpg" />
+    <Content Include="Images\footertop.png" />
+    <Content Include="Images\fpo-pp.jpg" />
+    <Content Include="Images\fpo_chatbox.jpg" />
+    <Content Include="Images\fpo_map.jpg" />
+    <Content Include="Images\fpo_pp.jpg" />
+    <Content Include="Images\fpo_teammate.jpg" />
+    <Content Include="Images\header.gif" />
+    <Content Include="Images\header_eventdetail.png" />
+    <Content Include="Images\header_eventdetail_lg.png" />
+    <Content Include="Images\hero_profile.jpg" />
+    <Content Include="Images\hero_rotate1.jpg" />
+    <Content Include="Images\hero_rotate2.jpg" />
+    <Content Include="Images\hero_rotate3.jpg" />
+    <Content Include="Images\hero_rotate4.jpg" />
+    <Content Include="Images\img_attire.jpg" />
+    <Content Include="Images\img_cc.png" />
+    <Content Include="Images\img_contentSide_separator.png" />
+    <Content Include="Images\img_facebook.png" />
+    <Content Include="Images\img_login_modal.png" />
+    <Content Include="Images\img_map.png" />
+    <Content Include="Images\img_pinterest.png" />
+    <Content Include="Images\img_remove.png" />
+    <Content Include="Images\img_separator.png" />
+    <Content Include="Images\img_separator_lg.png" />
+    <Content Include="Images\img_twitter.png" />
+    <Content Include="Images\itunes.jpg" />
+    <Content Include="Images\location-pin-map.png" />
+    <Content Include="Images\login-invite-people-btn.jpg" />
+    <Content Include="Images\login-photo-sm.png" />
+    <Content Include="Images\login-photo.png" />
+    <Content Include="Images\login-talk-to-my-team-btn.jpg" />
+    <Content Include="Images\login_modal.png" />
+    <Content Include="Images\logo-facebook2.png" />
+    <Content Include="Images\logo-small.png" />
+    <Content Include="Images\logo-twitter2.png" />
+    <Content Include="Images\map-rolloverbox.png" />
+    <Content Include="Images\map-signup.png" />
+    <Content Include="Images\map-soldout.png" />
+    <Content Include="Images\map-viewevent.png" />
+    <Content Include="Images\mcs_btnDown.png" />
+    <Content Include="Images\mcs_btnUp.png" />
+    <Content Include="Images\national-breast-cancer-logo.jpg" />
+    <Content Include="Images\nav-about.png" />
+    <Content Include="Images\nav-blog.png" />
+    <Content Include="Images\nav-events.png" />
+    <Content Include="Images\nav-sponsors.png" />
+    <Content Include="Images\nav-store.png" />
+    <Content Include="Images\On-Sale-Icon.jpg" />
+    <Content Include="Images\pinterest.jpg" />
+    <Content Include="Images\reg-progress-finish.png" />
+    <Content Include="Images\reg-progress-muddier.png" />
+    <Content Include="Images\reg-progress-start.png" />
+    <Content Include="Images\reg-progress.png" />
+    <Content Include="Images\reg_progress1.png" />
+    <Content Include="Images\shopping-cart.jpg" />
+    <Content Include="Images\signup-new.png" />
+    <Content Include="Images\sponsors\sponsor-breastcancerjpg.jpg" />
+    <Content Include="Images\sponsors\sponsor-fleet.jpg" />
+    <Content Include="Images\sponsors\sponsor-loa.jpg" />
+    <Content Include="Images\sponsors\sponsor-redpaw.jpg" />
+    <Content Include="Images\sponsors\sponsor-stark.jpg" />
+    <Content Include="Images\sponsors\sponsor-trekwoman.jpg" />
+    <Content Include="Images\sponsors\sponsor-xseries.jpg" />
+    <Content Include="Images\sponsors\sponsorwheelsprocket.jpg" />
+    <Content Include="Images\sprite-nextbutton.png" />
+    <Content Include="Images\sprite-submit.png" />
+    <Content Include="Images\sprite-tab-eventinfo.png" />
+    <Content Include="Images\sprite-tab-eventschedule.png" />
+    <Content Include="Images\sprite-tab-faq.png" />
+    <Content Include="Images\sprite-tabdetail-eventinfo.png" />
+    <Content Include="Images\sprite-tabdetail-faq.png" />
+    <Content Include="Images\sprite-tabdetail-faq_.png" />
+    <Content Include="Images\sprite-tabdetail-map.png" />
+    <Content Include="Images\tint20.png" />
+    <Content Include="Images\trek-women.png" />
+    <Content Include="Images\twitter.gif" />
+    <Content Include="Images\ui-horizontal-pink.png" />
+    <Content Include="Images\ui-rundetail-bottom.png" />
+    <Content Include="Images\ui-rundetail-top.png" />
+    <Content Include="Images\ui-vertical-pink.png" />
+    <Content Include="Images\voluteer.jpg" />
+    <Content Include="Images\wave-open-soldout.jpg" />
+    <Content Include="Images\wave-open.jpg" />
+    <Content Include="Images\wave-rollover.png" />
+    <Content Include="Images\wave-spots-open.jpg" />
+    <Content Include="Images\x.png" />
+    <Content Include="ReferencedAssemblies\Antlr3.Runtime.dll" />
+    <Content Include="ReferencedAssemblies\DotNetOpenAuth.AspNet.dll" />
+    <Content Include="ReferencedAssemblies\DotNetOpenAuth.Core.dll" />
+    <Content Include="ReferencedAssemblies\DotNetOpenAuth.OAuth.Consumer.dll" />
+    <Content Include="ReferencedAssemblies\DotNetOpenAuth.OAuth.dll" />
+    <Content Include="ReferencedAssemblies\DotNetOpenAuth.OpenId.dll" />
+    <Content Include="ReferencedAssemblies\DotNetOpenAuth.OpenId.RelyingParty.dll" />
+    <Content Include="ReferencedAssemblies\Elmah.dll" />
+    <Content Include="ReferencedAssemblies\FacebookOpenGraph.dll" />
+    <Content Include="ReferencedAssemblies\Ionic.Zip.dll" />
+    <Content Include="ReferencedAssemblies\Kendo.Mvc.dll" />
+    <Content Include="ReferencedAssemblies\Microsoft.Practices.ServiceLocation.dll" />
+    <Content Include="ReferencedAssemblies\Microsoft.Web.Optimization.dll" />
+    <Content Include="ReferencedAssemblies\Mono.Math.dll" />
+    <Content Include="ReferencedAssemblies\Newtonsoft.Json.dll" />
+    <Content Include="ReferencedAssemblies\Ninject.dll" />
+    <Content Include="ReferencedAssemblies\Ninject.Web.Common.dll" />
+    <Content Include="ReferencedAssemblies\Ninject.Web.Mvc.dll" />
+    <Content Include="ReferencedAssemblies\NinjectAdapter.dll" />
+    <Content Include="ReferencedAssemblies\NPOI.dll" />
+    <Content Include="ReferencedAssemblies\Org.Mentalis.Security.Cryptography.dll" />
+    <Content Include="ReferencedAssemblies\System.Web.Optimization.dll" />
+    <Content Include="ReferencedAssemblies\WebGrease.dll" />
+    <Content Include="Scripts\jquery.mCustomScrollbar.min.js" />
+    <Content Include="Scripts\jquery.mCustomScrollbar.new.js" />
+    <Content Include="Scripts\jquery.mCustomScrollbar_v2.js" />
+    <Content Include="Scripts\DirtyGirl.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-1.8.3.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.3.js" />
+    <Content Include="Scripts\jquery-1.8.3.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.easing.1.3.js" />
+    <Content Include="Scripts\jquery.mCustomScrollbar.js" />
+    <Content Include="Scripts\jquery.mousewheel.min.js" />
+    <Content Include="Scripts\jquery.tooltip.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\kendo\jquery.min.js" />
+    <Content Include="Scripts\kendo\kendo.all.min.js" />
+    <Content Include="Scripts\kendo\kendo.aspnetmvc.min.js" />
+    <Content Include="Scripts\kendo\kendo.autocomplete.min.js" />
+    <Content Include="Scripts\kendo\kendo.binder.min.js" />
+    <Content Include="Scripts\kendo\kendo.calendar.min.js" />
+    <Content Include="Scripts\kendo\kendo.columnmenu.min.js" />
+    <Content Include="Scripts\kendo\kendo.combobox.min.js" />
+    <Content Include="Scripts\kendo\kendo.core.min.js" />
+    <Content Include="Scripts\kendo\kendo.data.min.js" />
+    <Content Include="Scripts\kendo\kendo.data.odata.min.js" />
+    <Content Include="Scripts\kendo\kendo.data.xml.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.chart.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.core.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.gauge.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.stock.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.svg.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.themes.min.js" />
+    <Content Include="Scripts\kendo\kendo.dataviz.vml.min.js" />
+    <Content Include="Scripts\kendo\kendo.datepicker.min.js" />
+    <Content Include="Scripts\kendo\kendo.datetimepicker.min.js" />
+    <Content Include="Scripts\kendo\kendo.draganddrop.min.js" />
+    <Content Include="Scripts\kendo\kendo.dropdownlist.min.js" />
+    <Content Include="Scripts\kendo\kendo.editable.min.js" />
+    <Content Include="Scripts\kendo\kendo.editor.min.js" />
+    <Content Include="Scripts\kendo\kendo.filtermenu.min.js" />
+    <Content Include="Scripts\kendo\kendo.fx.min.js" />
+    <Content Include="Scripts\kendo\kendo.grid.min.js" />
+    <Content Include="Scripts\kendo\kendo.groupable.min.js" />
+    <Content Include="Scripts\kendo\kendo.history.min.js" />
+    <Content Include="Scripts\kendo\kendo.imagebrowser.min.js" />
+    <Content Include="Scripts\kendo\kendo.list.min.js" />
+    <Content Include="Scripts\kendo\kendo.listview.min.js" />
+    <Content Include="Scripts\kendo\kendo.menu.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.actionsheet.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.application.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.button.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.buttongroup.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.listview.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.loader.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.modalview.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.navbar.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.pane.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.popover.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.scroller.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.scrollview.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.shim.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.splitview.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.switch.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.tabstrip.min.js" />
+    <Content Include="Scripts\kendo\kendo.mobile.view.min.js" />
+    <Content Include="Scripts\kendo\kendo.numerictextbox.min.js" />
+    <Content Include="Scripts\kendo\kendo.pager.min.js" />
+    <Content Include="Scripts\kendo\kendo.panelbar.min.js" />
+    <Content Include="Scripts\kendo\kendo.popup.min.js" />
+    <Content Include="Scripts\kendo\kendo.reorderable.min.js" />
+    <Content Include="Scripts\kendo\kendo.resizable.min.js" />
+    <Content Include="Scripts\kendo\kendo.selectable.min.js" />
+    <Content Include="Scripts\kendo\kendo.slider.min.js" />
+    <Content Include="Scripts\kendo\kendo.sortable.min.js" />
+    <Content Include="Scripts\kendo\kendo.splitter.min.js" />
+    <Content Include="Scripts\kendo\kendo.tabstrip.min.js" />
+    <Content Include="Scripts\kendo\kendo.timepicker.min.js" />
+    <Content Include="Scripts\kendo\kendo.touch.min.js" />
+    <Content Include="Scripts\kendo\kendo.treeview.min.js" />
+    <Content Include="Scripts\kendo\kendo.upload.min.js" />
+    <Content Include="Scripts\kendo\kendo.userevents.min.js" />
+    <Content Include="Scripts\kendo\kendo.validator.min.js" />
+    <Content Include="Scripts\kendo\kendo.web.min.js" />
+    <Content Include="Scripts\kendo\kendo.window.min.js" />
+    <Content Include="Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Images\accent.png" />
+    <Content Include="Images\bullet.png" />
+    <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\orderedList0.png" />
+    <Content Include="Images\orderedList1.png" />
+    <Content Include="Images\orderedList2.png" />
+    <Content Include="Images\orderedList3.png" />
+    <Content Include="Images\orderedList4.png" />
+    <Content Include="Images\orderedList5.png" />
+    <Content Include="Images\orderedList6.png" />
+    <Content Include="Images\orderedList7.png" />
+    <Content Include="Images\orderedList8.png" />
+    <Content Include="Images\orderedList9.png" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Authorize\LogOn.cshtml" />
+    <Content Include="Views\Shared\DisplayMessage.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Integer.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Number.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
+    <Content Include="Views\User\CreateUser.cshtml" />
+    <Content Include="Views\User\ViewUser.cshtml" />
+    <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\Dummy\Index.cshtml" />
+    <Content Include="Views\Dummy\Registration.cshtml" />
+    <Content Include="Views\Dummy\Wave.cshtml" />
+    <Content Include="Views\Dummy\Form.cshtml" />
+    <Content Include="Views\Dummy\Donate.cshtml" />
+    <Content Include="Views\Dummy\Summary.cshtml" />
+    <Content Include="Views\Dummy\Profile.cshtml" />
+    <Content Include="Views\Dummy\TeamChat.cshtml" />
+    <Content Include="Views\Dummy\EditRegistration.cshtml" />
+    <Content Include="Views\Dummy\ThankYou.cshtml" />
+    <Content Include="Views\User\EnterConfirmationCode.cshtml" />
+    <Content Include="Views\Team\CreateTeam.cshtml" />
+    <Content Include="Views\Home\Partial\EventList.cshtml" />
+    <Content Include="Views\Home\ViewEvent.cshtml" />
+    <Content Include="Views\Shared\LoginModal.cshtml" />
+    <Content Include="Views\Shared\_LoginStatus.cshtml" />
+    <Content Include="Views\Team\TeamRegistration.cshtml" />
+    <Content Include="Views\Registration\CreateTeam.cshtml" />
+    <Content Include="Views\Shared\EventHeader.cshtml" />
+    <Content Include="Views\Registration\RegistrationDetails.cshtml" />
+    <Content Include="Views\Registration\Partial\WaveList.cshtml" />
+    <Content Include="Views\Registration\Partial\WaveListItem.cshtml" />
+    <Content Include="Views\Team\ViewTeam.cshtml" />
+    <Content Include="Views\Team\Temp.cshtml" />
+    <Content Include="Views\Shared\ShareWithOthers.cshtml" />
+    <Content Include="Views\Shared\_ModalLayout.cshtml" />
+    <Content Include="Views\Cart\Partial\CartDisplay.cshtml" />
+    <Content Include="Views\Cart\CheckOut.cshtml" />
+    <Content Include="Views\Cart\ThankYou.cshtml" />
+    <Content Include="Views\Registration\EventSelection.cshtml" />
+    <Content Include="Views\Shared\_Hero.cshtml" />
+    <Content Include="Views\Registration\Transfer.cshtml" />
+    <Content Include="Views\Shared\AuthError.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml" />
+    <Content Include="Views\Share\GetShareEmail.cshtml" />
+    <Content Include="Views\Team\Partial\MessageBoardPosts.cshtml" />
+    <Content Include="Views\Authorize\ForgotPassword.cshtml" />
+    <Content Include="Views\Authorize\PasswordResetRequest.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DirtyGirl.Data\DirtyGirl.Data.csproj">
+      <Project>{87150502-d491-4956-ba42-3665c1463dd4}</Project>
+      <Name>DirtyGirl.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DirtyGirl.Models\DirtyGirl.Models.csproj">
+      <Project>{e0337b32-d02c-46fc-8459-d39259c42c80}</Project>
+      <Name>DirtyGirl.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DirtyGirl.Services\DirtyGirl.Services.csproj">
+      <Project>{dcf37db6-dabc-4c38-b449-ad1d8987f76f}</Project>
+      <Name>DirtyGirl.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>37547</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:35563/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+>>>>>>> 92db215c4e93401d030f158dcf8c04affe4195e1
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

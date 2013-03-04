@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
   For more information on how to configure your ASP.NET application, please visit
@@ -48,46 +49,37 @@
   <FacebookConfigurationSettings>
     <FacebookSettings AuthUrl="https://www.facebook.com/dialog/oauth" RedirectUri="http://register-godirtygirl-qa.azurewebsites.net/User/Facebook" AppSecret="c3eb0ba74630a02ea0a70a2de91e5e9b" ClientId="119970701515269" Scope="user_about_me,email" />
   </FacebookConfigurationSettings>
-<<<<<<< Updated upstream
-  <DirtyGirlConfigurationSettings DefaultCountryId="1" DefaultMessageKey="UserMessage" EventImageFolder="/Images/Events" LogoHieght="100" LogoWidth="100" GoogleAPIKey="***Google API Key ***" DisplaySpotsAvailableCount="100" CurrentCartKey="CurrentCart" CurrentTransactionKey="CurrentTransactions" ServerUrl="http://localhost:35563"></DirtyGirlConfigurationSettings>
-    <DirtyGirlServiceConfigurationSettings
-        SMTPServerName="***SMTP Server***"
-        SMTPServerPort="25"
-        SMTPServerUsername="***SMTP UserName ***"
-        SMTPServerPassword="***Smtp Password***"
-        SMTPServerFromAddress="***From Address ***"
-        EmailServiceFromAddress="***Application From Address***"
-        EmailTemplatePath="EmailTemplates"
-        EmailTemplateBody="Template.html"
-        TransferEmailBody="Transfer.html"
-        TransferEmailSubject="Dirty Girl Registration Tranfer Started"
-        CancellationEmailBody="Cancellation.html"
-        CancellationEmailSubject="Dirty Girl Event Cancellation Success"
-        UsersMustConfirmEmail="false"
-        ConfirmationEmailBody="RegistrationWithoutConfirmation.html"
-        ConfirmationEmailSubject="Dirty Girl Registration Confirmation"
-        PaymentConfirmationEmailBody="PaymentConfirmation.html"
-        PaymentConfirmationEmailSubject="Thank you for registering for the Dirty Girl mud run!"
-        TeamInviteBody="DirtyGirlTeamShare_Body.html"
-        ServerUrl="http://dirtygirl.dev.hansondodge.com"
-        PaymentGatewayId="52J2XRtSgdJF"
-        PaymentGatewayKey="6F6373X3beN7va56"
-        PaymentPostUrl="https://apitest.authorize.net/xml/v1/request.api"
-        PaymentTestMode="true"
-        MaxTransferHeldDays="3"
-        RequestValidForHours="24"
-        WaitMinutesBetweenPasswordResetRequestEmailSent="5"
-        PasswordResetRequestBody="PasswordResetRequest.html"
-        PasswordResetRequestSubject="Dirty Girl Password Assistence">
-    </DirtyGirlServiceConfigurationSettings>
-=======
   <DirtyGirlConfigurationSettings DefaultCountryId="1" DefaultMessageKey="UserMessage" EventImageFolder="/Images/Events" LogoHieght="100" LogoWidth="100"
     GoogleAPIKey="AIzaSyCBOYPNcNPswOquUzP2ep_RFrp3OOUwJ4k" DisplaySpotsAvailableCount="100" CurrentCartKey="CurrentCart"
     CurrentTransactionKey="CurrentTransactions" ServerUrl="http://localhost:35563/">
   </DirtyGirlConfigurationSettings>
-  
-  <DirtyGirlServiceConfigurationSettings SMTPServerName="***SMTP Server***" SMTPServerPort="25" SMTPServerUsername="***SMTP UserName ***" SMTPServerPassword="***Smtp Password***" SMTPServerFromAddress="***From Address ***" EmailServiceFromAddress="***Application From Address***" EmailTemplatePath="EmailTemplates" EmailTemplateBody="Template.html" TransferEmailBody="Transfer.html" TransferEmailSubject="Dirty Girl Registration Tranfer Started" CancellationEmailBody="Cancellation.html" CancellationEmailSubject="Dirty Girl Event Cancellation Success" UsersMustConfirmEmail="false" ConfirmationEmailBody="RegistrationWithoutConfirmation.html" ConfirmationEmailSubject="Dirty Girl Registration Confirmation" PaymentConfirmationEmailBody="PaymentConfirmation.html" PaymentConfirmationEmailSubject="Thank you for registering for the Dirty Girl mud run!" TeamInviteBody="DirtyGirlTeamShare_Body.html" ServerUrl="http://localhost:35563" PaymentGatewayId="2xV8k5eCM" PaymentGatewayKey="2J48JeaEG5f5Y7Lw" PaymentPostUrl="https://apitest.authorize.net/xml/v1/request.api" PaymentTestMode="true" MaxTransferHeldDays="3" RequestValidForHours="24" WaitMinutesBetweenPasswordResetRequestEmailSent="5" PasswordResetRequestBody="PasswordResetRequest.html" PasswordResetRequestSubject="Dirty Girl Password Assistence" ></DirtyGirlServiceConfigurationSettings>
->>>>>>> Stashed changes
+  <DirtyGirlServiceConfigurationSettings>
+    SMTPServerPassword="***Smtp Password***"
+    SMTPServerFromAddress="***From Address ***"
+    EmailServiceFromAddress="***Application From Address***"
+    EmailTemplatePath="EmailTemplates"
+    EmailTemplateBody="Template.html"
+    TransferEmailBody="Transfer.html"
+    TransferEmailSubject="Dirty Girl Registration Tranfer Started"
+    CancellationEmailBody="Cancellation.html"
+    CancellationEmailSubject="Dirty Girl Event Cancellation Success"
+    UsersMustConfirmEmail="false"
+    ConfirmationEmailBody="RegistrationWithoutConfirmation.html"
+    ConfirmationEmailSubject="Dirty Girl Registration Confirmation"
+    PaymentConfirmationEmailBody="PaymentConfirmation.html"
+    PaymentConfirmationEmailSubject="Thank you for registering for the Dirty Girl mud run!"
+    TeamInviteBody="DirtyGirlTeamShare_Body.html"
+    ServerUrl="http://dirtygirl.dev.hansondodge.com"
+    PaymentGatewayId="52J2XRtSgdJF"
+    PaymentGatewayKey="6F6373X3beN7va56"
+    PaymentPostUrl="https://apitest.authorize.net/xml/v1/request.api"
+    PaymentTestMode="true"
+    MaxTransferHeldDays="3"
+    RequestValidForHours="24"
+    WaitMinutesBetweenPasswordResetRequestEmailSent="5"
+    PasswordResetRequestBody="PasswordResetRequest.html"
+    PasswordResetRequestSubject="Dirty Girl Password Assistence">
+  </DirtyGirlServiceConfigurationSettings>
   <appSettings>
     <add key="webpages:Version" value="2.0.0.0" />
     <add key="webpages:Enabled" value="false" />
@@ -251,4 +243,250 @@
       </js>
     </core>
   </bundleTransformer>
+=======
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+<configuration>
+  <configSections>
+    <section name="DirtyGirlConfigurationSettings" type="DirtyGirl.Web.Utils.DirtyGirlConfig, DirtyGirl.Web" />
+    <section name="DirtyGirlServiceConfigurationSettings" type="DirtyGirl.Services.Utils.DirtyGirlServiceConfig, DirtyGirl.Services" />
+    <sectionGroup name="dotNetOpenAuth" type="DotNetOpenAuth.Configuration.DotNetOpenAuthSection, DotNetOpenAuth.Core">
+      <section name="oauth" type="DotNetOpenAuth.Configuration.OAuthElement, DotNetOpenAuth.OAuth" requirePermission="false" allowLocation="true" />
+      <section name="messaging" type="DotNetOpenAuth.Configuration.MessagingElement, DotNetOpenAuth.Core" requirePermission="false" allowLocation="true" />
+      <section name="reporting" type="DotNetOpenAuth.Configuration.ReportingElement, DotNetOpenAuth.Core" requirePermission="false" allowLocation="true" />
+      <section name="openid" type="DotNetOpenAuth.Configuration.OpenIdElement, DotNetOpenAuth.OpenId" requirePermission="false" allowLocation="true" />
+    </sectionGroup>
+    <sectionGroup name="bundleTransformer">
+      <section name="core" type="BundleTransformer.Core.Configuration.CoreSettings" />
+    </sectionGroup>
+    <sectionGroup name="FacebookConfigurationSettings">
+      <section name="FacebookSettings" type="FacebookOpenGraph.Config.FacebookSettings, FacebookOpenGraph" />
+    </sectionGroup>
+    <sectionGroup name="elmah">
+      <section name="security" requirePermission="false" type="Elmah.SecuritySectionHandler, Elmah" />
+      <section name="errorLog" requirePermission="false" type="Elmah.ErrorLogSectionHandler, Elmah" />
+      <section name="errorMail" requirePermission="false" type="Elmah.ErrorMailSectionHandler, Elmah" />
+      <section name="errorFilter" requirePermission="false" type="Elmah.ErrorFilterSectionHandler, Elmah" />
+    </sectionGroup>
+  </configSections>
+  <elmah>
+    <security allowRemoteAccess="1" />
+    <errorLog type="Elmah.SqlErrorLog, Elmah" connectionStringName="ElmahConnectionString" />
+    <errorMail from="elmah@gmrmarketing.com" to="***DeveloperEmail***" subject="DirtyGirl Error Log" async="true" smtpPort="25" smtpServer="***SmptServer***" />
+    <errorFilter>
+      <test>
+        <equal binding="HttpStatusCode" value="404" type="Int32" />
+      </test>
+    </errorFilter>
+  </elmah>
+  <connectionStrings>
+    <!--Must Add MultipleActiveResultSets=True to the connection string to allow for multiple simultaneous requests-->
+    <!--<add name="DirtyGirlContext" connectionString="Data Source=localhost\sqlexpress2008;initial catalog=DirtyGirl;persist security info=True;user id=usrDirtyGirl;password=D1rtyG!rl;MultipleActiveResultSets=True" providerName="System.Data.SqlClient" />
+    <add name="ElmahConnectionString" connectionString="Data Source=***elmah connection string source ***;Initial Catalog=Elmah;Persist Security Info=True;User ID=usrElmah;Password=Elmahusr" providerName="System.Data.SqlClient" />
+-->
+    <add name="DirtyGirlContext" connectionString="Server=tcp:cbwhf6zrm1.database.windows.net,1433;Database=Dirtygirl_QA;User ID=dirtygirlusr@cbwhf6zrm1;Password=D1rtyG!rl;MultipleActiveResultSets=True;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;" providerName="System.Data.SqlClient" />
+    <add name="ElmahConnectionString" connectionString="Server=tcp:cbwhf6zrm1.database.windows.net,1433;Database=Elmah_QA;User ID=dirtygirlusr@cbwhf6zrm1;Password=3Elmahusr;MultipleActiveResultSets=True;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;" providerName="System.Data.SqlClient" />
+
+  </connectionStrings>
+  <FacebookConfigurationSettings>
+    <FacebookSettings AuthUrl="https://www.facebook.com/dialog/oauth" RedirectUri="http://register-godirtygirl-qa.azurewebsites.net/User/Facebook" AppSecret="c3eb0ba74630a02ea0a70a2de91e5e9b" ClientId="119970701515269" Scope="user_about_me,email" />
+  </FacebookConfigurationSettings>
+  <DirtyGirlConfigurationSettings DefaultCountryId="1" DefaultMessageKey="UserMessage" EventImageFolder="/Images/Events" LogoHieght="100" LogoWidth="100"
+    GoogleAPIKey="AIzaSyCBOYPNcNPswOquUzP2ep_RFrp3OOUwJ4k" DisplaySpotsAvailableCount="100" CurrentCartKey="CurrentCart"
+    CurrentTransactionKey="CurrentTransactions" ServerUrl="http://localhost:35563/">
+  </DirtyGirlConfigurationSettings>
+  <DirtyGirlServiceConfigurationSettings>
+        SMTPServerPassword="***Smtp Password***"
+        SMTPServerFromAddress="***From Address ***"
+        EmailServiceFromAddress="***Application From Address***"
+        EmailTemplatePath="EmailTemplates"
+        EmailTemplateBody="Template.html"
+        TransferEmailBody="Transfer.html"
+        TransferEmailSubject="Dirty Girl Registration Tranfer Started"
+        CancellationEmailBody="Cancellation.html"
+        CancellationEmailSubject="Dirty Girl Event Cancellation Success"
+        UsersMustConfirmEmail="false"
+        ConfirmationEmailBody="RegistrationWithoutConfirmation.html"
+        ConfirmationEmailSubject="Dirty Girl Registration Confirmation"
+        PaymentConfirmationEmailBody="PaymentConfirmation.html"
+        PaymentConfirmationEmailSubject="Thank you for registering for the Dirty Girl mud run!"
+        TeamInviteBody="DirtyGirlTeamShare_Body.html"
+        ServerUrl="http://dirtygirl.dev.hansondodge.com"
+        PaymentGatewayId="52J2XRtSgdJF"
+        PaymentGatewayKey="6F6373X3beN7va56"
+        PaymentPostUrl="https://apitest.authorize.net/xml/v1/request.api"
+        PaymentTestMode="true"
+        MaxTransferHeldDays="3"
+        RequestValidForHours="24"
+        WaitMinutesBetweenPasswordResetRequestEmailSent="5"
+        PasswordResetRequestBody="PasswordResetRequest.html"
+        PasswordResetRequestSubject="Dirty Girl Password Assistence">
+    </DirtyGirlServiceConfigurationSettings>
+  <appSettings>
+    <add key="webpages:Version" value="2.0.0.0" />
+    <add key="webpages:Enabled" value="false" />
+    <add key="PreserveLoginUrl" value="true" />
+    <add key="ClientValidationEnabled" value="true" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+    <add key="enableSimpleMembership" value="false" />
+    <add key="autoFormsAuthentication" value="false" />
+    <add key="elmah.mvc.disableHandler" value="false" />
+    <add key="elmah.mvc.disableHandleErrorFilter" value="false" />
+    <add key="elmah.mvc.requiresAuthentication" value="true" />
+    <add key="elmah.mvc.allowedRoles" value="Admin" />
+    <add key="elmah.mvc.route" value="elmah" />
+  </appSettings>
+  <system.web>
+    <compilation debug="true" targetFramework="4.5" />
+    <httpRuntime
+        targetFramework="4.5"
+        maxRequestLength="20480" />
+    <customErrors mode="RemoteOnly"></customErrors>
+    <authentication mode="Forms">
+      <forms loginUrl="~/Authorize/Logon" timeout="2880" />
+    </authentication>
+    <membership defaultProvider="DirtyGirlMembershipProvider">
+      <providers>
+        <clear />
+        <add name="DirtyGirlMembershipProvider" type="DirtyGirl.Services.MembershipService" connectionStringName="ApplicationServices" enablePasswordRetrieval="false" enablePasswordReset="true" requiresQuestionAndAnswer="false" requiresUniqueEmail="false" maxInvalidPasswordAttempts="5" minRequiredPasswordLength="6" minRequiredNonalphanumericCharacters="0" passwordAttemptWindow="10" applicationName="/" />
+      </providers>
+    </membership>
+    <roleManager defaultProvider="DirtyGirlRoleProvider" enabled="true">
+      <providers>
+        <clear />
+        <add name="DirtyGirlRoleProvider" type="DirtyGirl.Services.RoleService" connectionStringName="ApplicationServices" applicationName="/" />
+      </providers>
+    </roleManager>
+    <pages>
+      <namespaces>
+        <add namespace="System.Web.Helpers" />
+        <add namespace="System.Web.Mvc" />
+        <add namespace="System.Web.Mvc.Ajax" />
+        <add namespace="System.Web.Mvc.Html" />
+        <add namespace="System.Web.Optimization" />
+        <add namespace="System.Web.Routing" />
+        <add namespace="System.Web.WebPages" />
+        <add namespace="DirtyGirl.Web.Models" />
+        <add namespace="Kendo.Mvc" />
+        <add namespace="Kendo.Mvc.UI" />
+      </namespaces>
+    </pages>
+    <httpModules>
+      <add name="ErrorLog" type="Elmah.ErrorLogModule, Elmah" />
+      <add name="ErrorMail" type="Elmah.ErrorMailModule, Elmah" />
+      <add name="ErrorFilter" type="Elmah.ErrorFilterModule, Elmah" />
+    </httpModules>
+  </system.web>
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+    <modules>
+      <add name="ErrorLog" type="Elmah.ErrorLogModule, Elmah" preCondition="managedHandler" />
+      <add name="ErrorMail" type="Elmah.ErrorMailModule, Elmah" preCondition="managedHandler" />
+      <add name="ErrorFilter" type="Elmah.ErrorFilterModule, Elmah" preCondition="managedHandler" />
+    </modules>
+    <handlers>
+      <remove name="ExtensionlessUrlHandler-ISAPI-4.0_32bit" />
+      <remove name="ExtensionlessUrlHandler-ISAPI-4.0_64bit" />
+      <remove name="ExtensionlessUrlHandler-Integrated-4.0" />
+      <add name="ExtensionlessUrlHandler-ISAPI-4.0_32bit" path="*." verb="GET,HEAD,POST,DEBUG,PUT,DELETE,PATCH,OPTIONS" modules="IsapiModule" scriptProcessor="%windir%\Microsoft.NET\Framework\v4.0.30319\aspnet_isapi.dll" preCondition="classicMode,runtimeVersionv4.0,bitness32" responseBufferLimit="0" />
+      <add name="ExtensionlessUrlHandler-ISAPI-4.0_64bit" path="*." verb="GET,HEAD,POST,DEBUG,PUT,DELETE,PATCH,OPTIONS" modules="IsapiModule" scriptProcessor="%windir%\Microsoft.NET\Framework64\v4.0.30319\aspnet_isapi.dll" preCondition="classicMode,runtimeVersionv4.0,bitness64" responseBufferLimit="0" />
+      <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="GET,HEAD,POST,DEBUG,PUT,DELETE,PATCH,OPTIONS" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0" />
+    </handlers>
+  </system.webServer>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Helpers" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-2.0.0.0" newVersion="2.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.WebPages" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-2.0.0.0" newVersion="2.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="DotNetOpenAuth.AspNet" publicKeyToken="2780ccd10d57b246" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.1.0.0" newVersion="4.1.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="DotNetOpenAuth.Core" publicKeyToken="2780ccd10d57b246" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.1.0.0" newVersion="4.1.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Ninject" publicKeyToken="c7192dc5380945e7" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+    <legacyHMACWarning enabled="0" />
+  </runtime>
+  <dotNetOpenAuth>
+    <!-- Allow DotNetOpenAuth to publish usage statistics to library authors to improve the library. -->
+    <openid>
+      <relyingParty>
+        <security requireSsl="false">
+          <!-- Uncomment the trustedProviders tag if your relying party should only accept positive assertions from a closed set of OpenID Providers. -->
+          <!--<trustedProviders rejectAssertionsFromUntrustedProviders="true">
+						<add endpoint="https://www.google.com/accounts/o8/ud" />
+					</trustedProviders>-->
+        </security>
+        <behaviors>
+          <!-- The following OPTIONAL behavior allows RPs to use SREG only, but be compatible
+					     with OPs that use Attribute Exchange (in various formats). -->
+          <add type="DotNetOpenAuth.OpenId.RelyingParty.Behaviors.AXFetchAsSregTransform, DotNetOpenAuth.OpenId.RelyingParty" />
+        </behaviors>
+      </relyingParty>
+    </openid>
+    <messaging>
+      <untrustedWebRequest>
+        <whitelistHosts>
+          <!-- Uncomment to enable communication with localhost (should generally not activate in production!) -->
+          <!--<add name="localhost" />-->
+        </whitelistHosts>
+      </untrustedWebRequest>
+    </messaging>
+    <reporting enabled="true" />
+  </dotNetOpenAuth>
+  <system.net>
+    <defaultProxy enabled="true" />
+    <settings>
+      <!-- This setting causes .NET to check certificate revocation lists (CRL) 
+			     before trusting HTTPS certificates.  But this setting tends to not 
+			     be allowed in shared hosting environments. -->
+      <!--<servicePointManager checkCertificateRevocationList="true"/>-->
+    </settings>
+  </system.net>
+  <uri>
+    <!-- The uri section is necessary to turn on .NET 3.5 support for IDN (international domain names),
+		     which is necessary for OpenID urls with unicode characters in the domain/host name.
+		     It is also required to put the Uri class into RFC 3986 escaping mode, which OpenID and OAuth require. -->
+    <idn enabled="All" />
+    <iriParsing enabled="true" />
+  </uri>
+  <bundleTransformer xmlns="http://tempuri.org/BundleTransformer.Configuration.xsd">
+    <core>
+      <css>
+        <minifiers>
+          <add name="NullMinifier" type="BundleTransformer.Core.Minifiers.NullMinifier, BundleTransformer.Core" />
+        </minifiers>
+        <translators>
+          <add name="NullTranslator" type="BundleTransformer.Core.Translators.NullTranslator, BundleTransformer.Core" enabled="false" />
+        </translators>
+      </css>
+      <js>
+        <minifiers>
+          <add name="NullMinifier" type="BundleTransformer.Core.Minifiers.NullMinifier, BundleTransformer.Core" />
+        </minifiers>
+        <translators>
+          <add name="NullTranslator" type="BundleTransformer.Core.Translators.NullTranslator, BundleTransformer.Core" enabled="false" />
+        </translators>
+      </js>
+    </core>
+  </bundleTransformer>
+>>>>>>> 92db215c4e93401d030f158dcf8c04affe4195e1
 </configuration>
