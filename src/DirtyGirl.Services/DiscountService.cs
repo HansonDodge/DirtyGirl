@@ -99,11 +99,11 @@ namespace DirtyGirl.Services
                     updateCoupon.CouponType = coupon.CouponType;
                     updateCoupon.DiscountType = coupon.DiscountType;
                     updateCoupon.Description = coupon.Description;
-                    updateCoupon.EndDateTime = coupon.EndDateTime;
+                    updateCoupon.EndDateTime = coupon.EndDateTime.Value.Date;
                     updateCoupon.IsActive = coupon.IsActive;
                     updateCoupon.IsReusable = coupon.IsReusable;
                     updateCoupon.MaxRegistrantCount = coupon.MaxRegistrantCount;
-                    updateCoupon.StartDateTime = coupon.StartDateTime;
+                    updateCoupon.StartDateTime = coupon.StartDateTime.Date;
                     updateCoupon.EventId = coupon.EventId;
                     updateCoupon.Value = coupon.Value;
 
