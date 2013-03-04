@@ -141,7 +141,7 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .registration_map_viewschedule {position: absolute; right: 110px;  top: 415px;  z-index: 3; }
 #registration_list { position: relative; background: url(../images/bg_map_list.png) 0 0 no-repeat transparent; width: 1200px; min-height: 200px; margin-top: -35px;padding-bottom: 20px;}
 #registration_list_content { padding: 50px 22px 0 60px;  position: relative; height:auto; max-height:818px;}
-#registration_list_content .eventschedule_content_body { max-height: 665px; overflow-y: scroll;}
+#registration_list_content .eventschedule_content_body { max-height: 665px;}
 
 #registration_list_nav {left: 85px; position: absolute;  top: 49px; z-index: 10;}
 #registration_list_nav_content { position: relative; overflow: hidden;}

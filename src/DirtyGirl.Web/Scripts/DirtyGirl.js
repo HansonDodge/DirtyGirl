@@ -300,6 +300,21 @@ DG.util = {
 
         //}
     },
+    eventListScroller: function () {
+        var theHeight = $("#EventDetail_List").outerHeight();
+
+        theHeight = theHeight - 80;
+        $(".landingSchedule").mCustomScrollbar("destroy");
+        $(".landingSchedule").mCustomScrollbar({
+            set_width: 1040,
+            set_height: theHeight,
+            scrollButtons: {
+                scrollSpeed: 100,
+                scrollAmount: 60
+            }
+        });
+    },
+
     teamChatScrollbar: function () {
         var theHeight = $(".messageBoard").outerHeight();
         if (theHeight > 450) {
