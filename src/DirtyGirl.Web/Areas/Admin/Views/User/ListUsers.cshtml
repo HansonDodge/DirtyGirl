@@ -30,14 +30,14 @@
     })
     .Pageable()
     .Sortable()
-    .Scrollable() 
-    .Filterable()  
+    .Filterable()      
     .DataSource(dataSource => dataSource
         .Ajax() // Specify that the data source is of ajax type
         .ServerOperation(true)
+        .PageSize(25)
         .Read(read => read.Action("SearchUsers", "User" ).Data("SearchData")) // Specify the action method and controller name
     )
-    .Pageable()
+    
 )
 
 
