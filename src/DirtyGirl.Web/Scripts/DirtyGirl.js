@@ -306,7 +306,7 @@ DG.util = {
     eventListScroller: function () {
         var theHeight = $("#EventDetail_List").outerHeight();
 
-        theHeight = theHeight - 80;
+        //theHeight = theHeight - 80;
         $(".landingSchedule").mCustomScrollbar("destroy");
         $(".landingSchedule").mCustomScrollbar({
             set_width: 1040,
