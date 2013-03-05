@@ -54,9 +54,7 @@ namespace DirtyGirl.Services.ServiceInterfaces
 
         IList<EventDateDetails> GetActiveDateDetailsByEvent(int eventId);
 
-        IList<EventDateOverview> GetActiveEventDateOverviews(int? regionId, int? month, int? year, string sort, string direction);
-
-        IList<int> GetActiveEventYears();
+        IList<EventDateOverview> GetActiveEventDateOverviews(int? regionId, int? month, int? year, string sort, string direction);    
 
         ServiceResult CreateEventDate(EventDate ed);
 

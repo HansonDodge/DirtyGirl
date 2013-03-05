@@ -27,9 +27,8 @@ namespace DirtyGirl.Web.Controllers
         public ActionResult Index()
         {
             vmHomePage vm = new vmHomePage();
-            vm.EventDateDetails = _eventService.GetActiveEventDateOverviews(null, null, null, "date", "asc");
-            vm.RegionList = Utilities.CreateSelectList(_eventService.GetRegionsByCountry(DirtyGirlConfig.Settings.DefaultCountryId), x => x.RegionId, x => x.Name);
-            vm.YearList = Utilities.CreateSelectList(_eventService.GetActiveEventYears(), x => x, x => x);
+            vm.EventDateDetails = _eventService.GetActiveEventDateOverviews(null, null, null, "date", "asc");            
+            vm.RegionList = Utilities.CreateSelectList(_eventService.GetRegionsByCountry(DirtyGirlConfig.Settings.DefaultCountryId), x => x.RegionId, x => x.Name);           
             vm.MonthList = DirtyGirlExtensions.ConvertToSelectList<Months>();
             vm.MonthList.Insert(0, new SelectListItem { Text = "Select", Value = "" });
 

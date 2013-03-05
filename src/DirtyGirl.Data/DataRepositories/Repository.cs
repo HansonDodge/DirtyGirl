@@ -42,11 +42,22 @@ namespace DirtyGirl.Data.DataRepositories
         public virtual IQueryable<TObject> All()
         {
             return DbSet.AsQueryable();
+            
         }
-
+        
         public virtual IQueryable<TObject> Filter(Expression<Func<TObject, bool>> predicate)
         {
            return DbSet.Where(predicate).AsQueryable<TObject>();
+        }
+
+        public virtual IQueryable<TObject> Filter(Expression<Func<TObject, bool>> predicate,IQueryable<string> includes)
+        {
+            var whereResults = DbSet.Where(predicate);
+            foreach (string inc in includes)
+            {
+                whereResults.Include(inc);
+            }
+            return DbSet.Where(predicate).AsQueryable<TObject>();
         }
 
         public virtual IQueryable<TObject> Filter(Expression<Func<TObject, bool>> filter, out int total, int index = 0, int size = 50)

@@ -63,6 +63,7 @@
     <Compile Include="Enums\RegistrationMaterialsDeliveryOption.cs" />
     <Compile Include="Enums\RegistrationType.cs" />
     <Compile Include="Enums\TShirtSize.cs" />
+    <Compile Include="EventDateCounts.cs" />
     <Compile Include="FeeReport.cs" />
     <Compile Include="PaymentRequest.cs" />
     <Compile Include="PaymentResponse.cs" />

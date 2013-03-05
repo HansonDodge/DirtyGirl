@@ -44,5 +44,17 @@ namespace DirtyGirl.Data
 
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteStoreQuery<EventDateDetails>("GetAllEventDateCounts", prams);
         }
+        public virtual ObjectResult<EventDateCounts> SpGetActiveEventCounts()
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(EventDateCounts).Assembly);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteStoreQuery<EventDateCounts>("GetActiveEventCounts");
+        }
+        public virtual ObjectResult<EventDateCounts> SpGetActiveEventCounts(int EventID)
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(EventDateCounts).Assembly);
+            var prams = new object[] { new SqlParameter("@EventId", EventID) };
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteStoreQuery<EventDateCounts>("GetActiveEventCounts", prams);
+        }
     }
 }

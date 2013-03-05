@@ -5,6 +5,6 @@ namespace DirtyGirl.Data.DataInterfaces.Repositories
 {
     public interface IEventDateRepository: IRepository<EventDate>
     {
-
+   
     }
 }

@@ -441,11 +441,10 @@ namespace DirtyGirl.Services
         public IList<EventDateOverview> GetActiveEventDateOverviews(int? regionId, int? month, int? year, string sort, string direction)
         {
             var result = new List<EventDateOverview>();
-
-            IQueryable<EventDate> eventDates = GetUpcomingEventQuery().Where(x => x.IsActive && x.Event.IsActive);           
+            IEnumerable<EventDateCounts> eventDates = _repository.Events.GetActiveEventCounts();         
 
             if (regionId.HasValue)
-                eventDates = eventDates.Where(x => x.Event.RegionId == regionId.Value);
+                eventDates = eventDates.Where(x => x.RegionID == regionId.Value);
 
             if (month.HasValue)
                 eventDates = eventDates.Where(x => x.DateOfEvent.Month == month);
@@ -462,56 +461,38 @@ namespace DirtyGirl.Services
                     eventDates = direction.ToLower() == "asc" ? eventDates.OrderBy(x => x.DateOfEvent) : eventDates.OrderByDescending(x => x.DateOfEvent);
                     break;
                 case "location":
-                    eventDates = direction.ToLower() == "asc" ? eventDates.OrderBy(x => x.Event.GeneralLocality) : eventDates.OrderByDescending(x => x.Event.GeneralLocality);
+                    eventDates = direction.ToLower() == "asc" ? eventDates.OrderBy(x => x.GeneralLocality) : eventDates.OrderByDescending(x => x.GeneralLocality);
                     break;
             }
-            List<EventDate> dates = eventDates.ToList();
 
-            var eventDateDetails = GetAllEventDateDetails();
-
-            foreach (EventDate date in dates)
+            
+            foreach (EventDateCounts date in eventDates)
             {
                 var overview = new EventDateOverview
                                    {
-                                       EventId = date.Event.EventId,
+                                       EventId = date.EventId,
                                        EventDateId = date.EventDateId,
-                                       GeneralLocality = date.Event.GeneralLocality,
-                                       Place = date.Event.Place,
-                                       Address = date.Event.Address1,
-                                       City = date.Event.Locality,
-                                       State = date.Event.Region.Name,
-                                       StateCode = date.Event.Region.Code,
-                                       Zip = date.Event.PostalCode,
+                                       GeneralLocality = date.GeneralLocality,
+                                       Place = date.Place,
+                                       Address = date.Address1,
+                                       City = date.Locality,
+                                       State = date.Name,
+                                       StateCode = date.Code,
+                                       Zip = date.PostalCode,
                                        DateOfEvent = date.DateOfEvent,
-                                       MaxRegistrants =
-                                           (eventDateDetails.FirstOrDefault(x => x.EventDateId == date.EventDateId) ??
-                                            new EventDateDetails()).MaxRegistrants,
-                                       RegistrationCount =
-                                           (eventDateDetails.FirstOrDefault(x => x.EventDateId == date.EventDateId) ??
-                                            new EventDateDetails()).RegistrationCount,
-                                       PinXCoordinate = date.Event.PinXCoordinate,
-                                       PinYCoordinate = date.Event.PinYCoordinate
+                                       MaxRegistrants = date.MaxRegistrants,
+                                       RegistrationCount = date.MaxRegistrants,
+                                       PinXCoordinate = date.PinXCoordinate,
+                                       PinYCoordinate = date.PinYCoordinate,
+                                       CurrentCost = (date.Cost.HasValue ? date.Cost.Value : 0M),
+                                       DisplayIcon = date.FeeIconID.HasValue,
+                                       IconImagePath = date.ImagePath
                                    };
-
-                EventFee currentRegistrationFee = GetCurrentFeeForEvent(date.EventId, EventFeeType.Registration);
-                overview.CurrentCost = currentRegistrationFee.Cost;
-                overview.DisplayIcon = currentRegistrationFee.FeeIconId.HasValue;
-                overview.IconImagePath = (currentRegistrationFee.FeeIcon != null
-                                              ? currentRegistrationFee.FeeIcon.ImagePath
-                                              : string.Empty);
-                //TODO:  ADD Display Icon.
-
                 result.Add(overview);
             }
 
             return result;
-        }
-
-        public IList<int> GetActiveEventYears()
-        {
-            List<EventDate> dateList = GetUpcomingEventQuery().Where(x => x.IsActive && x.Event.IsActive).ToList();
-            return dateList.GroupBy(x => x.DateOfEvent.Year).Select(x => x.Key).ToList();
-        }
+        }       
 
         public ServiceResult CreateEventDate(EventDate ed)
         {
@@ -1063,7 +1044,7 @@ namespace DirtyGirl.Services
         private IQueryable<EventDate> GetUpcomingEventQuery()
         {
             DateTime today = DateTime.Now.Date;
-            return _repository.EventDates.Filter(x => x.DateOfEvent >= today).OrderBy(x => x.DateOfEvent);
+            return null; ;
         }
 
         private IQueryable<EventDate> GetEventDateRangeQuery(DateTime start, DateTime end)

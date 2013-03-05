@@ -35,23 +35,38 @@ namespace DirtyGirl.Data.DataRepositories
         }
 
 
-        public EventDateDetails GetEventDateDetails(int ID)
+        public List<EventDateCounts> GetActiveEventCounts()
         {
-            EventDateDetails eventDateDetail = null;
             var ctx = Context;
-            var regCounts = ctx.SpGetEventDateCounts(ID);
-            if (regCounts != null)
+            var eventDateDetailsList = new List<EventDateCounts>();
+            var regCounts = ctx.SpGetActiveEventCounts();
+            foreach (var regCount in regCounts)
             {
-                var regCount = regCounts.First();
-                eventDateDetail = new EventDateDetails() ;
-                eventDateDetail.EventId = regCount.EventId;
-                eventDateDetail.EventDateId = regCount.EventDateId;
-                eventDateDetail.DateOfEvent = regCount.DateOfEvent;
-                eventDateDetail.MaxRegistrants = regCount.MaxRegistrants;
-                eventDateDetail.RegistrationCount = regCount.RegistrationCount;                 
+                eventDateDetailsList.Add(new EventDateCounts
+                {
+                    Address1 = regCount.Address1,
+                    Code = regCount.Code,
+                    Cost = regCount.Cost,
+                    DateOfEvent = regCount.DateOfEvent,
+                    EventDateId = regCount.EventDateId,
+                    EventId = regCount.EventId,
+                    FeeIconID = regCount.FeeIconID,
+                    GeneralLocality = regCount.GeneralLocality,
+                    ImagePath = regCount.ImagePath,
+                    Locality = regCount.Locality,
+                    MaxRegistrants = regCount.MaxRegistrants,
+                    Name = regCount.Name,
+                    PinXCoordinate = regCount.PinXCoordinate,
+                    PinYCoordinate = regCount.PinYCoordinate,
+                    Place = regCount.Place,
+                    PostalCode = regCount.PostalCode,
+                    PurchaseItemID = regCount.PurchaseItemID,
+                    RegistrationCount = regCount.RegistrationCount
+                });
+
             }
 
-            return eventDateDetail;
+            return eventDateDetailsList.ToList();
         }
     }
 }
