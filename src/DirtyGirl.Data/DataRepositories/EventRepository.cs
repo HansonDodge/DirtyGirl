@@ -51,6 +51,7 @@ namespace DirtyGirl.Data.DataRepositories
                     EventDateId = regCount.EventDateId,
                     EventId = regCount.EventId,
                     FeeIconID = regCount.FeeIconID,
+                    RegionID = regCount.RegionID,
                     GeneralLocality = regCount.GeneralLocality,
                     ImagePath = regCount.ImagePath,
                     Locality = regCount.Locality,

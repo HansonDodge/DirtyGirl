@@ -481,7 +481,7 @@ namespace DirtyGirl.Services
                                        Zip = date.PostalCode,
                                        DateOfEvent = date.DateOfEvent,
                                        MaxRegistrants = date.MaxRegistrants,
-                                       RegistrationCount = date.MaxRegistrants,
+                                       RegistrationCount = date.RegistrationCount,
                                        PinXCoordinate = date.PinXCoordinate,
                                        PinYCoordinate = date.PinYCoordinate,
                                        CurrentCost = (date.Cost.HasValue ? date.Cost.Value : 0M),
@@ -1044,7 +1044,7 @@ namespace DirtyGirl.Services
         private IQueryable<EventDate> GetUpcomingEventQuery()
         {
             DateTime today = DateTime.Now.Date;
-            return null; ;
+            return _repository.EventDates.Filter(x => x.DateOfEvent >= today).OrderBy(x => x.DateOfEvent);
         }
 
         private IQueryable<EventDate> GetEventDateRangeQuery(DateTime start, DateTime end)
