@@ -215,13 +215,13 @@
                 url: 'Home/FilterEventDetails',
                 data: $("#filterForm").serialize(),
                 beforeSend: function () {
-                    $('#EventDetail_List')
-                        .html(function () {
+                    $("#EventDetail_List").find(".mCSB_container").html(function () {
                             return '<img src="../Images/ajax-loader-lg.gif"/>';
                         });
                 },
                 success: function (data) {
-                    $("#EventDetail_List").html(data[0]);
+                    $("#EventDetail_List").find(".mCSB_container").html(data[0]);
+                    DG.util.eventListScroller();
                 }
             });
 
