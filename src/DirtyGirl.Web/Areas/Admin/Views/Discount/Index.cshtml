@@ -21,7 +21,7 @@
             }
 
             <br />
-            @(Html.Kendo().Grid<Coupon>()
+            @(Html.Kendo().Grid<DirtyGirl.Web.Areas.Admin.Controllers.DiscountController.SerializeableCoupon>()
                 .Name("grdCoupons")
                 .ToolBar(commands => commands.Create().Text("Add New Coupon"))
                 .Columns(cols =>
@@ -32,8 +32,8 @@
                     cols.ForeignKey(x => x.DiscountType, Model.DiscountTypeList, "value", "text").Title("Discount");                                      
                     cols.Bound(x => x.IsActive).Title("Active");
                     cols.Bound(x => x.IsReusable).Title("Reusable");
-                    cols.Bound(x => x.StartDateTime).Title("Start Date");
-                    cols.Bound(x => x.EndDateTime).Title("End Date");
+                    cols.Bound(x => x.StartDateTimeOff).Title("Start Date");
+                    cols.Bound(x => x.EndDateTimeOff).Title("End Date");
                     cols.Bound(x => x.MaxRegistrantCount).Title("Max Registrations");                    
                     cols.Bound(x => x.Description);
                     cols.Bound(x => x.EventId).Visible(false);
