@@ -21,7 +21,7 @@
             }
 
             <br />
-            @(Html.Kendo().Grid<DirtyGirl.Web.Areas.Admin.Controllers.DiscountController.SerializeableCoupon>()
+            @(Html.Kendo().Grid<Coupon>()
                 .Name("grdCoupons")
                 .ToolBar(commands => commands.Create().Text("Add New Coupon"))
                 .Columns(cols =>
@@ -32,8 +32,8 @@
                     cols.ForeignKey(x => x.DiscountType, Model.DiscountTypeList, "value", "text").Title("Discount");                                      
                     cols.Bound(x => x.IsActive).Title("Active");
                     cols.Bound(x => x.IsReusable).Title("Reusable");
-                    cols.Bound(x => x.StartDateTimeOff).Title("Start Date");
-                    cols.Bound(x => x.EndDateTimeOff).Title("End Date");
+                    cols.Bound(x => x.StartDateTime).Title("Start Date");
+                    cols.Bound(x => x.EndDateTime).Title("End Date");
                     cols.Bound(x => x.MaxRegistrantCount).Title("Max Registrations");                    
                     cols.Bound(x => x.Description);
                     cols.Bound(x => x.EventId).Visible(false);
@@ -43,6 +43,7 @@
                 .DataSource(datasource => datasource
                     .Ajax()
                     .Events(events => events.Error("error_handler"))
+                    .Events(events => events.RequestEnd("onRequestEnd"))
                     .Model(model => model.Id("DiscountItemId"))
                     .Read(read => read.Action("Ajax_GetCoupons", "Discount").Data("getSelectedEvent"))
                     .Create(add => add.Action("Ajax_CreateCoupon", "Discount").Data("getSelectedEvent"))
@@ -98,6 +99,21 @@
     function getSelectedEvent() {
         var currentValue = $("#ddlSelectedEvent").data("kendoDropDownList").value();
         return { masterEventId: currentValue };
+    }
+
+    function onRequestEnd(e) {
+        if (e.type == "read") {
+            var offsetMiliseconds = new Date().getTimezoneOffset() * 60000;
+            var coupons = e.response.Data;
+            for (var i = 0; i < coupons.length; i++) {
+                coupons[i].StartDateTime = coupons[i].StartDateTime.replace(/\d+/,
+                    function (n) { return parseInt(n) + offsetMiliseconds }
+                 );
+                coupons[i].EndDateTime = coupons[i].EndDateTime.replace(/\d+/,
+                    function (n) { return parseInt(n) + offsetMiliseconds }
+                 );
+            }
+        }
     }
 
 </script>
