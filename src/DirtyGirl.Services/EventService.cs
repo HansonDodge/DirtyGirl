@@ -441,7 +441,9 @@ namespace DirtyGirl.Services
         public IList<EventDateOverview> GetActiveEventDateOverviews(int? regionId, int? month, int? year, string sort, string direction)
         {
             var result = new List<EventDateOverview>();
-            IEnumerable<EventDateCounts> eventDates = _repository.Events.GetActiveEventCounts();         
+            IEnumerable<EventDateCounts> eventDates = _repository.Events.GetCurrentEventCounts();
+
+            eventDates = eventDates.Where(x => x.IsActive == true);
 
             if (regionId.HasValue)
                 eventDates = eventDates.Where(x => x.RegionID == regionId.Value);

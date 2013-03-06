@@ -22,7 +22,7 @@ namespace DirtyGirl.Models
                 return DateOfEvent.ToString("dddd MM/dd/yyyy");
             }
         }
-
+        public bool IsActive { get; set; }
         public string GeneralLocality { get; set; }
         public string Place { get; set; }
         public string Address1 { get; set; }
