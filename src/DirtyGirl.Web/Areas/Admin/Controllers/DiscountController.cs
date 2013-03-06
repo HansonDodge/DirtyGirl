@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
+using System.Net.Http;
 
 
 namespace DirtyGirl.Web.Areas.Admin.Controllers
@@ -55,53 +56,8 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Ajax_GetCoupons([DataSourceRequest] DataSourceRequest request, int? masterEventId)
         {
-
-            var couponList = _service.GetCouponsByEvent(masterEventId);
-            
-            List<SerializeableCoupon> resultList = new List<SerializeableCoupon>(); 
-            foreach (Coupon c in couponList)
-            {
-                SerializeableCoupon nc = new SerializeableCoupon();
-
-                nc.CartDiscountItem = c.CartDiscountItem;
-                nc.CartItem = c.CartItem;
-                nc.Code = c.Code;
-                nc.CouponType = c.CouponType;
-                nc.DateAdded = c.DateAdded;
-                nc.Description = c.Description;
-                nc.DiscountItemId = c.DiscountItemId;
-                nc.DiscountType = c.DiscountType;
-                nc.EndDateTime = c.EndDateTime;
-                //nc.Event = c.Event;
-                nc.EventId = c.EventId;
-                nc.IsActive = c.IsActive;
-                nc.IsReusable = c.IsReusable;
-                nc.MaxRegistrantCount = c.MaxRegistrantCount;
-                nc.StartDateTime = c.StartDateTime;
-                nc.Value = c.Value;
-
-                var tzi = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
-                
-                DateTime startTime = c.StartDateTime;
-                DateTime endTime = c.EndDateTime.Value;
-
-                // Get the offset from UTC for the time zone and date in question.
-                //var offset = tzi.GetUtcOffset(startTime);
-                TimeSpan offset = new TimeSpan(0); 
-                
-                // Get a DateTimeOffset for the date, and adjust it to the offset found above.
-                var startOffsetTime = new DateTimeOffset(startTime).ToOffset(offset);
-                var endOffsetTime = new DateTimeOffset(endTime).ToOffset(offset);
-
-                nc.EndDateTimeOff = endOffsetTime;
-                nc.StartDateTimeOff = startOffsetTime;
-
-                resultList.Add(nc); 
-            }
-
-            return Json(resultList.ToDataSourceResult(request), JsonRequestBehavior.AllowGet); 
-
-            //return new ContentResult() { Content = JsonConvert.SerializeObject(resultList.ToDataSourceResult(request), new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat }), ContentType = "application/json" };
+            var couponList = _service.GetCouponsByEvent(masterEventId).Select(x => new { x.DiscountItemId, x.Code, x.CouponType, x.DiscountType, x.Description, x.EndDateTime, x.IsActive, x.IsReusable, x.MaxRegistrantCount, x.StartDateTime, x.Value }).ToList();
+            return Json(couponList.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);            
         }
 
         [HttpPost]
@@ -155,14 +111,6 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
 
         #endregion       
         
-        [Serializable]
-        public class SerializeableCoupon : Coupon
-        {
-            public DateTimeOffset StartDateTimeOff { get; set; }
-            public DateTimeOffset EndDateTimeOff { get; set; }
-        }
-
-
     }
 
 }
