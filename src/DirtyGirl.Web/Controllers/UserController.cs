@@ -135,13 +135,14 @@ namespace DirtyGirl.Web.Controllers
         #region Edit User
 
         [HttpGet]
-        public ActionResult EditUser(string username)
+        public ActionResult EditUser(string username, string returnUrl = "")
         {
             OnlyOwnerAccess(username);
 
-            var vm = new vmUser_EditUser { User = UserService.GetUserByUsername(username) };            
+            var vm = new vmUser_EditUser { User = UserService.GetUserByUsername(username)};            
             vm.EmailAddressVerification = vm.EmailAddress;
-
+            vm.returnUrl = returnUrl; 
+            
             FillEditUserEnums(vm);
 
             return View(vm);
@@ -176,8 +177,12 @@ namespace DirtyGirl.Web.Controllers
                 if (result.Success)
                 {
                     DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "User has been updated successfully"));
-
-                    return RedirectToAction("ViewUser", new {username = vm.User.UserName});
+                    if (!string.IsNullOrEmpty(vm.returnUrl)){
+                        Response.Redirect(vm.returnUrl); 
+                    } else {
+                        return RedirectToAction("ViewUser", new {username = vm.User.UserName});
+                    }
+                    
                 }
                 Utilities.AddModelStateErrors(ModelState, result.GetServiceErrors());
             }

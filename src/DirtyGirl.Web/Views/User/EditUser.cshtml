@@ -22,6 +22,7 @@
                                 @Html.ValidationSummary(false, "Please fix the following errors before continuing.")
                                 @* We need to encrypt userID so it can't be changed by a malicious user. *@
                                 @Html.HiddenFor(u => u.User.UserId)
+                                @Html.HiddenFor(u => u.returnUrl)
                             </div>
                             <div class="registration_form_content">
                                 <div class="single_row">

@@ -191,11 +191,10 @@ namespace DirtyGirl.Web.Controllers
         {
             var regAction = SessionManager.CurrentCart.ActionItems[model.ItemId];
             var reg = (Registration)regAction.ActionObject;
-
             if (ModelState.IsValid)
             {
-                reg.Address1 = model.RegistrationDetails.Address1;
-                reg.Address2 = model.RegistrationDetails.Address2;
+                reg.Address1 = CurrentUser.Address1;
+                reg.Address2 = CurrentUser.Address2;
                 reg.AgreeToTerms = model.RegistrationDetails.AgreeToTerms;
                 reg.CartItemId = model.RegistrationDetails.CartItemId;
                 reg.DateAdded = model.RegistrationDetails.DateAdded;
@@ -209,13 +208,13 @@ namespace DirtyGirl.Web.Controllers
                 reg.IsOfAge = model.RegistrationDetails.IsOfAge;
                 reg.IsThirdPartyRegistration = model.RegistrationDetails.IsThirdPartyRegistration;
                 reg.LastName = model.RegistrationDetails.LastName;
-                reg.Locality = model.RegistrationDetails.Locality;
+                reg.Locality = CurrentUser.Locality;
                 reg.MedicalInformation = model.RegistrationDetails.MedicalInformation;
                 reg.ParentRegistrationId = model.RegistrationDetails.ParentRegistrationId;
                 reg.Phone = model.RegistrationDetails.Phone;
-                reg.PostalCode = model.RegistrationDetails.PostalCode;
+                reg.PostalCode = CurrentUser.PostalCode;
                 reg.ReferenceAnswer = model.RegistrationDetails.ReferenceAnswer;
-                reg.RegionId = model.RegistrationDetails.RegionId;
+                reg.RegionId = CurrentUser.RegionId;
                 reg.RegistrationStatus = RegistrationStatus.Active;
                 reg.RegistrationType = model.RegistrationDetails.RegistrationType;
                 reg.SpecialNeeds = model.RegistrationDetails.SpecialNeeds;
@@ -223,7 +222,7 @@ namespace DirtyGirl.Web.Controllers
                 reg.PacketDeliveryOption = model.RegistrationDetails.PacketDeliveryOption;
                 reg.TeamId = model.RegistrationDetails.TeamId;
                 reg.UserId = CurrentUser.UserId;
-
+                
                 regAction.ActionObject = reg;
                 regAction.ItemReadyForCheckout = true;
 

@@ -7,7 +7,9 @@
     <div id="login_content">
         @using (Html.BeginForm("logon", "authorize", new { returnUrl = Model.ReturnUrl }, FormMethod.Post, null))
         {
-            <h3>LOGIN TO YOUR DIRTY GIRL ACCOUNT</h3>
+            <h1 class="reg-steps"><span>STEP 1:</span> Sign IN OR <a href="@Url.Action("CreateUser", "User")">REGISTER</a></h1>
+            <div class="reg-indicator step-1"></div>
+            
             @Html.ValidationSummary(false, " ")
             <div class="single_input">
                 <p>Login</p>
@@ -21,7 +23,7 @@
             <div class="single_checkbox">
                 @Html.CheckBoxFor(m => m.RememberMe)
                 @Html.LabelFor(m => m.RememberMe)
-                <p>@Html.ActionLink("Forgot Username or Password", "ForgotPassword", "Authorize")</p>
+                <p>@Html.ActionLink("Forgot Password", "ForgotPassword", "Authorize")</p>
             </div>
             <div class="login_submit">
                 <div class="submitLoginForm">

@@ -77,7 +77,8 @@ namespace DirtyGirl.Web.Controllers
             vmCart_ThankYou vm = new vmCart_ThankYou
                 {
                     CartFocus = id,
-                    ConfirmationCode = confirm
+                    ConfirmationCode = confirm,
+                    UserName = string.Format("{0} {1}", CurrentUser.FirstName, CurrentUser.LastName)
                 };
             
             return View(vm);

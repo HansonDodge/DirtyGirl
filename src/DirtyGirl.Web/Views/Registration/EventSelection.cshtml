@@ -17,18 +17,20 @@
                 </div>
                 <div class="contentMain">
                     <div class="contentMain_copy register wave">
-                        <div class="registration_steps">
+@*                        <div class="registration_steps">
                             <img src="@Url.Content("~/images/reg_progress1.png")" />
-                        </div>
+                        </div>*@
                         <div class="registration_wave">
                             <div class="wave_header">
                                 @switch (Model.CartFocus)
                                 {
                                     case CartFocusType.Registration:
-                                        <h1 class="pink" style="margin:0 0 10px;">PICK YOUR WAVE</h1>
+                                        <h1 class="reg-steps"><span>STEP 2:</span> PICK YOUR WAVE</h1>
+                                        <div class="reg-indicator step-2"></div>
                                         break;
                                     case CartFocusType.ChangeWave:
-                                        <h1 class="pink" style="margin:0 0 10px;">PICK YOUR WAVE</h1>
+                                        <h1 class="reg-steps"><span>STEP 2:</span> PICK YOUR WAVE</h1>
+                                        <div class="reg-indicator step-2"></div>
                                         <p>Please select a new wave from the spots available below.</p>
                                         break;
                                     case CartFocusType.ChangeEvent:
@@ -41,7 +43,8 @@
                                 <table>
                                     <tr>
                                         @*<td><p>Select Event:</p></td>*@
-                                        <td><p>Select Date:</p></td>
+
+                                        @*<td><p>Select Date:</p></td>*@
                                     </tr>
                                     <tr>
 @*                                        <td>
@@ -54,7 +57,7 @@
                                                 .Events(evts => evts.Change("onEventChange").DataBound("onEventDataBound"))
                                                 .HtmlAttributes(new { style = "width:250px" }))       
                                         </td>*@
-                                        <td>
+@*                                        <td>
                                             @(Html.Kendo().DropDownListFor(x => x.EventDateId)
                                                 .Name("ddlEventDate")
                                                 .OptionLabel("Select")
@@ -66,7 +69,7 @@
                                                 .AutoBind(false)
                                                 .CascadeFrom("ddlEvent")
                                                 .Events(evt => evt.Change("onEventDateChange")))
-                                        </td>
+                                        </td>*@
                                     </tr>
                                 </table>                                                                           
                             </div>

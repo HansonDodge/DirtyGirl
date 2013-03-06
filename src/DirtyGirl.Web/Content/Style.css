@@ -258,6 +258,40 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .faq_content .reg-faq_content #mcs_container .customScrollBox .scroller_container{width:710px;}
 .faq_content .reg-faq_content #mcs_container .customScrollBox .scroller_container .scroller_content{width: 690px;}
 
+.current-address {width:230px; float:right; }
+.current-address h4 {margin-bottom:8px;}
+.contentMain_copy.register .current-address p {font-weight:normal;}
+
+#sign-up-button
+{
+    position: absolute;
+    top: 28px;
+    right: 60px;
+    display: block;
+    width: 161px;
+    height: 41px;
+    background: url("../images/sign-up-button.png") no-repeat;
+    text-indent:-9999em;
+}
+
+#sign-up-button:hover{background-position: 0 -41px;}
+
+.contentMain_header .reg-steps {padding-top:13px;}
+.reg-steps{ color: #ee5192; margin-bottom:5px;}
+.reg-steps span {color: #573f3f; }
+.reg-steps a {color:#ee5192;}
+
+#login_modal .reg-steps {font-size:1.7em;}
+
+.reg-indicator {width:68px; height:10px; background:url("../images/reg-steps.png") no-repeat;}
+.register .reg-indicator {margin-bottom:10px;}
+
+.reg-indicator.step-1 {background-position:0 0;}
+.reg-indicator.step-2 {background-position:0 -10px;}
+.reg-indicator.step-3 {background-position:0 -20px;}
+.reg-indicator.step-4 {background-position:0 -30px;}
+.reg-indicator.step-5 {background-position:0 -40px;}
+
 /*REGISTER FORM*/
 .contentMain_copy.register { background:#e8e8e8; padding: 25px;}
 .contentMain_copy.register p{color:#2c1d13; font-weight: bold; font-size: 12px; margin-bottom: 15px;}
@@ -658,7 +692,7 @@ span.field-validation-error { color:#ff0000;}
 
 /*LOGIN MODAL*/
 #login_modal {position: fixed; width: 732px; height:369px; top: 50%; left: 50%; margin-top: -185px; margin-left: -366px; background: url(../images/login_modal.png) 0 0 no-repeat transparent; display: none; z-index:10000000;}
-#login_content {position: relative; padding: 60px 70px;}
+#login_content {position: relative; padding: 30px 38px;}
 #login_content h3{ font-size: 18px; color:#EF5192;}
 #login_content .single_input{position: relative; float:none; margin: 20px 0 0;}
 #login_content .single_input p{font-size: 12px; color:#2C1D13; }

@@ -700,8 +700,10 @@
     <Content Include="Images\reg-progress-muddier.png" />
     <Content Include="Images\reg-progress-start.png" />
     <Content Include="Images\reg-progress.png" />
+    <Content Include="Images\reg-steps.png" />
     <Content Include="Images\reg_progress1.png" />
     <Content Include="Images\shopping-cart.jpg" />
+    <Content Include="Images\sign-up-button.png" />
     <Content Include="Images\signup-new.png" />
     <Content Include="Images\sponsors\sponsor-breastcancerjpg.jpg" />
     <Content Include="Images\sponsors\sponsor-fleet.jpg" />

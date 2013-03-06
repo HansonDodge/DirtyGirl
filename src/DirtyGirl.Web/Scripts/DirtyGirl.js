@@ -46,11 +46,11 @@ DG.util = {
         });
     },
     animateSignup: function(){
-        $("#newSignup2 a").hover(function () {
-            $("#newSignup2").css("background-position", "0 -457px");
-        }, function () {
-            $("#newSignup2").css("background-position", "0 0");
-        });
+        //$("#newSignup2 a").hover(function () {
+        //    $("#newSignup2").css("background-position", "0 -457px");
+        //}, function () {
+        //    $("#newSignup2").css("background-position", "0 0");
+        //});
     },
     initPin: function () {
         $(".pin a").hover(function () {

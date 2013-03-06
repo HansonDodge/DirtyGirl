@@ -92,13 +92,13 @@
     }
 }
 
-@if (Model.CartItems.Count(x => x.PurchaseType == PurchaseType.Registration) == 1)
+@*@if (Model.CartItems.Count(x => x.PurchaseType == PurchaseType.Registration) == 1)
 {
     <div class="cartAdditional">
         <p style="margin-top:5px;">You can add a second event at half price right now!</p>
         <p><a href="@Url.Action("startnewregistration", "transaction")" class="btnPink">ADD NOW</a></p>
     </div>
-}
+}*@
 
 <script>    
     $(document).ready(function () {

@@ -42,18 +42,18 @@ namespace DirtyGirl.Models
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone number is not valid.")]
         public string Phone { get; set; }
 
-        [Required(ErrorMessage="Address is required")]
+        //[Required(ErrorMessage="Address is required")]
         public string Address1 { get; set; }
 
         public string Address2 { get; set; }
 
-        [Required(ErrorMessage="City is Required")]
+        //[Required(ErrorMessage="City is Required")]
         public string Locality { get; set; }
 
-        [Required(ErrorMessage = "State is required")]
+        //[Required(ErrorMessage = "State is required")]
         public int RegionId { get; set; }
 
-        [Required(ErrorMessage="Zip code is required")]
+        //[Required(ErrorMessage="Zip code is required")]
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "Emergency contact is required")]

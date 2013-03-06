@@ -91,12 +91,15 @@
                     {                  
                         <div class="contentMain_copy register">
 
+                            <h1 class="reg-steps"><span>STEP 3:</span> TEAM OR INDIVIDUAL REGISTRATION</h1>
+                            <div class="reg-indicator step-3"></div>
+
                             @Html.ValidationSummary(false, "Please address the following Errors")
                             @Html.HiddenFor(x => x.EventId)
                                                       
-                            <div class="registration_steps">
+@*                            <div class="registration_steps">
                                 <img src="@Url.Content("~/images/reg_progress1.png")" />
-                            </div>
+                            </div>*@
                             <div class="register_step1">
                                 <p>Are you registering with a team or as an individual? </p>
                                 <div class="radiobuttons">
@@ -126,6 +129,7 @@
                                             <p>Enter team name</p>
                                             @Html.TextBoxFor(x => x.TeamName)
                                             @Html.ValidationMessageFor(x => x.TeamName, "*")
+                                            <p>If you are creating a team, each team member will still need to register.</p>
                                         </div>                 
                                     </div>
                                 </div>

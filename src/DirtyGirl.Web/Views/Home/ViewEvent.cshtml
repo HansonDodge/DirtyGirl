@@ -43,7 +43,18 @@
             @Html.Partial("_Hero")
             @{Html.RenderPartial("EventHeader", Model.OverView);}
             <div id="eventDetailContent" class="twoColumn">
+
                 <div class="contentMain">
+                    
+                @if (Request.IsAuthenticated)
+                {   
+                    
+                    <a id="sign-up-button" onclick="_gaq.push(['_trackEvent', 'Sign Up Today', 'Button on Event Details']);"  href="@Url.Action("startnewregistration", "transaction", new { eventId = @Model.EventDetails.EventId })">Sign Up</a>
+                }
+                else
+                {
+                    <a id="sign-up-button" onclick="_gaq.push(['_trackEvent', 'Sign Up Today', 'Button on Event Details']);"  href="#" class="showloginmodal">Sign Up</a>
+                }
                     <div class="contentMain_info">
                         <div class="contentMain_info_tab">
                             <a href="#" class="infotab-eventinfo active">EVENT INFO</a>
@@ -57,6 +68,7 @@
                                         <div class="eventScroll eventInfo">
                                             <!-- event overview -->
                                             @Html.Raw(Model.EventDetails.EventNews)
+
                                             <!-- end event overview -->
                                             <h3>RACE DAY INSTRUCTIONS</h3>
                                             <h5>PACKET PICK-UP</h5>
@@ -148,10 +160,14 @@
                             @if (Request.IsAuthenticated)
                             {   
                                 <h3>Welcome, @(User.Identity.Name)!</h3>
-                                <a class="btnPink" href="@Url.Action("startnewregistration", "transaction", new { eventId = @Model.EventDetails.EventId })">SIGN UP FOR @Model.EventDetails.StateCode</a>           
+                                
+                                <a class="btnPink" href="@Url.Action("ViewUser", "User", new {username = User.Identity.Name})">EDIT PROFILE</a>           
                                 <br />
+                                <div class="contentSide_separator">
+                                    <img src="@Url.Content("~/images/img_contentSide_separator.png")" />
+                                </div>
                             }
-                            else
+                            @*else
                             {
                                 <h3>BEGIN REGISTRATION</h3>
                                 <p>To continue with registration please login with your Dirty Girl account or create a new account below.</p>
@@ -165,9 +181,8 @@
                                 <p><a href="@Url.Content(@"~/User/Facebook?state=" + Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Authority + "/transaction/StartNewRegistration?eventId=" + Model.EventDetails.EventId)">
                                     <img src="@Url.Content("~/images/btn_loginFb.png")" /></a></p>   
                             }
-                        </div>
-                        <div class="contentSide_separator">
-                            <img src="@Url.Content("~/images/img_contentSide_separator.png")" />
+                        
+                        *@
                         </div>
                         <div class="contentSide_sponsors">
                             <h4>SPONSORS</h4>
