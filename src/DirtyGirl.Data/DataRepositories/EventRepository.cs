@@ -35,11 +35,11 @@ namespace DirtyGirl.Data.DataRepositories
         }
 
 
-        public List<EventDateCounts> GetActiveEventCounts()
+        public List<EventDateCounts> GetCurrentEventCounts()
         {
             var ctx = Context;
             var eventDateDetailsList = new List<EventDateCounts>();
-            var regCounts = ctx.SpGetActiveEventCounts();
+            var regCounts = ctx.SpGetCurrentEventCounts();
             foreach (var regCount in regCounts)
             {
                 eventDateDetailsList.Add(new EventDateCounts
@@ -51,6 +51,7 @@ namespace DirtyGirl.Data.DataRepositories
                     EventDateId = regCount.EventDateId,
                     EventId = regCount.EventId,
                     FeeIconID = regCount.FeeIconID,
+                    IsActive = regCount.IsActive,
                     RegionID = regCount.RegionID,
                     GeneralLocality = regCount.GeneralLocality,
                     ImagePath = regCount.ImagePath,

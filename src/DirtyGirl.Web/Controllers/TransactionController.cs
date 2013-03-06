@@ -107,24 +107,40 @@ namespace DirtyGirl.Web.Controllers
         #region Cancel Registration
 
         public ActionResult StartCancellation(int regId)
-        {           
+        {
+            if (!IsCancellationAlreadyInCart(regId))
+            {
+                var itemId = Guid.NewGuid();
+                var newAction = new CancellationAction
+                    {
+                        RegistrationId = regId
+                    };
+                var newCartItem = new ActionItem
+                    {
+                        ActionType = CartActionType.CancelRegistration,
+                        ActionObject = newAction,
+                        ItemReadyForCheckout = true
+                    };
 
-            var itemId = Guid.NewGuid();
-            var newAction = new CancellationAction 
-                { 
-                    RegistrationId = regId 
-                };
-            var newCartItem = new ActionItem
-                {
-                    ActionType = CartActionType.CancelRegistration,                   
-                    ActionObject = newAction,
-                    ItemReadyForCheckout = true
-                };          
-
-            SessionManager.CurrentCart.ActionItems.Add(itemId, newCartItem);
+                SessionManager.CurrentCart.ActionItems.Add(itemId, newCartItem);
+            }
             SessionManager.CurrentCart.CheckOutFocus = CartFocusType.CancelEvent;
 
             return RedirectToAction("checkout", "cart");
+        }
+
+        private static bool IsCancellationAlreadyInCart(int regId)
+        {
+            foreach (var actionItem in SessionManager.CurrentCart.ActionItems.Values)
+            {
+                if (actionItem.ActionType == CartActionType.CancelRegistration)
+                {
+                    CancellationAction cancelAction = (CancellationAction)actionItem.ActionObject;
+                    if (cancelAction.RegistrationId == regId)
+                        return true;
+                }
+            }
+            return false;
         }
 
         #endregion
