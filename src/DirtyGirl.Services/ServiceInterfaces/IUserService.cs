@@ -50,6 +50,7 @@ namespace DirtyGirl.Services.ServiceInterfaces
         User GetUserByPasswordResetToken(string resetToken);
         decimal GetRegistrationValue(int registrationId);
 
+        bool ValidateUser(int userID, string password);
         
         bool IsValidPasswordResetToken(string resetToken);
     }

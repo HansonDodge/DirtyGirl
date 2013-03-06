@@ -57,6 +57,16 @@ namespace DirtyGirl.Services
             return serviceResult.Success;
         }
 
+        public bool ValidateUser(int userID, string password)
+        {
+            var u = _repository.Users.Get(userID);
+
+            if (u != null && Crypto.ValidatePassword(password.Trim(), new CryptoHashContainer(u.Salt, u.Password)))
+                return true;
+
+            return false;
+
+        }
         #endregion
 
         #region public methods
@@ -215,7 +225,8 @@ namespace DirtyGirl.Services
             ServiceResult result = new ServiceResult();
             try
             {
-                var updateUser = _repository.Users.Filter(user => user.UserId.Equals(userId)).FirstOrDefault();
+                
+                var updateUser = _repository.Users.Get(userId);
                 var chc = Crypto.CreateHash(password);
                 updateUser.Password = chc.hash;
                 updateUser.Salt = chc.salt;

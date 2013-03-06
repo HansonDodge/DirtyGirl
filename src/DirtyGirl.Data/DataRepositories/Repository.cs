@@ -50,19 +50,12 @@ namespace DirtyGirl.Data.DataRepositories
            return DbSet.Where(predicate).AsQueryable<TObject>();
         }
 
-        public virtual IQueryable<TObject> Filter(Expression<Func<TObject, bool>> predicate,IQueryable<string> includes)
-        {
-            var whereResults = DbSet.Where(predicate);
-            foreach (string inc in includes)
-            {
-                whereResults.Include(inc);
-            }
-            return DbSet.Where(predicate).AsQueryable<TObject>();
-        }
+       
 
         public virtual IQueryable<TObject> Filter(Expression<Func<TObject, bool>> filter, out int total, int index = 0, int size = 50)
         {
             int skipCount = index * size;
+           
             var _resetSet = filter != null ? DbSet.Where(filter).AsQueryable() : DbSet.AsQueryable();
             _resetSet = skipCount == 0 ? _resetSet.Take(size) : _resetSet.Skip(skipCount).Take(size);
             total = _resetSet.Count();

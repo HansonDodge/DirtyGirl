@@ -213,7 +213,7 @@ namespace DirtyGirl.Web.Controllers
             OnlyOwnerAccess(vm.Credentials.UserId);
             if (ModelState.IsValid)
             {
-                if (!Membership.Provider.ValidateUser(vm.Credentials.Username, vm.OldPassword))
+                if (!UserService.ValidateUser(vm.Credentials.UserId,vm.OldPassword))
                 {
                     ModelState.AddModelError("OldPassword", "Old Password Incorrect");
                 }
