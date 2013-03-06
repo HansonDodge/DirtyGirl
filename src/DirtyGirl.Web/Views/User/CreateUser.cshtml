@@ -138,16 +138,17 @@
                                         @Html.ValidationMessageFor(x => x.EmailAddressVerification, "*")
                                     </div>
                                 </div>
+                               
                                 <div class="single_row">
                                     <div class="single_input text address">
-                                        <p><span class="pink">*</span>Address</p>
+                                        <p><span class="pink">*</span>Shipping Address</p>
                                         @Html.TextBoxFor(x => x.User.Address1)
                                         @Html.ValidationMessageFor(x => x.User.Address1, "*")
                                     </div>
                                 </div>
                                 <div class="single_row">
                                     <div class="single_input text address">
-                                        <p><span class="pink"></span>Address2</p>
+                                        <p><span class="pink"></span>Address 2</p>
                                         @Html.TextBoxFor(x => x.User.Address2)
                                         @Html.ValidationMessageFor(x => x.User.Address2, "*")
                                     </div>
