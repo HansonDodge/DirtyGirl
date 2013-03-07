@@ -98,7 +98,6 @@
 
                             </div>
                             <div class="registration_form_content">
-                                <p style="font-weight:normal;">*Required Fields</p>
                                 <div class="single_row" style="display:none;">
                                     <div class="inlineRadio">
                                         <p><span class="pink">*</span>Are you registering for someone else?</p>
@@ -116,7 +115,8 @@
                                         </div>
                                     </div>
                                 <div class="single_row">
-                                    <p><span class="pink">*</span>Registration Type</p>                 
+                                    
+                                    <p class="label-p"><span class="pink">*</span>Registration Type:</p>                 
 
                                     <div class="inlineRadioOptions">
                                         @foreach (SelectListItem regType in Model.RegistrationTypeList)
@@ -131,6 +131,7 @@
                                                 {
                                                     @Html.RadioButtonFor(x => x.RegistrationDetails.RegistrationType, regType.Value);
                                                 }
+
                                                 <label for="RegistrationType">@regType.Text</label>
                                             </div>
                                         }
@@ -282,7 +283,7 @@
                     <div class="contentSidePanel_top">&nbsp;</div>
                     <div class="contentSidePanel_side">
                         <div class="contentSideFaq">
-                            <h3>FAQS</h3>
+                            <h3>FAQs</h3>
                             <p class="bold">What is the minimum age?  </p>
                             <p>The minimum age to participate is 14. Anyone under the age of 18 participating must have a parent/guardian accompany them to packet pick-up and the parent/guardian will sign a waiver.</p>
                             <p class="bold">Can men participate? </p>

@@ -33,6 +33,15 @@ namespace DirtyGirl.Services
         {
             ServiceResult result = new ServiceResult();
 
+            DateTime expired = new DateTime(); 
+            expired.AddYears(checkOutDetails.ExpirationYear); 
+            expired.AddMonths(checkOutDetails.ExpirationMonth);
+
+            if (DateTime.Now.CompareTo(expired) < 0) {
+                result.AddServiceError("This credit card is expired");
+                return result;
+            }
+            
             try
             {
                 CartSummary summary = GenerateCartSummary(tempCart);           
@@ -316,7 +325,7 @@ namespace DirtyGirl.Services
                                         PurchaseType.Fee,
                                         ProcessType.General,                                        
                                         "Cancellation",
-                                        string.Format("Cancelling your registration for {0}, {1} : {2} {3}.  Your will be issued a cancellation code of the oringal value that can be used towards another event.", evt.GeneralLocality, evt.Region.Code, evtDate.DateOfEvent.ToString("dddd  MMMM dd, yyyy"), evtWave.StartTime.ToString("h:mm tt")),
+                                        string.Format("Cancelling your registration for {0}, {1} : {2} {3}.  Your will be issued a cancellation code of the original value that can be used towards another event.", evt.GeneralLocality, evt.Region.Code, evtDate.DateOfEvent.ToString("dddd  MMMM dd, yyyy"), evtWave.StartTime.ToString("h:mm tt")),
                                         fee.PurchaseItemId,
                                         fee.Cost,
                                         false,

@@ -30,10 +30,14 @@ namespace DirtyGirl.Web.Controllers
 
         public ActionResult EventSelection(Guid itemId, int? eventId, int? eventDateId, int? eventWaveId)
         {
+
+            int eId = (eventId.HasValue)? eventId.Value : 0;  
+            
             vmRegistration_EventSelection vm = new vmRegistration_EventSelection
             {
                 ItemId = itemId,
-                CartFocus = SessionManager.CurrentCart.CheckOutFocus               
+                CartFocus = SessionManager.CurrentCart.CheckOutFocus,
+                EventOverview = _service.GetEventOverviewById(eId),
             };
 
             if (eventWaveId.HasValue)

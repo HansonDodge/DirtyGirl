@@ -43,7 +43,14 @@
                             <a target="_blank" class="elhover" href="http://www.twitter.com/godirtygirl"><img width="42" height="36" alt="Follow Dirty Girl Mud Run on Twitter" src="@Url.Content("~/images/twitter.gif")"></a>
                             <a target="_blank" class="elhover" href="http://www.facebook.com/godirtygirl"><img width="40" height="36" alt="Like Dirty Girl Mud Run on Facebook" src="@Url.Content("~/images/fb.gif")"></a>
                             <a target="_blank" class="elhover" href="http://itunes.apple.com/us/album/dirty-girl-workout-mix-vol./id527855735 "><img width="42" height="36" src="@Url.Content("~/images/itunes.jpg")"></a>
-                            <a class="elhover" href="/store/cart/"><img width="41" height="36" alt="Shopping Cart" src="@Url.Content("~/images/shopping-cart.jpg")"></a>
+                            
+                            @if (Request.IsAuthenticated){   
+                                <a class="elhover" href="@Url.Action("Checkout", "Cart")"><img width="41" height="36" alt="Shopping Cart" src="@Url.Content("~/images/shopping-cart.jpg")"></a>
+                            } else {
+                                <a class="elhover showloginmodal" href="#"><img width="41" height="36" alt="Shopping Cart" src="@Url.Content("~/images/shopping-cart.jpg")"></a>
+                            }
+                            
+                            
                             <div style="float: right; margin-top: 7px;"><div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like font="" show_faces="true" width="90" layout="button_count" send="false" href="http://www.facebook.com/godirtygirl" fb-xfbml-state="rendered" class="fb_edge_widget_with_comment fb_iframe_widget"><span style="height: 20px; width: 79px;"><iframe scrolling="no" id="f106ccf3542d4a" name="f3ef1d244953b1e" style="border: medium none; overflow: hidden; height: 20px; width: 79px;" title="Like this content on Facebook." class="fb_ltr" src="http://www.facebook.com/plugins/like.php?api_key=130977823636539&amp;channel_url=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter.php%3Fversion%3D11%23cb%3Df193d47a9a80672%26origin%3Dhttp%253A%252F%252Fwww.godirtygirl.com%252Ff1075d51b849966%26domain%3Dwww.godirtygirl.com%26relation%3Dparent.parent&amp;extended_social_context=false&amp;href=http%3A%2F%2Fwww.facebook.com%2Fgodirtygirl&amp;layout=button_count&amp;locale=en_US&amp;node_type=link&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=90"></iframe></span></fb:like></div>
                         </div>
                         <div id="global_nav">

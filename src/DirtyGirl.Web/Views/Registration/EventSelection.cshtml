@@ -11,15 +11,11 @@
     <div class="pinkborder_left">
         <div id="eventDetailContainer">
             @Html.Partial("_Hero")
+            @{Html.RenderPartial("EventHeader", Model.EventOverview);}
             <div id="eventDetailContent" class="twoColumn">
-                <div class="contentMain_header">
-                    <h6 id="EventNameTitle"></h6>
-                </div>
                 <div class="contentMain">
                     <div class="contentMain_copy register wave">
-@*                        <div class="registration_steps">
-                            <img src="@Url.Content("~/images/reg_progress1.png")" />
-                        </div>*@
+
                         <div class="registration_wave">
                             <div class="wave_header">
                                 @switch (Model.CartFocus)
@@ -92,7 +88,7 @@
                     <div class="contentSidePanel_top">&nbsp;</div>
                     <div class="contentSidePanel_side">
                         <div class="contentSideFaq">
-                            <h3>FAQS</h3>
+                            <h3>FAQs</h3>
                             <p class="bold">What happens if the wave I want is sold out?  </p>
                             <p>Each wave has a space for 300 participants and once a wave is full, it is sold out. If others still need to register, those already signed up can edit their registrations online and switch in to another open wave that day.</p>
                             <p class="bold">What happens if the wave my team is on is sold out? </p>

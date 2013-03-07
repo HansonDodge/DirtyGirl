@@ -30,6 +30,7 @@ namespace DirtyGirl.Web.Controllers
 
         public ActionResult CheckOut()
         {
+            
             CartCheckOut vm = new CartCheckOut 
                 {                    
                     ExpirationMonthList = DirtyGirlExtensions.ConvertToSelectList<Months>(),

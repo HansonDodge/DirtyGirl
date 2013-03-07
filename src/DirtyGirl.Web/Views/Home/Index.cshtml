@@ -24,7 +24,7 @@
             {
                 <div class="single_location" style="position: absolute; left: @string.Format("{0}px", @location.PinXCoordinate); top: @string.Format("{0}px", @location.PinYCoordinate);">
                     <div class="single_location_content">
-                        <div class="pin"><a href="#">&nbsp;</a></div>
+                        <div class="pin"><a href="@Url.Action("viewevent", "home", new {id = location.EventId})">&nbsp;</a></div>
                         <div class="popup">
                             <div class="popup_content">
                                 <h3>@location.City, @location.State</h3>
@@ -67,7 +67,7 @@
                 <div id="registration_list_nav_content">
                     <a href="#" class="nav-schedule active">EVENT SCHEDULE</a>
                     <a href="#" class="nav-info">EVENT INFO</a>
-                    <a href="#" class="nav-faq">FAQS</a>
+                    <a href="#" class="nav-faq">FAQs</a>
                 </div>
             </div>
             <a id="EventList"></a>
@@ -143,7 +143,7 @@
                             <p><b>Proper footwear</b>. Leave the stilettos at home. We recommend a lightly used trail shoe with decent tread to help get you up, over, around, and through our obstacles. Feel free to donate your unwanted shoes because we have an awesome team who will clean, sanitize and send those shoes all over the world to be reused in developing countries. </p>
                             <p><b>Proper clothing</b>. Dress for the elements and for being active and muddy. </p>
                             <p><b>Cash</b>. Don’t forget cash for libations and local fare which will be available in our Expo Village.</p>
-                            <p><b>Change of clothes/towel</b>. We will have a secure bag check, so you can leave your change of clothes/towel with us while you participate and retrieve after. If you’d like to hose yourself down and tidy-up before hitting the Expo Village and getting your party on, a rinse station and enclosed changing tent will be available. Ladies, it not a shower it is a rinse station. The goal here is to get the majority of the mud off, not to be squeaky clean. A word to the wise, bring an old towel and garbage bag for all your wet and Dirty clothing. Please leave your valuables at home.</p>
+                            <p><b>Change of clothes/towel</b>. We will have a secure bag check, so you can leave your change of clothes/towel with us while you participate and retrieve after. If you’d like to hose yourself down and tidy-up before hitting the Expo Village and getting your party on, a rinse station and enclosed changing tent will be available. Ladies, it is not a shower, it is a rinse station. The goal here is to get the majority of the mud off, not to be squeaky clean. A word to the wise, bring an old towel and garbage bag for all your wet and Dirty clothing. Please leave your valuables at home.</p>
                             <p><b>Great attitude!</b> This will be the most fun you have all year.</p>
                             <p>No outside alcoholic beverages or glass bottles allowed</p>
                         </div>

@@ -15,14 +15,15 @@
     <div class="pinkborder_left">
         <div id="eventDetailContainer">
             @Html.Partial("_Hero")
-            <div class="contentMain_header">
-                <h1 class="reg-steps"><span>STEP 5:</span> CHECK OUT</h1>
-                <div class="reg-indicator step-5"></div>
-            </div>
             <div id="eventDetailContent" class="twoColumn">
                 <div class="contentMain">
+                    
+
                     <div id="checkoutContainer">
                         <div id="cartSummary">
+                            <h1 class="reg-steps"><span>STEP 5:</span> CHECK OUT</h1>
+                            <div class="reg-indicator step-5"></div>
+
                             @{Html.RenderPartial("Partial/CartDisplay", @Model.CartSummary);}
                         </div>        
                         <div class="summary_separator">
@@ -101,7 +102,7 @@
                     <div class="contentSidePanel_top">&nbsp;</div>
                     <div class="contentSidePanel_side">
                         <div class="contentSideFaq">
-                            <h3>FAQS</h3>
+                            <h3>FAQs</h3>
                             <p class="bold">What is the cancellation policy?  </p>
                             <p>We are sorry but Dirty Girl has a strict no refund policy.  If you cannot make it, you can either transfer your registration to someone else or receive credit towards another Dirty Girl Mud Run. </p>
                             <p class="bold">If I cannot make an event, what are my options?  </p>

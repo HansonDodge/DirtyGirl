@@ -12,7 +12,8 @@ namespace DirtyGirl.Web.Models
     {
         public int EventId { get; set; }
         public int EventDateId { get; set; }
-        public int EventWaveId { get; set; }        
+        public int EventWaveId { get; set; }
+        public EventOverview EventOverview { get; set; }
         public Guid ItemId { get; set; }
         public string EventName { get; set; }
         public bool LockEvent { get; set; }
