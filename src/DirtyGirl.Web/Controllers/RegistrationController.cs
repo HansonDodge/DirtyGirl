@@ -163,6 +163,14 @@ namespace DirtyGirl.Web.Controllers
         {
             var regAction = SessionManager.CurrentCart.ActionItems[itemId];
             var reg = (Registration)regAction.ActionObject;
+
+            // update address to current user address
+            reg.Address1 = CurrentUser.Address1;
+            reg.Address2 = CurrentUser.Address2;
+            reg.Locality = CurrentUser.Locality;
+            reg.RegionId = CurrentUser.RegionId;
+            reg.PostalCode = CurrentUser.PostalCode;
+    
             var wave = _service.GetEventWaveById(reg.EventWaveId);
             int eventId = wave.EventDate.EventId;
 
