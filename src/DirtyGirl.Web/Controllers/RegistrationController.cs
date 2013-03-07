@@ -234,7 +234,9 @@ namespace DirtyGirl.Web.Controllers
                 reg.PacketDeliveryOption = model.RegistrationDetails.PacketDeliveryOption;
                 reg.TeamId = model.RegistrationDetails.TeamId;
                 reg.UserId = CurrentUser.UserId;
-                
+                reg.Signature = model.RegistrationDetails.Signature;
+                reg.IsIAmTheParticipant = model.RegistrationDetails.IsIAmTheParticipant;
+                reg.IsSignatureConsent = model.RegistrationDetails.IsSignatureConsent;
                 regAction.ActionObject = reg;
                 regAction.ItemReadyForCheckout = true;
 

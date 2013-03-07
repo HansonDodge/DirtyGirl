@@ -99,7 +99,8 @@ namespace DirtyGirl.Web.Controllers
             SessionManager.CurrentCart.ActionItems.Add(itemId, newCartItem);
             SessionManager.CurrentCart.CheckOutFocus = CartFocusType.ChangeWave;
 
-            return RedirectToAction("EventSelection", "registration", new { itemId, eventwaveid = _service.GetRegistrationById(regId).EventWaveId} );
+            var reg = _service.GetRegistrationById(regId);
+            return RedirectToAction("EventSelection", "registration", new { itemId, reg.EventWave.EventDate.EventId, reg.EventWave.EventDateId, reg.EventWaveId});
         }
 
         #endregion
