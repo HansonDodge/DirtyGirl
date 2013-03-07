@@ -36,7 +36,7 @@ ol, ul, li {   list-style: none outside none;}
 #container { position: relative; width: 1200px; margin: auto; }
 #content { position: relative;  margin: 15px 0 0; }
 div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; width:100%; height: 100%; opacity: 0.6; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";  filter: alpha(opacity=60);z-index:1000000; display:none;}
-.loginStatusContainer { position: absolute; right: 20px; top: 0px;  z-index: 10000000;}
+.loginStatusContainer { position: absolute; right: 20px; top: 0px;  z-index: 1000;}
 .loginStatusContainer ul{ position: relative; overflow: hidden;}
 .loginStatusContainer ul li{ position: relative; float:left; margin-left:10px;}
 .loginStatusContainer ul li a{font-size: 13px; color:#ffffff; font-weight: bold; background:#EE5192;display:block; padding: 3px 5px; text-decoration:none; font-family:"Blackout-Midnight","blackout-midnight-1","blackout-midnight-2",sans-serif;}
