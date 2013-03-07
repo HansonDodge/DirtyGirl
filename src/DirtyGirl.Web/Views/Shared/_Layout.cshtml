@@ -116,4 +116,27 @@
 </html>
 
 <!--Login overlay -->
-@{Html.RenderAction("LogonModal", "Authorize", new { returnUrl = (Request.Url != null ? (@Request.Url.PathAndQuery.Contains("viewevent") ? "/transaction/StartNewRegistration?eventId=" + Model.EventDetails.EventId : @Request.Url.PathAndQuery) : string.Empty) });}
+@{var returnUrl = string.Empty;
+    if (Request.Url != null)
+    {
+        Type type = Model.GetType();
+        bool hasModelRedir = false;
+        if (type.GetProperty("returnUrl") != null){
+            hasModelRedir = true; 
+        }
+        
+        if (@Request.Url.PathAndQuery.Contains("viewevent"))
+        {
+            returnUrl = "/transaction/StartNewRegistration?eventId=" + Model.EventDetails.EventId;
+        }
+        else if (hasModelRedir)
+        {
+            returnUrl = Model.returnUrl;
+        }
+        else
+        {
+            returnUrl = @Request.Url.PathAndQuery;
+        }
+    }
+}   
+@{Html.RenderAction("LogonModal", "Authorize", new { returnUrl = returnUrl});}

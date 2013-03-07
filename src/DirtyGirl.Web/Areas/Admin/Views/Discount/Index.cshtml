@@ -106,12 +106,16 @@
             var offsetMiliseconds = new Date().getTimezoneOffset() * 60000;
             var coupons = e.response.Data;
             for (var i = 0; i < coupons.length; i++) {
-                coupons[i].StartDateTime = coupons[i].StartDateTime.replace(/\d+/,
-                    function (n) { return parseInt(n) + offsetMiliseconds }
-                 );
-                coupons[i].EndDateTime = coupons[i].EndDateTime.replace(/\d+/,
-                    function (n) { return parseInt(n) + offsetMiliseconds }
-                 );
+                if (coupons[i].StartDateTime != null) {
+                    coupons[i].StartDateTime = coupons[i].StartDateTime.replace(/\d+/,
+                        function (n) { return parseInt(n) + offsetMiliseconds }
+                     );
+                }
+                if (coupons[i].EndDateTime != null) {
+                    coupons[i].EndDateTime = coupons[i].EndDateTime.replace(/\d+/,
+                        function (n) { return parseInt(n) + offsetMiliseconds }
+                     );
+                }
             }
         }
     }

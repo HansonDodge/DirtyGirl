@@ -190,6 +190,7 @@
                 .DataSource(datasource => datasource
                     .Ajax()
                     .Events(events => events.Error("error_handler"))
+                    .Events(events => events.RequestEnd("onEventRequestEnd"))
                     .Model(model => model.Id("EventDateId"))
                     .Read(read => read.Action("Ajax_GetEventDates", "Event", new { masterEventId = @Model.Event.EventId }))
                     .Create(add => add.Action("Ajax_CreateEventDate", "Event", new { masterEventId = @Model.Event.EventId }))
@@ -300,7 +301,7 @@
                     .Events(events => events.Error("error_handler"))
                     .Model(model => model.Id("EventSponsorId"))
                     .Read(read => read.Action("Ajax_GetEventSponsors", "Event", new { masterEventId = @Model.Event.EventId }))
-                    .Update(save => save.Action("Ajax_UpdateEventSponsor", "Event"))
+                    .Update(save => save.Action("Ajax_UpdateEventSponsor", "Event", new { masterEventId = @Model.Event.EventId }))
                     .Destroy(delete => delete.Action("Ajax_DeleteEventSponsor", "Event")))
                 )
 
@@ -331,10 +332,11 @@
                 .DataSource(dataSource => dataSource
                     .Ajax()
                     .Events(events => events.Error("error_handler"))
+                    .Events(events => events.RequestEnd("onCouponRequestEnd"))
                     .Model(model => model.Id("DiscountItemId"))
                     .Read(read => read.Action("Ajax_GetCoupons", "Discount", new { masterEventId = @Model.Event.EventId }))
                     .Create(add => add.Action("Ajax_CreateCoupon", "Discount", new { masterEventId = @Model.Event.EventId }))
-                    .Update(save => save.Action("Ajax_UpdateCoupon", "Discount"))
+                    .Update(save => save.Action("Ajax_UpdateCoupon", "Discount", new { masterEventId = @Model.Event.EventId }))
                     .Destroy(delete => delete.Action("Ajax_DeleteCoupon", "Discount"))
                 )
             )
@@ -523,6 +525,39 @@
                 $.validator.unobtrusive.parse("GenerateEventDateForm");
             }
         }
+        
+    // fix stupid Kendo Dates... 
+        function onEventRequestEnd(e) {
+            if (e.type == "read") {
+                var offsetMiliseconds = new Date().getTimezoneOffset() * 60000;
+                var events = e.response.Data;
+                for (var i = 0; i < events.length; i++) {
+                    events[i].DateOfEvent = events[i].DateOfEvent.replace(/\d+/,
+                        function (n) { return parseInt(n) + offsetMiliseconds }
+                     );
+                }
+            }
+        }
+
+        function onCouponRequestEnd(e) {
+            if (e.type == "read") {
+                var offsetMiliseconds = new Date().getTimezoneOffset() * 60000;
+                var coupons = e.response.Data;
+                for (var i = 0; i < coupons.length; i++) {
+                    if (coupons[i].StartDateTime != null) {
+                        coupons[i].StartDateTime = coupons[i].StartDateTime.replace(/\d+/,
+                            function (n) { return parseInt(n) + offsetMiliseconds }
+                         );
+                    }
+                    if (coupons[i].EndDateTime != null) {
+                        coupons[i].EndDateTime = coupons[i].EndDateTime.replace(/\d+/,
+                            function (n) { return parseInt(n) + offsetMiliseconds }
+                         );
+                    }
+                }
+            }
+        }
+
 
         function onEventDateCreatedFail(result) {
         }
