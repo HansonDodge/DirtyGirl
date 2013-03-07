@@ -239,6 +239,7 @@
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\DummyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
@@ -643,6 +644,7 @@
     <Content Include="Images\donate-bar.png" />
     <Content Include="Images\donation-bar-dirt.png" />
     <Content Include="Images\dot.png" />
+    <Content Include="Images\Error.jpg" />
     <Content Include="Images\Events\deploy.txt" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\fb.gif" />
@@ -946,6 +948,7 @@
     <Content Include="Views\Team\Partial\MessageBoardPosts.cshtml" />
     <Content Include="Views\Authorize\ForgotPassword.cshtml" />
     <Content Include="Views\Authorize\PasswordResetRequest.cshtml" />
+    <Content Include="Views\Shared\MudPlant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
