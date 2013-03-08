@@ -38,6 +38,7 @@ namespace DirtyGirl.Web.Controllers
                 ItemId = itemId,
                 CartFocus = SessionManager.CurrentCart.CheckOutFocus,
                 EventOverview = _service.GetEventOverviewById(eId),
+                EventDateCount = GetEventDateCount(eId)
             };
 
             if (eventWaveId.HasValue)
@@ -110,6 +111,13 @@ namespace DirtyGirl.Web.Controllers
         public JsonResult GetEventDateList(int eventId)
         {
             return Json(_service.GetActiveDateDetailsByEvent(eventId).Select(x => new { EventDateId = x.EventDateId, DateOfEvent = x.DateOfEvent.ToShortDateString() }).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        private int GetEventDateCount(int eventId)
+        {            
+            var dates = _service.GetActiveDateDetailsByEvent(eventId).Select(x => new { EventDateId = x.EventDateId, DateOfEvent = x.DateOfEvent.ToShortDateString() }).ToList();
+
+            return dates.Count; 
         }
 
         public ActionResult GetWavesByEventDateId(int eventDateId)

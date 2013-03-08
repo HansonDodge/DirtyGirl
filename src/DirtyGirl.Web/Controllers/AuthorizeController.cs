@@ -58,17 +58,24 @@ namespace DirtyGirl.Web.Controllers
 
         public ActionResult ForgotPassword()
         {
-            return View();
+            vmRedirect vm = new vmRedirect();
+            vm.returnUrl = "/";
+            return View(vm);
         }
 
         [HttpPost]
         public ActionResult ForgotPassword(string emailAddress)
         {
-            if (string.IsNullOrEmpty(emailAddress)) return View();
+            vmRedirect vm = new vmRedirect();
+            vm.returnUrl = "/";
+
+            if (string.IsNullOrEmpty(emailAddress)) return View(vm);
+            
             var result = UserService.GeneratePasswordResetRequest(emailAddress);
             ViewBag.Result = result;
             ViewBag.EmailAddress = emailAddress;
-            return View();
+
+            return View(vm);
         }
 
         public ActionResult PasswordResetRequest(string token)
