@@ -151,8 +151,11 @@ namespace DirtyGirl.Services
         public override bool ValidateUser(string username, string password)
         {
             var u = _repository.Users.Find(x => x.UserName.Trim().ToLower() == username.Trim().ToLower() && x.FacebookId == null);
+            if (u == null)
+                return false;
 
-            if (u != null && Crypto.ValidatePassword(password.Trim(), new CryptoHashContainer(u.Salt, u.Password)))
+            var user = _repository.Users.Get(u.UserId); // defeat caching...
+            if (user != null && Crypto.ValidatePassword(password.Trim(), new CryptoHashContainer(user.Salt, user.Password)))
                 return true;
 
             return false;

@@ -202,6 +202,7 @@ namespace DirtyGirl.Services
                     if (result.Success)
                     {
                         _repository.SaveChanges();
+                        _repository.Users.LoadProperties(updateUser);
                     }
                 }
             }
@@ -235,6 +236,7 @@ namespace DirtyGirl.Services
                 if (result.Success)
                 {
                     _repository.SaveChanges();
+                    _repository.Users.LoadProperties(updateUser);
                 }
             }
             catch (Exception ex)

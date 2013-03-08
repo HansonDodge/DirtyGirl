@@ -110,7 +110,13 @@ namespace DirtyGirl.Data.DataRepositories
             DbSet.Attach(TObject);
             entry.State = EntityState.Modified;
             if (!shareContext)
-                return Context.SaveChanges();
+            {
+                if (Context.SaveChanges() == 1)
+                {
+                    entry.Reload();
+                    return 1;
+                }
+            }
             return 0;
         }
 

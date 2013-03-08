@@ -168,7 +168,7 @@ namespace DirtyGirl.Web.Controllers
                         validImageFile = false;
                 }
                 */
-                ServiceResult result = UserService.UpdateUser(vm.User, false);
+                ServiceResult result =  UserService.UpdateUser(vm.User, false);
                 /*
                 if (!validImageFile)
                     result.AddServiceError("Images must be .jpg, .png, .gif, and less than 2 megabytes in size");
