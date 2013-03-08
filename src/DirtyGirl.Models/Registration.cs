@@ -72,6 +72,14 @@ namespace DirtyGirl.Models
 
         public string Gender { get; set; }
 
+        [MustBeTrue(ErrorMessage = "Must agree to the Electronic Signature Consent form.")]
+        [DisplayName("Electronic Signature Consent.")]
+        public bool IsSignatureConsent { get; set; }
+
+        [MustBeTrue(ErrorMessage = "Must agree that I am the participant or guardian.")]
+        [DisplayName("I certify that I am the Participant or the parential guardian for a minor participant .")]
+        public bool IsIAmTheParticipant { get; set; }
+
         [MustBeTrue(ErrorMessage = "Only women may register for this event.")]
         [DisplayName("By checking this box I am verifying that I, or the person I am registering for, is female.")]
         public bool IsFemale { get; set; }
@@ -83,6 +91,9 @@ namespace DirtyGirl.Models
         [MustBeTrue(ErrorMessage = "Registrant must be 15 years of age or older the day of the event.")]
         [DisplayName("By checking this box I am verifying that I, or the person I’m registering for, is 15 years of age or older.")]
         public bool IsOfAge { get; set; }
+
+        [Required(ErrorMessage = "Electronic Signature is required")]
+        public string Signature { get; set; }
 
         public RegistrationMaterialsDeliveryOption? PacketDeliveryOption { get; set; }
 

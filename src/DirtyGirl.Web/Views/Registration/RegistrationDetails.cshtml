@@ -211,6 +211,15 @@
                                         @Html.ValidationMessageFor(x => x.RegistrationDetails.EventLeadId, "*")
                                     </div>
                                 </div>
+                                  <div class="single_row">
+                                    <div class="single_checkbox">
+                                        @Html.CheckBoxFor(x => x.RegistrationDetails.IsSignatureConsent)
+                                        <p><span class="pink">*</span>@Html.DisplayNameFor(x => x.RegistrationDetails.IsSignatureConsent)</p>
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.IsSignatureConsent, "*")
+
+                                        <p>By checking here, you are consenting to the use of your electronic signature in lieu of an original signature on paper. You have the right to request that you sign a paper copy instead. By checking here, you are waiving that right. After consent, you may, upon written request to us, obtain a paper copy of an electronic record. No fee will be charged for such copy and no special hardware or software is required to view it. Your agreement to use an electronic signature with us for any documents will continue until such time as you notify us in writing that you no longer wish to use an electronic signature. There is no penalty for withdrawing your consent. You should always make sure that we have a current email address in order to contact you regarding any changes, if necessary.</p>
+                                    </div>
+                                </div>
                                 <div class="form_waiver">
                                     <h3>WAIVER <span>(<a href="@Url.Content("~/Content/waiver.pdf")" target="_blank">Open as PDF</a>)</span></h3>
                                     <div class="form_waiver_content">
@@ -245,6 +254,13 @@
                                         </ol>
                                     </div>
                                 </div>
+                                  <div class="single_row">
+                                    <div class="single_checkbox">
+                                        @Html.CheckBoxFor(x => x.RegistrationDetails.IsIAmTheParticipant)
+                                        <p><span class="pink">*</span>@Html.DisplayNameFor(x => x.RegistrationDetails.IsIAmTheParticipant)</p>
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.IsIAmTheParticipant, "*")
+                                    </div>
+                                </div>
                                 <div class="single_row">
                                     <div class="single_checkbox">
                                         @Html.CheckBoxFor(x => x.RegistrationDetails.AgreeToTerms)
@@ -265,6 +281,14 @@
                                         @Html.CheckBoxFor(x => x.RegistrationDetails.IsOfAge)
                                         <p><span class="pink">*</span>@Html.DisplayNameFor(x => x.RegistrationDetails.IsOfAge)&nbsp;&nbsp;<a href="http://www.coppa.org/coppa.htm" target="_blank">Read COPPA Rules.</a></p>
                                         @Html.ValidationMessageFor(x => x.RegistrationDetails.IsOfAge, "*")
+                                    </div>
+                                </div>
+                                 <div class="single_row">
+                                    <div class="single_input textarea">
+                                        <p>Participant/Parental Guardian Signature</p>
+                                        @Html.TextBoxFor(x => x.RegistrationDetails.Signature, new { @class = "TextBoxInput" })
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.Signature, "*")
+                                        <p>@Model.RegistrationDetails.FirstName @Model.RegistrationDetails.LastName  @DateTime.Today.ToShortDateString() </p>
                                     </div>
                                 </div>
                             </div>

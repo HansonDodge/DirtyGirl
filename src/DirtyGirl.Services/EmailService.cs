@@ -167,7 +167,7 @@ namespace DirtyGirl.Services
 
                 string messageBody = File.ReadAllText(emailTemplatePath + DirtyGirlServiceConfig.Settings.TransferEmailBody)
                     .Replace("{ToName}", toName)
-                    .Replace("{FromName}", redemptionCode.GeneratingRegistration.User.FirstName + redemptionCode.GeneratingRegistration.User.LastName)
+                    .Replace("{FromName}", redemptionCode.GeneratingRegistration.User.FirstName + " " + redemptionCode.GeneratingRegistration.User.LastName)
                     .Replace("{WaveDetails}", string.Format("{0} {1}",redemptionCode.GeneratingRegistration.EventWave.EventDate.DateOfEvent.ToString("dddd  MMMM, dd yyyy"), redemptionCode.GeneratingRegistration.EventWave.StartTime.ToString("h:mm tt")))
                     .Replace("{Code}", redemptionCode.Code);                   
 

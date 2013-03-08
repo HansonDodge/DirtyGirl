@@ -131,7 +131,7 @@
             }
         }
                 
-        if (@Request.Url.PathAndQuery.Contains("viewevent"))
+        if (@Request.Url.PathAndQuery.Contains("viewevent") && Model != null)
         {
             returnUrl = "/transaction/StartNewRegistration?eventId=" + Model.EventDetails.EventId;
         }

@@ -176,7 +176,7 @@ namespace DirtyGirl.Web.Controllers
 
                 if (result.Success)
                 {
-                    DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "User has been updated successfully"));
+                    DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "User profile has been updated successfully"));
                     if (!string.IsNullOrEmpty(vm.returnUrl)){
                         Response.Redirect(vm.returnUrl); 
                     } else {
