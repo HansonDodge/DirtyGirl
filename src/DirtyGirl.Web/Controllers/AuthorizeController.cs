@@ -23,8 +23,10 @@ namespace DirtyGirl.Web.Controllers
             {
                 if (!string.IsNullOrEmpty(model.ReturnUrl))
                     return RedirectToLocal(returnUrl);
-                else
-                    return RedirectToAction("viewuser", "user", new {userId = model.UserId});
+
+                var user = UserService.GetUserByUsername(model.UserName); 
+                if (user != null)
+                    return RedirectToAction("viewuser", "user", new {userId = user.UserId});
             }
 
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
