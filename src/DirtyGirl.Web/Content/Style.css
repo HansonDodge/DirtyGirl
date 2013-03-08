@@ -133,7 +133,7 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 /*REGISTRATION LANDING*/
 #registration {position: relative; margin: 0 0 20px;}
 #registration_map { position: relative;}
-.registration_map_content {position: relative; background:url("../images/img_map.png") 0 0 no-repeat transparent; height: 658px; width: 1200px; z-index:2;}
+.registration_map_content {position: relative; background:url("../images/img_map.png") 0 0 no-repeat transparent; height: 665px; width: 1200px; z-index:2;}
 .registration_map_copy {background: url("../images/bg_map_copy.png") no-repeat scroll 0 0 transparent;  height: 233px; position: absolute; right: 10px; top: 155px; width: 398px;  z-index: 1;}
 .registration_map_copy_content {float: right; padding: 25px 10px 10px; position: relative;  width: 236px;}
 .registration_map_copy_content h3 { font-size: 16px; color:#ee5192; margin-bottom: 10px; line-height: 18px;}

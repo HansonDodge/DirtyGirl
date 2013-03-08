@@ -109,7 +109,13 @@
                                 <br /><br />
                                 <div class="single_row">
                                     <div class="single_input" style="margin-right:20px;">
-                                        <a style="margin-right:10px;" class="btnPink" href="@Url.Action("ViewUser", "User", new {userId = CurrentUser.UserId})">CANCEL</a>
+                                    @{ if (!string.IsNullOrEmpty(Model.returnUrl)) {
+                                            <a style="margin-right:10px;" class="btnPink" href="@Model.returnUrl">CANCEL</a>
+                                        } else {
+                                            <a style="margin-right:10px;" class="btnPink" href="@Url.Action("ViewUser", "User", new {userId = CurrentUser.UserId})">CANCEL</a>
+                                        }
+                                     }   
+                                            
                                     </div>
                                     <div class="single_input" style="margin-right:20px;">
                                     @if (Model.User.FacebookId == null)
