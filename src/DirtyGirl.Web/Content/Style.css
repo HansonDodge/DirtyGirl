@@ -148,7 +148,7 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 #registration_list_nav_content a{ display: block; float: left; height: 54px; text-indent:-5000px; margin-right: 15px;}
 #registration_list_nav_content a.active { background-position: 0 -54px !important;}
 #registration_list_nav_content a.nav-schedule{ background:url(../images/sprite-tab-eventschedule.png) 0 0 no-repeat transparent; width:221px;}
-#registration_list_nav_content a.nav-info{ background:url(../images/sprite-tab-eventinfo.png) 0 0 no-repeat transparent; width:177px;}
+#registration_list_nav_content a.nav-info{ background:url(../images/sprite-tab-generalinfo.png) 0 0 no-repeat transparent; width:197px;}
 #registration_list_nav_content a.nav-faq{ background:url(../images/sprite-tab-faq.png) 0 0 no-repeat transparent; width:95px;}
 #registration_list_content_container { position: relative;}
 .registration_list_singlecontent { position: relative;}
