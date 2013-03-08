@@ -94,7 +94,7 @@ namespace DirtyGirl.Web.Controllers
                     {
                         SessionManager.CurrentCart.ActionItems.Remove(itemId);
                         DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "You have successfully updated your event wave."));
-                        return RedirectToAction("viewuser", "user", new { username = CurrentUser.UserName });                        
+                        return RedirectToAction("viewuser", "user", new { userId = CurrentUser.UserId });                        
                     }                                           
                     break;
             }

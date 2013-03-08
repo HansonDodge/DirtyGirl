@@ -96,7 +96,7 @@ namespace DirtyGirl.Web.Controllers
                     if (!string.IsNullOrEmpty(vm.returnUrl))
                         return Redirect(vm.returnUrl);
                             
-                    return RedirectToAction("ViewUser", new {username = vm.User.UserName});
+                    return RedirectToAction("ViewUser", new {userId = vm.User.UserId});
                 }
                 Utilities.AddModelStateErrors(ModelState, result.GetServiceErrors());
             }      
@@ -180,7 +180,7 @@ namespace DirtyGirl.Web.Controllers
                     if (!string.IsNullOrEmpty(vm.returnUrl)){
                         Response.Redirect(vm.returnUrl); 
                     } else {
-                        return RedirectToAction("ViewUser", new {username = vm.User.UserName});
+                        return RedirectToAction("ViewUser", new {userId = vm.User.UserId});
                     }
                     
                 }
@@ -229,7 +229,7 @@ namespace DirtyGirl.Web.Controllers
                     {
                         DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage,
                                                                 "Password has been updated successfully"));
-                        return RedirectToAction("EditUser", new {username = vm.Credentials.Username});
+                        return RedirectToAction("EditUser", new {userId = vm.Credentials.UserId});
                     }
                     Utilities.AddModelStateErrors(ModelState, result.GetServiceErrors());
                 }
@@ -291,7 +291,7 @@ namespace DirtyGirl.Web.Controllers
                 {
                     return Redirect(state);
                 }
-                return RedirectToAction("ViewUser", new {username = dgUser.UserName});
+                return RedirectToAction("ViewUser", new {userId = dgUser.UserId});
             }
             TempData["FacebookUser"] = fbUser;
             return RedirectToAction("CreateUser", new {redirectUrl = state});
@@ -324,7 +324,7 @@ namespace DirtyGirl.Web.Controllers
                 if (result != null)
                 {
                     DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "Account has been confirmed."));
-                    return RedirectToAction("ViewUser", new { username = UserService.GetUserById(result.Value).UserName });
+                    return RedirectToAction("ViewUser", new { userId = result.Value});
                 }
                 Utilities.AddModelStateErrors(ModelState, new List<ServiceError> { new ServiceError("confirmationCode", "The confirmation code doesn't match any users. Please verify and re-enter the code or click the direct link in the email.") });
             }
