@@ -119,13 +119,17 @@
 @{var returnUrl = string.Empty;
     if (Request.Url != null)
     {
-        Type type = Model.GetType();
         bool hasModelRedir = false;
-        if (type.GetProperty("returnUrl") != null){
-            hasModelRedir = true; 
+        if (Model != null)
+        {
+            Type type = Model.GetType();
+
+            if (type.GetProperty("returnUrl") != null){
+                hasModelRedir = true; 
+            }
         }
         
-        if (@Request.Url.PathAndQuery.Contains("viewevent"))
+        if (@Request.Url.PathAndQuery.Contains("viewevent") && Model != null)
         {
             returnUrl = "/transaction/StartNewRegistration?eventId=" + Model.EventDetails.EventId;
         }
