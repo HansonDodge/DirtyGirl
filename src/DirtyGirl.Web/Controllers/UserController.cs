@@ -111,11 +111,11 @@ namespace DirtyGirl.Web.Controllers
         #region View User
 
         [HttpGet]
-        public ActionResult ViewUser(string username)
+        public ActionResult ViewUser(int userId)
         {
-            OnlyOwnerAccess(username);
-            var vm = new vmUser_ViewUser { 
-                User = UserService.GetUserByUsername(username),
+            OnlyOwnerAccess(userId);
+            var vm = new vmUser_ViewUser {
+                User = UserService.GetUserById(userId),
                 Registrations = UserService.GetActiveRegistrations(CurrentUser.UserId),
                 RegistrationValues = new Dictionary<int,decimal>(),
                 OpenCodes = UserService.GetActiveRedemptionCodes(CurrentUser.UserId)
@@ -135,11 +135,11 @@ namespace DirtyGirl.Web.Controllers
         #region Edit User
 
         [HttpGet]
-        public ActionResult EditUser(string username, string returnUrl = "")
+        public ActionResult EditUser(int userId, string returnUrl = "")
         {
-            OnlyOwnerAccess(username);
+            OnlyOwnerAccess(userId);
 
-            var vm = new vmUser_EditUser { User = UserService.GetUserByUsername(username)};            
+            var vm = new vmUser_EditUser { User = UserService.GetUserById(userId) };            
             vm.EmailAddressVerification = vm.EmailAddress;
             vm.returnUrl = returnUrl; 
             
@@ -197,16 +197,16 @@ namespace DirtyGirl.Web.Controllers
         #region Change Password
         
         [HttpGet]
-        public ActionResult ChangePassword(string username)
+        public ActionResult ChangePassword(int userId)
         {
-            OnlyOwnerAccess(username);
+            OnlyOwnerAccess(userId);
+            User user = UserService.GetUserById(userId); 
             var vm = new vmUser_ChangePassword
                          {
                              Credentials =
                                  {
-                                     UserId =
-                                         UserService.GetUserByUsername(username).UserId,
-                                     Username = username
+                                     UserId = user.UserId,
+                                     Username = user.UserName
                                  }
                          };
             return View(vm);
@@ -243,10 +243,10 @@ namespace DirtyGirl.Web.Controllers
         #region UserImage
 
         [HttpGet]
-        public ActionResult UserImage(string username)
+        public ActionResult UserImage(int userId)
         {
             //TODO: if(User.IsInRole("Administrator") || User.Identity.Name.Equals(id.ToString()))
-            var imageData = UserService.GetUserByUsername(username).Image;
+            var imageData = UserService.GetUserById(userId).Image;
             return imageData != null ? File(imageData, "image/png") : null;
         }
 
@@ -337,15 +337,15 @@ namespace DirtyGirl.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult SendConfirmationEmail(string username)
+        public ActionResult SendConfirmationEmail(int userId)
         {
-            OnlyOwnerAccess(username);            
-           
-            DisplayMessageToUser(UserService.SendEmailConfirmation(username)
+            OnlyOwnerAccess(userId);
+
+            DisplayMessageToUser(UserService.SendEmailConfirmation(userId)
                                      ? new DisplayMessage(DisplayMessageType.SuccessMessage, "Confirmation Email Sent")
                                      : new DisplayMessage(DisplayMessageType.ErrorMessage,"Error - Confirmation Email Not Sent"));
 
-            return RedirectToAction("ViewUser", new { username });
+            return RedirectToAction("ViewUser", new { userId });
         }
         #endregion
 

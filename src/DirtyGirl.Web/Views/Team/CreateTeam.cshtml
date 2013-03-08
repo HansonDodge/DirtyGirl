@@ -34,7 +34,7 @@
                 <div class="contentMain">
                     <div class="contentMain_copy register form">
                         <div class="viewMyProfile" style="z-index: 999">
-                            <a href='@Url.Action("ViewUser", "User", new {username = User.Identity.Name})'>
+                            <a href='@Url.Action("ViewUser", "User", new {userId = CurrentUser.UserId})'>
                                 @if (ViewBag.User.UseFacebookImage)
                                 {
                                     <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(ViewBag.User.FacebookId.ToString())" alt="Manage my Profile" class="mini_pp" /> 

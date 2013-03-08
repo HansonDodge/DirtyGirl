@@ -1,7 +1,7 @@
 ﻿@if (Request.IsAuthenticated) {
 
         <ul>
-        <li>@Html.ActionLink("My Profile (" + User.Identity.Name + ")", "ViewUser", "User", new {username = User.Identity.Name}, htmlAttributes: new { @class = "username", title = "Manage" })</li>
+        <li>@Html.ActionLink("My Profile (" + User.Identity.Name + ")", "ViewUser", "User", new {userId = CurrentUser.UserId}, htmlAttributes: new { @class = "username", title = "Manage" })</li>
         <li>@using (Html.BeginForm("LogOut", "Authorize", new {area = ""}, FormMethod.Post, new { id = "logoutForm" }))
         {
             @Html.AntiForgeryToken()

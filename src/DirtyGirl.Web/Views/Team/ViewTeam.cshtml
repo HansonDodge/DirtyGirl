@@ -20,14 +20,14 @@
                 <div class="profileContent">
                     <div class="viewMyProfile">
                         @*<img class="mini_pp" src="@Url.Content("~/images/fpo_teammate.jpg")" />*@
-                        <a href='@Url.Action("ViewUser", "User", new {username = User.Identity.Name})'>
+                        <a href='@Url.Action("ViewUser", "User", new {userId = CurrentUser.UserId})'>
                             @if (Model.User.UseFacebookImage)
                             {
                                 <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(Model.User.FacebookId.ToString())" alt="Manage my Profile" class="mini_pp" /> 
                             }
                             else if (Model.User.Image != null)
                             {
-                                <img src='@Url.Action("UserImage", "User", new { id = Model.User.UserName })' alt="Manage my Profile" class="mini_pp" /> 
+                                <img src='@Url.Action("UserImage", "User", new { userId = CurrentUser.UserId })' alt="Manage my Profile" class="mini_pp" /> 
                             }
                             else
                             {

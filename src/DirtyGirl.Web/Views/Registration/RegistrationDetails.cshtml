@@ -84,7 +84,7 @@
                                     <p>@Model.RegistrationDetails.Address1 @if (!string.IsNullOrEmpty(Model.RegistrationDetails.Address2))
                                                                            {<span>Apt#: @Model.RegistrationDetails.Address2;</span> } <br />                            
                                     @Model.RegistrationDetails.Locality <span>, @if (region != null){@region.Name}</span> <span>@Model.RegistrationDetails.PostalCode</span></p> 
-                                    <p><a href="@Url.Action("EditUser", "User", new {username = User.Identity.Name, returnUrl = HttpContext.Current.Request.Url.AbsoluteUri})">Update address</a></p>
+                                    <p><a href="@Url.Action("EditUser", "User", new {userId = CurrentUser.UserId, returnUrl = HttpContext.Current.Request.Url.AbsoluteUri})">Update address</a></p>
                                 </div>
 
                                 <h1 class="reg-steps"><span>STEP 4:</span> CONTACT INFORMATION</h1>

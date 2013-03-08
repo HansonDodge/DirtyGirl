@@ -9,8 +9,8 @@ using DirtyGirl.Models.Enums;
 
 namespace DirtyGirl.Web.Controllers
 {
-    
-    public class HomeController : Controller
+
+    public class HomeController : BaseController
     {
 
         #region Constructor
@@ -18,7 +18,7 @@ namespace DirtyGirl.Web.Controllers
         private readonly IEventService _eventService;
 
         public HomeController(IEventService eventService)
-        {
+        {            
             this._eventService = eventService;
         }
 
@@ -30,7 +30,7 @@ namespace DirtyGirl.Web.Controllers
             vm.EventDateDetails = _eventService.GetActiveEventDateOverviews(null, null, null, "date", "asc");            
             vm.RegionList = Utilities.CreateSelectList(_eventService.GetRegionsByCountry(DirtyGirlConfig.Settings.DefaultCountryId), x => x.RegionId, x => x.Name);           
             vm.MonthList = DirtyGirlExtensions.ConvertToSelectList<Months>();
-            vm.MonthList.Insert(0, new SelectListItem { Text = "Select", Value = "" });
+            vm.MonthList.Insert(0, new SelectListItem { Text = "Select", Value = "" }); 
 
             return View(vm);
         }

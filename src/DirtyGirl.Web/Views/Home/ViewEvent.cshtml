@@ -161,7 +161,7 @@
                             {   
                                 <h3>Welcome, @(User.Identity.Name)!</h3>
                                 
-                                <a class="btnPink" href="@Url.Action("ViewUser", "User", new {username = User.Identity.Name})">VIEW PROFILE</a>           
+                                <a class="btnPink" href="@Url.Action("ViewUser", "User", new {userId = CurrentUser.UserId})">VIEW PROFILE</a>           
                                 <br />
                                 <div class="contentSide_separator">
                                     <img src="@Url.Content("~/images/img_contentSide_separator.png")" />

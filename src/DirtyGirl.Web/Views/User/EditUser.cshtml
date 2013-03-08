@@ -109,12 +109,12 @@
                                 <br /><br />
                                 <div class="single_row">
                                     <div class="single_input" style="margin-right:20px;">
-                                        <a style="margin-right:10px;" class="btnPink" href="@Url.Content("~/User/ViewUser/"+Model.User.UserName)">CANCEL</a>
+                                        <a style="margin-right:10px;" class="btnPink" href="@Url.Action("ViewUser", "User", new {userId = CurrentUser.UserId})">CANCEL</a>
                                     </div>
                                     <div class="single_input" style="margin-right:20px;">
                                     @if (Model.User.FacebookId == null)
                                     {
-                                        <a class="btnPinkLg" href="@Url.Content("~/User/ChangePassword/"+Model.User.UserName)">CHANGE PASSWORD</a>
+                                        <a class="btnPinkLg" href="@Url.Action("ChangePassword", "User", new {userId = CurrentUser.UserId})">CHANGE PASSWORD</a>
                                     }
                                     </div>
                                     <div class="single_input" style="margin-right:20px;">

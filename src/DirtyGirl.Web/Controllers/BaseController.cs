@@ -20,16 +20,27 @@ namespace DirtyGirl.Web.Controllers
         #endregion
 
         #region public properties
-
+        
+        public const string CurrentUserKey = "_currentuser";
+        
         public User CurrentUser
         {
-            get { return _currentUser ?? (_currentUser = UserService.GetUserByUsername(HttpContext.User.Identity.Name)); }
+            get {                
+                if (_currentUser == null) {
+                    _currentUser = UserService.GetUserByUsername(HttpContext.User.Identity.Name);
+                    
+                    // if no user return a empty user 
+                    if (_currentUser == null) { return new User(); }    
+                }
+                
+                return _currentUser;  
+            }
         }
 
         #endregion
 
         #region constructor
-
+        
         #endregion
         
         #region protected methods
