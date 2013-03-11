@@ -271,9 +271,11 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .faq_content .reg-faq_content #mcs_container .customScrollBox .scroller_container{width:710px;}
 .faq_content .reg-faq_content #mcs_container .customScrollBox .scroller_container .scroller_content{width: 690px;}
 
-.current-address {width:230px; float:right; }
+.current-address {width:230px; float:right; position: relative; z-index: 300;}
+.current-address .k-dropdown {width:230px; margin-left: -2px;}
 .current-address h4 {margin-bottom:8px;}
 .contentMain_copy.register .current-address p {font-weight:normal;}
+.contentMain_copy.register .current-address p.package-label {padding-top: 8px; font-weight: bold;}
 
 #sign-up-button
 {
