@@ -13,7 +13,17 @@ namespace DirtyGirl.Web.Utils
         // stores CurrentUser in ViewData 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            filterContext.Controller.ViewData[BaseController.CurrentUserKey] = ((BaseController)filterContext.Controller).CurrentUser;
+
+            // need to find if in admin or not
+            var controllerType = filterContext.Controller.GetType();
+            if (controllerType.FullName.Contains("Areas.Admin"))
+            {
+                filterContext.Controller.ViewData[BaseController.CurrentUserKey] = ((DirtyGirl.Web.Areas.Admin.Controllers.BaseController)filterContext.Controller).CurrentUser;
+            }
+            else
+            {
+                filterContext.Controller.ViewData[BaseController.CurrentUserKey] = ((BaseController)filterContext.Controller).CurrentUser;
+            }
         }
     }
 }
