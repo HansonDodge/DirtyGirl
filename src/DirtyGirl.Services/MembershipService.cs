@@ -11,6 +11,9 @@ namespace DirtyGirl.Services
         [Inject]
         public IRepositoryGroup _repository { get; set; }
 
+        [Inject]
+        public UserService _userService { get; set; }
+
         public override string ApplicationName
         {
             get
@@ -150,11 +153,9 @@ namespace DirtyGirl.Services
 
         public override bool ValidateUser(string username, string password)
         {
-            var u = _repository.Users.Find(x => x.UserName.Trim().ToLower() == username.Trim().ToLower() && x.FacebookId == null);
-            if (u == null)
-                return false;
-
-            var user = _repository.Users.Get(u.UserId); // defeat caching...
+            var user = _userService.GetUserByUsername(username);
+            _repository.Users.LoadProperties(user);
+            
             if (user != null && Crypto.ValidatePassword(password.Trim(), new CryptoHashContainer(user.Salt, user.Password)))
                 return true;
 
