@@ -50,7 +50,7 @@ namespace DirtyGirl.Web.Controllers
                 vm.User.LastName = facebookUser.LastName;
                 vm.User.EmailAddress = facebookUser.Email;
                 vm.EmailAddressVerification = facebookUser.Email;
-                vm.User.FacebookId = int.Parse(facebookUser.Id);
+                vm.User.FacebookId = long.Parse(facebookUser.Id);
                 vm.User.UseFacebookImage = true;                
                 DisplayMessageToUser(new DisplayMessage(DisplayMessageType.General,
                     "Thank you for logging in in with Facebook, please provide some additional information to complete your Dirty Girl account registration.”."));
