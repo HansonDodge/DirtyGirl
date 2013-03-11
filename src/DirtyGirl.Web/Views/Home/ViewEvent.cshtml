@@ -57,14 +57,13 @@
 
                 <div class="contentMain">
                     
-                @if (Request.IsAuthenticated)
-                {   
-                    
-                    <a id="sign-up-button" onclick="_gaq.push(['_trackEvent', 'Sign Up Today', 'Button on Event Details']);"  href="@Url.Action("startnewregistration", "transaction", new { eventId = @Model.EventDetails.EventId })">Sign Up</a>
-                }
-                else
-                {
-                    if (!Model.EventDetails.RegistrationCutoff) {
+                @if (!Model.EventDetails.RegistrationCutoff) {
+                    if (Request.IsAuthenticated)
+                    {                       
+                        <a id="sign-up-button" onclick="_gaq.push(['_trackEvent', 'Sign Up Today', 'Button on Event Details']);"  href="@Url.Action("startnewregistration", "transaction", new { eventId = @Model.EventDetails.EventId })">Sign Up</a>
+                    }                
+                    else
+                    {                    
                         <a id="sign-up-button" onclick="_gaq.push(['_trackEvent', 'Sign Up Today', 'Button on Event Details']);"  href="#" class="showloginmodal">Sign Up</a>
                     }
                 }
