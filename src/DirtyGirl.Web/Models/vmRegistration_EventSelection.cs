@@ -20,5 +20,7 @@ namespace DirtyGirl.Web.Models
         public bool LockEvent { get; set; }
         public CartFocusType CartFocus { get; set; }
         public int RegistrationId { get; set; }
+        public DateTime EmailOptionCutoff { get; set; }
+        public DateTime RegistrationCutoff { get; set; }
     }
 }
