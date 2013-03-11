@@ -281,19 +281,27 @@ namespace DirtyGirl.Web.Controllers
             }
 
             var fbUser = FacebookGraph.GetPublicData(token.Token);
-            //TODO: should this be a try parse?
+
             //If the user is already registered with the DG site they'll be redirected
-            var dgUser = UserService.GetUserByFacebookId(int.Parse(fbUser.Id));
-            if (dgUser != null)
+            int fbId;
+            bool result = int.TryParse(fbUser.Id, out fbId);
+
+            if (result)
             {
-                FormsAuthentication.SetAuthCookie(dgUser.UserName, false);
-                if (state != null)
+                var dgUser = UserService.GetUserByFacebookId(fbId);
+
+                if (dgUser != null)
                 {
-                    return Redirect(state);
+                    FormsAuthentication.SetAuthCookie(dgUser.UserName, false);
+                    if (state != null)
+                    {
+                        return Redirect(state);
+                    }
+                    return RedirectToAction("ViewUser", new { userId = dgUser.UserId });
                 }
-                return RedirectToAction("ViewUser", new {userId = dgUser.UserId});
+                TempData["FacebookUser"] = fbUser;
             }
-            TempData["FacebookUser"] = fbUser;
+
             return RedirectToAction("CreateUser", new {redirectUrl = state});
         }
 

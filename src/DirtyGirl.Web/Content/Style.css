@@ -200,6 +200,12 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .reg-eventinfo_content .eventInfo > div > span {font-size: 16px;color:#ee5192; margin-top: 20px; margin-bottom: 5px; font-family: "Blackout-Midnight","blackout-midnight-1","blackout-midnight-2",sans-serif; display:block;}
 .reg-eventinfo_content .eventInfo > div:first-child > span {font-size: 18px; color:#573f3f;}
 
+.reg-eventinfo_content .eventInfo .mCSB_container > div > div > span {font-size: 14px;  color:#573f3f;  margin-top:0; margin-bottom: 14px; display:block;}
+.reg-eventinfo_content .eventInfo .mCSB_container > div > div > strong > span,
+.reg-eventinfo_content .eventInfo .mCSB_container > div > span {font-size: 16px;color:#ee5192; margin-top: 20px; margin-bottom: 5px; font-family: "Blackout-Midnight","blackout-midnight-1","blackout-midnight-2",sans-serif; display:block;}
+.reg-eventinfo_content .eventInfo .mCSB_container > div:first-child > span {font-size: 18px; color:#573f3f;}
+
+
 /*MAPS - FAQ*/
 .reg-faq_content { padding: 80px 40px 0;  position: relative;}
 .reg-faq_content h3{ font-size: 18px; color:#573f3f; }
