@@ -592,6 +592,8 @@
     <Content Include="Areas\Admin\Views\Reporting\EventPerformance.cshtml" />
     <Content Include="Areas\Admin\Views\Reporting\Partial\EventExport.cshtml" />
     <Content Include="Areas\Admin\Views\Reporting\Partial\PerformanceExport.cshtml" />
+    <None Include="Properties\PublishProfiles\register-godirtygirl-qa - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\register-godirtygirl-qa - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Staging.pubxml" />
     <Content Include="Images\ajax-loader-lg.gif" />
     <Content Include="Images\ajax-loader.gif" />

@@ -115,7 +115,7 @@ namespace DirtyGirl.Services
             return user;
         }
 
-        public User GetUserByFacebookId(int facebookId)
+        public User GetUserByFacebookId(long facebookId)
         {
             return _repository.Users.Filter(x => x.FacebookId == facebookId).SingleOrDefault();
         }

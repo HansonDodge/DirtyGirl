@@ -283,8 +283,8 @@ namespace DirtyGirl.Web.Controllers
             var fbUser = FacebookGraph.GetPublicData(token.Token);
 
             //If the user is already registered with the DG site they'll be redirected
-            int fbId;
-            bool result = int.TryParse(fbUser.Id, out fbId);
+            long fbId;
+            bool result = long.TryParse(fbUser.Id, out fbId);
 
             if (result)
             {

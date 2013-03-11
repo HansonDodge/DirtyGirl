@@ -22,7 +22,7 @@ namespace DirtyGirl.Services.ServiceInterfaces
 
         User GetUserByUsername(string userName);
 
-        User GetUserByFacebookId(int facebookId);
+        User GetUserByFacebookId(long facebookId);
 
 
         ServiceResult CreateUser(User u);
