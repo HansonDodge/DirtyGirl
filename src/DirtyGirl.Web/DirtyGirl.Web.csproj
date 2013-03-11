@@ -254,6 +254,7 @@
     <Compile Include="Helpers\DistinctByExtension.cs" />
     <Compile Include="Helpers\LamdaComparer.cs" />
     <Compile Include="Helpers\NinjectResolver.cs" />
+    <Compile Include="Models\vmRedirect.cs" />
     <Compile Include="Models\vmCart_ThankYou.cs" />
     <Compile Include="Models\vmErrorViewModel.cs" />
     <Compile Include="Models\vmPasswordReset.cs" />

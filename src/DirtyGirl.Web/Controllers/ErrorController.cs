@@ -9,8 +9,8 @@ using DirtyGirl.Models.Enums;
 
 namespace DirtyGirl.Web.Controllers
 {
-    
-    public class ErrorController : Controller
+
+    public class ErrorController : BaseController
     {
 
         #region Constructor       

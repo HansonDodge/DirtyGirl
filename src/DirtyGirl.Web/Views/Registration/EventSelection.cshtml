@@ -39,8 +39,9 @@
                                 <table>
                                     <tr>
                                         @*<td><p>Select Event:</p></td>*@
-
-                                        @*<td><p>Select Date:</p></td>*@
+                                        @{if(Model.EventDateCount > 1) { 
+                                            <td><p>Select Date:</p></td>
+                                        }}
                                     </tr>
                                     <tr>
 @*                                        <td>
@@ -53,19 +54,22 @@
                                                 .Events(evts => evts.Change("onEventChange").DataBound("onEventDataBound"))
                                                 .HtmlAttributes(new { style = "width:250px" }))       
                                         </td>*@
-@*                                        <td>
+                                        <td>
+                                        @{if(Model.EventDateCount > 1) {
                                             @(Html.Kendo().DropDownListFor(x => x.EventDateId)
                                                 .Name("ddlEventDate")
                                                 .OptionLabel("Select")
                                                 .DataTextField("DateOfEvent")
                                                 .DataValueField("EventDateId")
-                                                .DataSource(source => source.Read(read => read.Action("geteventdatelist", "registration").Data("filterEventDates"))
-                                                .ServerFiltering(true))
-                                                .Enable(false)
-                                                .AutoBind(false)
+                                                .DataSource(source => source
+                                                    .Read(read => read.Action("GetEventDateList", "Registration", new { eventId = @Model.EventId }))
+                                                )
+                                                //.Enable(false)
+                                                //.AutoBind(false)
                                                 .CascadeFrom("ddlEvent")
                                                 .Events(evt => evt.Change("onEventDateChange")))
-                                        </td>*@
+                                        }}
+                                        </td>
                                     </tr>
                                 </table>                                                                           
                             </div>
