@@ -154,7 +154,7 @@ namespace DirtyGirl.Services
         public override bool ValidateUser(string username, string password)
         {
             var user = _userService.GetUserByUsername(username);
-            _repository.Users.LoadProperties(user);
+       //     _repository.Users.LoadProperties(user);
             
             if (user != null && Crypto.ValidatePassword(password.Trim(), new CryptoHashContainer(user.Salt, user.Password)))
                 return true;
