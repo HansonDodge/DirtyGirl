@@ -23,7 +23,7 @@
     {
         cols.Bound(u => u.IsActive);
         cols.Bound(u => u.UserId);
-        cols.Bound(u => u.UserName).ClientTemplate("<a data-ajax='true' data-ajax-mode='replace' data-ajax-update='\\#result' href='" + Url.Action("ViewUser", "User", new { id = "#=UserId#" }) + "'>#= UserName#</a>");
+        cols.Bound(u => u.UserName).ClientTemplate("<a href='" + Url.Action("ViewUser", "User", new { id = "#=UserId#" }) + "'>#= UserName#</a>");
         cols.Bound(u => u.FirstName);
         cols.Bound(u => u.LastName);
         cols.Bound(u => u.UserName).ClientTemplate("<a href='" + Url.Action("ViewUser", "User", new { id = "#=UserId#" }) + "'>Edit Registrant</a>").Title("");

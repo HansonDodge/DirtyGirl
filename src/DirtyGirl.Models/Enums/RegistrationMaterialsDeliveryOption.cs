@@ -10,8 +10,8 @@ namespace DirtyGirl.Models.Enums
     public enum RegistrationMaterialsDeliveryOption
     {
         [Display(Name = "On site pickup on day of event", Description = "On site pickup on day of event")]
-        OnSitePickup = 1,
+        OnSitePickup = 0,
         [Display(Name = "Mail my packet to the address above", Description = "Mail my packet to the address above")]
-        Mail = 2
+        Mail = 1
     }
 }
