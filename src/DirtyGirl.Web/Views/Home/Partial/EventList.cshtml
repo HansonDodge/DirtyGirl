@@ -28,19 +28,29 @@
         <div class="body-cost">
            <p>@Html.DisplayFor(x => e.CurrentCost)</p>
         </div>
-        @if (e.SpotsLeft <= @DirtyGirlConfig.Settings.DisplaySpotsAvailableCount)
+
+        @if (!e.isRegistrationCutoff) 
         {
-            <div class="body-openings">
-                <p>Only <span class="pink">@e.SpotsLeft</span> spots left!</p>
-            </div>
+            if (e.SpotsLeft <= @DirtyGirlConfig.Settings.DisplaySpotsAvailableCount)
+            {
+                <div class="body-openings">
+                    <p>Only <span class="pink">@e.SpotsLeft</span> spots left!</p>
+                </div>
+            }
+            else
+            {
+                <div class="body-openings">
+                    <p>Spots available!</p>
+                </div>
+            }
         }
         else
         {
-            <div class="body-openings">
-                <p>Spots available!</p>
-            </div>
-        }
-
+             <div class="body-openings">
+                    <p>Registration Closed</p>
+                </div>
+        }                          
+       
         @if (e.isFull)
         {
             <div class="body-cta">
@@ -52,6 +62,7 @@
             <div class="body-cta">
                 <a class="btnPink" href="@Url.Action("viewevent", "home", new { id = e.EventId })">View Details</a>
             </div>
-        }                          
+        }
+
     </div>
 }                       

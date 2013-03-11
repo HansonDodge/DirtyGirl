@@ -64,7 +64,9 @@
                 }
                 else
                 {
-                    <a id="sign-up-button" onclick="_gaq.push(['_trackEvent', 'Sign Up Today', 'Button on Event Details']);"  href="#" class="showloginmodal">Sign Up</a>
+                    if (!Model.EventDetails.RegistrationCutoff) {
+                        <a id="sign-up-button" onclick="_gaq.push(['_trackEvent', 'Sign Up Today', 'Button on Event Details']);"  href="#" class="showloginmodal">Sign Up</a>
+                    }
                 }
                     <div class="contentMain_info">
                         <div class="contentMain_info_tab">

@@ -25,6 +25,10 @@ namespace DirtyGirl.Models
 
         public string Zip { get; set; }
 
+        public bool RegistrationCutoff { get; set; }
+
+        public bool EmailCutoff { get; set; }
+
         public string Location
         {
             get { return string.Format("{0}, {1}", GeneralLocality, StateCode); }

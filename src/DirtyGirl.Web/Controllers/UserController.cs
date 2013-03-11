@@ -124,10 +124,17 @@ namespace DirtyGirl.Web.Controllers
             foreach (var reg in vm.Registrations)
             {
                 vm.RegistrationValues.Add(reg.RegistrationId, UserService.GetRegistrationValue(reg.RegistrationId));
+                reg.IsRegistrationCutoff = GetIsRegistrationCutoff(reg.EventWave.EventDate.Event.RegistrationCutoff);
             }
             
+
             vm.Registrations = vm.User.Registrations.Where(x => x.EventWave.StartTime > DateTime.Now && x.RegistrationStatus == RegistrationStatus.Active).OrderBy(x => x.EventWave.StartTime).ToList();
             return View(vm);
+        }
+
+        private bool GetIsRegistrationCutoff(DateTime dateTime)
+        {
+            return (DirtyGirl.Services.Utils.Utilities.AdjustCurrentTimeForTimezone() - dateTime).Seconds > 0;
         }
 
         #endregion

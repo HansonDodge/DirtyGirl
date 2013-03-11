@@ -42,8 +42,8 @@ namespace DirtyGirl.Web.Controllers
                 throw new Exception("The event requested either does not exist or is not active");
             var vm = new vmViewEvent
                          {
-                             OverView = _eventService.GetEventOverviewById(id),
-                             EventDetails = _eventService.GetEventDetails(id)
+                             OverView = _eventService.SetEventOverview(eventObj),
+                             EventDetails = _eventService.SetEventDetail(eventObj)
                          };
 
             return View(vm);

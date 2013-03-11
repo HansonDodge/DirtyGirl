@@ -1,4 +1,6 @@
-﻿using DirtyGirl.Data.DataInterfaces.RepositoryGroups;
+﻿using System;
+using DirtyGirl.Data.DataInterfaces.RepositoryGroups;
+using DirtyGirl.Services.Utils;
 
 namespace DirtyGirl.Services
 {
@@ -16,5 +18,6 @@ namespace DirtyGirl.Services
             this._repository = _repository;
             this._sharedRepository = isShared;
         }
+
     }
 }

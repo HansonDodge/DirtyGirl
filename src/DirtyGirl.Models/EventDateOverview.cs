@@ -41,6 +41,8 @@ namespace DirtyGirl.Models
 
         public int RegistrationCount { get; set; }
 
+        public bool isRegistrationCutoff { get; set; }
+
         public int SpotsLeft
         {
             get { return MaxRegistrants - RegistrationCount < 0 ? 0 : MaxRegistrants - RegistrationCount; }

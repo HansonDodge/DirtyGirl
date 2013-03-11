@@ -31,7 +31,8 @@ namespace DirtyGirl.Models
         public string Code { get; set; }
         public string PostalCode { get; set; }
         public int RegionID { get; set; }
-
+        public DateTime RegistrationCutoff { get; set; }
+        public DateTime EmailCutoff {get;set;}
         public int MaxRegistrants { get; set; }
         public int RegistrationCount { get; set; }
 

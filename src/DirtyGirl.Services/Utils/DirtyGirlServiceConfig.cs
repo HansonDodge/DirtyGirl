@@ -227,5 +227,15 @@ namespace DirtyGirl.Services.Utils
         }
 
         #endregion
+
+        #region Timezone Offset
+
+        [ConfigurationProperty("TimezoneOffset")]
+        public int TimezoneOffset
+        {
+            get { return int.Parse(this["TimezoneOffset"].ToString()); }
+        }
+
+        #endregion
     }
 }

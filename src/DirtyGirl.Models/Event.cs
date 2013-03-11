@@ -45,7 +45,10 @@ namespace DirtyGirl.Models
             get { return (_dateAdded == default(DateTime)) ? DateTime.Now : _dateAdded;}
             set { _dateAdded = value; } 
         }
-        
+
+        public DateTime RegistrationCutoff { get; set; }
+        public DateTime EmailCutoff { get; set; }
+
         #region Navigation Properties
 
         public virtual Region Region { get; set; }

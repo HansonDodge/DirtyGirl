@@ -94,6 +94,7 @@
                                             }
                                             <p><span>Wave:</span> @w.StartTime.ToString("h:mm tt")</p>
                                             <p><span>Registration Paid:</span> @Model.RegistrationValues[reg.RegistrationId].ToString("c")</p>
+ 
                                             <p class="editReg">
                                                 <span class="editRegTitle">WHAT WOULD YOU LIKE TO CHANGE?</span>
                                                 <span>@Html.ActionLink("Change My Wave", "StartChangeWave", "transaction", new { regId = reg.RegistrationId }, null)</span>
@@ -107,16 +108,20 @@
                                                     <img src="@Url.Content("~/images/login-talk-to-my-team-btn.jpg")" /></a>
                                                 <a href="#" class='button_createTeam' onclick="ShowInviteDialog_@(reg.RegistrationId)()">
                                                     <img src="@Url.Content("~/images/login-invite-people-btn.jpg")" /></a>
-                                                <a href="#" class="button_editRun">
-                                                    <img src="@Url.Content("~/images/btn_editRun.png")" /></a>
+                                                
+                                               
                                             }
                                             else
                                             {
                                                 <a href="@Url.Content("~/Team/CreateTeam?eventId=" + reg.EventWave.EventDate.EventId + "&registrationId=" + reg.RegistrationId)" class="button_createTeam">
-                                                    <img src="@Url.Content("~/images/btn_createjointeam.png")" /></a>
-                                                <a href="#" class="button_editRun">
-                                                    <img src="@Url.Content("~/images/btn_editRun.png")" /></a>
+                                                    <img src="@Url.Content("~/images/btn_createjointeam.png")" /></a>                                             
                                             }
+                                            
+                                            @if (!reg.IsRegistrationCutoff)
+                                                {
+                                                    <a href="#" class="button_editRun">
+                                                        <img src="@Url.Content("~/images/btn_editRun.png")" /></a>
+                                                }
                                         </div>
                                     }
 

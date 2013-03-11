@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using DirtyGirl.Data.DataInterfaces.Repositories;
@@ -33,17 +34,16 @@ namespace DirtyGirl.Data.DataRepositories
 
             return eventDateDetailsList;
         }
-
-
-        public List<EventDateCounts> GetCurrentEventCounts()
+       
+        public List<EventDateCounts> GetEventCounts(DateTime dt)
         {
             var ctx = Context;
             var eventDateDetailsList = new List<EventDateCounts>();
-            var regCounts = ctx.SpGetCurrentEventCounts();
+            var regCounts = ctx.SpGetEventCounts(dt);
             foreach (var regCount in regCounts)
             {
                 eventDateDetailsList.Add(new EventDateCounts
-                {
+                {                    
                     Address1 = regCount.Address1,
                     Code = regCount.Code,
                     Cost = regCount.Cost,
@@ -63,7 +63,9 @@ namespace DirtyGirl.Data.DataRepositories
                     Place = regCount.Place,
                     PostalCode = regCount.PostalCode,
                     PurchaseItemID = regCount.PurchaseItemID,
-                    RegistrationCount = regCount.RegistrationCount
+                    RegistrationCount = regCount.RegistrationCount,
+                    RegistrationCutoff = regCount.RegistrationCutoff,
+                    EmailCutoff = regCount.EmailCutoff
                 });
 
             }

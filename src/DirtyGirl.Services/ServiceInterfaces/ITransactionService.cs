@@ -17,7 +17,7 @@ namespace DirtyGirl.Services.ServiceInterfaces
         ServiceResult ValidateRedemptionCode(string code);
 
         #endregion
-
+        
         #region Registration data
 
         Registration GetRegistrationById(int regId);

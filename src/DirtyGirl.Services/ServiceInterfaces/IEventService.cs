@@ -27,9 +27,13 @@ namespace DirtyGirl.Services.ServiceInterfaces
      
         EventDetails GetEventDetails(int eventId);
 
+        EventDetails SetEventDetail(Event e);
+
         Event GetEventById(int eventId);
 
         EventOverview GetEventOverviewById(int eventId);
+
+        EventOverview SetEventOverview(Event e);
 
         ServiceResult CreateEvent(Event e);
 

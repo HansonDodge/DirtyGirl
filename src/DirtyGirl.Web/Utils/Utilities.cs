@@ -127,5 +127,6 @@ namespace DirtyGirl.Web.Utils
 
             return (fileData.IsGif() || fileData.IsJpeg() || fileData.IsPng());
         }
+     
     }
 }

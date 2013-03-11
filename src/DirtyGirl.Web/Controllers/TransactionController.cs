@@ -57,8 +57,9 @@ namespace DirtyGirl.Web.Controllers
 
         #region ChangeEvent
 
+        
         public ActionResult StartChangeEvent(int regId)
-        {            
+        {           
             var itemId = Guid.NewGuid();
           
             var newAction = new ChangeEventAction 
@@ -83,7 +84,7 @@ namespace DirtyGirl.Web.Controllers
         #region Change Wave
 
         public ActionResult StartChangeWave(int regId)
-        {            
+        {           
             var itemId = Guid.NewGuid();
             var newAction = new ChangeWaveAction 
                 { 
@@ -108,7 +109,7 @@ namespace DirtyGirl.Web.Controllers
         #region Cancel Registration
 
         public ActionResult StartCancellation(int regId)
-        {
+        {          
             if (!IsCancellationAlreadyInCart(regId))
             {
                 var itemId = Guid.NewGuid();
@@ -149,8 +150,7 @@ namespace DirtyGirl.Web.Controllers
         #region Transfer Registration
 
         public ActionResult StartTransfer(int regId)
-        {
-
+        {          
             var itemId = Guid.NewGuid();
             var newAction = new TransferAction 
                 { 

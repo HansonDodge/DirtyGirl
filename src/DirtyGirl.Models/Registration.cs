@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using DirtyGirl.Models.Validation;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DirtyGirl.Models
 {
@@ -104,6 +105,9 @@ namespace DirtyGirl.Models
         public int? ParentRegistrationId { get; set; }
 
         public DateTime? DateUpdated { get; set; }
+
+        [NotMapped]
+        public bool IsRegistrationCutoff {get; set;}
 
         #region Navigation Properties
        

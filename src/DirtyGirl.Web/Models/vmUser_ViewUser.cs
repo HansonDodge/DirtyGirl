@@ -12,6 +12,6 @@ namespace DirtyGirl.Web.Models
         public User User { get; set; }
         public IList<Registration> Registrations { get; set; }
         public Dictionary<int, decimal> RegistrationValues { get; set; }
-        public IList<RedemptionCode> OpenCodes { get; set; }
+        public IList<RedemptionCode> OpenCodes { get; set; }        
     }
 }

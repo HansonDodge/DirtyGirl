@@ -440,8 +440,10 @@ namespace DirtyGirl.Services
 
         public IList<EventDateOverview> GetActiveEventDateOverviews(int? regionId, int? month, int? year, string sort, string direction)
         {
+            var dt = DateTime.Now.Date.AddDays(-1);
+
             var result = new List<EventDateOverview>();
-            IEnumerable<EventDateCounts> eventDates = _repository.Events.GetCurrentEventCounts();
+            IEnumerable<EventDateCounts> eventDates = _repository.Events.GetEventCounts(dt);
 
             eventDates = eventDates.Where(x => x.IsActive == true);
 
@@ -488,7 +490,8 @@ namespace DirtyGirl.Services
                                        PinYCoordinate = date.PinYCoordinate,
                                        CurrentCost = (date.Cost.HasValue ? date.Cost.Value : 0M),
                                        DisplayIcon = date.FeeIconID.HasValue,
-                                       IconImagePath = date.ImagePath
+                                       IconImagePath = date.ImagePath,
+                                       isRegistrationCutoff = this.IsRegistrationAvailable( date.RegistrationCutoff)
                                    };
                 result.Add(overview);
             }
@@ -964,7 +967,7 @@ namespace DirtyGirl.Services
             return GetEventDetailsListFromEventList(events);
         }
 
-        private EventDetails SetEventDetail(Event e)
+        public EventDetails SetEventDetail(Event e)
         {
             var overview = new EventDetails
                                {
@@ -980,7 +983,9 @@ namespace DirtyGirl.Services
                                    Longitude = e.Longitude,
                                    StartDate = e.EventDates.Min(x => x.DateOfEvent),
                                    EndDate = e.EventDates.Max(x => x.DateOfEvent),
-                                   EventNews = e.EventDetails
+                                   EventNews = e.EventDetails,
+                                   RegistrationCutoff = this.IsRegistrationAvailable(e),
+                                   EmailCutoff = this.IsEmailPacketOptionAvailable(e)
                                };
 
             var currentRegistrationFee = GetCurrentFeeForEvent(e.EventId, EventFeeType.Registration);
@@ -1024,7 +1029,7 @@ namespace DirtyGirl.Services
             return events.Select(SetEventOverview).ToList();
         }
 
-        private EventOverview SetEventOverview(Event e)
+        public EventOverview SetEventOverview(Event e)
         {
             var overview = new EventOverview 
                 {
@@ -1057,7 +1062,31 @@ namespace DirtyGirl.Services
         }
 
         #endregion
+        public bool IsRegistrationAvailable(Event e)
+        {
+            return IsRegistrationAvailable(e.RegistrationCutoff);
+        }
 
+        public bool IsEmailPacketOptionAvailable(Event e)
+        {
+            return IsEmailPacketOptionAvailable(e.EmailCutoff);
+        }
+
+        public bool IsRegistrationAvailable(DateTime RegistrationCutoff)
+        {
+            return (DirtyGirl.Services.Utils.Utilities.AdjustCurrentTimeForTimezone() - RegistrationCutoff).Seconds > 0;
+        }
+
+
+
+        public bool IsEmailPacketOptionAvailable(DateTime EmailCutoff)
+        {
+            return (DirtyGirl.Services.Utils.Utilities.AdjustCurrentTimeForTimezone() - EmailCutoff).Seconds > 0;
+        }
+
+
+
+       
         #region Event Coupons
 
 

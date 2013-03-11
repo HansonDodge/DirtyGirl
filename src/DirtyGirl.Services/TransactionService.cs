@@ -50,7 +50,6 @@ namespace DirtyGirl.Services
             return _repository.EventFees.Find(x => x.PurchaseItemId == purchaseItemId);
         }
 
-        #endregion
-
+        #endregion     
     }
 }

@@ -94,5 +94,10 @@ namespace DirtyGirl.Services.Utils
             smtpClient.Credentials = new NetworkCredential(DirtyGirlServiceConfig.Settings.SMTPServerUsername, DirtyGirlServiceConfig.Settings.SMTPServerPassword);
             return SendEmail(fromAddress, toAddresses, subject, messageBody, isHtml, smtpClient, smtpClient.Credentials);
         }
+
+        public  static DateTime AdjustCurrentTimeForTimezone()
+        {
+            return DateTime.Now.AddHours(DirtyGirlServiceConfig.Settings.TimezoneOffset);
+        }
     }
 }
