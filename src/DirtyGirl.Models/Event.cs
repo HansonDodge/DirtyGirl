@@ -46,7 +46,10 @@ namespace DirtyGirl.Models
             set { _dateAdded = value; } 
         }
 
+        [Required(ErrorMessage = "You must enter the registration cutoff date/time")]
         public DateTime RegistrationCutoff { get; set; }
+
+        [Required(ErrorMessage = "You must enter the email packet cutoff date")]
         public DateTime EmailCutoff { get; set; }
 
         #region Navigation Properties

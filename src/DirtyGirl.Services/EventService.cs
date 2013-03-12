@@ -207,6 +207,11 @@ namespace DirtyGirl.Services
                                 IsActive = false
                             };
 
+                int registrationTimeOffset = DirtyGirlServiceConfig.Settings.RegistrationCutoffHours * -1;
+                e.RegistrationCutoff = newEvent.EventDate.AddHours(registrationTimeOffset);
+
+                int emailPacketOffset = DirtyGirlServiceConfig.Settings.EmailPacketCutoffDays * -1;
+                e.EmailCutoff = newEvent.EventDate.AddDays(emailPacketOffset);
 
                 ServiceResult saveEventResult = CreateEvent(e);
                 ServiceResult generateDateResult = GenerateEventDate(e.EventId, newEvent.EventDate, template.StartTime,
@@ -256,12 +261,17 @@ namespace DirtyGirl.Services
                 CreateEventFee(chFee);
                 CreateEventFee(cfee);
 
+                // all payscale increases should take place starting the wednesday before the event.
+                var EventOffsetStart = newEvent.EventDate;
+                while (EventOffsetStart.DayOfWeek != DayOfWeek.Wednesday)
+                    EventOffsetStart = EventOffsetStart.AddDays(-1);
+
                 foreach (EventTemplate_PayScale ps in template.PayScales)
                 {
                     var newFee = new EventFee
                                      {
                                          EventId = e.EventId,
-                                         EffectiveDate = newEvent.EventDate.AddDays(0 - ps.DaysOut).Date,
+                                         EffectiveDate = EventOffsetStart.AddDays(0 - ps.DaysOut).Date,
                                          Cost = ps.Cost,
                                          EventFeeType = ps.EventFeeType,
                                          Taxable = ps.Taxable,

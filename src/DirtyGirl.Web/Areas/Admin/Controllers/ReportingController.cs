@@ -431,7 +431,8 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                          WaveDate = x.EventWave.EventDate.DateOfEvent,
                          WaveTime = x.EventWave.StartTime,
                          Zip = x.PostalCode,
-                         DateAdded = x.DateAdded
+                         DateAdded = x.DateAdded,
+                         PacketDeliveryOption = x.PacketDeliveryOption.Value.ToString()
                      }).OrderBy(x => x.LastName).ToList();
             }
 
@@ -481,8 +482,9 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
 
             headerRow.CreateCell(16).SetCellValue("Special Needs");
             headerRow.CreateCell(17).SetCellValue("T-Shirt Size");
-            headerRow.CreateCell(18).SetCellValue("Agreed to Legal Terms");
-            headerRow.CreateCell(19).SetCellValue("Registration Date");
+            headerRow.CreateCell(18).SetCellValue("Packet Delivery Option");
+            headerRow.CreateCell(19).SetCellValue("Agreed to Legal Terms");
+            headerRow.CreateCell(20).SetCellValue("Registration Date");
 
             //(Optional) freeze the header row so it is not scrolled
             sheet.CreateFreezePane(0, 1, 0, 1);
@@ -518,8 +520,9 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
 
                 row.CreateCell(16).SetCellValue(reg.SpecialNeeds);
                 row.CreateCell(17).SetCellValue(reg.TShirtSize);
-                row.CreateCell(18).SetCellValue(reg.AgreeToTerms);
-                row.CreateCell(19).SetCellValue(reg.DateAdded.ToShortDateString());
+                row.CreateCell(18).SetCellValue(reg.PacketDeliveryOption);
+                row.CreateCell(19).SetCellValue(reg.AgreeToTerms);
+                row.CreateCell(20).SetCellValue(reg.DateAdded.ToShortDateString());
             }
 
             //Write the workbook to a memory stream

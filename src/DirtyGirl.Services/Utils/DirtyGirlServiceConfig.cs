@@ -237,5 +237,27 @@ namespace DirtyGirl.Services.Utils
         }
 
         #endregion
+
+        #region Registration Cutoff Hours
+
+        [ConfigurationProperty("RegistrationCutoffHours")]
+        public int RegistrationCutoffHours
+        {
+            get { return int.Parse(this["RegistrationCutoffHours"].ToString()); }
+        }
+
+        #endregion
+
+        
+        #region Email Cutoff Days
+
+        [ConfigurationProperty("EmailPacketCutoffDays")]
+        public int EmailPacketCutoffDays
+        {
+            get { return int.Parse(this["EmailPacketCutoffDays"].ToString()); }
+        }
+
+        #endregion
+        
     }
 }
