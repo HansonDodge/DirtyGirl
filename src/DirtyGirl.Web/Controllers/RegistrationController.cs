@@ -251,7 +251,7 @@ namespace DirtyGirl.Web.Controllers
                 // should check this better... 
                 if ((int)reg.PacketDeliveryOption.Value == 1)
                 {
-                    ActionItem shippingFeeItem = _service.CreateShippingFee(reg.RegistrationId, reg.EventWaveId, reg.PacketDeliveryOption);
+                    ActionItem shippingFeeItem = _service.CreateShippingFee(model.ItemId, reg.EventWaveId, reg.PacketDeliveryOption);
                     SessionManager.CurrentCart.ActionItems.Add(Guid.NewGuid(), shippingFeeItem);
                 }
 

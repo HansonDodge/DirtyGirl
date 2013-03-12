@@ -367,11 +367,11 @@ namespace DirtyGirl.Services
             return val;
         }
 
-        public ActionItem CreateShippingFee(int regId, int eventWaveId, RegistrationMaterialsDeliveryOption? deliveryOption)
+        public ActionItem CreateShippingFee(Guid regItemGuid, int eventWaveId, RegistrationMaterialsDeliveryOption? deliveryOption)
         {
 
-            var newAction = new ShippingFeeAction { 
-                RegistrationId = regId,
+            var newAction = new ShippingFeeAction {
+                RegItemGuid = regItemGuid,
                 EventWaveId = eventWaveId 
             };
             var newCartItem = new ActionItem
