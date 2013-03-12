@@ -82,7 +82,7 @@
 
                     <div class="entryRow">
                         <div class="entryLabel">Postal Code:</div>
-                        <div class="entryInput">
+                        <div class="entryInput">                            
                             @Html.TextBoxFor(x => x.Event.PostalCode)
                             @Html.ValidationMessageFor(x => x.Event.PostalCode)
                         </div>
@@ -99,6 +99,20 @@
                         <div class="entryInput">
                             @Html.Kendo().NumericTextBoxFor(x => x.Event.LocalTax).Max(100).Min(0).Decimals(2).Step(1)
                             @Html.ValidationMessageFor(x => x.Event.StateTax)
+                        </div>
+                    </div>
+                     <div class="entryRow">
+                        <div class="entryLabel">Registration Cutoff Date/Time:</div>
+                        <div class="entryInput">
+                            @Html.Kendo().DateTimePickerFor(x => x.Event.RegistrationCutoff)                            
+                            @Html.ValidationMessageFor(x => x.Event.RegistrationCutoff)
+                        </div>
+                    </div>
+                    <div class="entryRow">
+                        <div class="entryLabel">Email Packet Cutoff Date:</div>
+                        <div class="entryInput">
+                            @Html.Kendo().DateTimePickerFor(x => x.Event.EmailCutoff)                            
+                            @Html.ValidationMessageFor(x => x.Event.EmailCutoff)
                         </div>
                     </div>
 

@@ -1,9 +1,6 @@
 alter table event add RegistrationCutoff datetime
 alter table event add EmailCutoff datetime
 
-alter table registration add PackageDelivery int
-
-
 update event
 set registrationcutoff = dateadd(hh, -6, d.mindate),
     emailcutoff = dateadd(hh, -36, d.mindate)
@@ -13,3 +10,7 @@ inner join
 	from event ev
 	inner join EventDate ed on ed.eventID = ev.EventID
 	group by ev.EventID) d on d.eventID = event.eventid
+	
+select
+
+update registration set packetdeliveryoption = 0 where packetdeliveryoption is null	

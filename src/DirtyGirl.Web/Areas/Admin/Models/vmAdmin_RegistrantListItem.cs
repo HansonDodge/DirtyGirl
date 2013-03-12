@@ -29,5 +29,6 @@ namespace DirtyGirl.Web.Areas.Admin.Models
         public string RegistrationValue { get; set; }
         public bool AgreeToTerms { get; set; }
         public DateTime DateAdded { get; set; }
+        public string PacketDeliveryOption { get; set; }
     }
 }
