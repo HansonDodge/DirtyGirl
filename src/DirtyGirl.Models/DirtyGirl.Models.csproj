@@ -58,6 +58,7 @@
     <Compile Include="CartDiscountItem.cs" />
     <Compile Include="ChangeWaveAction.cs" />
     <Compile Include="ChargeReport.cs" />
+    <Compile Include="ShippingFeeAction.cs" />
     <Compile Include="Enums\CartFocusType.cs" />
     <Compile Include="Enums\CreditCardType.cs" />
     <Compile Include="Enums\RegistrationMaterialsDeliveryOption.cs" />

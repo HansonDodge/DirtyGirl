@@ -248,6 +248,13 @@ namespace DirtyGirl.Web.Controllers
                 regAction.ActionObject = reg;
                 regAction.ItemReadyForCheckout = true;
 
+                // should check this better... 
+                if ((int)reg.PacketDeliveryOption.Value == 1)
+                {
+                    ActionItem shippingFeeItem = _service.CreateShippingFee(reg.RegistrationId, reg.EventWaveId, reg.PacketDeliveryOption);
+                    SessionManager.CurrentCart.ActionItems.Add(Guid.NewGuid(), shippingFeeItem);
+                }
+
                 return RedirectToAction("checkout", "cart");
             }
 

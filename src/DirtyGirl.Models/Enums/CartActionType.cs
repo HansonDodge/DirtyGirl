@@ -11,6 +11,7 @@ namespace DirtyGirl.Models.Enums
         EventChange,
         WaveChange,
         TransferRregistration,
-        CancelRegistration
+        CancelRegistration,
+        ShippingFee
     }
 }

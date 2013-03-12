@@ -91,6 +91,12 @@ namespace DirtyGirl.Web.Controllers
 
         public ActionResult RemoveItem(Guid itemId)
         {
+            
+            // if event- remove all other charges related to this event
+            //ActionItem removeAction = SessionManager.CurrentCart.ActionItems.Keys.FirstOrDefault<ActionItem>(x => x. 
+            // else if shipping fee- remove from registration table. 
+
+
             SessionManager.CurrentCart.ActionItems.Remove(itemId);
 
             if (SessionManager.CurrentCart.ActionItems.Count() == 0 )

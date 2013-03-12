@@ -31,6 +31,7 @@ namespace DirtyGirl.Services.ServiceInterfaces
         Registration GetBaseRegistration(int registrationId);
 
         decimal GetRegistrationPathValue(int registrationId);
+        ActionItem CreateShippingFee(int regId, int eventWaveId, RegistrationMaterialsDeliveryOption? deliveryOption);
 
         #endregion
 

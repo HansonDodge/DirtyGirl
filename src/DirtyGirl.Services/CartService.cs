@@ -334,6 +334,27 @@ namespace DirtyGirl.Services
                                         null));      
 
                         break;
+
+                    case CartActionType.ShippingFee:
+
+                        var shippingCost = (ShippingFeeAction)item.Value.ActionObject;
+                        evtWave = evtService.GetEventWaveById(shippingCost.EventWaveId);
+                        evtDate = evtWave.EventDate;
+                        evt = evtDate.Event;
+                        fee = evtService.GetCurrentFeeForEvent(evt.EventId, EventFeeType.Shipping);
+                        lineItems.Add(GenerateLineItem(evt.EventId,
+                                        item.Key,
+                                        PurchaseType.Fee,
+                                        ProcessType.General,
+                                        "Shipping Fee",
+                                        "Shipping Fee for registration packet",
+                                        fee.PurchaseItemId,
+                                        fee.Cost,
+                                        false,
+                                        false,
+                                        null,
+                                        null));
+                        break; 
                 }               
 
             }           

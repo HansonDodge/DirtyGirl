@@ -60,9 +60,7 @@ namespace DirtyGirl.Services
         {
             return _repository.Registrations.Filter(r => r.TeamId == TeamId).ToList();            
         }
-
         
-
         public ServiceResult CreateNewRegistration(Registration r)
         {
             ServiceResult result = new ServiceResult();
@@ -369,6 +367,22 @@ namespace DirtyGirl.Services
             return val;
         }
 
+        public ActionItem CreateShippingFee(int regId, int eventWaveId, RegistrationMaterialsDeliveryOption? deliveryOption)
+        {
+
+            var newAction = new ShippingFeeAction { 
+                RegistrationId = regId,
+                EventWaveId = eventWaveId 
+            };
+            var newCartItem = new ActionItem
+            {
+                ActionType = CartActionType.ShippingFee,
+                ActionObject = newAction,
+                ItemReadyForCheckout = true
+            };
+
+            return newCartItem;
+        }
 
         #endregion
 
