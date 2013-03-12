@@ -108,3 +108,6 @@ Backup*/
 UpgradeLog*.XML
 src/DirtyGirl.Web/Web.config
 src/DirtyGirl.Web/Web.config
+
+*.pubxml.*
+*.pubxml
