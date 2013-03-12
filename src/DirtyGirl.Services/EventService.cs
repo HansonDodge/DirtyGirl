@@ -256,10 +256,21 @@ namespace DirtyGirl.Services
                                    Taxable = false
                                };
 
+                var sfee = new EventFee
+                {
+                    EventId = e.EventId,
+                    EffectiveDate = DateTime.Now,
+                    Cost = template.DefaultShippingFeeCost,
+                    EventFeeType = EventFeeType.Shipping,
+                    Discountable = false,
+                    Taxable = false
+                };
+
                 CreateEventFee(rfee);
                 CreateEventFee(tFee);
                 CreateEventFee(chFee);
                 CreateEventFee(cfee);
+                CreateEventFee(sfee);
 
                 // all payscale increases should take place starting the wednesday before the event.
                 var EventOffsetStart = newEvent.EventDate;
@@ -645,7 +656,7 @@ namespace DirtyGirl.Services
 
             return waveList.Select(wave => new EventWaveDetails
                                                {
-                                                   EventWaveId = wave.EventWaveId, EventDateId = wave.EventDateId, StartTime = wave.StartTime, MaxRegistrations = wave.MaxRegistrants, RegistrationCount = wave.Registrations.Count()
+                                                   EventWaveId = wave.EventWaveId, EventDateId = wave.EventDateId, StartTime = wave.StartTime, MaxRegistrations = wave.MaxRegistrants, RegistrationCount = wave.Registrations.Where(x => x.RegistrationStatus == RegistrationStatus.Active || x.RegistrationStatus == RegistrationStatus.Held).Count()
                                                }).ToList();
         }
 
@@ -997,7 +1008,13 @@ namespace DirtyGirl.Services
                                    RegistrationCutoff = this.IsRegistrationAvailable(e),
                                    EmailCutoff = this.IsEmailPacketOptionAvailable(e)
                                };
-
+            IEnumerable<EventDateCounts> eventDates = _repository.Events.GetEventCounts(e.EventId);
+            if (eventDates != null && eventDates.Count() > 0)
+            {
+                var ed = eventDates.FirstOrDefault();
+                overview.RegistrationCount = ed.RegistrationCount;
+                overview.MaxRegistrants = ed.MaxRegistrants;
+            }
             var currentRegistrationFee = GetCurrentFeeForEvent(e.EventId, EventFeeType.Registration);
             overview.CurrentCost = currentRegistrationFee.Cost;
             overview.Sponsors = e.Sponsors;

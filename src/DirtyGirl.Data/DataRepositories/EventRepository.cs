@@ -72,5 +72,44 @@ namespace DirtyGirl.Data.DataRepositories
 
             return eventDateDetailsList.ToList();
         }
+
+        // TODO refractor this duplicate code
+        public List<EventDateCounts> GetEventCounts(int ID)
+        {
+            var ctx = Context;
+            var eventDateDetailsList = new List<EventDateCounts>();
+            var regCounts = ctx.SpGetEventCounts(ID);
+            foreach (var regCount in regCounts)
+            {
+                eventDateDetailsList.Add(new EventDateCounts
+                {
+                    Address1 = regCount.Address1,
+                    Code = regCount.Code,
+                    Cost = regCount.Cost,
+                    DateOfEvent = regCount.DateOfEvent,
+                    EventDateId = regCount.EventDateId,
+                    EventId = regCount.EventId,
+                    FeeIconID = regCount.FeeIconID,
+                    IsActive = regCount.IsActive,
+                    RegionID = regCount.RegionID,
+                    GeneralLocality = regCount.GeneralLocality,
+                    ImagePath = regCount.ImagePath,
+                    Locality = regCount.Locality,
+                    MaxRegistrants = regCount.MaxRegistrants,
+                    Name = regCount.Name,
+                    PinXCoordinate = regCount.PinXCoordinate,
+                    PinYCoordinate = regCount.PinYCoordinate,
+                    Place = regCount.Place,
+                    PostalCode = regCount.PostalCode,
+                    PurchaseItemID = regCount.PurchaseItemID,
+                    RegistrationCount = regCount.RegistrationCount,
+                    RegistrationCutoff = regCount.RegistrationCutoff,
+                    EmailCutoff = regCount.EmailCutoff
+                });
+
+            }
+
+            return eventDateDetailsList.ToList();
+        }
     }
 }

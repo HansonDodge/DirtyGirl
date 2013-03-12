@@ -54,9 +54,16 @@ namespace DirtyGirl.Data
         public virtual ObjectResult<EventDateCounts> SpGetEventCounts(int EventID)
         {
             ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(EventDateCounts).Assembly);
-            var prams = new object[] { new SqlParameter("@EventId", EventID) };
+            var pDt = new SqlParameter("EDate", System.Data.SqlDbType.DateTime);
+            var pID = new SqlParameter("EID", System.Data.SqlDbType.Int);
+            pID.Value = EventID;
+            pDt.Value = new DateTime(2000,1,1);
 
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteStoreQuery<EventDateCounts>("GetCurrentEventCounts", prams);
+            var prams = new object[2];
+            prams[0] = pID;
+            prams[1] = pDt;
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteStoreQuery<EventDateCounts>("GetCurrentEventCounts @EventId = @EID, @EventDate = @EDate", prams);
         }
 
         public virtual ObjectResult<EventDateCounts> SpGetEventCounts(DateTime Eventdate)

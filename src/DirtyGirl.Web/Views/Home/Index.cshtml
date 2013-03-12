@@ -30,18 +30,23 @@
                                 <h3>@location.City, @location.State</h3>
                                 <p>@location.DateOfEvent.ToString("MMMM dd, yyyy")</p>
                                 <p>Cost: $@location.CurrentCost</p>
+                                <div class="body-openings">
                                 @if (location.SpotsLeft <= @DirtyGirlConfig.Settings.DisplaySpotsAvailableCount)
                                 {
-                                    <div class="body-openings">
+                                   if (location.SpotsLeft > 0)
+                                   {
                                         <p>Only <span class="white">@location.SpotsLeft</span> spots left!</p>
-                                    </div>
+                                    }
+                                    else
+                                    {
+                                        <p>Sold Out!</p>
+                                    }                                  
                                 }
                                 else
-                                {
-                                    <div class="body-openings">
-                                        <p>Spots available!</p>
-                                    </div>
+                                {                            
+                                    <p>Spots available!</p>                                 
                                 }
+                                </div>
                                 <a href="@Url.Action("viewevent", "home", new {id = location.EventId})"><img src="@Url.Content("~/images/map-viewevent.png")" /></a>
                             </div>
                         </div>
