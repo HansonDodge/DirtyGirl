@@ -13,4 +13,3 @@ inner join
 	
 select
 
-update registration set packetdeliveryoption = 0 where packetdeliveryoption is null	
