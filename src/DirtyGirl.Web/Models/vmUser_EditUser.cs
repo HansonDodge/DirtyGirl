@@ -18,7 +18,7 @@ namespace DirtyGirl.Web.Models
         public User User { get; set; }
 
         public string returnUrl { get; set; }
-  
+
         public string Password
         {
             get { return User.Password; }

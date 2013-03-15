@@ -23,7 +23,8 @@
 
     function check_availability() {
         var username = document.getElementById('User_UserName').value;
-        if (username.length > 2) {
+        var alphaNum = /^[a-zA-Z0-9_]*$/; 
+        if (username.length > 2 && alphaNum.test(username)) {
             $.get("CheckUsernameAvailability", { username: username },
                 function(result) {
                     if (result == 1) {
@@ -33,7 +34,7 @@
                     }
                 });
         } else {
-            $('#username_availability_result').html('Please enter a username with 3 or more characters to check its availability');
+            $('#username_availability_result').html('Please enter a valid username with 3 or more characters to check its availability');
         }
     }
 </script>

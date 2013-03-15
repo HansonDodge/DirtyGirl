@@ -14,7 +14,6 @@ namespace DirtyGirl.Models
         public Guid? SessionKey { get; set; }
         public int? EventId { get; set; }
 
-
         public bool Discountable { get; set; }
         public int? DiscountItemId { get; set; }
         public string DiscountDescription { get; set; }
@@ -29,6 +28,8 @@ namespace DirtyGirl.Models
         public bool Taxable { get; set; }
         public decimal? LocalTaxPercentage { get; set; }
         public decimal? StateTaxPercentage { get; set; }
+
+        public bool Removable { get; set; }
 
         public decimal LocalTax
         {

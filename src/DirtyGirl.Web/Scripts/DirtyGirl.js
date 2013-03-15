@@ -3,7 +3,16 @@ var t1;
 
 $(document).ready(function () {
     DG.init();
-    
+
+    // close modals on esc
+    $(document).keyup(function (e) {
+        if (e.keyCode == 27) {
+            $(".inviteFriendContainer").hide();
+            $(".overlay").hide();
+            $("#login_modal").hide();
+            $("#overlay").hide();
+        }
+    });
 });
 
 DG = {
@@ -194,6 +203,7 @@ DG.util = {
             $("#inviteFriendContainer").hide();
             $("#overlay").hide();
         });
+
     },
     initLoginModal: function () {
         $(".showloginmodal").live("click",function (e) {
