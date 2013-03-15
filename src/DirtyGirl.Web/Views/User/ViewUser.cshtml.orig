@@ -1,0 +1,183 @@
+﻿@using DirtyGirl.Services
+@using DirtyGirl.Services.Utils
+@using Utilities = DirtyGirl.Web.Utils.Utilities
+@model DirtyGirl.Web.Models.vmUser_ViewUser
+
+@{
+    ViewBag.Title = "ViewUser";
+}
+
+<script>
+    $(document).ready(function () {
+        DG.util.initEditRunBtn();
+        DG.util.openRedeemCode();
+    });
+</script>
+<div id="eventDetail">
+    <div class="pinkborder_left">
+        <div id="eventDetailContainer">
+            @Html.Partial("_Hero")
+            <div id="eventDetailContent" class="profileColumn">
+                <div class="profileContent">
+                    <h2>PROFILE</h2>
+                    <h3>WELCOME BACK, @Model.User.FirstName!</h3>
+                    <div class="profileInfoContent">
+                        <div class="profileInfoContentLeft">
+                            <div class="profilePicture">
+                                <div class="pp_frame">
+                                    <img src="@Url.Content("~/images/login-photo-sm.png")" />
+                                </div>
+                                <div class="pp_content">
+                                    @if (Model.User.UseFacebookImage)
+                                    {
+                                        <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(Model.User.FacebookId.ToString())" width="180" height="180"/> 
+                                    }
+                                    else if (Model.User.Image != null)
+                                    {
+<<<<<<< HEAD
+                                        <img src='@Url.Action("UserImage", "User", new { userId = Model.User.UserId})' width="180" height="180"/> 
+                                    }
+                                    else
+=======
+                                        <img src='@Url.Action("UserImage", "User", new { username = Model.User.UserName })' width="180" height="180"/> 
+                                    }
+                                    else
+>>>>>>> 8fe1f1cc9d667f7a7dd57f2817aa4a711e749980
+                                    {
+                                        <img src="@Url.Content("~/images/fpo_pp.jpg")" />
+                                    }
+                                </div>
+                            </div>
+                            @if (Model.OpenCodes.Count() > 0)
+                            {
+                                <div class="redemptionCodes">
+                                    <h6><a href="#" class="openRedeemCode">You have @Model.OpenCodes.Count() available redemption code(s)</a></h6>
+                                    <div class="redemptionCodesContent">
+                                        <ul>
+                                        @foreach (var code in Model.OpenCodes)
+                                        {
+                                            <li><p>@Html.ActionLink(code.Code, "startredemption", "transaction", new { id = code.Code }, null) worth @code.Value.ToString("C")</p></li>
+                                        }
+                                        </ul>
+                                        <p>Click on any of the codes above to redeem.</p>
+                                        <p class="detailInfo">*These codes were generated from either a canceled event or a transfered event that was never used.</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="profileDetail">
+                            <div class="profileDetailBasic">
+                                <div class="profileUsername">
+                                    <h3>@Model.User.UserName</h3>
+                                    <div class="changeWaveMsg">
+                                        @Html.Partial("DisplayMessage")
+                                    </div>
+                                </div>
+                                <div class="basicInfo">
+                                    <h4>FROM: <span>@Model.User.Locality, @Model.User.Region.Code</span></h4>
+                                    <h4>RUNS COMPLETED: <span>@Model.User.Registrations.Count(r => r.EventWave.StartTime < DateTime.Now)</span></h4>
+                                </div>
+                            </div>
+                            <div class="runDetail">
+                                <div class="runDetailTop-ui">
+                                    <img src="@Url.Content("~/images/ui-rundetail-top.png")" />
+                                </div>
+                                <div class="runDetailContent">                                   
+                                    <h4>YOUR UPCOMING RUNS:</h4>
+                                    @foreach (var reg in Model.Registrations)
+                                    {
+                                        var e = reg.EventWave.EventDate.Event;
+                                        var d = reg.EventWave.EventDate;
+                                        var w = reg.EventWave;
+                                        
+                                        <div class="single_rundetail">
+                                            <p><span>Date:</span> @d.DateOfEvent.ToString("dddd  MMMM, dd yyyy")</p>
+                                            <p><span>Location:</span> @(e.Address1 != null && e.Address1.Trim() != string.Empty ? string.Format("{0},", e.Address1) : string.Empty) @e.GeneralLocality, @e.Region.Code</p>
+                                            @if (reg.Team != null)
+                                            {
+                                                <p><span>Team:</span> @reg.Team.Name</p>
+                                                <p><span>Team Code:</span>  @reg.Team.Code</p>
+                                            }
+                                            <p><span>Wave:</span> @w.StartTime.ToString("h:mm tt")</p>
+                                            @{ if (Model.RegistrationValues.ContainsKey(reg.RegistrationId)){ 
+                                                <p><span>Registration Paid:</span> @Model.RegistrationValues[reg.RegistrationId].ToString("c")</p>
+                                            }} 
+                                            
+ 
+                                            <p class="editReg">
+                                                <span class="editRegTitle">WHAT WOULD YOU LIKE TO CHANGE?</span>
+                                                <span>@Html.ActionLink("Change My Wave", "StartChangeWave", "transaction", new { regId = reg.RegistrationId }, null)</span>
+                                                <span>@Html.ActionLink("Change My Run", "StartChangeEvent", "transaction", new { regId = reg.RegistrationId }, null)</span>
+                                                <span>@Html.ActionLink("Transfer My Registration To A Friend", "StartTransfer", "transaction", new { regId = reg.RegistrationId }, null)</span>
+                                                <span>@Html.ActionLink("Cancel My Run", "StartCancellation", "transaction", new { regId = reg.RegistrationId }, null)</span>
+                                            </p>
+                                            @if (reg.Team != null)
+                                            {
+                                                <a href="@Url.Content("~/Team/ViewTeam?teamId=" + reg.TeamId)" class="button_talk">
+                                                    <img src="@Url.Content("~/images/login-talk-to-my-team-btn.jpg")" /></a>
+                                                <a href="#" class='button_createTeam' onclick="ShowInviteDialog_@(reg.RegistrationId)()">
+                                                    <img src="@Url.Content("~/images/login-invite-people-btn.jpg")" /></a>
+                                                
+                                               
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Content("~/Team/CreateTeam?eventId=" + reg.EventWave.EventDate.EventId + "&registrationId=" + reg.RegistrationId)" class="button_createTeam">
+                                                    <img src="@Url.Content("~/images/btn_createjointeam.png")" /></a>                                             
+                                            }
+                                            
+                                            @if (!reg.IsRegistrationCutoff)
+                                            {
+                                                    <a href="#" class="button_editRun">
+                                                        <img src="@Url.Content("~/images/btn_editRun.png")" /></a>
+                                            }
+                                        </div>
+                                    }
+
+                                </div>
+                                <div class="runDetailBottom-ui">
+                                    <img src="@Url.Content("~/images/ui-rundetail-bottom.png")" />
+                                </div>
+                            </div>
+                            <div class="profileEditTools">
+                                <a href="@Url.Action("EditUser", "User", new { userId = CurrentUser.UserId })">
+                                    <img src="@Url.Content("~/images/btn_editProfile.png")" /></a>
+                                <a href="@Url.Action("Index", "Home")">
+                                    <img src="@Url.Content("~/images/btn_registerRun.png")" /></a>
+                                <a href="http://www.nationalbreastcancer.org/about-nbcf/dirty-girl-mud-run-fundraising" target="_blank">
+                                    <img src="@Url.Content("~/images/btn_makeDonation.png")" /></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profileCustomMessage">
+                        @Html.Partial("DisplayMessage")                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pinkborder_bottom">&nbsp;</div>
+</div>
+
+    <div id="editRunContainer">
+        <div id="editRunHeader">
+            <h3>EDIT MY RUN</h3>
+            <a href="#" class="closeEditRunModal">x</a>
+        </div>
+        <div id="editRunContent">
+        
+        </div>
+    </div>
+@foreach (var reg in Model.Registrations)
+{
+    @Html.Partial("ShareWithOthers", new vmCommon_Share
+{
+    InstanceNumber = @reg.RegistrationId,
+    EmailAddresses = "",
+    MessageBody = Utilities.GetShareBodyText(reg.Team, reg.EventWave, @Model.User, reg.EventWave.EventDate, true),
+    MessageSubject = "Come join my Dirty Girl team!",
+    Title = "Team Invite"
+})
+}
+
