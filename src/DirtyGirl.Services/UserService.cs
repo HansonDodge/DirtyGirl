@@ -194,6 +194,7 @@ namespace DirtyGirl.Services
                     }
 
                     updateUser.UseFacebookImage = u.UseFacebookImage;
+
                     //Clear out their uploaded image if they opt to use their FB image
                     if (u.UseFacebookImage) { updateUser.Image = null; }
 
@@ -236,7 +237,7 @@ namespace DirtyGirl.Services
                 if (result.Success)
                 {
                     _repository.SaveChanges();
-                    _repository.Users.LoadProperties(updateUser);
+                 //   _repository.Users.LoadProperties(updateUser);
                 }
             }
             catch (Exception ex)
@@ -250,6 +251,9 @@ namespace DirtyGirl.Services
 
         public bool CheckUsernameAvailability(string username)
         {
+            if (string.IsNullOrWhiteSpace(username))
+                return false;
+
             return !_repository.Users.Filter(u => u.UserName.Trim().ToLower().Equals(username.Trim().ToLower())).Any();
         }
 

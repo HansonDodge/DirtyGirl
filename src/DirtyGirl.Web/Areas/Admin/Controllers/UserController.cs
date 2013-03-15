@@ -83,11 +83,33 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult EditUser(vmUser_EditUser vm)
         {
+            OnlyOwnerAccess(vm.User.UserId);
+            var target = new MemoryStream();
+            
+            if (vm.Image != null)
+            {
+                vm.Image.InputStream.CopyTo(target);
+                if (vm.Image.ContentLength < 0 || vm.Image.ContentLength > 2048000)
+                {
+                    ModelState.AddModelError("Image", "Image Size must by less than 2MB");
+                }
+                else
+                {
+                    if (!Utilities.VerifyFileIsImage(target))
+                    {
+                        ModelState.AddModelError("Image", "Images must be a .jpg, .png, .gif");
+                    }
+                }
+            }
 
             if (ModelState.IsValid)
             {
-                OnlyOwnerAccess(vm.User.UserId);
-                
+                if (vm.Image != null)
+                {
+                    vm.User.Image = target.ToArray();
+                    vm.User.UseFacebookImage = false;
+                }
+
                 var result = vm.User.UserId <= 0 ? UserService.CreateUser(vm.User) : UserService.UpdateUser(vm.User, true);
                 
                 if (result.Success)

@@ -217,7 +217,13 @@ namespace DirtyGirl.Web.Controllers
                 return RedirectToAction(redemptionCode.RedemptionCodeType == RedemptionCodeType.Transfer ? "registrationdetails": "eventselection", "registration", new {itemId});               
             }
 
-            return RedirectToAction("InvalidRedemption", new { m = result.GetServiceErrors().ToString() });
+            string error = "Invalid Redemption Code";
+            var errors = result.GetServiceErrors();
+            if (errors != null && errors.Count > 0)
+                error = errors[0].ErrorMessage;
+
+ 
+            return RedirectToAction("InvalidRedemption", "registration", new { m = error });
         }
 
         #endregion

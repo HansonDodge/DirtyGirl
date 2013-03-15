@@ -26,13 +26,13 @@ namespace DirtyGirl.Web.Controllers
 
         public UserController(IUserService userService)
         {
-            UserService = userService;            
+            UserService = userService;
         }
 
         #endregion
 
         #region Create User
-        
+
         [AllowAnonymous]
         public ActionResult CreateUser(string returnUrl)
         {
@@ -51,7 +51,7 @@ namespace DirtyGirl.Web.Controllers
                 vm.User.EmailAddress = facebookUser.Email;
                 vm.EmailAddressVerification = facebookUser.Email;
                 vm.User.FacebookId = long.Parse(facebookUser.Id);
-                vm.User.UseFacebookImage = true;                
+                vm.User.UseFacebookImage = true;
                 DisplayMessageToUser(new DisplayMessage(DisplayMessageType.General,
                     "Thank you for logging in in with Facebook, please provide some additional information to complete your Dirty Girl account registration.”."));
             }
@@ -68,7 +68,7 @@ namespace DirtyGirl.Web.Controllers
             //bool validImageFile = true;
             if (!vm.ImAGirl)
                 ModelState.AddModelError("ImAGirl", "You must confirm you are a female.");
-            if(vm.User.UserName.Length < 3)
+            if (vm.User.UserName.Length < 3)
                 ModelState.AddModelError("UserName", "Usernames must be 3 or more characters long.");
 
             if (ModelState.IsValid)
@@ -85,21 +85,21 @@ namespace DirtyGirl.Web.Controllers
                 if (!validImageFile)
                     result.AddServiceError("Images must be .jpg, .png, .gif, and less than 2 megabytes in size");
                 */
-                
+
 
                 if (result.Success)
-                {                
+                {
                     FormsAuthentication.SetAuthCookie(vm.User.UserName, false);
 
                     DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "We've setup your profile and you're ready to register for your first race."));
 
                     if (!string.IsNullOrEmpty(vm.returnUrl))
                         return Redirect(vm.returnUrl);
-                            
-                    return RedirectToAction("ViewUser", new {userId = vm.User.UserId});
+
+                    return RedirectToAction("ViewUser", new { userId = vm.User.UserId });
                 }
                 Utilities.AddModelStateErrors(ModelState, result.GetServiceErrors());
-            }      
+            }
 
             FillEditUserEnums(vm);
 
@@ -114,10 +114,11 @@ namespace DirtyGirl.Web.Controllers
         public ActionResult ViewUser(int userId)
         {
             OnlyOwnerAccess(userId);
-            var vm = new vmUser_ViewUser {
+            var vm = new vmUser_ViewUser
+            {
                 User = UserService.GetUserById(userId),
                 Registrations = UserService.GetActiveRegistrations(CurrentUser.UserId),
-                RegistrationValues = new Dictionary<int,decimal>(),
+                RegistrationValues = new Dictionary<int, decimal>(),
                 OpenCodes = UserService.GetActiveRedemptionCodes(CurrentUser.UserId)
             };
 
@@ -126,7 +127,7 @@ namespace DirtyGirl.Web.Controllers
                 vm.RegistrationValues.Add(reg.RegistrationId, UserService.GetRegistrationValue(reg.RegistrationId));
                 reg.IsRegistrationCutoff = GetIsRegistrationCutoff(reg.EventWave.EventDate.Event.RegistrationCutoff);
             }
-            
+
 
             vm.Registrations = vm.User.Registrations.Where(x => x.EventWave.StartTime > DateTime.Now && x.RegistrationStatus == RegistrationStatus.Active).OrderBy(x => x.EventWave.StartTime).ToList();
             return View(vm);
@@ -146,10 +147,10 @@ namespace DirtyGirl.Web.Controllers
         {
             OnlyOwnerAccess(userId);
 
-            var vm = new vmUser_EditUser { User = UserService.GetUserById(userId) };            
+            var vm = new vmUser_EditUser { User = UserService.GetUserById(userId) };
             vm.EmailAddressVerification = vm.EmailAddress;
-            vm.returnUrl = returnUrl; 
-            
+            vm.returnUrl = returnUrl;
+
             FillEditUserEnums(vm);
 
             return View(vm);
@@ -158,38 +159,47 @@ namespace DirtyGirl.Web.Controllers
         [HttpPost]
         public ActionResult EditUser(vmUser_EditUser vm)
         {
-            //bool validImageFile = true;
-
             OnlyOwnerAccess(vm.User.UserId);
+            var target = new MemoryStream();
             
+            if (vm.Image != null)
+            {
+                vm.Image.InputStream.CopyTo(target);
+                if (vm.Image.ContentLength < 0 || vm.Image.ContentLength > 2048000)
+                {
+                    ModelState.AddModelError("Image", "Image Size must by less than 2MB");
+                }
+                else
+                {
+                    if (!Utilities.VerifyFileIsImage(target))                    
+                    {
+                        ModelState.AddModelError("Image", "Images must be a .jpg, .png, .gif");
+                    }
+                }
+            }
+
             if (ModelState.IsValid)
             {
-                /*
-                if (image != null && image.ContentLength > 0 && image.ContentLength <= 2048000)
-                {
-                    var target = new MemoryStream();
-                    image.InputStream.CopyTo(target);
-                    if (Utilities.VerifyFileIsImage(target))
-                        vm.User.Image = target.ToArray();
-                    else
-                        validImageFile = false;
+                if (vm.Image != null)
+                {                                    
+                    vm.User.Image = target.ToArray();
+                    vm.User.UseFacebookImage = false;
                 }
-                */
-                ServiceResult result =  UserService.UpdateUser(vm.User, false);
-                /*
-                if (!validImageFile)
-                    result.AddServiceError("Images must be .jpg, .png, .gif, and less than 2 megabytes in size");
-                */
+
+                ServiceResult result = UserService.UpdateUser(vm.User, false);
 
                 if (result.Success)
                 {
                     DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "User profile has been updated successfully"));
-                    if (!string.IsNullOrEmpty(vm.returnUrl)){
-                        Response.Redirect(vm.returnUrl); 
-                    } else {
-                        return RedirectToAction("ViewUser", new {userId = vm.User.UserId});
+                    if (!string.IsNullOrEmpty(vm.returnUrl))
+                    {
+                        Response.Redirect(vm.returnUrl);
                     }
-                    
+                    else
+                    {
+                        return RedirectToAction("ViewUser", new { userId = vm.User.UserId });
+                    }
+
                 }
                 Utilities.AddModelStateErrors(ModelState, result.GetServiceErrors());
             }
@@ -202,12 +212,12 @@ namespace DirtyGirl.Web.Controllers
         #endregion
 
         #region Change Password
-        
+
         [HttpGet]
         public ActionResult ChangePassword(int userId)
         {
             OnlyOwnerAccess(userId);
-            User user = UserService.GetUserById(userId); 
+            User user = UserService.GetUserById(userId);
             var vm = new vmUser_ChangePassword
                          {
                              Credentials =
@@ -225,7 +235,7 @@ namespace DirtyGirl.Web.Controllers
             OnlyOwnerAccess(vm.Credentials.UserId);
             if (ModelState.IsValid)
             {
-                if (!UserService.ValidateUser(vm.Credentials.UserId,vm.OldPassword))
+                if (!UserService.ValidateUser(vm.Credentials.UserId, vm.OldPassword))
                 {
                     ModelState.AddModelError("OldPassword", "Old Password Incorrect");
                 }
@@ -236,7 +246,7 @@ namespace DirtyGirl.Web.Controllers
                     {
                         DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage,
                                                                 "Password has been updated successfully"));
-                        return RedirectToAction("EditUser", new {userId = vm.Credentials.UserId});
+                        return RedirectToAction("EditUser", new { userId = vm.Credentials.UserId });
                     }
                     Utilities.AddModelStateErrors(ModelState, result.GetServiceErrors());
                 }
@@ -245,7 +255,7 @@ namespace DirtyGirl.Web.Controllers
 
         }
 
-        #endregion 
+        #endregion
 
         #region UserImage
 
@@ -309,7 +319,7 @@ namespace DirtyGirl.Web.Controllers
                 TempData["FacebookUser"] = fbUser;
             }
 
-            return RedirectToAction("CreateUser", new {redirectUrl = state});
+            return RedirectToAction("CreateUser", new { redirectUrl = state });
         }
 
         #endregion
@@ -339,7 +349,7 @@ namespace DirtyGirl.Web.Controllers
                 if (result != null)
                 {
                     DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "Account has been confirmed."));
-                    return RedirectToAction("ViewUser", new { userId = result.Value});
+                    return RedirectToAction("ViewUser", new { userId = result.Value });
                 }
                 Utilities.AddModelStateErrors(ModelState, new List<ServiceError> { new ServiceError("confirmationCode", "The confirmation code doesn't match any users. Please verify and re-enter the code or click the direct link in the email.") });
             }
@@ -358,7 +368,7 @@ namespace DirtyGirl.Web.Controllers
 
             DisplayMessageToUser(UserService.SendEmailConfirmation(userId)
                                      ? new DisplayMessage(DisplayMessageType.SuccessMessage, "Confirmation Email Sent")
-                                     : new DisplayMessage(DisplayMessageType.ErrorMessage,"Error - Confirmation Email Not Sent"));
+                                     : new DisplayMessage(DisplayMessageType.ErrorMessage, "Error - Confirmation Email Not Sent"));
 
             return RedirectToAction("ViewUser", new { userId });
         }

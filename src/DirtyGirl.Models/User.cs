@@ -11,15 +11,18 @@ namespace DirtyGirl.Models
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "Username is Required")]
+        [RegularExpression(@".*[^ ].*", ErrorMessage = "Please enter a valid user name")]        
         public string UserName { get; set; }
 
         public string Password { get; set; }
         public string Salt { get; set; }
 
         [Required(ErrorMessage = "First Name is Required")]
+        [RegularExpression(@"^(?!\s+$)[a-zA-Z,'. -]+$", ErrorMessage = "Please enter a valid first name")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Last Name is Required")]
+        [RegularExpression(@"^(?!\s+$)[a-zA-Z,'. -]+$", ErrorMessage = "Please enter a valid last name")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Address is Required")]

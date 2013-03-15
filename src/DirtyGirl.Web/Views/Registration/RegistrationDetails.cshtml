@@ -293,7 +293,7 @@
                                 </div>
                                  <div class="single_row">
                                     <div class="single_input textarea">
-                                        <p>Participant/Parental Guardian Signature</p>
+                                        <p><span class="pink">*</span>Participant/Parental Guardian Signature</p>
                                         @Html.TextBoxFor(x => x.RegistrationDetails.Signature, new { @class = "TextBoxInput" })
                                         @Html.ValidationMessageFor(x => x.RegistrationDetails.Signature, "*")
                                         <p>@Model.RegistrationDetails.FirstName @Model.RegistrationDetails.LastName  @DateTime.Today.ToShortDateString() </p>

@@ -955,6 +955,7 @@
     <Content Include="Views\Authorize\ForgotPassword.cshtml" />
     <Content Include="Views\Authorize\PasswordResetRequest.cshtml" />
     <Content Include="Views\Shared\MudPlant.cshtml" />
+    <Content Include="Views\Registration\InvalidRedemption.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

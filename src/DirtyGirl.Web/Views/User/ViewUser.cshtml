@@ -34,7 +34,7 @@
                                     }
                                     else if (Model.User.Image != null)
                                     {
-                                        <img src='@Url.Action("UserImage", "User", new { username = Model.User.UserName })' width="180" height="180"/> 
+                                        <img src='@Url.Action("UserImage", "User", new { userId = Model.User.UserId})' width="180" height="180"/> 
                                     }
                                     else
                                     {

@@ -209,8 +209,13 @@ namespace DirtyGirl.Web.Controllers
         [HttpPost]
         public ActionResult RegistrationDetails(vmRegistration_Details model)
         {
+
             var regAction = SessionManager.CurrentCart.ActionItems[model.ItemId];
             var reg = (Registration)regAction.ActionObject;
+            
+            if (reg.FirstName + reg.LastName == model.RegistrationDetails.EmergencyContact.Replace(" ",""))
+                ModelState.AddModelError("EmergencyContact", "Emergency contact cannot be the same as the registrant.");
+
             if (ModelState.IsValid)
             {
                 reg.Address1 = CurrentUser.Address1;
@@ -419,6 +424,11 @@ namespace DirtyGirl.Web.Controllers
             return View(model);
         }
 
+        public ActionResult InvalidRedemption(string redemptionError)
+        {
+            ViewData["InvalidRedemption"] = redemptionError;
+            return View();
+        }
         #endregion
         
     }

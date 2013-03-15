@@ -1,9 +1,17 @@
 ﻿DG = {};
 var t1;
-
+var currModal = null;
 $(document).ready(function () {
     DG.init();
-    
+   
+    $(document).keydown(function (e) {
+        //if the key press is ESC, check if we are in a modal and close the modal
+        if ((e.keyCode || e.charCode) === 27) {
+            if (DG.util.IsInModal()) {
+                DG.util.hideModal(e);
+            }          
+        }
+    });
 });
 
 DG = {
@@ -17,6 +25,23 @@ DG = {
     }
 };
 DG.util = {
+           
+    showModal: function (modalItem) {
+        $(modalItem).show();
+        $("#overlay").show();
+        currModal = modalItem;
+    },
+    hideModal: function (e) {
+        e.preventDefault();
+        $(currModal).hide();
+        $("#overlay").hide();
+        currModal = null;        
+    },
+    
+    IsInModal: function () {
+        return currModal != null;
+    },
+
     customizeRadioBtn: function () {
         $(".radiox img").click(function (e) {
             var theValue = $(this).parent().find("input").prop('checked');
@@ -178,38 +203,28 @@ DG.util = {
         });
     },
     initInviteFriendModal: function () {
-        $(".showInviteFriend").click(function (e) {
-            e.preventDefault();
-            $("#overlay").show();
-            $("#inviteFriendContainer").show();
+        $(".showInviteFriend").click(function (e) {           
+            DG.util.showModal("#inviteFriendContainer");
             $('html, body').animate({ scrollTop: 300 }, 1500);
         });
         $(".closeInviteModal").click(function (e) {
-            e.preventDefault();
-            $("#overlay").hide();
-            $("#inviteFriendContainer").hide();
+            DG.util.hideModal(e);
         });
         $("#overlay").click(function (e) {
-            e.preventDefault();
-            $("#inviteFriendContainer").hide();
-            $("#overlay").hide();
+            DG.util.hideModal(e);
         });
     },
     initLoginModal: function () {
         $(".showloginmodal").live("click",function (e) {
             e.preventDefault();
-            $("#login_modal").show();
-            $("#overlay").show();
+            DG.util.showModal("#login_modal");           
         });
+       
         $("#overlay").click(function (e) {
-            e.preventDefault();
-            $("#login_modal").hide();
-            $("#overlay").hide();
+            DG.util.hideModal(e);
         });
         $("#closemodal").click(function (e) {
-            e.preventDefault();
-            $("#login_modal").hide();
-            $("#overlay").hide();
+            hideModal(e);
         });
     },
     initRotateHero: function () {
@@ -338,21 +353,16 @@ DG.util = {
         $(".button_editRun").click(function (e) {
             e.preventDefault();
             var links = $(this).parent().find(".editReg").html();
-            $("#overlay").show();
-            $("#editRunContainer").show();
+            DG.util.showModal("#editRunContainer");
             $("#editRunContent").html(links);
             $('html, body').animate({ scrollTop: 300 }, 1500);
 
             $(".closeEditRunModal").click(function (e) {
-                e.preventDefault();
-                $("#overlay").hide();
-                $("#editRunContainer").hide();
+                DG.util.hideModal(e);
                 $("#editRunContent").html("");
             });
             $("#overlay").click(function (e) {
-                e.preventDefault();
-                $("#editRunContainer").hide();
-                $("#overlay").hide();
+                DG.util.hideModal(e);
                 $("#editRunContent").html("");
             });
         });
