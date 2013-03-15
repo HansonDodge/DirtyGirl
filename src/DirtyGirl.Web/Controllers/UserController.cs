@@ -70,6 +70,8 @@ namespace DirtyGirl.Web.Controllers
                 ModelState.AddModelError("ImAGirl", "You must confirm you are a female.");
             if (vm.User.UserName.Length < 3)
                 ModelState.AddModelError("UserName", "Usernames must be 3 or more characters long.");
+            if (vm.User.UserName == vm.Password)
+                ModelState.AddModelError("Password", "Your password cannot be the same as your username.");
 
             if (ModelState.IsValid)
             {

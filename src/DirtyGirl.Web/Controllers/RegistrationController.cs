@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Text.RegularExpressions;
 
 namespace DirtyGirl.Web.Controllers
 {
@@ -256,7 +257,7 @@ namespace DirtyGirl.Web.Controllers
                 // should check this better... 
                 if ((int)reg.PacketDeliveryOption.Value == 1)
                 {
-                    ActionItem shippingFeeItem = _service.CreateShippingFee(reg.RegistrationId, reg.EventWaveId, reg.PacketDeliveryOption);
+                    ActionItem shippingFeeItem = _service.CreateShippingFee(model.ItemId, reg.EventWaveId, reg.PacketDeliveryOption);
                     SessionManager.CurrentCart.ActionItems.Add(Guid.NewGuid(), shippingFeeItem);
                 }
 
@@ -342,8 +343,14 @@ namespace DirtyGirl.Web.Controllers
                             break;
 
                         case "new":
+
+                            Match match = Regex.Match(model.TeamName, @"([a-zA-Z].*?){3}", RegexOptions.IgnoreCase);
+
                             if (string.IsNullOrEmpty(model.TeamName))
                                 ModelState.AddModelError("TeamName", "Team Name is Required");
+
+                            else if (!match.Success)
+                                ModelState.AddModelError("TeamName", "Team Name must contain at least 3 letters.");
                             else
                             {
                                 Team newTeam = new Team { EventId = model.EventId, Name = model.TeamName, CreatorID = CurrentUser.UserId };
@@ -407,8 +414,18 @@ namespace DirtyGirl.Web.Controllers
         {
             var action = SessionManager.CurrentCart.ActionItems[model.ItemId];
             var transfer = (TransferAction)action.ActionObject;
+            bool isValid = true; 
 
-            if (ModelState.IsValid)
+            // make sure to not transfer to self. 
+            if (model.FirstName == CurrentUser.FirstName && model.LastName == CurrentUser.LastName)
+            {
+                List<ServiceError> errors = new List<ServiceError>();
+                errors.Add(new ServiceError("Can't transfer run to yourself..."));
+                Utilities.AddModelStateErrors(ModelState, errors);
+                isValid = false; 
+            }
+
+            if (ModelState.IsValid && isValid)
             {                
                 transfer.FirstName = model.FirstName;
                 transfer.LastName = model.LastName;

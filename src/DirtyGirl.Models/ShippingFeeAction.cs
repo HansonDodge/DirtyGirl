@@ -7,7 +7,7 @@ namespace DirtyGirl.Models
 {
     public class ShippingFeeAction
     {
-        public int RegistrationId { get; set; }
+        public Guid RegItemGuid { get; set; }
         public int EventWaveId { get; set; }
     }
 }

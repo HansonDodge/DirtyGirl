@@ -92,11 +92,41 @@ namespace DirtyGirl.Web.Controllers
         public ActionResult RemoveItem(Guid itemId)
         {
             
-            // if event- remove all other charges related to this event
-            //ActionItem removeAction = SessionManager.CurrentCart.ActionItems.Keys.FirstOrDefault<ActionItem>(x => x. 
-            // else if shipping fee- remove from registration table. 
+            // shouldn't ever happen but just incase... 
+            if (!SessionManager.CurrentCart.ActionItems.ContainsKey(itemId)){
+                return RedirectToAction("CheckOut");
+            }
+           
+            // entering the danger zone... 
+            ActionItem removeAction = SessionManager.CurrentCart.ActionItems[itemId];
+            
+            // if new event- remove shipping charge related to that event if any 
+            if (removeAction.ActionType == CartActionType.NewRegistration)
+            {
+                Registration reg = (Registration)removeAction.ActionObject;
+                if ((int)reg.PacketDeliveryOption.Value == 1)
+                {
+                    var shippingActions = SessionManager.CurrentCart.ActionItems.Where(x => (x.Value as ActionItem).ActionType == CartActionType.ShippingFee).ToList();
+                    foreach (var ship in shippingActions)
+                    {
+                        var shipAction = ship.Value.ActionObject as ShippingFeeAction;
+                        if (shipAction.RegItemGuid == itemId)
+                        {
+                            SessionManager.CurrentCart.ActionItems.Remove(ship.Key);
+                        }
+                    }
+                }
+            }
+            // else if shipping charge- update registration DB to remove mailing option  
+            else if (removeAction.ActionType == CartActionType.ShippingFee)
+            {
+                ShippingFeeAction shipAction = (ShippingFeeAction)removeAction.ActionObject;
+                Registration reg = (Registration)SessionManager.CurrentCart.ActionItems[shipAction.RegItemGuid].ActionObject;
+                reg.PacketDeliveryOption = 0; 
+                SessionManager.CurrentCart.ActionItems[shipAction.RegItemGuid].ActionObject = reg;  
+            }
 
-
+            // remove initial request 
             SessionManager.CurrentCart.ActionItems.Remove(itemId);
 
             if (SessionManager.CurrentCart.ActionItems.Count() == 0 )

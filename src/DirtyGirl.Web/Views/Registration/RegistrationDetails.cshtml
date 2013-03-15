@@ -86,12 +86,12 @@
                                     @Model.RegistrationDetails.Locality <span>, @if (region != null){@region.Name}</span> <span>@Model.RegistrationDetails.PostalCode</span></p> 
                                     <p><a href="@Url.Action("EditUser", "User", new {userId = CurrentUser.UserId, returnUrl = HttpContext.Current.Request.Url.AbsoluteUri})">Update address</a></p>
                                 
-                                    <p class="package-label">Packet delivery method:</p>
+@*                                    <p class="package-label">Packet delivery method:</p>
                                     @(Html.Kendo().DropDownListFor(x => x.RegistrationDetails.PacketDeliveryOption)
                                             .DataTextField("Text")
                                             .DataValueField("Value")
                                             .BindTo(Model.PacketDeliveryOptionList))
-                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.PacketDeliveryOption, "*")
+                                        @Html.ValidationMessageFor(x => x.RegistrationDetails.PacketDeliveryOption, "*")*@
 
                                 </div>
 

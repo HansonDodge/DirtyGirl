@@ -50,7 +50,7 @@
                                         <ul>
                                         @foreach (var code in Model.OpenCodes)
                                         {
-                                            <li><p>@Html.ActionLink(code.Code, "startredemption", "transaction", new {id = code.Code}, null) worth @code.Value.ToString("C")</p></li>
+                                            <li><p>@Html.ActionLink(code.Code, "startredemption", "transaction", new { id = code.Code }, null) worth @code.Value.ToString("C")</p></li>
                                         }
                                         </ul>
                                         <p>Click on any of the codes above to redeem.</p>
@@ -93,7 +93,10 @@
                                                 <p><span>Team Code:</span>  @reg.Team.Code</p>
                                             }
                                             <p><span>Wave:</span> @w.StartTime.ToString("h:mm tt")</p>
-                                            <p><span>Registration Paid:</span> @Model.RegistrationValues[reg.RegistrationId].ToString("c")</p>
+                                            @{ if (Model.RegistrationValues.ContainsKey(reg.RegistrationId)){ 
+                                                <p><span>Registration Paid:</span> @Model.RegistrationValues[reg.RegistrationId].ToString("c")</p>
+                                            }} 
+                                            
  
                                             <p class="editReg">
                                                 <span class="editRegTitle">WHAT WOULD YOU LIKE TO CHANGE?</span>
@@ -118,10 +121,10 @@
                                             }
                                             
                                             @if (!reg.IsRegistrationCutoff)
-                                                {
+                                            {
                                                     <a href="#" class="button_editRun">
                                                         <img src="@Url.Content("~/images/btn_editRun.png")" /></a>
-                                                }
+                                            }
                                         </div>
                                     }
 
@@ -131,7 +134,7 @@
                                 </div>
                             </div>
                             <div class="profileEditTools">
-                                <a href="@Url.Action("EditUser", "User", new {userId = CurrentUser.UserId})">
+                                <a href="@Url.Action("EditUser", "User", new { userId = CurrentUser.UserId })">
                                     <img src="@Url.Content("~/images/btn_editProfile.png")" /></a>
                                 <a href="@Url.Action("Index", "Home")">
                                     <img src="@Url.Content("~/images/btn_registerRun.png")" /></a>
@@ -163,12 +166,12 @@
 @foreach (var reg in Model.Registrations)
 {
     @Html.Partial("ShareWithOthers", new vmCommon_Share
-        {
-            InstanceNumber = @reg.RegistrationId,
-            EmailAddresses = "",
-            MessageBody = Utilities.GetShareBodyText(reg.Team, reg.EventWave, @Model.User, reg.EventWave.EventDate, true),
-            MessageSubject = "Come join my Dirty Girl team!",
-            Title = "Team Invite"
-        })
+{
+    InstanceNumber = @reg.RegistrationId,
+    EmailAddresses = "",
+    MessageBody = Utilities.GetShareBodyText(reg.Team, reg.EventWave, @Model.User, reg.EventWave.EventDate, true),
+    MessageSubject = "Come join my Dirty Girl team!",
+    Title = "Team Invite"
+})
 }
 

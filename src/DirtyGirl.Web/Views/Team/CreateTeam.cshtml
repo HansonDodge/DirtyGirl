@@ -56,7 +56,7 @@
                          <div class="register_step2">
                                 <p>Are you joining an existing team or creating a new team?  </p>
                                 <div class="radiobuttons">
-                                    <p>@Html.RadioButton("TeamType", "new", new { name = "step2", id = "reg_newteam" })<label for="reg_newteam">I’m creating a new team</label></p>
+                                    <p>@Html.RadioButton("TeamType", "new", new { name = "step2", id = "reg_newteam", @checked = "checked"})<label for="reg_newteam">I’m creating a new team</label></p>
                                     <p>@Html.RadioButton("TeamType", "existing", new { name = "step2", id = "reg_existingteam" })<label for="reg_existingteam">I’m joining an existing team</label></p>                                                                    
                                 </div>
                                     <div class="existing_team" style="display: none">
@@ -74,7 +74,7 @@
                                             <p id="teamCodeResultsText">&nbsp;</p>
                                         </div>
                                     </div>
-                                    <div class="new_team" style="display: none">
+                                    <div class="new_team">
                                         <div class="single_input">
                                             <p>Enter team name</p>
                                             <input id="teamName" type="text" onkeyup="VerifyTeamName()" style="margin-right: 20px; z-index: 999" />

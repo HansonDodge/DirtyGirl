@@ -242,7 +242,8 @@ namespace DirtyGirl.Services
                                         fee.Discountable,
                                         fee.Taxable,
                                         evt.StateTax,
-                                        evt.LocalTax));
+                                        evt.LocalTax,
+                                        true));
                         
                         break;
                     case CartActionType.EventChange:
@@ -265,7 +266,8 @@ namespace DirtyGirl.Services
                                         false,
                                         false,
                                         null,
-                                        null));
+                                        null,
+                                        true));
 
 
                         var originalCost = regService.GetRegistrationPathValue(changeAction.RegistrationId);
@@ -286,7 +288,8 @@ namespace DirtyGirl.Services
                                             true,
                                             true,
                                             evt.StateTax,
-                                            evt.LocalTax));
+                                            evt.LocalTax,
+                                            true));
                         }                        
 
                         break;
@@ -309,7 +312,8 @@ namespace DirtyGirl.Services
                                         false,
                                         false,
                                         null,
-                                        null));                        
+                                        null,
+                                        false));                        
 
                         break;
                     case CartActionType.CancelRegistration:
@@ -331,7 +335,8 @@ namespace DirtyGirl.Services
                                         false,
                                         false,
                                         null,
-                                        null));      
+                                        null,
+                                        false));      
 
                         break;
 
@@ -353,7 +358,8 @@ namespace DirtyGirl.Services
                                         false,
                                         false,
                                         null,
-                                        null));
+                                        null,
+                                        false));
                         break; 
                 }               
 
@@ -362,7 +368,7 @@ namespace DirtyGirl.Services
             return lineItems;
         }
 
-        private CartSummaryLineItem GenerateLineItem(int eventId, Guid? itemId, PurchaseType purchaseType, ProcessType processType, string name, string description, int? purchaseItemId, decimal cost, bool discountable, bool taxable, decimal? stateTax, decimal? localTax)
+        private CartSummaryLineItem GenerateLineItem(int eventId, Guid? itemId, PurchaseType purchaseType, ProcessType processType, string name, string description, int? purchaseItemId, decimal cost, bool discountable, bool taxable, decimal? stateTax, decimal? localTax, bool removable)
         {
             var lineItem = new CartSummaryLineItem
             {
@@ -375,7 +381,8 @@ namespace DirtyGirl.Services
                 PurchaseItemId = purchaseItemId.Value,
                 ItemCost = cost,
                 Discountable = discountable,
-                Taxable = taxable
+                Taxable = taxable, 
+                Removable = removable
             };
 
             if (lineItem.Taxable)

@@ -12,6 +12,7 @@ $(document).ready(function () {
             }          
         }
     });
+    });
 });
 
 DG = {
@@ -213,6 +214,7 @@ DG.util = {
         $("#overlay").click(function (e) {
             DG.util.hideModal(e);
         });
+
     },
     initLoginModal: function () {
         $(".showloginmodal").live("click",function (e) {

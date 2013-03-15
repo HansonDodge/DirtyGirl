@@ -89,6 +89,7 @@
                             list = 'Your invitation was successfully sent.';
                             $('#userMessageBody_@Model.InstanceNumber').val('');
                             $('#emailAddresses_@Model.InstanceNumber').val('');
+                            CloseInviteModal_@(Model.InstanceNumber)(); 
                         } else {
                             //Service Failure
                             list = 'Failure:  Please verify the email address(es) entered.';

@@ -20,7 +20,7 @@
 </div>
 
 <div class="cartSummaryContent">
-    @foreach (var cartItem in Model.CartItems.OrderByDescending(x=> x.ItemTotal))
+    @foreach (var cartItem in Model.CartItems)
     {
     <div class="singleCartSummaryContent">
         <div class="singleCartContent item">
@@ -53,7 +53,7 @@
             </ul>
         </div>
 
-        @if(cartItem.SessionKey.HasValue)
+        @if(cartItem.SessionKey.HasValue && cartItem.Removable)
         {
             <div class="singleCartContent remove">
                 <p>@Html.ActionLink("remove", "RemoveItem", new { itemId = cartItem.SessionKey }, new AjaxOptions {Confirm = "Are you sure you would like to remove this item?", UpdateTargetId="cartSummary", @*OnSuccess="CartItemRemoved",*@ HttpMethod="POST"})</p>
