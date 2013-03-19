@@ -89,7 +89,7 @@ namespace DirtyGirl.Models
         public bool AgreeToTerms { get; set; }
 
         [MustBeTrue(ErrorMessage = "Registrant must be 15 years of age or older the day of the event.")]
-        [DisplayName("By checking this box I am verifying that I, or the person I’m registering for, is 15 years of age or older.")]
+        [DisplayName("By checking this box I am verifying that I, or the person I’m registering for, is 14 years of age or older.")]
         public bool IsOfAge { get; set; }
 
         [Required(ErrorMessage = "Electronic Signature is required")]
