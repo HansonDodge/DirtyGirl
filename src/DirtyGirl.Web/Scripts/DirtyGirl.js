@@ -13,6 +13,13 @@ $(document).ready(function () {
             }          
         }
     });
+    
+    jQuery.fn.extend({
+        scrollToMe: function () {
+            var x = jQuery(this).offset().top - 50;
+            jQuery('html,body').animate({ scrollTop: x }, 400);
+        }
+    });
 });
 
 DG = {
@@ -103,8 +110,9 @@ DG.util = {
         }, 500);
     },
     initMapTab: function () {
-        $(".nav-schedule").click(function (e) {
+        $(".nav-schedule, .registration_map_viewschedule").click(function (e) {
             e.preventDefault();
+            $("#EventList").scrollToMe();
             $(".registration_list_singlecontent").hide();
             $(".reg-eventschedule").show();
             $("#registration_list_nav_content a.active").removeClass("active");
