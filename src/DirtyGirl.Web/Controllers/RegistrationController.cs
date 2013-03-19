@@ -73,6 +73,9 @@ namespace DirtyGirl.Web.Controllers
         [HttpPost]
         public ActionResult WaveSelected(int eventWaveId, Guid itemId)
         {
+            if (!Utilities.IsValidCart())
+                return  RedirectToAction("Index", "home");
+
             var action = SessionManager.CurrentCart.ActionItems[itemId];
 
             switch (action.ActionType)
@@ -210,6 +213,8 @@ namespace DirtyGirl.Web.Controllers
         [HttpPost]
         public ActionResult RegistrationDetails(vmRegistration_Details model)
         {
+            if (!Utilities.IsValidCart())
+                return RedirectToAction("Index", "home");
 
             var regAction = SessionManager.CurrentCart.ActionItems[model.ItemId];
             var reg = (Registration)regAction.ActionObject;
@@ -319,6 +324,9 @@ namespace DirtyGirl.Web.Controllers
         [HttpPost]
         public ActionResult CreateTeam(vmRegistration_CreateTeam model)
         {
+            if (!Utilities.IsValidCart())
+                return RedirectToAction("Index", "home");
+
             ViewBag.showTeamCode = "false";
             if (ModelState.IsValid)
             {
@@ -417,6 +425,9 @@ namespace DirtyGirl.Web.Controllers
         [HttpPost]
         public ActionResult Transfer(vmRegistration_Transfer model)
         {
+            if (!Utilities.IsValidCart())
+                return RedirectToAction("Index", "home");
+
             var action = SessionManager.CurrentCart.ActionItems[model.ItemId];
             var transfer = (TransferAction)action.ActionObject;
             bool isValid = true; 

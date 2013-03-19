@@ -127,6 +127,18 @@ namespace DirtyGirl.Web.Utils
 
             return (fileData.IsGif() || fileData.IsJpeg() || fileData.IsPng());
         }
-     
+
+        public static bool IsValidCart()
+        {
+            if (SessionManager.CurrentCart == null || 
+                SessionManager.CurrentCart.ActionItems == null ||
+                SessionManager.CurrentCart.ActionItems.Count() == 0)
+            {             
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }
