@@ -35,7 +35,8 @@ namespace DirtyGirl.Models
         [Required(ErrorMessage = "State is Required")]
         public int RegionId { get; set; }
 
-        [Required(ErrorMessage = "Postal Code is Required")]
+        [Required(ErrorMessage = "Zip Code is Required")]
+        [RegularExpression(@"^[0-9]{5}(-[0-9]{4})?$", ErrorMessage = "Zip Code is not valid.")]       
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "Email Address is Required")]

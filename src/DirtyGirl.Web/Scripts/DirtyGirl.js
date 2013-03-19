@@ -1,6 +1,7 @@
 ﻿DG = {};
 var t1;
 var currModal = null;
+
 $(document).ready(function () {
     DG.init();
    
@@ -225,7 +226,7 @@ DG.util = {
             DG.util.hideModal(e);
         });
         $("#closemodal").click(function (e) {
-            hideModal(e);
+            DG.util.hideModal(e);
         });
     },
     initRotateHero: function () {

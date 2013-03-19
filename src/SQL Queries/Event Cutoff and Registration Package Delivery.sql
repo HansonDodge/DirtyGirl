@@ -2,7 +2,7 @@ alter table event add RegistrationCutoff datetime
 alter table event add EmailCutoff datetime
 
 update event
-set registrationcutoff = dateadd(hh, -6, d.mindate),
+set registrationcutoff = dateadd(hh, -10, d.mindate),
     emailcutoff = dateadd(hh, -36, d.mindate)
 from event
 inner join 

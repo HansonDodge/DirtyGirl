@@ -53,8 +53,7 @@ namespace DirtyGirl.Models
 
         //[Required(ErrorMessage = "State is required")]
         public int RegionId { get; set; }
-
-        //[Required(ErrorMessage="Zip code is required")]
+       
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "Emergency contact is required")]
