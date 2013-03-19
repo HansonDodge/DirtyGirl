@@ -44,7 +44,7 @@
             $("#reg_team").click();
         }
 
-        if (teamCode != ''){
+        if ( teamCode != '' || @ViewBag.showTeamCode ){
             $("#reg_existingteam").click();
         }
         else{

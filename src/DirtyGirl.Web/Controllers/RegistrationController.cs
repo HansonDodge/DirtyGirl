@@ -283,8 +283,8 @@ namespace DirtyGirl.Web.Controllers
         #region Create Team
 
         public ActionResult CreateTeam(Guid itemId)
-        {      
-            
+        {
+            ViewBag.showTeamCode = "false";
             var reg = (Registration)SessionManager.CurrentCart.ActionItems[itemId].ActionObject;
             var wave = _service.GetEventWaveById(reg.EventWaveId);
 
@@ -318,9 +318,11 @@ namespace DirtyGirl.Web.Controllers
 
         [HttpPost]
         public ActionResult CreateTeam(vmRegistration_CreateTeam model)
-        {           
+        {
+            ViewBag.showTeamCode = "false";
             if (ModelState.IsValid)
             {
+                
                 var reg = (Registration)SessionManager.CurrentCart.ActionItems[model.ItemId].ActionObject;
 
                 if (model.RegistrationType.ToLower() == "team")
@@ -330,7 +332,10 @@ namespace DirtyGirl.Web.Controllers
                         case "existing":
 
                             if (string.IsNullOrEmpty(model.TeamCode))
+                            {
                                 ModelState.AddModelError("TeamCode", "Team Code is Required.");
+                                ViewBag.showTeamCode = "true";
+                            }
                             else
                             {
                                 var existingTeam = _service.GetTeamByCode(model.EventId, model.TeamCode);
