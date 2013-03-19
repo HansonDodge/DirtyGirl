@@ -255,7 +255,7 @@ namespace DirtyGirl.Web.Controllers
                 regAction.ItemReadyForCheckout = true;
 
                 // should check this better... 
-                if ((int)reg.PacketDeliveryOption.Value == 1)
+                if (reg.PacketDeliveryOption.HasValue && ((int)reg.PacketDeliveryOption.Value == 1))
                 {
                     ActionItem shippingFeeItem = _service.CreateShippingFee(model.ItemId, reg.EventWaveId, reg.PacketDeliveryOption);
                     SessionManager.CurrentCart.ActionItems.Add(Guid.NewGuid(), shippingFeeItem);
