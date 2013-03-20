@@ -18,6 +18,13 @@ namespace DirtyGirl.Web.Controllers
       
         #endregion
 
+        public ActionResult InvalidInputError()
+        {
+            Response.StatusCode = 404;
+            Response.TrySkipIisCustomErrors = true;
+            return View();
+        }
+
         public ActionResult MudPlant()
         {
             Response.StatusCode = 404;

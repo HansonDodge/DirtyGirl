@@ -25,7 +25,7 @@ namespace DirtyGirl.Web.Models
             set { User.Password = value; }
         }
 
-        [File (AllowedFileExtensions = new String[] { ".jpg", ".gif", ".png", ".bmp", ".tiff" }, MaxContentLength = 2097152)]
+        [File (AllowedFileExtensions = new String[] { ".jpg", ".gif", ".png" }, MaxContentLength = 2097152)]
         public HttpPostedFileBase Image { get; set; }
 
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Passwords Must Match")]

@@ -35,6 +35,12 @@ namespace DirtyGirl.Web
                 namespaces: new string[] { "DirtyGirl.Web.Controllers" }
                 );
 
+            routes.MapRoute(
+               name: "UserControllerID",
+               url: "User/{action}",
+               defaults: new { controller = "User" },
+               namespaces: new string[] { "DirtyGirl.Web.Controllers" }
+               );
 
             routes.MapRoute(
                name: "MudPlant",

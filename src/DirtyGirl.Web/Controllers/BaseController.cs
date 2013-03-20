@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Web;
 using DirtyGirl.Models;
 using DirtyGirl.Services.ServiceInterfaces;
 using DirtyGirl.Web.Utils;
 using Elmah;
 using Ninject;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace DirtyGirl.Web.Controllers
 {
@@ -58,15 +60,36 @@ namespace DirtyGirl.Web.Controllers
         }
         
         protected override void OnException(ExceptionContext filterContext)
-        {
+        {            
             if (filterContext.HttpContext.IsCustomErrorEnabled)
             {
                 filterContext.ExceptionHandled = true;
                 Response.StatusCode = 500;
                 Response.TrySkipIisCustomErrors = true;
+
+                // special handling for HttpRequestValidationException because Elmah does not handle it
+                if (filterContext.Exception is HttpRequestValidationException)
+                {
+                    Elmah.ErrorLog.GetDefault(System.Web.HttpContext.Current).Log(new Error(filterContext.Exception));
+                  
+                    //Let the request know what went wrong
+                    filterContext.Controller.TempData["Exception"] = filterContext.Exception;
+
+                    //redirect to error handler
+                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(
+                        new { controller = "Error", action = "InvalidInputError" }));
+
+                    // Stop any other exception handlers from running
+                    filterContext.ExceptionHandled = true;
+
+                    // CLear out anything already in the response
+                    filterContext.HttpContext.Response.Clear();                                      
+                    return;
+                }
+                
                 ForceElmahNotification(filterContext.Exception);
                 switch (filterContext.Exception.GetType().Name)
-                {
+                {                                         
                     case "UnauthorizedAccessException":
                         View("AuthError").ExecuteResult(ControllerContext);
                         return;

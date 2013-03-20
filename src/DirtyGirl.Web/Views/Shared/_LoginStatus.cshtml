@@ -1,12 +1,13 @@
 ﻿@if (Request.IsAuthenticated) {
 
-        <ul>
-        <li>@Html.ActionLink("My Profile (" + User.Identity.Name + ")", "ViewUser", "User", new {userId = CurrentUser.UserId}, htmlAttributes: new { @class = "username", title = "Manage" })</li>
+    <ul>
+        	   
+        <li>@Html.RouteLink("My Profile (" + User.Identity.Name + ")", "UserControllerID", new {action="ViewUser", userId = CurrentUser.UserId}, htmlAttributes: new { @class = "username", title = "Manage" })</li>       
         <li>@using (Html.BeginForm("LogOut", "Authorize", new {area = ""}, FormMethod.Post, new { id = "logoutForm" }))
-        {
-            @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-        }</li>
+            {
+                @Html.AntiForgeryToken()
+                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+            }</li>
             
     </ul>
 
