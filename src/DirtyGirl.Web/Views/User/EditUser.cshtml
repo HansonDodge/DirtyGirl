@@ -120,7 +120,7 @@
                                     <div class="single_input" style="margin-right:20px;">
                                     @if (Model.User.FacebookId == null)
                                     {
-                                        <a class="btnPinkLg" href="@Url.Action("ChangePassword", "User", new {userId = CurrentUser.UserId})">CHANGE PASSWORD</a>
+                                        <a class="btnPinkLg" href="@Url.Action("ChangePassword", "User", new {userId = CurrentUser.UserId, returnUrl = Model.returnUrl})">CHANGE PASSWORD</a>
                                     }
                                     </div>
                                     <div class="single_input" style="margin-right:20px;">
