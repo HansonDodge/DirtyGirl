@@ -15,6 +15,8 @@ namespace DirtyGirl.Web.Models
 
         public vmUser_SetPassword Credentials { get; set; }
 
+        public string returnUrl { get; set; }
+
         [Required(ErrorMessage = "You Must Enter Your Old Password")]
         public string OldPassword { get; set; }
     }

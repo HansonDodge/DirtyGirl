@@ -201,7 +201,7 @@ namespace DirtyGirl.Web.Controllers
         #region Change Password
 
         [HttpGet]
-        public ActionResult ChangePassword(int userId)
+        public ActionResult ChangePassword(int userId, string returnUrl = "")
         {
             OnlyOwnerAccess(userId);
             User user = UserService.GetUserById(userId);
@@ -211,7 +211,9 @@ namespace DirtyGirl.Web.Controllers
                                  {
                                      UserId = user.UserId,
                                      Username = user.UserName
-                                 }
+                                 },
+
+                             returnUrl = returnUrl 
                          };
             return View(vm);
         }
@@ -233,7 +235,7 @@ namespace DirtyGirl.Web.Controllers
                     {
                         DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage,
                                                                 "Password has been updated successfully"));
-                        return RedirectToAction("EditUser", new { userId = vm.Credentials.UserId });
+                        return RedirectToAction("EditUser", new { userId = vm.Credentials.UserId, returnUrl = vm.returnUrl });
                     }
                     Utilities.AddModelStateErrors(ModelState, result.GetServiceErrors());
                 }
