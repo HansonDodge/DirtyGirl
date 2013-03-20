@@ -58,7 +58,7 @@ namespace DirtyGirl.Web.Controllers
         #region ChangeEvent
 
         
-        public ActionResult StartChangeEvent(int regId)
+        public ActionResult StartChangeEvent(int eventID, int regId, int waveID, int dateID)
         {           
             var itemId = Guid.NewGuid();
           
@@ -76,7 +76,7 @@ namespace DirtyGirl.Web.Controllers
             SessionManager.CurrentCart.ActionItems.Add(itemId, newCartItem);
             SessionManager.CurrentCart.CheckOutFocus = CartFocusType.ChangeEvent;
 
-            return RedirectToAction("EventSelection", "registration", new { itemId });
+            return RedirectToAction("EventSelection", "registration", new { itemId = itemId, eventId = eventID, eventDateId = dateID, eventWaveId = waveID });
         }
 
         #endregion

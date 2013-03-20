@@ -99,7 +99,7 @@
                                 <div class="reg-indicator step-4"></div>
 
                                 <p>You have selected to run on @Model.EventWave.EventDate.DateOfEvent.ToString("dddd  MMMM, dd yyyy") at @Model.EventWave.StartTime.ToString("h:mm tt")</p>
-                                <p><a href="@Url.Action("EventSelection", new { eventwaveid = Model.EventWave.EventWaveId, itemId = Model.ItemId })" >Select a different wave</a></p>
+                                <p><a href="@Url.Action("EventSelection", new { eventId=Model.EventOverview.EventId, eventwaveid = Model.EventWave.EventWaveId, itemId = Model.ItemId })" >Select a different wave</a></p>
 
                                 @Html.ValidationSummary(false, "Please Fix the following errors")
                                 @Html.HiddenFor(x => x.ItemId)

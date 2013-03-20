@@ -101,7 +101,7 @@
                                             <p class="editReg">
                                                 <span class="editRegTitle">WHAT WOULD YOU LIKE TO CHANGE?</span>
                                                 <span>@Html.ActionLink("Change My Wave", "StartChangeWave", "transaction", new { regId = reg.RegistrationId }, null)</span>
-                                                <span>@Html.ActionLink("Change My Run", "StartChangeEvent", "transaction", new { regId = reg.RegistrationId }, null)</span>
+                                                <span>@Html.ActionLink("Change My Run", "StartChangeEvent", "transaction", new { eventId = d.EventId, regId = reg.RegistrationId, waveID = w.EventWaveId, dateID = d.EventDateId }, null)</span>
                                                 <span>@Html.ActionLink("Transfer My Registration To A Friend", "StartTransfer", "transaction", new { regId = reg.RegistrationId }, null)</span>
                                                 <span>@Html.ActionLink("Cancel My Run", "StartCancellation", "transaction", new { regId = reg.RegistrationId }, null)</span>
                                             </p>
