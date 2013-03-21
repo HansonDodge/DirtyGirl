@@ -451,7 +451,10 @@ namespace DirtyGirl.Services
                         switch (coupon.CouponType)
                         {
                             case CouponType.Registration:
-                                var discountableRegList = cartSummary.CartItems.Where(x => x.PurchaseType == PurchaseType.Registration && x.Discountable == true && x.EventId == ((coupon.EventId.HasValue) ? coupon.EventId.Value : x.EventId)).OrderByDescending(x => x.ItemCost).ToList();
+                                var discountableRegList = cartSummary.CartItems.Where(
+                                                x => x.PurchaseType == PurchaseType.Registration && 
+                                                x.Discountable == true && 
+                                                x.EventId == ((coupon.EventId.HasValue) ? coupon.EventId.Value : x.EventId)).OrderByDescending(x => x.ItemCost).ToList();
 
                                 if (discountableRegList.Count() > 0)
                                 {
