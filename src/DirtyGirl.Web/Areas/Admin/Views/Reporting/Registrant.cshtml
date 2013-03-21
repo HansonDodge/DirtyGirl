@@ -42,7 +42,7 @@
             cols.Bound(r => r.AgreeToTerms).Title("Agreed to Legal Terms");
             cols.Bound(r => r.DateAdded).Format("{0:MM/dd/yyyy}").Title("Registration Date");
         })
-        .HtmlAttributes(new { style = "width:1000px" })
+        .HtmlAttributes(new { style = "width:1200px;overflow:scroll;font-size:75%" })
         .Pageable()
         .Sortable()
         .Filterable()
