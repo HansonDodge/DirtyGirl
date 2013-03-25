@@ -3,6 +3,9 @@ using DirtyGirl.Services.Utils;
 using Ninject;
 using System;
 using System.Web.Security;
+using DirtyGirl.Data.DataRepositories;
+using DirtyGirl.Data;
+using DirtyGirl.Data.RepositoryGroups;
 
 namespace DirtyGirl.Services
 {
@@ -153,9 +156,10 @@ namespace DirtyGirl.Services
 
         public override bool ValidateUser(string username, string password)
         {
-            var user = _userService.GetUserByUsername(username);
+            var service = new UserService( new RepositoryGroup() );
+            var user = service.GetUserByUsername(username);
        //     _repository.Users.LoadProperties(user);
-            
+            //var ret = _userService.ValidateUser(user.UserId, password);
             if (user != null && Crypto.ValidatePassword(password.Trim(), new CryptoHashContainer(user.Salt, user.Password)))
                 return true;
 
