@@ -47,7 +47,9 @@ namespace DirtyGirl.Web.Controllers
 
         [HttpPost]
         public ActionResult CheckOut(CartCheckOut model)
-        {           
+        {
+            if (!Utilities.IsValidCart())
+                return RedirectToAction("Index", "home");
 
             ServiceResult result = _service.ProcessCart(model, SessionManager.CurrentCart, CurrentUser.UserId);
 

@@ -53,9 +53,10 @@
                                         <p><span>Team Code:</span>@Html.DisplayFor(model => model.Team.Code) </p>
                                         @*<p><span>Time:</span> @eventWave.StartTime.ToString("hh:mm tt") </p>*@
                                     </div>
-                                    <div class="teamChat_left_separator">&nbsp;</div>
+
+                            
                                     <div class="teammates">
-                                        <p class="teammates_instructions">Hover over your teammate to see what wave she's in</p>
+                             
                                         <div class="teammate_container">
                                             <div id="mcs_container2" class="teammateScroll">
                                                 <div class="customScrollBox">
@@ -71,7 +72,7 @@
                                                                         }
                                                                         else if (registration.User.Image != null)
                                                                         {
-                                                                            <img src='@Url.Action("UserImage", "User", new { id = registration.User.UserId })' /> 
+                                                                            <img src='@Url.Action("UserImage", "User", new { Userid = registration.User.UserId })' /> 
                                                                         }
                                                                         else
                                                                         {
@@ -93,6 +94,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="teamChat_left_separator">&nbsp;</div>
                                 }
                             }
                         </div>
@@ -125,13 +127,13 @@
 </div>
 
 @Html.Partial("ShareWithOthers", new vmCommon_Share
-                                   {
-                                       InstanceNumber = 1,
-                                       EmailAddresses = "",
-                                       MessageBody = ViewBag.ShareBody,
-                                       MessageSubject = "Come join my Dirty Girl team!",
-                                       Title = "Team Invite"
-                                   })
+{
+    InstanceNumber = 1,
+    EmailAddresses = "",
+    MessageBody = ViewBag.ShareBody,
+    MessageSubject = "Come join my Dirty Girl team!",
+    Title = "Team Invite"
+})
 
 <script>
     function CreatePost() {

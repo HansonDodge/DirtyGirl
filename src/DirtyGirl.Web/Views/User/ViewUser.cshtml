@@ -30,11 +30,11 @@
                                 <div class="pp_content">
                                     @if (Model.User.UseFacebookImage)
                                     {
-                                        <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(Model.User.FacebookId.ToString())" width="180" height="180"/> 
+                                        <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(Model.User.FacebookId.ToString())" width="180" height="160"/> 
                                     }
                                     else if (Model.User.Image != null)
                                     {
-                                        <img src='@Url.Action("UserImage", "User", new { userId = Model.User.UserId})' width="180" height="180"/> 
+                                        <img src='@Url.Action("UserImage", "User", new { userId = Model.User.UserId})' width="180" height="160"/> 
                                     }
                                     else
                                     {

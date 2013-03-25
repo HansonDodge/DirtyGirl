@@ -551,13 +551,13 @@ span.field-validation-error { color:#ff0000;}
 .teamChat_left {position: relative; float: left; width:375px; padding: 40px 0 0; margin: 0 15px;}
 .teamChat_left h2{font-size: 18px; color:#573f3f; margin:0 0 5px;}
 .teamChat_left h2 span{}
-.teamChat_runDetail { position: relative;}
+.teamChat_runDetail { position: relative;float: left;width: 288px;}
 .teamChat_runDetail h3{font-size: 18px; color:#573f3f; }
 .teamChat_runDetail p{font-size: 12px; color:#2c1d13; margin: 0 0 3px; }
 .teamChat_runDetail p span{font-size: 12px; color:#2c1d13; width: 130px; font-weight: bold; float: left;}
-.teamChat_left_separator {position: relative; background:url(../images/img_separator_lg.png) 0 0 no-repeat transparent; height: 15px; width: 100%; margin: 20px 0 10px;}
+.teamChat_left_separator {position: relative; background:url(../images/img_separator_lg.png) 0 0 no-repeat transparent; height: 15px; width: 100%; margin: 20px 0 10px;clear: both; }
 .teammates { position: relative;}
-.teammates .teammates_instructions{color: #573F3F; font-size: 14px; font-weight: bold; margin: 0 0 10px;}
+.teammates_instructions{color: #573F3F; font-size: 12px; font-weight: bold; margin: 10px 0 0 0;}
 .single_teammate {position: relative; float: left; width:70px; height:105px; overflow: hidden; margin-right: 15px; margin-bottom: 5px;}
 .single_teammate img{border:1px solid #000000; width:68px; height:68px;}
 .single_teammate p{ font-size: 11px; color:#573f3f;}

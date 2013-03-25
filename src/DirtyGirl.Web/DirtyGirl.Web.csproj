@@ -592,6 +592,7 @@
     <Content Include="Areas\Admin\Views\Reporting\EventPerformance.cshtml" />
     <Content Include="Areas\Admin\Views\Reporting\Partial\EventExport.cshtml" />
     <Content Include="Areas\Admin\Views\Reporting\Partial\PerformanceExport.cshtml" />
+    <Content Include="Images\img_login_modal.jpg" />
     <Content Include="Images\sprite-tab-generalinfo.psd" />
     <None Include="Properties\PublishProfiles\register-godirtygirl-qa - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\register-godirtygirl-qa - Web Deploy.pubxml" />

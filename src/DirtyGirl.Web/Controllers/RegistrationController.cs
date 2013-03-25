@@ -182,6 +182,9 @@ namespace DirtyGirl.Web.Controllers
 
         public ActionResult RegistrationDetails(Guid itemId) 
         {
+            if (!Utilities.IsValidCart())
+                return RedirectToAction("Index", "home");
+
             var regAction = SessionManager.CurrentCart.ActionItems[itemId];
             var reg = (Registration)regAction.ActionObject;
 
@@ -256,7 +259,6 @@ namespace DirtyGirl.Web.Controllers
                 reg.SpecialNeeds = model.RegistrationDetails.SpecialNeeds;
                 reg.TShirtSize = model.RegistrationDetails.TShirtSize;
                 reg.PacketDeliveryOption = model.RegistrationDetails.PacketDeliveryOption;
-                reg.TeamId = model.RegistrationDetails.TeamId;
                 reg.UserId = CurrentUser.UserId;
                 reg.Signature = model.RegistrationDetails.Signature;
                 reg.IsIAmTheParticipant = model.RegistrationDetails.IsIAmTheParticipant;
@@ -294,6 +296,9 @@ namespace DirtyGirl.Web.Controllers
 
         public ActionResult CreateTeam(Guid itemId)
         {
+            if (!Utilities.IsValidCart())
+                return RedirectToAction("Index", "home");
+
             ViewBag.showTeamCode = "false";
             var reg = (Registration)SessionManager.CurrentCart.ActionItems[itemId].ActionObject;
             var wave = _service.GetEventWaveById(reg.EventWaveId);
@@ -412,6 +417,9 @@ namespace DirtyGirl.Web.Controllers
 
         public ActionResult Transfer(Guid itemId)
         {
+            if (!Utilities.IsValidCart())
+                return RedirectToAction("Index", "home");
+
             TransferAction action = (TransferAction)SessionManager.CurrentCart.ActionItems[itemId].ActionObject;            
             Registration existingReg = _service.GetRegistrationById(action.RegistrationId);
 
