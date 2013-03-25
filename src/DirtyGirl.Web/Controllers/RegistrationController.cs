@@ -107,6 +107,11 @@ namespace DirtyGirl.Web.Controllers
             return RedirectToAction("EventSelection", new {eventWaveId, itemId});
         }
 
+        public JsonResult GetActiveEventList()
+        {
+            return Json(_service.GetSimpleActiveEventList().Select(x => new { EventId = x.EventId, Name = x.EndDate > x.StartDate ? string.Format("{0}, {1} : {2} - {3}", x.GeneralLocality, x.StateCode, x.StartDate.ToShortDateString(), x.EndDate.ToShortDateString()) : string.Format("{0}, {1} : {2}", x.GeneralLocality, x.StateCode, x.StartDate.ToShortDateString()) }).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetEventList()
         {
             return Json(_service.GetActiveUpcomingEvents().Select(x => new { EventId = x.EventId, Name = x.EndDate > x.StartDate ? string.Format("{0}, {1} : {2} - {3}", x.GeneralLocality, x.StateCode, x.StartDate.ToShortDateString(), x.EndDate.ToShortDateString()) : string.Format("{0}, {1} : {2}", x.GeneralLocality, x.StateCode, x.StartDate.ToShortDateString()) }).ToList(), JsonRequestBehavior.AllowGet);
@@ -114,7 +119,7 @@ namespace DirtyGirl.Web.Controllers
 
         public JsonResult GetEventDateList(int eventId)
         {
-            return Json(_service.GetActiveDateDetailsByEvent(eventId).Select(x => new { EventDateId = x.EventDateId, DateOfEvent = x.DateOfEvent.ToShortDateString() }).ToList(), JsonRequestBehavior.AllowGet);
+            return Json(_service.GetSimpleDateDetailsByEvent(eventId).Select(x => new { EventDateId = x.EventDateId, DateOfEvent = x.DateOfEvent.ToShortDateString() }).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         private int GetEventDateCount(int eventId)

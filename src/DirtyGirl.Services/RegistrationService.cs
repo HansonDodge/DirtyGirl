@@ -413,6 +413,11 @@ namespace DirtyGirl.Services
         #endregion
 
         #region event
+        public IList<EventBasics> GetSimpleActiveEventList()
+        {
+            IEventService eventService = new EventService(this._repository);
+            return eventService.GetSimpleActiveEventList();
+        }
 
         public IList<EventDetails> GetActiveUpcomingEvents()
         {
@@ -451,7 +456,13 @@ namespace DirtyGirl.Services
         {
             EventService eventService = new EventService(this._repository, false);
             return eventService.GetCurrentFeeForEvent(eventId, EventFeeType.Shipping);
-        } 
+        }
+
+        public IList<EventDateDetails> GetSimpleDateDetailsByEvent(int eventId)
+        {
+            EventService eventService = new EventService(this._repository);
+            return eventService.GetSimpleDateDetailsByEvent(eventId);
+        }
 
         public IList<EventDateDetails> GetActiveDateDetailsByEvent(int eventId)
         {
@@ -523,7 +534,6 @@ namespace DirtyGirl.Services
         }
 
         #endregion
-
-
+       
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using DirtyGirl.Data.DataInterfaces.RepositoryGroups;
 using DirtyGirl.Models;
 using DirtyGirl.Models.Enums;
@@ -20,6 +21,7 @@ namespace DirtyGirl.Services
         public EventService(IRepositoryGroup repository, bool isSharedRepository) : base(repository, isSharedRepository)
         {
         }
+
 
         #endregion
 
@@ -442,6 +444,43 @@ namespace DirtyGirl.Services
             return _repository.EventDates.Filter(x => x.EventId == eventId).OrderBy(x => x.DateOfEvent).ToList();
         }
 
+        public IList<EventBasics> GetSimpleActiveEventList()
+        {
+            List<EventBasics> basics = new List<EventBasics>();
+
+            IQueryable<Region> rg = this._repository.Regions.All();
+            List<EventDate> dt = this._repository.EventDates.Filter(x => x.DateOfEvent > DateTime.Now).ToList();
+            IQueryable<Event> ev = this._repository.Events.Filter(x => x.IsActive == true);
+
+            var EventWithRegion = (from e in ev
+                      from r in rg
+                      where r.RegionId == e.RegionId
+                      select new { e.EventId, e.Locality, r.Code}).ToList();
+
+
+            foreach (var @event in EventWithRegion)
+            {
+                var ds = (from mn in dt where mn.EventId == @event.EventId select mn.DateOfEvent);
+                if (ds.Count() > 0)
+                {                    
+                    basics.Add(new EventBasics(@event.EventId, @event.Locality, @event.Code, ds.Min(), ds.Max()));
+                }
+            }
+            return basics;
+        }
+
+        public IList<EventDateDetails> GetSimpleDateDetailsByEvent(int eventId)
+        {
+            List<EventDate> dateList =
+                _repository.EventDates.Filter(x => x.EventId == eventId).OrderBy(x => x.DateOfEvent).ToList();
+
+            return dateList.Select(d => new EventDateDetails
+            {
+                EventDateId = d.EventDateId,
+                EventId = d.EventId,
+                DateOfEvent = d.DateOfEvent,                
+            }).ToList();
+        }
         public IList<EventDateDetails> GetActiveDateDetailsByEvent(int eventId)
         {
             List<EventDate> dateList =

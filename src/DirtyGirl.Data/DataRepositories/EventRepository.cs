@@ -9,8 +9,8 @@ namespace DirtyGirl.Data.DataRepositories
 {
     public class EventRepository : Repository<Event>, IEventRepository
     {
-        public EventRepository(DB context) : base(context) { }
-
+        public EventRepository(DB context) : base(context) { }       
+       
         public List<EventDateDetails> GetAllEventDateDetails()
         {
             var eventDateDetailsList = new List<EventDateDetails>();

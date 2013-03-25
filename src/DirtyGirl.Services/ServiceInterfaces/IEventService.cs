@@ -10,6 +10,8 @@ namespace DirtyGirl.Services.ServiceInterfaces
 
         #region Events
 
+        IList<EventBasics> GetSimpleActiveEventList();
+
         IList<Event> GetAllEvents();
 
         IList<Event> GetAllUpcomingEvents();
@@ -55,6 +57,8 @@ namespace DirtyGirl.Services.ServiceInterfaces
         #region Event Dates
 
         IList<EventDate> GetDatesForEvent(int eventId);
+
+        IList<EventDateDetails> GetSimpleDateDetailsByEvent(int eventId);
 
         IList<EventDateDetails> GetActiveDateDetailsByEvent(int eventId);
 

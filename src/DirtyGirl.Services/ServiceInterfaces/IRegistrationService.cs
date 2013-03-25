@@ -50,7 +50,9 @@ namespace DirtyGirl.Services.ServiceInterfaces
 
         #region Event
 
+        IList<EventBasics> GetSimpleActiveEventList();
         IList<EventDetails> GetActiveUpcomingEvents();
+        IList<EventDateDetails> GetSimpleDateDetailsByEvent(int eventId);
         IList<EventDateDetails> GetActiveDateDetailsByEvent(int eventId);
         IList<EventWaveDetails> GetWaveDetialsForEventDate(int eventDateId);
 
@@ -77,5 +79,6 @@ namespace DirtyGirl.Services.ServiceInterfaces
         ServiceResult Save();        
 
         #endregion
+
     }
 }
