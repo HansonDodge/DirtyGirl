@@ -99,7 +99,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                 
                 if (result.Success)
                 {
-                    DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "User has been saved successfully"));
+                    DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "User profile has been saved successfully"));
                     return RedirectToAction("ViewUser", new { id = vm.User.UserId });
                 }
 

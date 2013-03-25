@@ -60,7 +60,18 @@
 
 <script>
 
+    
+    $(document).keydown(function (e) {
+        //if the key press is ESC, check if we are in a modal and close the modal
+        if ((e.keyCode || e.charCode) === 27) {
+            if ($("#overlay_@Model.InstanceNumber").is(":visible")) {
+                CloseInviteModal_@(Model.InstanceNumber)();
+            }
+        }
+    });
+    
     function ShowInviteDialog_@(Model.InstanceNumber)() {
+        $('#shareResult_@Model.InstanceNumber').html("");
         $("#overlay_@Model.InstanceNumber").show();
         $("#inviteFriendContainer_@Model.InstanceNumber").show();
         $('html, body').animate({ scrollTop: 300 }, 1500);
@@ -77,6 +88,19 @@
     }
 
     function SharePost_@(Model.InstanceNumber)() {
+        $('#shareResult_@Model.InstanceNumber').html("");
+        var emailAddress = $('#emailAddresses_@Model.InstanceNumber').val();
+        if (emailAddress.length == 0) {
+            $('#shareResult_@Model.InstanceNumber').html("Email Address is required.");
+            return;
+        }
+
+        var emailBody = $('#userMessageBody_@Model.InstanceNumber').val();
+        if (emailBody.length == 0) {
+            $('#shareResult_@Model.InstanceNumber').html("Message Body is required.");
+            return;
+        }
+        
         $.ajax({
             url: "/Share/ShareEmail",
             data: { EmailAddresses: $('#emailAddresses_@Model.InstanceNumber').val(), MessageSubject: $('#subject_@Model.InstanceNumber').val(), MessageBody: $('#messageBody_@Model.InstanceNumber').val(), UserMessageBody: $('#userMessageBody_@Model.InstanceNumber').val() },
