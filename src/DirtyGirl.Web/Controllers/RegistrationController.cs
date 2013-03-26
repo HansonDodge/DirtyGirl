@@ -379,23 +379,29 @@ namespace DirtyGirl.Web.Controllers
 
                         case "new":
 
-                            Match match = Regex.Match(model.TeamName, @"([a-zA-Z].*?){3}", RegexOptions.IgnoreCase);
-
                             if (string.IsNullOrEmpty(model.TeamName))
+                            {
                                 ModelState.AddModelError("TeamName", "Team Name is Required");
-
-                            else if (!match.Success)
-                                ModelState.AddModelError("TeamName", "Team Name must contain at least 3 letters.");
+                            }
                             else
                             {
-                                Team newTeam = new Team { EventId = model.EventId, Name = model.TeamName, CreatorID = CurrentUser.UserId };
+                                Match match = Regex.Match(model.TeamName, @"([a-zA-Z].*?){3}", RegexOptions.IgnoreCase);
 
-                                ServiceResult tempTeamResult = _service.GenerateTempTeam(newTeam);
-
-                                if (!tempTeamResult.Success)
-                                    Utilities.AddModelStateErrors(ModelState, tempTeamResult.GetServiceErrors());
+                                if (!match.Success)
+                                {
+                                    ModelState.AddModelError("TeamName", "Team Name must contain at least 3 letters.");
+                                }
                                 else
-                                    reg.Team = newTeam;
+                                {
+                                    Team newTeam = new Team { EventId = model.EventId, Name = model.TeamName, CreatorID = CurrentUser.UserId };
+
+                                    ServiceResult tempTeamResult = _service.GenerateTempTeam(newTeam);
+
+                                    if (!tempTeamResult.Success)
+                                        Utilities.AddModelStateErrors(ModelState, tempTeamResult.GetServiceErrors());
+                                    else
+                                        reg.Team = newTeam;
+                                }
                             }
                             break;
                     }
