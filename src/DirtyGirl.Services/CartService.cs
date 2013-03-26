@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 
 namespace DirtyGirl.Services
@@ -37,11 +38,20 @@ namespace DirtyGirl.Services
             expired.AddYears(checkOutDetails.ExpirationYear); 
             expired.AddMonths(checkOutDetails.ExpirationMonth);
 
-            if (DateTime.Now.CompareTo(expired) < 0) {
+            if (DateTime.Now.CompareTo(expired) < 0) 
+                result.AddServiceError("This credit card is expired");               
+
+            Regex rg = new Regex(@"^[a-zA-Z]*$");
+            if (!rg.IsMatch(checkOutDetails.CardHolderFirstname))
                 result.AddServiceError("This credit card is expired");
+
+            if (!rg.IsMatch(checkOutDetails.CardHolderLastname))
+                result.AddServiceError("This credit card is expired");
+
+            if (result.GetServiceErrors().Count > 0)
+            {
                 return result;
             }
-            
             try
             {
                 CartSummary summary = GenerateCartSummary(tempCart);           

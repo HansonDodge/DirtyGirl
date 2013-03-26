@@ -9,10 +9,11 @@
 
         $('#frmRegistration').data('validator').settings.ignore = '';
 
-        $("#CheckUsernameAvailability").click(function (e) {
+        $("#CheckUsernameAvailability").click(function(e) {
             e.preventDefault();
             check_availability();
-        })
+        });
+        
         $(".register_next_button a").click(function (e) {
             e.preventDefault();
             $(".register_next_button input").click();
@@ -23,7 +24,7 @@
 
     function check_availability() {
         var username = document.getElementById('User_UserName').value;
-        var alphaNum = /^[a-zA-Z0-9_]*$/; 
+        var alphaNum = /^[a-zA-Z0-9][a-zA-Z0-9\+@@._-]+$/; 
         if (username.length > 2 && alphaNum.test(username)) {
             $.get("CheckUsernameAvailability", { username: username },
                 function(result) {

@@ -15,6 +15,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Text.RegularExpressions;
 
 namespace DirtyGirl.Web.Controllers
 {
@@ -65,13 +66,31 @@ namespace DirtyGirl.Web.Controllers
         [HttpPost]
         public ActionResult CreateUser(vmUser_EditUser vm)
         {
+            Regex regExUserName = new Regex(@"^[a-zA-Z0-9][a-zA-Z0-9\+@._-]+$");
+            Regex regExName = new Regex(@"^[a-zA-Z]*$");     
+
             //bool validImageFile = true;
             if (!vm.ImAGirl)
                 ModelState.AddModelError("ImAGirl", "You must confirm you are a female.");
+
             if (vm.User.UserName.Length < 3)
                 ModelState.AddModelError("UserName", "Usernames must be 3 or more characters long.");
-            if (vm.User.UserName == vm.Password)
+
+            if (!regExUserName.IsMatch(vm.User.UserName))
+                ModelState.AddModelError("UserName", "Invalid Username.");
+
+            if (string.IsNullOrWhiteSpace(vm.User.Password))
+            {
+                ModelState.AddModelError("UserName", "Password is required.");
+            }
+            else if (vm.User.UserName.ToLower() == vm.Password.ToLower())
                 ModelState.AddModelError("Password", "Your password cannot be the same as your username.");
+
+            if (!regExName.IsMatch(vm.User.FirstName))
+                ModelState.AddModelError("FirstName", "Please enter a valid first name.");
+
+            if (!regExName.IsMatch(vm.User.LastName))
+                ModelState.AddModelError("LastName", "Please enter a valid last name.");
 
             if (ModelState.IsValid)
             {

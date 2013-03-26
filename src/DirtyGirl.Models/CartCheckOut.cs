@@ -18,12 +18,15 @@ namespace DirtyGirl.Models
         public bool DiscountApplied { get; set; }
 
         [Required(ErrorMessage = "Card holder first name is required.")]
+        [RegularExpression(@"^(?!\s+$)[a-zA-Z]+$", ErrorMessage = "Please enter a valid cardholder first name")]
         public string CardHolderFirstname { get; set; }
 
         [Required(ErrorMessage = "Card holder last name is required.")]
+        [RegularExpression(@"^(?!\s+$)[a-zA-Z]+$", ErrorMessage = "Please enter a valid card holder last name")]
         public string CardHolderLastname { get; set; }
 
         [Required(ErrorMessage = "Card holder zip code is required.")]
+        [RegularExpression("^[0-9]{3,4}$", ErrorMessage = "Please enter a valid zip code")]
         public string CardHolderZipCode { get; set; }
 
         [Required(ErrorMessage="card type is required")]
@@ -32,6 +35,7 @@ namespace DirtyGirl.Models
         [DataType(DataType.CreditCard)]
         [Required(ErrorMessage="Credit card number is required")]
         [CreditCard(ErrorMessage="Please enter a valid card number")]
+        [RegularExpression(@"^[0-9]{5}(-[0-9]{4})?$", ErrorMessage = "Please enter a valid card number.")]       
         public string CardNumber { get; set; }
         
         [Required(ErrorMessage = "Expiration month")]
