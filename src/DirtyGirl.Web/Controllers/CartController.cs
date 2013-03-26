@@ -106,7 +106,7 @@ namespace DirtyGirl.Web.Controllers
             if (removeAction.ActionType == CartActionType.NewRegistration)
             {
                 Registration reg = (Registration)removeAction.ActionObject;
-                if ((int)reg.PacketDeliveryOption.Value == 1)
+                if (reg.PacketDeliveryOption.HasValue &&  (int)reg.PacketDeliveryOption.Value == 1)
                 {
                     var shippingActions = SessionManager.CurrentCart.ActionItems.Where(x => (x.Value as ActionItem).ActionType == CartActionType.ShippingFee).ToList();
                     foreach (var ship in shippingActions)

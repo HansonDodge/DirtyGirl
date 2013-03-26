@@ -29,7 +29,7 @@ namespace DirtyGirl.Web.Controllers
 
         #region EventSelection
 
-        public ActionResult EventSelection(Guid itemId, int? eventId, int? eventDateId, int? eventWaveId)
+        public ActionResult EventSelection(Guid itemId, int? eventId, int? eventDateId, int? eventWaveId, bool? returnToRegDetails)
         {
 
             int eId = (eventId.HasValue)? eventId.Value : 0;  
@@ -39,7 +39,8 @@ namespace DirtyGirl.Web.Controllers
                 ItemId = itemId,
                 CartFocus = SessionManager.CurrentCart.CheckOutFocus,
                 EventOverview = _service.GetEventOverviewById(eId),
-                EventDateCount = GetEventDateCount(eId)
+                EventDateCount = GetEventDateCount(eId),
+                ReturnToRegistrationDetails = false
             };
 
             if (eventWaveId.HasValue)
@@ -66,12 +67,14 @@ namespace DirtyGirl.Web.Controllers
             if (SessionManager.CurrentCart.ActionItems[itemId].ActionType == CartActionType.WaveChange)
                 vm.LockEvent = true;
 
+            if (returnToRegDetails.HasValue && returnToRegDetails.Value == true)
+                vm.ReturnToRegistrationDetails = true;
 
             return View(vm);
         }
 
         [HttpPost]
-        public ActionResult WaveSelected(int eventWaveId, Guid itemId)
+        public ActionResult WaveSelected(int eventWaveId, Guid itemId, bool ReturnToRegistrationDetails)
         {
             if (!Utilities.IsValidCart())
                 return  RedirectToAction("Index", "home");
@@ -82,7 +85,12 @@ namespace DirtyGirl.Web.Controllers
             {
                 case CartActionType.NewRegistration:
                     
-                    ((Registration)action.ActionObject).EventWaveId = eventWaveId;                          
+                    ((Registration)action.ActionObject).EventWaveId = eventWaveId;
+
+                    if (ReturnToRegistrationDetails)
+                    {
+                        return RedirectToAction("RegistrationDetails", new { itemId });
+                    }
                     return RedirectToAction("CreateTeam", new { itemId});
 
                 case CartActionType.EventChange:
@@ -258,7 +266,7 @@ namespace DirtyGirl.Web.Controllers
                 reg.RegistrationType = model.RegistrationDetails.RegistrationType;
                 reg.SpecialNeeds = model.RegistrationDetails.SpecialNeeds;
                 reg.TShirtSize = model.RegistrationDetails.TShirtSize;
-                reg.PacketDeliveryOption = model.RegistrationDetails.PacketDeliveryOption;
+                reg.PacketDeliveryOption = (model.RegistrationDetails.PacketDeliveryOption.HasValue ? model.RegistrationDetails.PacketDeliveryOption : RegistrationMaterialsDeliveryOption.OnSitePickup );
                 reg.UserId = CurrentUser.UserId;
                 reg.Signature = model.RegistrationDetails.Signature;
                 reg.IsIAmTheParticipant = model.RegistrationDetails.IsIAmTheParticipant;
@@ -267,7 +275,7 @@ namespace DirtyGirl.Web.Controllers
                 regAction.ItemReadyForCheckout = true;
 
                 // should check this better... 
-                if (reg.PacketDeliveryOption.HasValue && ((int)reg.PacketDeliveryOption.Value == 1))
+                if (((int)reg.PacketDeliveryOption.Value == 1))
                 {
                     ActionItem shippingFeeItem = _service.CreateShippingFee(model.ItemId, reg.EventWaveId, reg.PacketDeliveryOption);
                     SessionManager.CurrentCart.ActionItems.Add(Guid.NewGuid(), shippingFeeItem);

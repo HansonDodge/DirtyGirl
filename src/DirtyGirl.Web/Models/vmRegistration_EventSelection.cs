@@ -22,5 +22,6 @@ namespace DirtyGirl.Web.Models
         public int RegistrationId { get; set; }
         public DateTime EmailOptionCutoff { get; set; }
         public DateTime RegistrationCutoff { get; set; }
+        public bool ReturnToRegistrationDetails { get; set; }
     }
 }

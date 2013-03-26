@@ -426,13 +426,13 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                          RegistrationValue = _service.GetRegistrationPathValue(x.RegistrationId).ToString("c"),
                          SpecialNeeds = x.SpecialNeeds,
                          State = x.Region.Code,
-                         TShirtSize = x.TShirtSize.Value.ToString(),
+                         TShirtSize = x.TShirtSize.HasValue ? x.TShirtSize.Value.ToString() : TShirtSize.Unknown.ToString(),
                          ThirdParty = (x.IsThirdPartyRegistration.HasValue && x.IsThirdPartyRegistration.Value) ? "Yes" : "No",
                          WaveDate = x.EventWave.EventDate.DateOfEvent,
                          WaveTime = x.EventWave.StartTime,
                          Zip = x.PostalCode,
                          DateAdded = x.DateAdded,
-                         PacketDeliveryOption = x.PacketDeliveryOption.Value.ToString()
+                         PacketDeliveryOption = (x.PacketDeliveryOption.HasValue ? x.PacketDeliveryOption.Value.ToString() : RegistrationMaterialsDeliveryOption.OnSitePickup.ToString()),
                      }).OrderBy(x => x.LastName).ToList();
             }
 

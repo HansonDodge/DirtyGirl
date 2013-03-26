@@ -16,9 +16,10 @@
         </div>
         <div class="body-location">
             <h5>@e.Location</h5>
-            
-             @*@if (e.DisplayIcon){<img src="@e.IconImagePath" />}*@
-            @if (e.DisplayIcon) { <h3>Early Registration Price</h3>}
+
+            @*@if (e.DisplayIcon){<img src="@e.IconImagePath" />}*@
+            @if (e.DisplayIcon)
+            { <h3>Early Registration Price</h3>}
         </div>
         <div class="body-where">
             <p>
@@ -26,46 +27,38 @@
             </p>
         </div>
         <div class="body-cost">
-           <p>@Html.DisplayFor(x => e.CurrentCost)</p>
+            <p>@Html.DisplayFor(x => e.CurrentCost)</p>
         </div>
-        
+
         <div class="body-openings">
-        @if (!e.isRegistrationCutoff) 
-        {
-            if (e.SpotsLeft <= @DirtyGirlConfig.Settings.DisplaySpotsAvailableCount)
+            @if (!e.isRegistrationCutoff)
             {
-                if (e.SpotsLeft > 0)
+                if (e.SpotsLeft <= @DirtyGirlConfig.Settings.DisplaySpotsAvailableCount)
                 {
-                    <p>Only <span class="pink">@e.SpotsLeft</span> spots left!</p>
+                    if (e.SpotsLeft > 0)
+                    {
+                <p>Only <span class="pink">@e.SpotsLeft</span> spots left!</p>
+                    }
+                    else
+                    {                
+                        <p><span class="pink">Sold Out</span></p>
+                    }
+
                 }
                 else
                 {
-                    <p></p>
+                <p>Spots available!</p>                
                 }
-    
             }
             else
             {
-                <p>Spots available!</p>                
+                <p>Registration Closed</p>                
             }
-        }
-        else
-        {
-            <p>Registration Closed</p>                
-        }                          
         </div>
-        @if (e.isFull)
-        {
-            <div class="body-cta">
-                <img src="@Url.Content("~/images/map-soldout.png")" />
-            </div>
-        }
-        else
-        {
-            <div class="body-cta">
-                <a class="btnPink" href="@Url.Action("viewevent", "home", new { id = e.EventId })">View Details</a>
-            </div>
-        }
+        <div class="body-cta">
+            <a class="btnPink" href="@Url.Action("viewevent", "home", new { id = e.EventId })">View Details</a>
+        </div>
+
 
     </div>
-}                       
+}
