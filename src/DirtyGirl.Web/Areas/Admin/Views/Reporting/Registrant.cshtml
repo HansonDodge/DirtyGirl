@@ -7,51 +7,49 @@
 
 @{Html.RenderPartial("partial/eventfilter", Model);}
 
-<br />
-
 <div id="ReportContainer">
     @(Html.Kendo().Grid<vmAdmin_RegistrantListItem>()
-        .Name("grdRegistrants")
-        .ToolBar(toolBar =>
-                    toolBar.Custom()
-                        .Text("Export To Excel")
-                        .HtmlAttributes(new { id = "regExport" })
-                        .Action("ExportRegistrants", "reporting", new { eventId = Model.EventId })
-                        )
-        .Columns(cols =>
-        {
-            cols.Bound(r => r.LastName);
-            cols.Bound(r => r.FirstName);
-            cols.Bound(r => r.WaveDate).Format("{0:MM/dd/yyyy}");
-            cols.Bound(r => r.WaveTime).Format("{0:hh:mm tt}");
-            cols.Bound(r => r.RegistrationType).Title("Registration Type");
-            cols.Bound(r => r.RegistrationValue);
-            cols.Bound(r => r.Address1);
-            cols.Bound(r => r.Address2);
-            cols.Bound(r => r.City);
-            cols.Bound(r => r.State);
-            cols.Bound(r => r.Zip);
-            cols.Bound(r => r.Email);
-            cols.Bound(r => r.Phone);
-            cols.Bound(r => r.EmergencyContact);
-            cols.Bound(r => r.EmergencyPhone);
-            cols.Bound(r => r.MedicalInformation);
-            cols.Bound(r => r.SpecialNeeds);
-            cols.Bound(r => r.TShirtSize).Title("T-Shirt Size");
-            cols.Bound(r => r.PacketDeliveryOption).Title("Packet Delivery Option");            
-            cols.Bound(r => r.AgreeToTerms).Title("Agreed to Legal Terms");
-            cols.Bound(r => r.DateAdded).Format("{0:MM/dd/yyyy}").Title("Registration Date");
-        })
-        .HtmlAttributes(new { style = "width:1200px;overflow:scroll;font-size:75%" })
-        .Pageable()
-        .Sortable()
-        .Filterable()
-        .DataSource(datasource => datasource
-            .Ajax()
-            .Read(read => read.Action("_RegistrantReport", "Reporting", new { eventId = Model.EventId }))
-            .PageSize(25)
-        )
-    )
+          .Name("grdRegistrants")
+          .ToolBar(toolBar =>
+                   toolBar.Custom()
+                          .Text("Export To Excel")
+                          .HtmlAttributes(new { id = "regExport" })
+                          .Action("ExportRegistrants", "reporting", new { eventId = Model.EventId })
+          )
+          .Columns(cols =>
+              {
+                  cols.Bound(r => r.LastName).Width(120);
+                  cols.Bound(r => r.FirstName).Width(120);
+                  cols.Bound(r => r.WaveDate).Format("{0:MM/dd/yyyy}").Width(100);
+                  cols.Bound(r => r.WaveTime).Format("{0:hh:mm tt}").Width(100);
+                  cols.Bound(r => r.RegistrationType).Title("Registration Type").Width(140);
+                  cols.Bound(r => r.RegistrationValue).Width(140);
+                  cols.Bound(r => r.Address1).Width(140);
+                  cols.Bound(r => r.Address2).Width(140);
+                  cols.Bound(r => r.City).Width(140);
+                  cols.Bound(r => r.State).Width(140);
+                  cols.Bound(r => r.Zip).Width(140);
+                  cols.Bound(r => r.Email).Width(140);
+                  cols.Bound(r => r.Phone).Width(140);
+                  cols.Bound(r => r.EmergencyContact).Width(140);
+                  cols.Bound(r => r.EmergencyPhone).Width(100);
+                  cols.Bound(r => r.MedicalInformation).Width(140);
+                  cols.Bound(r => r.SpecialNeeds).Width(140);
+                  cols.Bound(r => r.TShirtSize).Title("T-Shirt Size").Width(100);
+                  cols.Bound(r => r.PacketDeliveryOption).Title("Packet Delivery Option").Width(140);
+                  cols.Bound(r => r.AgreeToTerms).Title("Agreed to Legal Terms").Width(180);
+                  cols.Bound(r => r.DateAdded).Format("{0:MM/dd/yyyy}").Title("Registration Date").Width(180);
+              })
+          .HtmlAttributes(new { style = "font-size:75%; width:1200px;" })        
+          .Pageable()
+          .Sortable()
+          .Scrollable( )
+          .Filterable()
+          .DataSource(datasource => datasource
+                                        .Ajax()
+                                        .Read(read => read.Action("_RegistrantReport", "Reporting", new { eventId = Model.EventId }))
+                                        .PageSize(50)
+          ))
 
 </div>
 
