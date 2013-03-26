@@ -60,6 +60,16 @@ namespace DirtyGirl.Services
         {
             return _repository.Registrations.Filter(r => r.TeamId == TeamId).ToList();            
         }
+
+        public bool IsDuplicateRegistration(int eventWaveId, int userId, string fname, string lname)
+        {
+
+            return _repository.Registrations.Filter(x => x.EventWaveId == eventWaveId
+                                            && x.UserId == userId
+                                            && x.FirstName.ToLower().Replace(" ", string.Empty) == fname.ToLower().Replace(" ", string.Empty)
+                                            && x.LastName.ToLower().Replace(" ", string.Empty) == lname.ToLower().Replace(" ", string.Empty)
+                                        ).Count() > 0;
+        }
         
         public ServiceResult CreateNewRegistration(Registration r)
         {
