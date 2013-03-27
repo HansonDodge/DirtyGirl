@@ -242,10 +242,14 @@ namespace DirtyGirl.Web.Controllers
             if (reg.FirstName + reg.LastName == model.RegistrationDetails.EmergencyContact.Replace(" ",""))
                 ModelState.AddModelError("EmergencyContact", "Emergency contact cannot be the same as the registrant.");
 
+            model.RegistrationDetails.Address1 = reg.Address1 = CurrentUser.Address1;
+            model.RegistrationDetails.Address2 = reg.Address2 = CurrentUser.Address2;
+            model.RegistrationDetails.Locality = reg.Locality = CurrentUser.Locality;
+            model.RegistrationDetails.RegionId = reg.RegionId = CurrentUser.RegionId;
+            model.RegistrationDetails.PostalCode = reg.PostalCode = CurrentUser.PostalCode;
+
             if (ModelState.IsValid)
             {
-                reg.Address1 = CurrentUser.Address1;
-                reg.Address2 = CurrentUser.Address2;
                 reg.AgreeToTerms = model.RegistrationDetails.AgreeToTerms;
                 reg.CartItemId = model.RegistrationDetails.CartItemId;
                 reg.DateAdded = model.RegistrationDetails.DateAdded;
@@ -259,13 +263,10 @@ namespace DirtyGirl.Web.Controllers
                 reg.IsOfAge = model.RegistrationDetails.IsOfAge;
                 reg.IsThirdPartyRegistration = model.RegistrationDetails.IsThirdPartyRegistration;
                 reg.LastName = model.RegistrationDetails.LastName;
-                reg.Locality = CurrentUser.Locality;
                 reg.MedicalInformation = model.RegistrationDetails.MedicalInformation;
                 reg.ParentRegistrationId = model.RegistrationDetails.ParentRegistrationId;
                 reg.Phone = model.RegistrationDetails.Phone;
-                reg.PostalCode = CurrentUser.PostalCode;
                 reg.ReferenceAnswer = model.RegistrationDetails.ReferenceAnswer;
-                reg.RegionId = CurrentUser.RegionId;
                 reg.RegistrationStatus = RegistrationStatus.Active;
                 reg.RegistrationType = model.RegistrationDetails.RegistrationType;
                 reg.SpecialNeeds = model.RegistrationDetails.SpecialNeeds;
