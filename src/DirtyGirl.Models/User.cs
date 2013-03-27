@@ -19,18 +19,20 @@ namespace DirtyGirl.Models
         public string Salt { get; set; }
 
         [Required(ErrorMessage = "First Name is Required")]
-        [RegularExpression(@"^(?!\s+$)[a-zA-Z]+$", ErrorMessage = "Please enter a valid first name")]
+        [RegularExpression(@"^(?!\s+$)[a-zA-Z][a-zA-Z- ]+$", ErrorMessage = "Please enter a valid first name")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Last Name is Required")]
-        [RegularExpression(@"^(?!\s+$)[a-zA-Z]+$", ErrorMessage = "Please enter a valid last name")]
+        [RegularExpression(@"^(?!\s+$)[a-zA-Z][a-zA-Z- ]+$", ErrorMessage = "Please enter a valid last name")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Address is Required")]
+        [RegularExpression(@"^(?!\s+$)[a-zA-Z0-9][a-zA-Z0-9# -.]+$", ErrorMessage = "Please enter a valid address")]
         public string Address1 { get; set; }
         public string Address2 { get; set; }
 
         [Required(ErrorMessage = "City is Required")]
+        [RegularExpression(@"^(?!\s+$)[a-zA-Z0-9- ]+$", ErrorMessage = "Please enter a valid city")]
         public string Locality { get; set; }
 
         [Required(ErrorMessage = "State is Required")]

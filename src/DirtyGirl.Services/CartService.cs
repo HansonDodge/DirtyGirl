@@ -41,7 +41,7 @@ namespace DirtyGirl.Services
             if (DateTime.Now.CompareTo(expired) < 0) 
                 result.AddServiceError("This credit card is expired");               
 
-            Regex rg = new Regex(@"^[a-zA-Z]*$");
+            Regex rg = new Regex(@"^[a-zA-Z ]*$");
             if (!rg.IsMatch(checkOutDetails.CardHolderFirstname))
                 result.AddServiceError("This credit card is expired");
 

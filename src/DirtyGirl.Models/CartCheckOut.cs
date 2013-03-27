@@ -18,14 +18,15 @@ namespace DirtyGirl.Models
         public bool DiscountApplied { get; set; }
 
         [Required(ErrorMessage = "Card holder first name is required.")]
-        [RegularExpression(@"^(?!\s+$)[a-zA-Z]+$", ErrorMessage = "Please enter a valid cardholder first name")]
+        [RegularExpression(@"^(?!\s+$)[a-zA-Z][a-zA-Z- ]+$", ErrorMessage = "Please enter a valid cardholder first name")]
         public string CardHolderFirstname { get; set; }
 
         [Required(ErrorMessage = "Card holder last name is required.")]
-        [RegularExpression(@"^(?!\s+$)[a-zA-Z]+$", ErrorMessage = "Please enter a valid card holder last name")]
+        [RegularExpression(@"^(?!\s+$)[a-zA-Z][a-zA-Z- ]+$", ErrorMessage = "Please enter a valid card holder last name")]
         public string CardHolderLastname { get; set; }
 
         [Required(ErrorMessage = "Card holder zip code is required.")]
+        [RegularExpression(@"^[0-9]{5}(-[0-9]{4})?$", ErrorMessage = "Zip Code is not valid.")]      
         public string CardHolderZipCode { get; set; }
 
         [Required(ErrorMessage="card type is required")]

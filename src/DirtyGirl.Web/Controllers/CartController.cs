@@ -28,9 +28,12 @@ namespace DirtyGirl.Web.Controllers
 
         #region CheckOut
 
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")] 
         public ActionResult CheckOut()
         {
-            
+            if (!Utilities.IsValidCart())
+                return RedirectToAction("Index", "home");
+
             CartCheckOut vm = new CartCheckOut 
                 {                    
                     ExpirationMonthList = DirtyGirlExtensions.ConvertToSelectList<Months>(),
