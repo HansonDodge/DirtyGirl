@@ -3,54 +3,77 @@
     ViewBag.Title = "Registrant";
 }
 <div id="reporting">
-<h2>Registrants</h2>
+    <h2>Registrants</h2>
 
-@{Html.RenderPartial("partial/eventfilter", Model);}
+    @{Html.RenderPartial("partial/eventfilter", Model);}
 
-<div id="ReportContainer">
-    @(Html.Kendo().Grid<vmAdmin_RegistrantListItem>()
-          .Name("grdRegistrants")
-          .ToolBar(toolBar =>
-                   toolBar.Custom()
-                          .Text("Export To Excel")
-                          .HtmlAttributes(new { id = "regExport" })
-                          .Action("ExportRegistrants", "reporting", new { eventId = Model.EventId })
-          )
-          .Columns(cols =>
-              {
-                  cols.Bound(r => r.LastName).Width(120);
-                  cols.Bound(r => r.FirstName).Width(120);
-                  cols.Bound(r => r.WaveDate).Format("{0:MM/dd/yyyy}").Width(100);
-                  cols.Bound(r => r.WaveTime).Format("{0:hh:mm tt}").Width(100);
-                  cols.Bound(r => r.RegistrationType).Title("Registration Type").Width(140);
-                  cols.Bound(r => r.RegistrationValue).Width(140);
-                  cols.Bound(r => r.Address1).Width(140);
-                  cols.Bound(r => r.Address2).Width(140);
-                  cols.Bound(r => r.City).Width(140);
-                  cols.Bound(r => r.State).Width(140);
-                  cols.Bound(r => r.Zip).Width(140);
-                  cols.Bound(r => r.Email).Width(140);
-                  cols.Bound(r => r.Phone).Width(140);
-                  cols.Bound(r => r.EmergencyContact).Width(140);
-                  cols.Bound(r => r.EmergencyPhone).Width(100);
-                  cols.Bound(r => r.MedicalInformation).Width(140);
-                  cols.Bound(r => r.SpecialNeeds).Width(140);
-                  cols.Bound(r => r.TShirtSize).Title("T-Shirt Size").Width(100);
-                  cols.Bound(r => r.PacketDeliveryOption).Title("Packet Delivery Option").Width(140);
-                  cols.Bound(r => r.AgreeToTerms).Title("Agreed to Legal Terms").Width(180);
-                  cols.Bound(r => r.DateAdded).Format("{0:MM/dd/yyyy}").Title("Registration Date").Width(180);
-              })
-          .HtmlAttributes(new { style = "font-size:75%; width:1200px;" })        
-          .Pageable()
-          .Sortable()
-          .Scrollable( )
-          .Filterable()
-          .DataSource(datasource => datasource
-                                        .Ajax()
-                                        .Read(read => read.Action("_RegistrantReport", "Reporting", new { eventId = Model.EventId }))
-                                        .PageSize(50)
-          ))
+    <div id="ReportContainer">
+        @(Html.Kendo().Grid<vmAdmin_RegistrantListItem>()
+              .Name("grdRegistrants")
+              .ToolBar(toolBar =>
+                       toolBar.Custom()
+                              .Text("Export To Excel")
+                              .HtmlAttributes(new { id = "regExport" })
+                              .Action("ExportRegistrants", "reporting", new { eventId = Model.EventId })
+              )
+              .Columns(cols =>
+                  {
+                      cols.Bound(r => r.LastName).Width(120);
+                      cols.Bound(r => r.FirstName).Width(120);
+                      cols.Bound(r => r.WaveDate).Format("{0:MM/dd/yyyy}").Width(100);
+                      cols.Bound(r => r.WaveTime).Format("{0:hh:mm tt}").Width(100);
+                      cols.Bound(r => r.RegistrationType).Title("Registration Type").Width(140);
+                      cols.Bound(r => r.RegistrationValue).Width(140);
+                      cols.Bound(r => r.Address1).Width(140);
+                      cols.Bound(r => r.Address2).Width(140);
+                      cols.Bound(r => r.City).Width(140);
+                      cols.Bound(r => r.State).Width(140);
+                      cols.Bound(r => r.Zip).Width(140);
+                      cols.Bound(r => r.Email).Width(140);
+                      cols.Bound(r => r.Phone).Width(140);
+                      cols.Bound(r => r.EmergencyContact).Width(140);
+                      cols.Bound(r => r.EmergencyPhone).Width(100);
+                      cols.Bound(r => r.MedicalInformation).Width(140);
+                      cols.Bound(r => r.SpecialNeeds).Width(140);
+                      cols.Bound(r => r.TShirtSize).Title("T-Shirt Size").Width(100);
+                      cols.Bound(r => r.PacketDeliveryOption).Title("Packet Delivery Option").Width(140);
+                      cols.Bound(r => r.AgreeToTerms).Title("Agreed to Legal Terms").Width(180);
+                      cols.Bound(r => r.DateAdded).Format("{0:MM/dd/yyyy}").Title("Registration Date").Width(180);
+                  })
+              .HtmlAttributes(new { style = "font-size:75%; width:1200px;" })        
+              .Pageable()
+              .Sortable()
+              .Scrollable( )
+              .Filterable()
+              .DataSource(datasource => datasource
+                                            .Ajax()
+                                            .Events(events => events.RequestEnd("onRequestEnd"))
+                                            .Read(read => read.Action("_RegistrantReport", "Reporting", new { eventId = Model.EventId }))
+                                            .PageSize(50)
+              ))
+
+    </div>
 
 </div>
 
-</div>
+<script type="text/javascript">
+    
+    function onRequestEnd(e) {
+        if (e.type == "read") {
+            var offsetMiliseconds = new Date().getTimezoneOffset() * 60000;
+            var reg = e.response.Data;
+            for (var i = 0; i < reg.length; i++) {
+                if (reg[i].WaveDate != null) {
+                    reg[i].WaveDate = reg[i].WaveDate.replace(/\d+/,
+                        function (n) { return parseInt(n) + offsetMiliseconds }
+                     );
+                }
+                if (reg[i].WaveTime != null) {
+                    reg[i].WaveTime = reg[i].WaveTime.replace(/\d+/,
+                        function (n) { return parseInt(n) + offsetMiliseconds }
+                     );
+                }
+            }
+        }
+    }
+</script>

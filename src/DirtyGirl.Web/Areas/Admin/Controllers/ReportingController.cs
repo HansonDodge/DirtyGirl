@@ -14,16 +14,28 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using DirtyGirl.Services;
+using NPOI.SS.Util;
 
 namespace DirtyGirl.Web.Areas.Admin.Controllers
-{    
+{
+    public class StyleContainer
+    {
+        public NPOI.SS.UserModel.ICellStyle Currency { get; set; }
+        public NPOI.SS.UserModel.ICellStyle RightAligned { get; set; }
+        public NPOI.SS.UserModel.ICellStyle LeftAligned { get; set; }
+        public NPOI.SS.UserModel.ICellStyle TitleStyle { get; set; }
+        public NPOI.SS.UserModel.ICellStyle HeaderStyle { get; set; }
+        public NPOI.SS.UserModel.ICellStyle Header2Style { get; set; }
+        public NPOI.SS.UserModel.ICellStyle Header3Style { get; set; }
+    }
     public class ReportingController : BaseController
     {
 
         #region private members
+        
 
-        private readonly IReportingService _service;        
-
+        private readonly IReportingService _service;
+       
         #endregion
 
         #region Constructor
@@ -60,50 +72,44 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
         }
 
         private FileResult ExportPerformanceReport(vmAdmin_PerformanceReport report, vmAdmin_PerformanceFilter filter, string title, string filename)
-        {
+        {                       
             int rowNumber = 0;
             NPOI.SS.UserModel.IRow row;
-
-            NPOI.SS.UserModel.ICellStyle rightAligned;
-            NPOI.SS.UserModel.ICellStyle leftAligned;
-            NPOI.SS.UserModel.ICellStyle titleStyle;
-            NPOI.SS.UserModel.ICellStyle HeaderStyle;
-            NPOI.SS.UserModel.ICellStyle Header2Style;
-            NPOI.SS.UserModel.ICellStyle Header3Style;           
-
+           
             //Create new Excel workbook
             var workbook = new HSSFWorkbook();
 
             //Create new Excel sheet
             var sheet = CreateSheet(workbook);
 
-            CreateStyles(workbook, out rightAligned, out leftAligned, out titleStyle, out HeaderStyle, out Header2Style, out Header3Style);                      
-            ExportReportHeader(title, sheet, HeaderStyle, ref rowNumber);
-            ExportReportSubheader(sheet, filter, Header3Style, ref rowNumber);
+            var allStyles = CreateStyles(workbook);
 
-            ExportReportValues(report, sheet, rightAligned, leftAligned, ref rowNumber);
-            ExportReportTshirts(report, sheet, rightAligned, leftAligned, Header3Style, ref rowNumber);
-            ExportReportFees(report, sheet, rightAligned, titleStyle, Header2Style, Header3Style, ref rowNumber);
-            ExportReportCharges(report, sheet, rightAligned, leftAligned, titleStyle, Header2Style, ref rowNumber);
+            ExportReportHeader(title, sheet, allStyles, ref rowNumber);
+            ExportReportSubheader(sheet, filter, allStyles, ref rowNumber);
+
+            ExportReportValues(report, sheet, allStyles, ref rowNumber);
+            ExportReportTshirts(report, sheet, allStyles, ref rowNumber);
+            ExportReportFees(report, sheet, allStyles, ref rowNumber);
+            ExportReportCharges(report, sheet,allStyles, ref rowNumber);
 
             //Write the workbook to a memory stream
-            MemoryStream output = new MemoryStream();
+            var output = new MemoryStream();
             workbook.Write(output);
 
             //Return the result to the end user
-
+            
             return File(output.ToArray(),   //The binary data of the XLS file
                 "application/vnd.ms-excel", //MIME type of Excel files
                 filename);     //Suggested file name in the "Save as" dialog which will be displayed to the end user
         }
 
-        private void ExportReportSubheader(NPOI.SS.UserModel.ISheet sheet, vmAdmin_PerformanceFilter filter, NPOI.SS.UserModel.ICellStyle Header2Style, ref int rowNumber)
+        private void ExportReportSubheader(NPOI.SS.UserModel.ISheet sheet, vmAdmin_PerformanceFilter filter, StyleContainer allStyles, ref int rowNumber)
         {
             var row = sheet.CreateRow(rowNumber++);
             if (filter.EventId.HasValue && filter.EventId.Value > 0)
             {
                 var thisEvent = _service.GetEventById(filter.EventId.Value);
-                CreateCell(row, 0, string.Format("{0} - {1}", thisEvent.GeneralLocality, thisEvent.EventDates.Min().DateOfEvent.ToShortDateString()), Header2Style);
+                CreateCell(row, 0, string.Format("{0} - {1}", thisEvent.GeneralLocality, thisEvent.EventDates.Min().DateOfEvent.ToShortDateString()), allStyles.Header2Style);
                 row = sheet.CreateRow(rowNumber++);
             }
             else
@@ -111,53 +117,63 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                 if (filter.startDate.HasValue)
                 {
                     var value = string.Format("Events from {0} to {1}", filter.startDate.Value.ToShortDateString(), filter.endDate.Value.ToShortDateString());
-                    CreateCell(row, 0, value, Header2Style);
+                    CreateCell(row, 0, value, allStyles.Header2Style);
                     row = sheet.CreateRow(rowNumber++);
                 }
             }
                      
 
         }
-     
-        private static void CreateStyles(HSSFWorkbook workbook, out NPOI.SS.UserModel.ICellStyle rightAligned, out NPOI.SS.UserModel.ICellStyle leftAligned, out NPOI.SS.UserModel.ICellStyle titleStyle, out NPOI.SS.UserModel.ICellStyle HeaderStyle, out NPOI.SS.UserModel.ICellStyle Header2Style, out NPOI.SS.UserModel.ICellStyle Header3Style)
+
+        private static StyleContainer CreateStyles(HSSFWorkbook workbook)
         {
-            var H1Font = workbook.CreateFont();
-            H1Font.FontHeightInPoints = (short)24;
-            H1Font.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.BOLD;
 
-            var H2Font = workbook.CreateFont();
-            H2Font.FontHeightInPoints = (short)16;
-            H2Font.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.BOLD;
+            var styles = new StyleContainer();
 
-            var H3Font = workbook.CreateFont();
-            H3Font.FontHeightInPoints = (short)12;
-            H3Font.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.BOLD;
+            var h1Font = workbook.CreateFont();
+            h1Font.FontHeightInPoints = (short)24;
+            h1Font.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.BOLD;
 
-            var TitleFont = workbook.CreateFont();
-            TitleFont.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.BOLD;
+            var h2Font = workbook.CreateFont();
+            h2Font.FontHeightInPoints = (short)16;
+            h2Font.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.BOLD;
 
-            rightAligned = workbook.CreateCellStyle();
-            rightAligned.Alignment = NPOI.SS.UserModel.HorizontalAlignment.RIGHT;
+            var h3Font = workbook.CreateFont();
+            h3Font.FontHeightInPoints = (short)12;
+            h3Font.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.BOLD;
 
-            leftAligned = workbook.CreateCellStyle();
-            leftAligned.Alignment = NPOI.SS.UserModel.HorizontalAlignment.LEFT;
+            var titleFont = workbook.CreateFont();
+            titleFont.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.BOLD;
 
-            titleStyle = workbook.CreateCellStyle();
-            titleStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.CENTER;
-            titleStyle.SetFont(TitleFont);
+            styles.RightAligned = workbook.CreateCellStyle();
+            styles.RightAligned.Alignment = NPOI.SS.UserModel.HorizontalAlignment.RIGHT;
+
+            styles.Currency = workbook.CreateCellStyle();
+            styles.Currency.Alignment = NPOI.SS.UserModel.HorizontalAlignment.RIGHT;
+            //styles.Currency.DataFormat = HSSFDataFormat.GetBuiltinFormat("$#,##0.00");
+           styles.Currency.DataFormat = (short)7;
+
+            styles.LeftAligned = workbook.CreateCellStyle();
+            styles.LeftAligned.Alignment = NPOI.SS.UserModel.HorizontalAlignment.LEFT;
+
+            styles.TitleStyle = workbook.CreateCellStyle();
+            styles.TitleStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.CENTER;
+            styles.TitleStyle.SetFont(titleFont);
 
             // Fonts are set into a style so create a new one to use.
-            HeaderStyle = workbook.CreateCellStyle();
-            HeaderStyle.SetFont(H1Font);
-            HeaderStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.CENTER;
+            styles.HeaderStyle = workbook.CreateCellStyle();
+            styles.HeaderStyle.SetFont(h1Font);
+            styles.HeaderStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.CENTER;
 
             // Fonts are set into a style so create a new one to use.
-            Header2Style = workbook.CreateCellStyle();
-            Header2Style.SetFont(H2Font);
+            styles.Header2Style = workbook.CreateCellStyle();
+            styles.Header2Style.SetFont(h2Font);
 
             // Fonts are set into a style so create a new one to use.
-            Header3Style = workbook.CreateCellStyle();
-            Header3Style.SetFont(H3Font);
+            styles.Header3Style = workbook.CreateCellStyle();
+            styles.Header3Style.SetFont(h3Font);
+
+            return styles;
         }
 
         private static NPOI.SS.UserModel.ISheet CreateSheet(HSSFWorkbook workbook)
@@ -174,98 +190,98 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             return sheet;
         }
 
-        private static void ExportReportHeader(string title, NPOI.SS.UserModel.ISheet sheet, NPOI.SS.UserModel.ICellStyle HeaderStyle, ref int rowNumber)
+        private static void ExportReportHeader(string title, NPOI.SS.UserModel.ISheet sheet, StyleContainer allStyles, ref int rowNumber)
         {     
             var row = sheet.CreateRow(rowNumber++);
             row.HeightInPoints = 27;
             var titleCell = row.CreateCell(0);
             titleCell.SetCellValue(title);
-            titleCell.CellStyle = HeaderStyle;
+            titleCell.CellStyle = allStyles.HeaderStyle;
 
             titleCell.CellStyle.WrapText = true;
 
-            NPOI.SS.Util.CellRangeAddress TitleMerge = new NPOI.SS.Util.CellRangeAddress(0, 0, 0, 7);
-            sheet.AddMergedRegion(TitleMerge);
+            NPOI.SS.Util.CellRangeAddress titleMerge = new NPOI.SS.Util.CellRangeAddress(0, 0, 0, 7);
+            sheet.AddMergedRegion(titleMerge);
 
             row = sheet.CreateRow(rowNumber++);
         }
 
-        private static void ExportReportCharges(vmAdmin_PerformanceReport report, NPOI.SS.UserModel.ISheet sheet, NPOI.SS.UserModel.ICellStyle rightAligned, NPOI.SS.UserModel.ICellStyle leftAligned, NPOI.SS.UserModel.ICellStyle titleStyle, NPOI.SS.UserModel.ICellStyle Header2Style, ref int rowNumber)
+        private static void ExportReportCharges(vmAdmin_PerformanceReport report, NPOI.SS.UserModel.ISheet sheet, StyleContainer allStyles, ref int rowNumber)
         {
             if (report.ChargeReport.Count > 0)
             {
                 var row = sheet.CreateRow(rowNumber++);
-                CreateCell(row, 0, "Event Charges", Header2Style);
+                CreateCell(row, 0, "Event Charges", allStyles.Header2Style);
                 row = sheet.CreateRow(rowNumber++);
 
-                CreateCell(row, 0, "Name", titleStyle);
-                CreateCell(row, 1, "Cost Total", titleStyle);
-                CreateCell(row, 2, "Discount Total", titleStyle);
-                CreateCell(row, 3, "Local Tax Total", titleStyle);
-                CreateCell(row, 4, "State Tax Total", titleStyle);
-                CreateCell(row, 5, "Actual Total", titleStyle);
+                CreateCell(row, 0, "Name", allStyles.TitleStyle);
+                CreateCell(row, 1, "Cost Total", allStyles.TitleStyle);
+                CreateCell(row, 2, "Discount Total", allStyles.TitleStyle);
+                CreateCell(row, 3, "Local Tax Total", allStyles.TitleStyle);
+                CreateCell(row, 4, "State Tax Total", allStyles.TitleStyle);
+                CreateCell(row, 5, "Actual Total", allStyles.TitleStyle);
 
                 foreach (var charge in report.ChargeReport.OrderBy(x => x.Name))
                 {
                     row = sheet.CreateRow(rowNumber++);
-                    CreateCell(row, 0, charge.Name, leftAligned);
-                    CreateCell(row, 1, charge.CostTotal.ToString("C"), rightAligned);
-                    CreateCell(row, 2, charge.DiscountTotal.ToString("C"), rightAligned);
-                    CreateCell(row, 3, charge.LocalTaxTotal.ToString("C"), rightAligned);
-                    CreateCell(row, 4, charge.StateTaxTotal.ToString("C"), rightAligned);
-                    CreateCell(row, 5, charge.ActualTotal.ToString("C"), rightAligned);
+                    CreateCell(row, 0, charge.Name, allStyles.LeftAligned);
+                    CreateCell(row, 1, charge.CostTotal, allStyles.Currency);
+                    CreateCell(row, 2, charge.DiscountTotal, allStyles.Currency);
+                    CreateCell(row, 3, charge.LocalTaxTotal, allStyles.Currency);
+                    CreateCell(row, 4, charge.StateTaxTotal, allStyles.Currency);
+                    CreateCell(row, 5, charge.ActualTotal, allStyles.Currency);
                 }
 
             }
         }
 
-        private static void ExportReportFees(vmAdmin_PerformanceReport report, NPOI.SS.UserModel.ISheet sheet, NPOI.SS.UserModel.ICellStyle rightAligned, NPOI.SS.UserModel.ICellStyle titleStyle, NPOI.SS.UserModel.ICellStyle Header2Style, NPOI.SS.UserModel.ICellStyle Header3Style, ref int rowNumber)
+        private static void ExportReportFees(vmAdmin_PerformanceReport report, NPOI.SS.UserModel.ISheet sheet, StyleContainer allStyles, ref int rowNumber)
         {
             if (report.FeeReport.Count > 0)
             {
                 var row = sheet.CreateRow(rowNumber++);
-                CreateCell(row, 0, "Event Fees", Header2Style);
+                CreateCell(row, 0, "Event Fees", allStyles.Header2Style);
                 foreach (var feeType in report.FeeReport.GroupBy(x => x.FeeType).Select(x => x.Key))
                 {
                     row = sheet.CreateRow(rowNumber++);
-                    CreateCell(row, 0, feeType.ToString(), Header3Style);
+                    CreateCell(row, 0, feeType.ToString(), allStyles.Header3Style);
                     row = sheet.CreateRow(rowNumber++);
-                    CreateCell(row, 0, "Cost", titleStyle);
-                    CreateCell(row, 1, "Use Count", titleStyle);
-                    CreateCell(row, 2, "Cost Total", titleStyle);
-                    CreateCell(row, 3, "Discount Total", titleStyle);
-                    CreateCell(row, 4, "Local Tax Total", titleStyle);
-                    CreateCell(row, 5, "State Tax Total", titleStyle);
-                    CreateCell(row, 6, "Actual Total", titleStyle);
+                    CreateCell(row, 0, "Cost", allStyles.TitleStyle);
+                    CreateCell(row, 1, "Use Count", allStyles.TitleStyle);
+                    CreateCell(row, 2, "Cost Total", allStyles.TitleStyle);
+                    CreateCell(row, 3, "Discount Total", allStyles.TitleStyle);
+                    CreateCell(row, 4, "Local Tax Total", allStyles.TitleStyle);
+                    CreateCell(row, 5, "State Tax Total", allStyles.TitleStyle);
+                    CreateCell(row, 6, "Actual Total", allStyles.TitleStyle);
 
                     foreach (var fee in report.FeeReport.Where(x => x.FeeType == feeType).OrderBy(x => x.Cost))
                     {
                         row = sheet.CreateRow(rowNumber++);
-                        CreateCell(row, 0, fee.Cost.ToString("C"), rightAligned);
-                        CreateCell(row, 1, fee.UseCount.ToString("C"), rightAligned);
-                        CreateCell(row, 2, fee.CostTotal.ToString("C"), rightAligned);
-                        CreateCell(row, 3, fee.DiscountTotal.ToString("C"), rightAligned);
-                        CreateCell(row, 4, fee.LocalTaxTotal.ToString("C"), rightAligned);
-                        CreateCell(row, 5, fee.StateTaxTotal.ToString("C"), rightAligned);
-                        CreateCell(row, 6, fee.ActualTotal.ToString("C"), rightAligned);
+                        CreateCell(row, 0, fee.Cost, allStyles.Currency);
+                        CreateCell(row, 1, fee.UseCount, allStyles.RightAligned);
+                        CreateCell(row, 2, fee.CostTotal, allStyles.Currency);
+                        CreateCell(row, 3, fee.DiscountTotal, allStyles.Currency);
+                        CreateCell(row, 4, fee.LocalTaxTotal, allStyles.Currency);
+                        CreateCell(row, 5, fee.StateTaxTotal, allStyles.Currency);
+                        CreateCell(row, 6, fee.ActualTotal, allStyles.Currency);
                     }
                     row = sheet.CreateRow(rowNumber++);
                 }
             }
         }
 
-        private static void ExportReportTshirts(vmAdmin_PerformanceReport report, NPOI.SS.UserModel.ISheet sheet, NPOI.SS.UserModel.ICellStyle rightAligned, NPOI.SS.UserModel.ICellStyle leftAligned, NPOI.SS.UserModel.ICellStyle Header3Style, ref int rowNumber)
+        private static void ExportReportTshirts(vmAdmin_PerformanceReport report, NPOI.SS.UserModel.ISheet sheet,  StyleContainer allStyles, ref int rowNumber)
         {
 
             if (report.TShirtSizes != null && report.TShirtSizes.Count > 0)
             {
                 var row = sheet.CreateRow(rowNumber++);
-                CreateCell(row, 0, "T-Shirts", Header3Style);
+                CreateCell(row, 0, "T-Shirts", allStyles.Header3Style);
                 foreach (var size in report.TShirtSizes)
                 {
                     row = sheet.CreateRow(rowNumber++);
-                    CreateCell(row, 0, size.Keys.ElementAt(0).ToString(), leftAligned);
-                    CreateCell(row, 1, size.Values.ElementAt(0).ToString(), rightAligned);
+                    CreateCell(row, 0, size.Keys.ElementAt(0).ToString(), allStyles.LeftAligned);
+                    CreateCell(row, 1, size.Values.ElementAt(0).ToString(), allStyles.RightAligned);
                 }
 
                 row = sheet.CreateRow(rowNumber++);
@@ -273,66 +289,73 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             }
         }
 
-        private static void ExportReportValues(vmAdmin_PerformanceReport report, NPOI.SS.UserModel.ISheet sheet, NPOI.SS.UserModel.ICellStyle rightAligned, NPOI.SS.UserModel.ICellStyle leftAligned, ref int rowNumber)
+        private static void ExportReportValues(vmAdmin_PerformanceReport report, NPOI.SS.UserModel.ISheet sheet,  StyleContainer allStyles, ref int rowNumber)
         {
             var row = sheet.CreateRow(rowNumber++);
 
-            CreateCell(row, 0, "Event Revenue", leftAligned);
-            CreateCell(row, 1, report.TotalRevenue.ToString("C"), rightAligned);
-            CreateCell(row, 2, "Available Spots", leftAligned);
-            CreateCell(row, 3, report.TotalSpots.ToString(), rightAligned);
-            CreateCell(row, 4, "Fee Total", leftAligned);
-            CreateCell(row, 5, report.FeeValue.ToString("C"), rightAligned);
-            CreateCell(row, 6, "Charge Total", leftAligned);
-            CreateCell(row, 7, report.ChargeValue.ToString("C"), rightAligned);
+            CreateCell(row, 0, "Event Revenue", allStyles.LeftAligned);
+            CreateCell(row, 1, report.TotalRevenue, allStyles.Currency);
+            CreateCell(row, 2, "Available Spots", allStyles.LeftAligned);
+            CreateCell(row, 3, report.TotalSpots, allStyles.RightAligned);
+            CreateCell(row, 4, "Fee Total", allStyles.LeftAligned);
+            CreateCell(row, 5, report.FeeValue, allStyles.Currency);
+            CreateCell(row, 6, "Charge Total", allStyles.LeftAligned);
+            CreateCell(row, 7, report.ChargeValue, allStyles.Currency);
 
             row = sheet.CreateRow(rowNumber++);
-            CreateCell(row, 0, "Days count", leftAligned);
-            CreateCell(row, 1, report.DayCount.ToString(), rightAligned);
-            CreateCell(row, 2, "Active Registrations", leftAligned);
-            CreateCell(row, 3, report.SpotsTaken.ToString(), rightAligned);
-            CreateCell(row, 4, "Discount value", leftAligned);
-            CreateCell(row, 5, report.DiscountValue.ToString("C"), rightAligned);
-            CreateCell(row, 6, "Local Tax", leftAligned);
-            CreateCell(row, 7, report.ChargeLocalTaxValue.ToString("C"), rightAligned);
+            CreateCell(row, 0, "Days count", allStyles.LeftAligned);
+            CreateCell(row, 1, report.DayCount, allStyles.RightAligned);
+            CreateCell(row, 2, "Active Registrations", allStyles.LeftAligned);
+            CreateCell(row, 3, report.SpotsTaken, allStyles.RightAligned);
+            CreateCell(row, 4, "Discount value", allStyles.LeftAligned);
+            CreateCell(row, 5, report.DiscountValue, allStyles.Currency);
+            CreateCell(row, 6, "Local Tax", allStyles.LeftAligned);
+            CreateCell(row, 7, report.ChargeLocalTaxValue, allStyles.Currency);
 
             row = sheet.CreateRow(rowNumber++);
-            CreateCell(row, 0, "Event count", leftAligned);
-            CreateCell(row, 1, report.EventCount.ToString(), rightAligned);
-            CreateCell(row, 2, "Spots Available", leftAligned);
-            CreateCell(row, 3, report.SpotsLeft.ToString(), rightAligned);
-            CreateCell(row, 4, "Local Tax", leftAligned);
-            CreateCell(row, 5, report.LocalTaxValue.ToString("C"), rightAligned);
-            CreateCell(row, 6, "State Tax", leftAligned);
-            CreateCell(row, 7, report.ChargeStateTaxValue.ToString("C"), rightAligned);
+            CreateCell(row, 0, "Event count", allStyles.LeftAligned);
+            CreateCell(row, 1, report.EventCount, allStyles.RightAligned);
+            CreateCell(row, 2, "Spots Available", allStyles.LeftAligned);
+            CreateCell(row, 3, report.SpotsLeft, allStyles.RightAligned);
+            CreateCell(row, 4, "Local Tax", allStyles.LeftAligned);
+            CreateCell(row, 5, report.LocalTaxValue, allStyles.Currency);
+            CreateCell(row, 6, "State Tax", allStyles.LeftAligned);
+            CreateCell(row, 7, report.ChargeStateTaxValue, allStyles.Currency);
 
             row = sheet.CreateRow(rowNumber++);
-            CreateCell(row, 0, "Revenue Per Day", leftAligned);
-            CreateCell(row, 1, report.RevenuePerDay.ToString("C"), rightAligned);
-            CreateCell(row, 2, "Registrations Per Day", leftAligned);
-            CreateCell(row, 3, report.RegPerDay.ToString(), rightAligned);
-            CreateCell(row, 4, "State Tax", leftAligned);
-            CreateCell(row, 5, report.StateTaxValue.ToString("C"), rightAligned);
-            CreateCell(row, 6, "Total Revenue", leftAligned);
-            CreateCell(row, 7, report.ChargeActualRevenue.ToString("C"), rightAligned);
+            CreateCell(row, 0, "Revenue Per Day", allStyles.LeftAligned);
+            CreateCell(row, 1, report.RevenuePerDay, allStyles.Currency);
+            CreateCell(row, 2, "Registrations Per Day", allStyles.LeftAligned);
+            CreateCell(row, 3, report.RegPerDay, allStyles.RightAligned);
+            CreateCell(row, 4, "State Tax", allStyles.LeftAligned);
+            CreateCell(row, 5, report.StateTaxValue, allStyles.Currency);
+            CreateCell(row, 6, "Total Revenue", allStyles.LeftAligned);
+            CreateCell(row, 7, report.ChargeActualRevenue, allStyles.Currency);
 
             row = sheet.CreateRow(rowNumber++);
-            CreateCell(row, 0, "Revenue Per Event", leftAligned);
-            CreateCell(row, 1, report.RevenuePerEvent.ToString("C"), rightAligned);
+            CreateCell(row, 0, "Revenue Per Event", allStyles.LeftAligned);
+            CreateCell(row, 1, report.RevenuePerEvent, allStyles.Currency);
             row.CreateCell(2);
             row.CreateCell(3);
-            CreateCell(row, 4, "Total Revenue", leftAligned);
-            CreateCell(row, 5, report.RevenuePerEvent.ToString("C"), rightAligned);
+            CreateCell(row, 4, "Total Revenue", allStyles.LeftAligned);
+            CreateCell(row, 5, report.FeeActualRevenue, allStyles.Currency);
             row.CreateCell(6);
             row.CreateCell(7);
 
             row = sheet.CreateRow(rowNumber++);
         }
 
-        private static void CreateCell(NPOI.SS.UserModel.IRow row,int index,string value, NPOI.SS.UserModel.ICellStyle cellStyle )
+        private static void CreateCell(NPOI.SS.UserModel.IRow row,int index,object value, NPOI.SS.UserModel.ICellStyle cellStyle )
         {
             var cell = row.CreateCell(index);
-            cell.SetCellValue(value);
+            if(value is decimal)
+                cell.SetCellValue((double)((decimal)value));
+            else
+                if(value is int)
+                    cell.SetCellValue((int)value);
+                else
+                    cell.SetCellValue((string)value);
+
             cell.CellStyle = cellStyle;
         }
 

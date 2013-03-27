@@ -454,7 +454,7 @@ namespace DirtyGirl.Web.Controllers
             bool isValid = true; 
 
             // make sure to not transfer to self. 
-            if (model.FirstName == CurrentUser.FirstName && model.LastName == CurrentUser.LastName)
+            if (model.FirstName.Replace(" ", "") == CurrentUser.FirstName.Replace(" ", "") && model.LastName.Replace(" ", "") == CurrentUser.LastName.Replace(" ", ""))
             {
                 List<ServiceError> errors = new List<ServiceError>();
                 errors.Add(new ServiceError("Can't transfer run to yourself..."));
