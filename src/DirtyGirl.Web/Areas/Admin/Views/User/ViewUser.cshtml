@@ -105,12 +105,13 @@ else
                                 cols.Bound(r => r.TeamName);
                                 cols.Command(c => c.Custom("Registration Details").Click("ViewRegistrationDetails"));
                                 cols.Bound(r => r.EventId).ClientTemplate("<a href=/admin/event/viewEvent/#=EventId#>View Event</a>");
-                })
+                })              
                 .Pageable()
                 .Sortable()
                 .Filterable()
                 .DataSource(datasource => datasource
                     .Ajax()
+                    .Events(events => events.RequestEnd("onRequestEnd"))
                     .Read(read => read.Action("Ajax_GetUserRegistrations", "Registration", new { userId = Model.User.UserId, futureOnly = true }))
                     .PageSize(50)
 
@@ -219,6 +220,19 @@ else
         $.get('@Url.Action("CancelRegistration", "Registration")?registrationId=' + dataItem.RegistrationId, function (data) {
             modal.open({ content: data });
         });
+    }
+    function onRequestEnd(e) {
+        if (e.type == "read") {
+            var offsetMiliseconds = new Date().getTimezoneOffset() * 60000;
+            var event = e.response.Data;
+            for (var i = 0; i < event.length; i++) {
+                if (event[i].WaveDateTime != null) {
+                    event[i].WaveDateTime = event[i].WaveDateTime.replace(/\d+/,
+                        function (n) { return parseInt(n) + offsetMiliseconds; }
+                     );
+                }               
+            }
+        }
     }
 </script>
 

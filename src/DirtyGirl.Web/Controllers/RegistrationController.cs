@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Text.RegularExpressions;
-using DirtyGirl.Services;
 
 namespace DirtyGirl.Web.Controllers
 {
@@ -35,7 +34,7 @@ namespace DirtyGirl.Web.Controllers
 
             int eId = (eventId.HasValue)? eventId.Value : 0;  
             
-            vmRegistration_EventSelection vm = new vmRegistration_EventSelection
+            var vm = new vmRegistration_EventSelection
             {
                 ItemId = itemId,
                 CartFocus = SessionManager.CurrentCart.CheckOutFocus,
@@ -140,11 +139,13 @@ namespace DirtyGirl.Web.Controllers
 
         public ActionResult GetWavesByEventDateId(int eventDateId)
         {
-            var Waves = _service.GetWaveDetialsForEventDate(eventDateId);
+            var waves = _service.GetWaveDetialsForEventDate(eventDateId);
 
-            vmRegistration_WaveList vm = new vmRegistration_WaveList();
-            vm.MorningWaves = GetWaveItems(Waves.Where(x => x.StartTime.ToString("tt") == "AM").ToList());
-            vm.EveningWaves = GetWaveItems(Waves.Where(x => x.StartTime.ToString("tt") == "PM").ToList());
+            var vm = new vmRegistration_WaveList
+                {
+                    MorningWaves = GetWaveItems(waves.Where(x => x.StartTime.ToString("tt") == "AM").ToList()),
+                    EveningWaves = GetWaveItems(waves.Where(x => x.StartTime.ToString("tt") == "PM").ToList())
+                };
 
             return PartialView("Partial/WaveList", vm);
         }
@@ -152,15 +153,17 @@ namespace DirtyGirl.Web.Controllers
         private List<vmRegistration_WaveItem> GetWaveItems(List<EventWaveDetails> waveOverviewList)
         {
 
-            List<vmRegistration_WaveItem> waveItemList = new List<vmRegistration_WaveItem>();
+            var waveItemList = new List<vmRegistration_WaveItem>();
 
             foreach (var wave in waveOverviewList)
             {
-                vmRegistration_WaveItem newWave = new vmRegistration_WaveItem();
-                newWave.EventWaveId = wave.EventWaveId;
-                newWave.WaveNumber = waveOverviewList.IndexOf(wave) + 1;
-                newWave.StartTime = wave.StartTime;
-                newWave.isFull = wave.SpotsLeft <= 0;
+                var newWave = new vmRegistration_WaveItem
+                    {
+                        EventWaveId = wave.EventWaveId,
+                        WaveNumber = waveOverviewList.IndexOf(wave) + 1,
+                        StartTime = wave.StartTime,
+                        isFull = wave.SpotsLeft <= 0
+                    };
 
                 if (wave.SpotsLeft <= 0)
                 {

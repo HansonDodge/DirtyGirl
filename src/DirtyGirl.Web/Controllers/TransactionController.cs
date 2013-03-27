@@ -58,25 +58,38 @@ namespace DirtyGirl.Web.Controllers
         #region ChangeEvent
 
         
-        public ActionResult StartChangeEvent(int eventID, int regId, int waveID, int dateID)
-        {           
-            var itemId = Guid.NewGuid();
-          
-            var newAction = new ChangeEventAction 
-                { 
-                    RegistrationId = regId 
-                };
-            var newCartItem = new ActionItem
-                {
-                    ActionType = CartActionType.EventChange,                    
-                    ActionObject = newAction,
-                    ItemReadyForCheckout = false
-                };
-       
-            SessionManager.CurrentCart.ActionItems.Add(itemId, newCartItem);
-            SessionManager.CurrentCart.CheckOutFocus = CartFocusType.ChangeEvent;
+        public ActionResult StartChangeEvent(int curEventId, int regId, int waveId, int dateId)
+        {        
+            if (!IsRegistrationAlreadyInCart(regId))
+            {
+                var newItemId = Guid.NewGuid();
 
-            return RedirectToAction("EventSelection", "registration", new { itemId = itemId, eventId = eventID, eventDateId = dateID, eventWaveId = waveID });
+                var newAction = new ChangeEventAction
+                    {
+                        RegistrationId = regId
+                    };
+                var newCartItem = new ActionItem
+                    {
+                        ActionType = CartActionType.EventChange,
+                        ActionObject = newAction,
+                        ItemReadyForCheckout = false
+                    };
+
+                SessionManager.CurrentCart.ActionItems.Add(newItemId, newCartItem);
+                SessionManager.CurrentCart.CheckOutFocus = CartFocusType.ChangeEvent;
+
+                return RedirectToAction("EventSelection", "registration",
+                                        new
+                                            {
+                                                itemId = newItemId,
+                                                eventId = curEventId,
+                                                eventDateId = dateId,
+                                                eventWaveId = waveId
+                                            });
+            }
+            SessionManager.CurrentCart.CheckOutFocus = CartFocusType.CancelEvent;
+
+            return RedirectToAction("checkout", "cart");
         }
 
         #endregion
@@ -110,7 +123,7 @@ namespace DirtyGirl.Web.Controllers
 
         public ActionResult StartCancellation(int regId)
         {          
-            if (!IsCancellationAlreadyInCart(regId))
+            if (!IsRegistrationAlreadyInCart(regId))
             {
                 var itemId = Guid.NewGuid();
                 var newAction = new CancellationAction
@@ -131,16 +144,29 @@ namespace DirtyGirl.Web.Controllers
             return RedirectToAction("checkout", "cart");
         }
 
-        private static bool IsCancellationAlreadyInCart(int regId)
+        private static bool IsRegistrationAlreadyInCart(int regId)
         {
             foreach (var actionItem in SessionManager.CurrentCart.ActionItems.Values)
             {
                 if (actionItem.ActionType == CartActionType.CancelRegistration)
                 {
-                    CancellationAction cancelAction = (CancellationAction)actionItem.ActionObject;
+                    var cancelAction = (CancellationAction)actionItem.ActionObject;
                     if (cancelAction.RegistrationId == regId)
                         return true;
                 }
+                if (actionItem.ActionType == CartActionType.TransferRregistration)
+                {
+                    var transferAction = (TransferAction)actionItem.ActionObject;
+                    if (transferAction.RegistrationId == regId)
+                        return true;
+                }
+                if (actionItem.ActionType == CartActionType.EventChange)
+                {
+                    var changeAction = (ChangeEventAction)actionItem.ActionObject;
+                    if (changeAction.RegistrationId == regId)
+                        return true;
+                }
+
             }
             return false;
         }
@@ -150,24 +176,31 @@ namespace DirtyGirl.Web.Controllers
         #region Transfer Registration
 
         public ActionResult StartTransfer(int regId)
-        {          
-            var itemId = Guid.NewGuid();
-            var newAction = new TransferAction 
-                { 
-                    RegistrationId = regId 
-                };
-            var newCartItem = new ActionItem
-                {
-                    ActionType = CartActionType.TransferRregistration,                    
-                    ActionObject = newAction,
-                    ItemReadyForCheckout = false
-                };           
+        {
+            if (!IsRegistrationAlreadyInCart(regId))
+            {
+                var itemId = Guid.NewGuid();
+                var newAction = new TransferAction
+                    {
+                        RegistrationId = regId
+                    };
+                var newCartItem = new ActionItem
+                    {
+                        ActionType = CartActionType.TransferRregistration,
+                        ActionObject = newAction,
+                        ItemReadyForCheckout = false
+                    };
 
-            SessionManager.CurrentCart.ActionItems.Add(itemId, newCartItem);
-            SessionManager.CurrentCart.CheckOutFocus = CartFocusType.TransferEvent;
+                SessionManager.CurrentCart.ActionItems.Add(itemId, newCartItem);
+                SessionManager.CurrentCart.CheckOutFocus = CartFocusType.TransferEvent;
 
-            return RedirectToAction("transfer", "registration", new { itemId });
+                return RedirectToAction("transfer", "registration", new {itemId});
+            }
+            SessionManager.CurrentCart.CheckOutFocus = CartFocusType.CancelEvent;
+
+            return RedirectToAction("checkout", "cart");
         }
+
 
         #endregion
 

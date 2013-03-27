@@ -116,7 +116,7 @@ DG.util = {
             $(".registration_list_singlecontent").hide();
             $(".reg-eventschedule").show();
             $("#registration_list_nav_content a.active").removeClass("active");
-            $(this).addClass("active");
+            $(".nav-schedule").addClass("active");
             //$("#mcs_container").mCustomScrollbar("vertical", 400, "easeOutCirc", 1.05, "auto", "yes", "yes", 10);
             $(".landingSchedule").mCustomScrollbar("destroy");
             $(".landingSchedule").mCustomScrollbar({

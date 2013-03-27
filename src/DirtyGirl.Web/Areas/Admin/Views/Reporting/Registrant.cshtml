@@ -43,7 +43,7 @@
               .HtmlAttributes(new { style = "font-size:75%; width:1200px;" })        
               .Pageable()
               .Sortable()
-              .Scrollable( )
+              .Scrollable(scrolling => scrolling.Height(600) )
               .Filterable()
               .DataSource(datasource => datasource
                                             .Ajax()
@@ -65,12 +65,12 @@
             for (var i = 0; i < reg.length; i++) {
                 if (reg[i].WaveDate != null) {
                     reg[i].WaveDate = reg[i].WaveDate.replace(/\d+/,
-                        function (n) { return parseInt(n) + offsetMiliseconds }
+                        function (n) { return parseInt(n) + offsetMiliseconds; }
                      );
                 }
                 if (reg[i].WaveTime != null) {
                     reg[i].WaveTime = reg[i].WaveTime.replace(/\d+/,
-                        function (n) { return parseInt(n) + offsetMiliseconds }
+                        function (n) { return parseInt(n) + offsetMiliseconds; }
                      );
                 }
             }
