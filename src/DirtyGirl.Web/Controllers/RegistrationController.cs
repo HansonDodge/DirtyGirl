@@ -244,7 +244,7 @@ namespace DirtyGirl.Web.Controllers
             var regAction = SessionManager.CurrentCart.ActionItems[model.ItemId];
             var reg = (Registration)regAction.ActionObject;
 
-            if (_service.IsDuplicateRegistration(reg.EventWaveId, CurrentUser.UserId, reg.FirstName, reg.LastName))
+            if (_service.IsDuplicateRegistration(reg.EventWaveId, CurrentUser.UserId, model.RegistrationDetails.FirstName, model.RegistrationDetails.LastName))
                 ModelState.AddModelError("FirstName", "You have already registered for this event wave. You may select another wave above, or, if you would like to register another participant for this wave, please enter their name below.");
             
             if (reg.FirstName + reg.LastName == model.RegistrationDetails.EmergencyContact.Replace(" ",""))
