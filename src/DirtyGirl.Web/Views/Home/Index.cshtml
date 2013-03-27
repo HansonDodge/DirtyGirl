@@ -31,23 +31,31 @@
                                 <p>@location.DateOfEvent.ToString("MMMM dd, yyyy")</p>
                                 <p>Cost: $@location.CurrentCost</p>
                                 <div class="body-openings">
-                                @if (location.SpotsLeft <= @DirtyGirlConfig.Settings.DisplaySpotsAvailableCount)
-                                {
-                                   if (location.SpotsLeft > 0)
-                                   {
-                                        <p>Only <span class="white">@location.SpotsLeft</span> spots left!</p>
+                                    @if (!location.isRegistrationCutoff)
+                                    {
+                                        if (location.SpotsLeft <= @DirtyGirlConfig.Settings.DisplaySpotsAvailableCount)
+                                        {
+                                            if (location.SpotsLeft > 0)
+                                            {
+                                                <p>Only <span class="white">@location.SpotsLeft</span> spots left!</p>
+                                            }
+                                            else
+                                            {
+                                                <p>Sold Out!</p>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <p>Spots available!</p>
+                                        }
                                     }
                                     else
                                     {
-                                        <p>Sold Out!</p>
-                                    }                                  
-                                }
-                                else
-                                {                            
-                                    <p>Spots available!</p>                                 
-                                }
+                                        <p>Registration Closed</p>                                                    
+                                    }
+                                     
                                 </div>
-                                <a href="@Url.Action("viewevent", "home", new {id = location.EventId})"><img src="@Url.Content("~/images/map-viewevent.png")" /></a>
+                                <a href="@Url.Action("viewevent", "home", new { id = location.EventId })"><img src="@Url.Content("~/images/map-viewevent.png")" /></a>
                             </div>
                         </div>
                     </div>
@@ -181,7 +189,7 @@
                             <h5>Can I register the day of the event?</h5>
                             <p>No. Registration closes the day before the event 6pm CDT. All registrations need to be final prior to that. </p>
                             <h5>I need to transfer my registration to someone else, how do I do that?</h5>
-                            <p>To transfer your registration to another person, you will need to log on to your Dirty Girl account. Go to *My Profile*, and select the option to *Edit My Run*. Click on the option to *Transfer My Registration to a Friend. *You will need to fill out the information of the participant who you are transferring your registration to and we will email them instructions on how to pick up your registration. *Please note that when transferring to a friend, your spot in this run will only held for 72 hours from the time you submit the transfer. If your friend do not pick up your registration within 72 hours, your registration will be cancelled and you’ll be given compensation code to use on a different run. There is a $15 fee to transfer your registration.</p>
+                            <p>To transfer your registration to another person, you will need to log on to your Dirty Girl account. Go to *My Profile*, and select the option to *Edit My Run*. Click on the option to *Transfer My Registration to a Friend. *You will need to fill out the information of the participant who you are transferring your registration to and we will email them instructions on how to pick up your registration. *Please note that when transferring to a friend, your spot in this run will only held for 72 hours from the time you submit the transfer. If your friend does not pick up your registration within 72 hours, your registration will be cancelled and you’ll be given compensation code to use on a different run. There is a $15 fee to transfer your registration.</p>
                             <h5>Can I transfer the day of the event?</h5>
                             <p>No. Due to various reasons, day of transfers will not be accepted.  </p>
                             <h5>How much is the registration fee?</h5>
