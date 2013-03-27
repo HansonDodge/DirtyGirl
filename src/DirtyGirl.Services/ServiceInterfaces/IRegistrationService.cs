@@ -18,6 +18,8 @@ namespace DirtyGirl.Services.ServiceInterfaces
         IList<Registration> GetRegistrationsByTeam(int TeamId);
         IList<Registration> GetRegistrationsAll();
 
+        bool IsDuplicateRegistration(int eventWaveId, int userId, string fname, string lname);
+
         ServiceResult CreateNewRegistration(Registration r);
         ServiceResult CreateNewRegistration(Registration r, int? redemptionId);
         ServiceResult UpdateRegistration(Registration r);        

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Text.RegularExpressions;
+using DirtyGirl.Services;
 
 namespace DirtyGirl.Web.Controllers
 {
@@ -234,6 +235,9 @@ namespace DirtyGirl.Web.Controllers
 
             var regAction = SessionManager.CurrentCart.ActionItems[model.ItemId];
             var reg = (Registration)regAction.ActionObject;
+
+            if (_service.IsDuplicateRegistration(reg.EventWaveId, CurrentUser.UserId, reg.FirstName, reg.LastName))
+                ModelState.AddModelError("FirstName", "You are already registered for this wave. You cannot register youself twice for the same wave.");
             
             if (reg.FirstName + reg.LastName == model.RegistrationDetails.EmergencyContact.Replace(" ",""))
                 ModelState.AddModelError("EmergencyContact", "Emergency contact cannot be the same as the registrant.");
@@ -375,23 +379,29 @@ namespace DirtyGirl.Web.Controllers
 
                         case "new":
 
-                            Match match = Regex.Match(model.TeamName, @"([a-zA-Z].*?){3}", RegexOptions.IgnoreCase);
-
                             if (string.IsNullOrEmpty(model.TeamName))
+                            {
                                 ModelState.AddModelError("TeamName", "Team Name is Required");
-
-                            else if (!match.Success)
-                                ModelState.AddModelError("TeamName", "Team Name must contain at least 3 letters.");
+                            }
                             else
                             {
-                                Team newTeam = new Team { EventId = model.EventId, Name = model.TeamName, CreatorID = CurrentUser.UserId };
+                                Match match = Regex.Match(model.TeamName, @"([a-zA-Z].*?){3}", RegexOptions.IgnoreCase);
 
-                                ServiceResult tempTeamResult = _service.GenerateTempTeam(newTeam);
-
-                                if (!tempTeamResult.Success)
-                                    Utilities.AddModelStateErrors(ModelState, tempTeamResult.GetServiceErrors());
+                                if (!match.Success)
+                                {
+                                    ModelState.AddModelError("TeamName", "Team Name must contain at least 3 letters.");
+                                }
                                 else
-                                    reg.Team = newTeam;
+                                {
+                                    Team newTeam = new Team { EventId = model.EventId, Name = model.TeamName, CreatorID = CurrentUser.UserId };
+
+                                    ServiceResult tempTeamResult = _service.GenerateTempTeam(newTeam);
+
+                                    if (!tempTeamResult.Success)
+                                        Utilities.AddModelStateErrors(ModelState, tempTeamResult.GetServiceErrors());
+                                    else
+                                        reg.Team = newTeam;
+                                }
                             }
                             break;
                     }
