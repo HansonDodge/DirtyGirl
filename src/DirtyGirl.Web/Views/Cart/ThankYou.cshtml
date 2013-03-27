@@ -13,6 +13,7 @@
                         <div class="thankyouContainer">
                             @switch (Model.CartFocus)
                             {
+                                case CartFocusType.Redemption:
                                 case CartFocusType.Registration:
                                     <div class="thankyouRegistration">
                                         <h1 class="pink" style="text-align: center;">THANK YOU @Model.UserName FOR REGISTERING</h1>

@@ -32,43 +32,42 @@
                                     case CartFocusType.ChangeEvent:
                                         <h1 class="pink" style="margin:0 0 10px;">CHANGE YOUR RUN</h1>
                                         <p>To change your Dirty Girl run, first select a different event and date below. Then, select an open wave spot and continue to check out to complete your run change.</p>
+                                        break;                                        
+                                    case CartFocusType.Redemption:
+                                        <h1 class="pink" style="margin:0 0 10px;">REDEMPTION CODE - SELECT YOUR RUN</h1>
+                                        <p>Ffirst select an event and date below. Then, select an open wave spot and continue to check out to complete your transaction.</p>
                                         break;
                                 }
                             </div>
                             <div class="wave_category">
                                 <table>
                                     <tr>
-                                        @*<td><p>Select Event:</p></td>*@
-                                        @{if(Model.EventDateCount > 1) { 
-                                            <td><p>Select Date:</p></td>
-                                        }}
+                                        <td><p>Select Event:</p></td>
+                                         <td><p>Select Date:</p></td>
                                     </tr>
                                     <tr>
-@*                                        <td>
+                                        <td>
                                             @(Html.Kendo().DropDownListFor(x => x.EventId)
                                                 .Name("ddlEvent")
                                                 .OptionLabel("Select")
                                                 .DataTextField("Name")
                                                 .DataValueField("EventId")
-                                                .DataSource(source => source.Read(read => read.Action("geteventlist", "registration")))
+                                                .DataSource(source => source.Read(read => read.Action("GetActiveEventList", "registration")))
                                                 .Events(evts => evts.Change("onEventChange").DataBound("onEventDataBound"))
                                                 .HtmlAttributes(new { style = "width:250px" }))       
-                                        </td>*@
+                                        </td>
                                         <td>
-                                        @{if(Model.EventDateCount > 1) {
-                                            @(Html.Kendo().DropDownListFor(x => x.EventDateId)
+                                        @(Html.Kendo().DropDownListFor(x => x.EventDateId)
                                                 .Name("ddlEventDate")
                                                 .OptionLabel("Select")
                                                 .DataTextField("DateOfEvent")
                                                 .DataValueField("EventDateId")
-                                                .DataSource(source => source
-                                                    .Read(read => read.Action("GetEventDateList", "Registration", new { eventId = @Model.EventId }))
-                                                )
-                                                //.Enable(false)
-                                                //.AutoBind(false)
+                                                .DataSource(source => source.Read(read => read.Action("geteventdatelist", "registration").Data("filterEventDates"))
+                                                .ServerFiltering(true))
+                                                .Enable(false)
+                                                .AutoBind(false)
                                                 .CascadeFrom("ddlEvent")
                                                 .Events(evt => evt.Change("onEventDateChange")))
-                                        }}
                                         </td>
                                     </tr>
                                 </table>                                                                           
@@ -177,7 +176,9 @@
 
     function onEventDateChange(e) {
 
-        var eventDateId = $("#ddlEventDate").data("kendoDropDownList").value();       
+        var eventDateId = $("#ddlEventDate").data("kendoDropDownList").value();
+        if (eventDateId.length == 0)
+            eventDateId = 0;
         
         $('#waveList').slideUp("fast", function () {
             DG.util.columns();

@@ -12,6 +12,7 @@ namespace DirtyGirl.Models.Enums
         ChangeWave,
         ChangeEvent,
         TransferEvent,
-        CancelEvent
+        CancelEvent,
+        Redemption
     }
 }

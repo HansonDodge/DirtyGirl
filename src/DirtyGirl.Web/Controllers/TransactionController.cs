@@ -58,7 +58,7 @@ namespace DirtyGirl.Web.Controllers
         #region ChangeEvent
 
         
-        public ActionResult StartChangeEvent(int curEventId, int regId, int waveId, int dateId)
+        public ActionResult StartChangeEvent(int eventId, int regId, int waveId, int dateId)
         {        
             if (!IsRegistrationAlreadyInCart(regId))
             {
@@ -82,7 +82,7 @@ namespace DirtyGirl.Web.Controllers
                                         new
                                             {
                                                 itemId = newItemId,
-                                                eventId = curEventId,
+                                                eventId = eventId,
                                                 eventDateId = dateId,
                                                 eventWaveId = waveId
                                             });
@@ -213,10 +213,9 @@ namespace DirtyGirl.Web.Controllers
             if (result.Success)            
             {
                 RedemptionCode redemptionCode = _service.GetRedemptionCode(id);
-                
                 var itemId = Guid.NewGuid();
                 var newReg = new Registration
-                {
+                {                     
                     UserId = CurrentUser.UserId,
                     FirstName = CurrentUser.FirstName,
                     LastName = CurrentUser.LastName,
@@ -247,7 +246,11 @@ namespace DirtyGirl.Web.Controllers
                 SessionManager.CurrentCart.ActionItems.Add(itemId, newCartItem);
                 SessionManager.CurrentCart.CheckOutFocus = CartFocusType.Registration;
 
-                return RedirectToAction(redemptionCode.RedemptionCodeType == RedemptionCodeType.Transfer ? "registrationdetails": "eventselection", "registration", new {itemId});               
+                if (redemptionCode.RedemptionCodeType == RedemptionCodeType.Transfer)
+                    return RedirectToAction("registrationdetails", "Registration", new {itemId});
+
+                SessionManager.CurrentCart.CheckOutFocus = CartFocusType.Redemption;
+                return RedirectToAction("eventselection", "registration", new {itemId});               
             }
 
             string error = "Invalid Redemption Code";

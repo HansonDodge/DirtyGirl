@@ -29,7 +29,7 @@ namespace DirtyGirl.Web.Controllers
 
         #region EventSelection
 
-        public ActionResult EventSelection(Guid itemId, int? eventId, int? eventDateId, int? eventWaveId, bool? returnToRegDetails)
+        public ActionResult EventSelection(Guid itemId, int? eventId, int? eventDateId, int? eventWaveId, bool? returnToRegDetails, bool? redemption)
         {
 
             int eId = (eventId.HasValue)? eventId.Value : 0;  
@@ -38,8 +38,9 @@ namespace DirtyGirl.Web.Controllers
             {
                 ItemId = itemId,
                 CartFocus = SessionManager.CurrentCart.CheckOutFocus,
-                EventOverview = _service.GetEventOverviewById(eId),
-                EventDateCount = GetEventDateCount(eId),
+                EventOverview = (eventId.HasValue && eventId > 0 ? _service.GetEventOverviewById(eId) : new EventOverview()),
+                EventDateCount = (eventId.HasValue && eventId > 0 ? GetEventDateCount(eId) : 0),
+                LockEvent = true,
                 ReturnToRegistrationDetails = false
             };
 
@@ -63,9 +64,11 @@ namespace DirtyGirl.Web.Controllers
                 vm.EventDateId = selectedEvent.EventDates.First().EventDateId;
                 vm.EventName = selectedEvent.GeneralLocality;
             }
+      
 
-            if (SessionManager.CurrentCart.ActionItems[itemId].ActionType == CartActionType.WaveChange)
-                vm.LockEvent = true;
+            if (SessionManager.CurrentCart.ActionItems[itemId].ActionType == CartActionType.EventChange ||
+                SessionManager.CurrentCart.CheckOutFocus == CartFocusType.Redemption)
+                vm.LockEvent = false;
 
             if (returnToRegDetails.HasValue && returnToRegDetails.Value == true)
                 vm.ReturnToRegistrationDetails = true;
@@ -78,6 +81,8 @@ namespace DirtyGirl.Web.Controllers
         {
             if (!Utilities.IsValidCart())
                 return  RedirectToAction("Index", "home");
+
+            SessionManager.CurrentCart.CheckOutFocus = CartFocusType.Registration;
 
             var action = SessionManager.CurrentCart.ActionItems[itemId];
 

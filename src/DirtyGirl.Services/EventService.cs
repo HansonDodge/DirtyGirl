@@ -128,7 +128,11 @@ namespace DirtyGirl.Services
 
         public EventOverview GetEventOverviewById(int eventId)
         {
-            return SetEventOverview(_repository.Events.Find(x => x.EventId == eventId));           
+            var evt = _repository.Events.Find(x => x.EventId == eventId);
+            if (evt == null)
+                return new EventOverview();
+
+            return SetEventOverview(evt);           
         }
 
         public IList<EventOverview> GetUpcomingEventOverviews()
