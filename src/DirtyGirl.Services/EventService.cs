@@ -52,6 +52,20 @@ namespace DirtyGirl.Services
             return result.Success;
         }
 
+
+        private bool ValidateCreateEventDate(EventDate dateToValidate, ServiceResult result)
+        {
+            if (dateToValidate.DateOfEvent.Date < DateTime.Now.Date)
+                result.AddServiceError("DateOfEvent", "You can not add an event date that is in the past");
+            else
+            {
+                if (_repository.EventDates.Find(x => dateToValidate.DateOfEvent == x.DateOfEvent && dateToValidate.EventId == x.EventId) != null)
+                    result.AddServiceError("DateOfEvent", "This date is already attached to this event.");
+            }
+
+            return result.Success;
+        }
+
         private bool ValidateEventWave(EventWave waveToValidate, ServiceResult result)
         {
             EventDate eventDate = _repository.EventDates.Find(x => x.EventDateId == waveToValidate.EventDateId);
@@ -568,7 +582,8 @@ namespace DirtyGirl.Services
             var result = new ServiceResult();
             try
             {
-                if (ValidateEventDate(ed, result))
+
+                if (ValidateCreateEventDate(ed, result))
                 {
                     _repository.EventDates.Create(ed);
                     _repository.SaveChanges();

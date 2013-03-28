@@ -1,4 +1,6 @@
-﻿namespace DirtyGirl.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DirtyGirl.Models
 {
     public class EventLead
     {
@@ -8,8 +10,10 @@
 
         public int EventLeadTypeId { get; set; }
 
+        [Required(ErrorMessage = "Title is Required")]
         public string Title { get; set; }
 
+        [Required(ErrorMessage = "Display Text is Required")]
         public string DisplayText { get; set; }
 
         #region Navigation Properties

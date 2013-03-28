@@ -35,9 +35,9 @@ namespace DirtyGirl.Services
             return _repository.Registrations.All().ToList();
         }
 
-        public IList<Registration> GetRegistrationByUserID(int UserId)
+        public IList<Registration> GetRegistrationByUserID(int userId)
         {
-            var registrations = _repository.Registrations.Filter(r => r.UserId.Equals(UserId)).ToList();
+            var registrations = _repository.Registrations.Filter(r => r.UserId.Equals(userId)).ToList();
             return registrations;
         }        
 
@@ -56,24 +56,25 @@ namespace DirtyGirl.Services
             return _repository.Registrations.Filter(x => x.EventWaveId == EventWaveId).ToList();
         }
         
-        public IList<Registration> GetRegistrationsByTeam(int TeamId)
+        public IList<Registration> GetRegistrationsByTeam(int teamId)
         {
-            return _repository.Registrations.Filter(r => r.TeamId == TeamId).ToList();            
+            return _repository.Registrations.Filter(r => r.TeamId == teamId).ToList();            
         }
 
         public bool IsDuplicateRegistration(int eventWaveId, int userId, string fname, string lname)
         {
 
             return _repository.Registrations.Filter(x => x.EventWaveId == eventWaveId
-                                            && x.UserId == userId
-                                            && x.FirstName.ToLower().Replace(" ", string.Empty) == fname.ToLower().Replace(" ", string.Empty)
-                                            && x.LastName.ToLower().Replace(" ", string.Empty) == lname.ToLower().Replace(" ", string.Empty)
-                                        ).Count() > 0;
+                                                         && x.UserId == userId
+                                                         && x.RegistrationStatus == RegistrationStatus.Active
+                                                         && x.FirstName.ToLower().Replace(" ", string.Empty) == fname.ToLower().Replace(" ", string.Empty)
+                                                         && x.LastName.ToLower().Replace(" ", string.Empty) == lname.ToLower().Replace(" ", string.Empty)
+                ).Any();
         }
         
         public ServiceResult CreateNewRegistration(Registration r)
         {
-            ServiceResult result = new ServiceResult();
+            var result = new ServiceResult();
 
             try
             {
@@ -95,7 +96,7 @@ namespace DirtyGirl.Services
 
         public ServiceResult CreateNewRegistration(Registration r, int? redemtpionId)
         {
-            ServiceResult result = new ServiceResult();
+            var result = new ServiceResult();
 
             try
             {
@@ -128,7 +129,7 @@ namespace DirtyGirl.Services
 
         public ServiceResult UpdateRegistration(Registration r)
         {
-            ServiceResult result = new ServiceResult();
+            var result = new ServiceResult();
 
             try
             {
@@ -167,7 +168,7 @@ namespace DirtyGirl.Services
                     target.UserId = r.UserId;
                     target.DateUpdated = DateTime.Now;
 
-                    if (!this._sharedRepository)
+                    if (!_sharedRepository)
                         _repository.SaveChanges();
                 }
             }
@@ -181,15 +182,16 @@ namespace DirtyGirl.Services
 
         public ServiceResult TransferRegistration(int existingRegistrationId, string name, string email)
         {
-            ServiceResult result = new ServiceResult();
+            ServiceResult result = null;
+
             IEmailService emailService = new EmailService();
-            IDiscountService discountService = new DiscountService(this._repository, false);
+            var discountService = new DiscountService(this._repository, false);
 
             Registration transferReg = _repository.Registrations.Find(x => x.RegistrationId == existingRegistrationId);
             transferReg.RegistrationStatus = RegistrationStatus.Held;
             transferReg.DateUpdated = DateTime.Now;
 
-            RedemptionCode newTransferCode = new RedemptionCode
+            var newTransferCode = new RedemptionCode
             {
                 GeneratingRegistrationId = existingRegistrationId,
                 Code = discountService.GenerateDiscountCode(),
@@ -212,7 +214,7 @@ namespace DirtyGirl.Services
         public ServiceResult CancelRegistration(int existingRegistrationId)
         {
 
-            ServiceResult result = new ServiceResult();
+            var result = new ServiceResult();
             IEmailService emailService = new EmailService();
             IDiscountService discountService = new DiscountService(this._repository, false);
 
@@ -220,7 +222,7 @@ namespace DirtyGirl.Services
             cancelReg.RegistrationStatus = RegistrationStatus.Cancelled;
             cancelReg.DateUpdated = DateTime.Now;
 
-            RedemptionCode newTransferCode = new RedemptionCode
+            var newTransferCode = new RedemptionCode
             {
                 GeneratingRegistrationId = existingRegistrationId,
                 Code = discountService.GenerateDiscountCode(),
@@ -243,7 +245,7 @@ namespace DirtyGirl.Services
 
         public ServiceResult ChangeWave(int registrationId, int eventWaveId)
         {
-            ServiceResult result = new ServiceResult();
+            var result = new ServiceResult();
 
             try
             {
@@ -272,7 +274,7 @@ namespace DirtyGirl.Services
 
         public ServiceResult ChangeEvent(int registrationId, int eventWaveId, int? cartItemId)
         {
-            ServiceResult result = new ServiceResult();
+            var result = new ServiceResult();
 
             try
             {                
@@ -280,34 +282,36 @@ namespace DirtyGirl.Services
                 existingReg.RegistrationStatus = RegistrationStatus.Changed;
                 existingReg.DateUpdated = DateTime.Now;
 
-                Registration newReg = new Registration();
+                var newReg = new Registration
+                    {
+                        EventWaveId = eventWaveId,
+                        RegistrationStatus = RegistrationStatus.Active,
+                        RegistrationType = existingReg.RegistrationType,
+                        ParentRegistrationId = existingReg.RegistrationId,
+                        FirstName = existingReg.FirstName,
+                        LastName = existingReg.LastName,
+                        Address1 = existingReg.Address1,
+                        Address2 = existingReg.Address2,
+                        Locality = existingReg.Locality,
+                        RegionId = existingReg.RegionId,
+                        PostalCode = existingReg.PostalCode,
+                        PacketDeliveryOption = existingReg.PacketDeliveryOption,
+                        Email = existingReg.Email,
+                        Phone = existingReg.Phone,
+                        EmergencyContact = existingReg.EmergencyContact,
+                        EmergencyPhone = existingReg.EmergencyPhone,
+                        SpecialNeeds = existingReg.SpecialNeeds,
+                        TShirtSize = existingReg.TShirtSize,
+                        Gender = existingReg.Gender,
+                        UserId = existingReg.UserId,
+                        CartItemId = cartItemId,
+                        AgreeToTerms = existingReg.AgreeToTerms,
+                        IsFemale = existingReg.IsFemale,
+                        IsOfAge = existingReg.IsOfAge,
+                        EventLeadId = existingReg.EventLeadId,
+                        IsThirdPartyRegistration = existingReg.IsThirdPartyRegistration
+                    };
 
-                newReg.EventWaveId = eventWaveId;
-                newReg.RegistrationStatus = RegistrationStatus.Active;
-                newReg.RegistrationType = existingReg.RegistrationType;
-                newReg.ParentRegistrationId = existingReg.RegistrationId;
-                newReg.FirstName = existingReg.FirstName;
-                newReg.LastName = existingReg.LastName;
-                newReg.Address1 = existingReg.Address1;
-                newReg.Address2 = existingReg.Address2;
-                newReg.Locality = existingReg.Locality;
-                newReg.RegionId = existingReg.RegionId;
-                newReg.PostalCode = existingReg.PostalCode;
-                newReg.PacketDeliveryOption = existingReg.PacketDeliveryOption;
-                newReg.Email = existingReg.Email;
-                newReg.Phone = existingReg.Phone;
-                newReg.EmergencyContact = existingReg.EmergencyContact;
-                newReg.EmergencyPhone = existingReg.EmergencyPhone;
-                newReg.SpecialNeeds = existingReg.SpecialNeeds;
-                newReg.TShirtSize = existingReg.TShirtSize;
-                newReg.Gender = existingReg.Gender;                
-                newReg.UserId = existingReg.UserId;
-                newReg.CartItemId = cartItemId;
-                newReg.AgreeToTerms = existingReg.AgreeToTerms;
-                newReg.IsFemale = existingReg.IsFemale;
-                newReg.IsOfAge = existingReg.IsOfAge;
-                newReg.EventLeadId = existingReg.EventLeadId;
-                newReg.IsThirdPartyRegistration = existingReg.IsThirdPartyRegistration;
                 _repository.Registrations.Create(newReg);
 
                 if (!_sharedRepository)
@@ -323,7 +327,7 @@ namespace DirtyGirl.Services
 
         public ServiceResult RedemptionCodeRegistration(string code, Registration r)
         {
-            ServiceResult result = new ServiceResult();
+            var result = new ServiceResult();
 
 
             return result;
@@ -458,31 +462,31 @@ namespace DirtyGirl.Services
 
         public EventFee GetCurrentEventFeeForWave(int eventWaveId, EventFeeType feeType)
         {
-            EventService eventService = new EventService(this._repository, false);
+            var eventService = new EventService(this._repository, false);
             return eventService.GetCurrentFeeForWave(eventWaveId, feeType);
         }
 
         public EventFee GetShippingFeeForEvent(int eventId)
         {
-            EventService eventService = new EventService(this._repository, false);
+            var eventService = new EventService(this._repository, false);
             return eventService.GetCurrentFeeForEvent(eventId, EventFeeType.Shipping);
         }
 
         public IList<EventDateDetails> GetSimpleDateDetailsByEvent(int eventId)
         {
-            EventService eventService = new EventService(this._repository);
+            var eventService = new EventService(this._repository);
             return eventService.GetSimpleDateDetailsByEvent(eventId);
         }
 
         public IList<EventDateDetails> GetActiveDateDetailsByEvent(int eventId)
         {
-            EventService eventService = new EventService(this._repository);
+            var eventService = new EventService(this._repository);
             return eventService.GetActiveDateDetailsByEvent(eventId);
         }
 
         public IList<EventWaveDetails> GetWaveDetialsForEventDate(int eventDateId)
         {
-            EventService eventService = new EventService(this._repository);
+            var eventService = new EventService(this._repository);
             return eventService.GetWaveDetailsForEventDate(eventDateId);
         }
 
@@ -529,7 +533,7 @@ namespace DirtyGirl.Services
 
         public ServiceResult Save()
         {
-            ServiceResult result = new ServiceResult();
+            var result = new ServiceResult();
 
             try
             {

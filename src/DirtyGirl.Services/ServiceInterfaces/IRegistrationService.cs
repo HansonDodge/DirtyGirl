@@ -11,11 +11,11 @@ namespace DirtyGirl.Services.ServiceInterfaces
     {
         #region registrations
 
-        IList<Registration> GetRegistrationByUserID(int UserId);        
+        IList<Registration> GetRegistrationByUserID(int userId);        
         IList<Registration> GetRegistrationsByEvent(int EventId);
         IList<Registration> GetRegistrationsByEventDate(int EventDateId);
         IList<Registration> GetRegistrationByEventWave(int EventWaveId);        
-        IList<Registration> GetRegistrationsByTeam(int TeamId);
+        IList<Registration> GetRegistrationsByTeam(int teamId);
         IList<Registration> GetRegistrationsAll();
 
         bool IsDuplicateRegistration(int eventWaveId, int userId, string fname, string lname);

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
 
 namespace DirtyGirl.Models
 {       
@@ -32,7 +30,7 @@ namespace DirtyGirl.Models
         public string Address2 { get; set; }
 
         [Required(ErrorMessage = "City is Required")]
-        [RegularExpression(@"^(?!\s+$)[a-zA-Z0-9- ]+$", ErrorMessage = "Please enter a valid city")]
+        [RegularExpression(@"^(?!\s+$)[a-zA-Z][a-zA-Z0-9- ]+$", ErrorMessage = "Please enter a valid city")]
         public string Locality { get; set; }
 
         [Required(ErrorMessage = "State is Required")]

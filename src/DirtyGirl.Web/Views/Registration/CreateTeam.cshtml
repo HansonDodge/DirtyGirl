@@ -116,7 +116,7 @@
                                 <div class="register_step3">
                                     <div class="existing_team">
                                         <div class="single_input">
-                                            <p>Please enter your passcode</p>
+                                            <p>*Please enter your passcode</p>
                                             @Html.TextBoxFor(x => x.TeamCode, new {id = "TeamCodeTextBox", onkeyup = "ValidateTeamCode()"})
                                             @Html.ValidationMessageFor(x => x.TeamCode, "*")                                            
                                         </div>
@@ -126,7 +126,7 @@
                                     </div>
                                     <div class="new_team">
                                         <div class="single_input">
-                                            <p>Enter team name</p>
+                                            <p>*Enter team name</p>
                                             @Html.TextBoxFor(x => x.TeamName)
                                             @Html.ValidationMessageFor(x => x.TeamName, "*")
                                             <p>If you are creating a team, each team member will still need to register.</p>

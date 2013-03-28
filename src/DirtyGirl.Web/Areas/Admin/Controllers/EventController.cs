@@ -120,6 +120,13 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                     Utilities.AddModelStateErrors(this.ModelState, result.GetServiceErrors());
             } 
 
+
+            // repopulate the grids..
+            model.RegionList = _eventService.GetRegionsByCountry(DirtyGirlConfig.Settings.DefaultCountryId);
+            model.FeeTypes = DirtyGirlExtensions.ConvertToSelectList<EventFeeType>();
+            model.EventLeadTypes = Utilities.CreateSelectList(_eventService.GetEventLeadTypes(), value => value.EventLeadTypeId, text => text.TypeName, false);
+            model.CouponTypeList = DirtyGirlExtensions.ConvertToSelectList<CouponType>();
+            model.DiscountTypeList = DirtyGirlExtensions.ConvertToSelectList<DiscountType>();
             return View(model);
         }
 
