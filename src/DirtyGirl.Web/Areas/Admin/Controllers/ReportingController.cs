@@ -436,6 +436,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                          Address1 = x.Address1,
                          Address2 = x.Address2,
                          AgreeToTerms = x.AgreeToTerms,
+                         AgreeTrademark = x.AgreeTrademark,
                          City = x.Locality,
                          Email = x.Email,
                          EmergencyContact = x.EmergencyContact,
@@ -507,7 +508,8 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             headerRow.CreateCell(17).SetCellValue("T-Shirt Size");
             headerRow.CreateCell(18).SetCellValue("Packet Delivery Option");
             headerRow.CreateCell(19).SetCellValue("Agreed to Legal Terms");
-            headerRow.CreateCell(20).SetCellValue("Registration Date");
+            headerRow.CreateCell(20).SetCellValue("Agreed to Trademark");
+            headerRow.CreateCell(21).SetCellValue("Registration Date");
 
             //(Optional) freeze the header row so it is not scrolled
             sheet.CreateFreezePane(0, 1, 0, 1);
@@ -545,7 +547,8 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                 row.CreateCell(17).SetCellValue(reg.TShirtSize);
                 row.CreateCell(18).SetCellValue(reg.PacketDeliveryOption);
                 row.CreateCell(19).SetCellValue(reg.AgreeToTerms);
-                row.CreateCell(20).SetCellValue(reg.DateAdded.ToShortDateString());
+                row.CreateCell(20).SetCellValue(reg.AgreeTrademark);
+                row.CreateCell(21).SetCellValue(reg.DateAdded.ToShortDateString());
             }
 
             //Write the workbook to a memory stream
