@@ -95,6 +95,10 @@ namespace DirtyGirl.Models
         [Required(ErrorMessage = "Electronic Signature is required")]
         public string Signature { get; set; }
 
+        [MustBeTrue(ErrorMessage = "Must agree to Trademark Usage Guidelines to register for this event.")]
+        [DisplayName("By checking this box I am verifying that I agree to the Dirty Girl Trademark Usage Guidelines")]
+        public bool AgreeTrademark { get; set; }
+
         public RegistrationMaterialsDeliveryOption? PacketDeliveryOption { get; set; }
 
         public string ReferenceAnswer { get; set; }
