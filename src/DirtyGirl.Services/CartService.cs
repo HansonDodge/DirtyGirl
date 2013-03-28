@@ -42,11 +42,17 @@ namespace DirtyGirl.Services
                 result.AddServiceError("This credit card is expired");               
 
             Regex rg = new Regex(@"^[a-zA-Z ]*$");
-            if (!rg.IsMatch(checkOutDetails.CardHolderFirstname))
-                result.AddServiceError("This credit card is expired");
+            if (string.IsNullOrWhiteSpace(checkOutDetails.CardHolderFirstname)) {
+                result.AddServiceError("Cardholder first name is required.");
+            } else if (!rg.IsMatch(checkOutDetails.CardHolderFirstname)) {
+                result.AddServiceError("Cardholder first name is invalid.");
+            }
 
-            if (!rg.IsMatch(checkOutDetails.CardHolderLastname))
-                result.AddServiceError("This credit card is expired");
+            if (string.IsNullOrWhiteSpace(checkOutDetails.CardHolderLastname)) {
+                result.AddServiceError("Cardholder last name is required.");
+            } else if (!rg.IsMatch(checkOutDetails.CardHolderLastname)) {
+                result.AddServiceError("Cardholder last name is invalid.");
+            }
 
             if (result.GetServiceErrors().Count > 0)
             {
