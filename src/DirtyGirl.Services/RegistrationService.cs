@@ -66,11 +66,12 @@ namespace DirtyGirl.Services
             fname = fname.ToLower().Replace(" ", string.Empty);
             lname = lname.ToLower().Replace(" ", string.Empty);
             var existingRegistrations = _repository.Registrations.All().Where(x => x.EventWaveId == eventWaveId
-                                                         && x.UserId == userId
-                                            && x.FirstName.ToLower().Replace(" ", string.Empty) == fname
-                                                         && x.FirstName.ToLower().Replace(" ", string.Empty) == fname.ToLower().Replace(" ", string.Empty)
-                                                         && x.LastName.ToLower().Replace(" ", string.Empty) == lname.ToLower().Replace(" ", string.Empty)
-                ).Any();
+                                                                                 && x.UserId == userId
+                                                                                 && x.RegistrationStatus == RegistrationStatus.Active
+                                                                                 && x.FirstName.ToLower().Replace(" ", string.Empty) == fname
+                                                                                 && x.FirstName.ToLower().Replace(" ", string.Empty) == fname.ToLower().Replace(" ", string.Empty)
+                                                                                 && x.LastName.ToLower().Replace(" ", string.Empty) == lname.ToLower().Replace(" ", string.Empty));
+            return existingRegistrations.Count() > 0;
         }
         
         public ServiceResult CreateNewRegistration(Registration r)
