@@ -8,9 +8,14 @@ namespace DirtyGirl.Models
 {
     public class SessionCart
     {
+
         public Dictionary<Guid, ActionItem> ActionItems { get; set; }
 
-        public CartFocusType CheckOutFocus { get; set; }
+        public CartFocusType CheckOutFocus
+        {
+            get;
+            set;
+        }
 
         public string ResultingConfirmationCode { get; set; }
                 

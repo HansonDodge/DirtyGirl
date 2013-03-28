@@ -61,6 +61,15 @@ namespace DirtyGirl.Web.Controllers
                 var confirmationCode = SessionManager.CurrentCart.ResultingConfirmationCode;
                 var CartFocusType = SessionManager.CurrentCart.CheckOutFocus;
 
+                foreach (var actionItem in SessionManager.CurrentCart.ActionItems)
+                {
+                    if (actionItem.Value.ActionType == CartActionType.NewRegistration)
+                    {
+                        CartFocusType = DirtyGirl.Models.Enums.CartFocusType.Registration;
+                        break;
+                    }
+                }
+
                 SessionManager.CurrentCart = null;
                 return RedirectToAction("ThankYou", new {id = CartFocusType, confirm = confirmationCode});
             }
