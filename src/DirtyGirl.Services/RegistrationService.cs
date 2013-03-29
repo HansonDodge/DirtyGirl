@@ -141,6 +141,7 @@ namespace DirtyGirl.Services
                     target.Address1 = r.Address1;
                     target.Address2 = r.Address2;
                     target.AgreeToTerms = r.AgreeToTerms;
+                    target.AgreeTrademark = r.AgreeTrademark;
                     target.CartItemId = r.CartItemId;                    
                     target.Email = r.Email;
                     target.EmergencyContact = r.EmergencyContact;
@@ -307,6 +308,7 @@ namespace DirtyGirl.Services
                         UserId = existingReg.UserId,
                         CartItemId = cartItemId,
                         AgreeToTerms = existingReg.AgreeToTerms,
+                        AgreeTrademark = existingReg.AgreeTrademark,
                         IsFemale = existingReg.IsFemale,
                         IsOfAge = existingReg.IsOfAge,
                         EventLeadId = existingReg.EventLeadId,
