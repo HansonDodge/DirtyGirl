@@ -119,10 +119,13 @@ namespace DirtyGirl.Services
                                 purchaseDescription = "fee associated with cancelling your registration.";
                                 break;
                             default:
-                                reg = _repository.Registrations.Find(x => x.CartItemId == item.CartItemId);                                
-                                purchaseDescription = string.Format("{0}, {1} : {2} {3}", reg.EventWave.EventDate.Event.GeneralLocality, reg.EventWave.EventDate.Event.Region.Code, reg.EventWave.EventDate.DateOfEvent.ToString("dddd  MMMM, dd yyyy"), reg.EventWave.StartTime.ToString("h:mm tt"));
-                                city = reg.Locality;
-                                date = reg.EventWave.EventDate.DateOfEvent.ToString("mm/dd/yyyy");
+                                reg = _repository.Registrations.Find(x => x.CartItemId == item.CartItemId);
+                                if (reg != null)
+                                {
+                                    purchaseDescription = string.Format("{0}, {1} : {2} {3}", reg.EventWave.EventDate.Event.GeneralLocality, reg.EventWave.EventDate.Event.Region.Code, reg.EventWave.EventDate.DateOfEvent.ToString("dddd  MMMM, dd yyyy"), reg.EventWave.StartTime.ToString("h:mm tt"));
+                                    city = reg.Locality;
+                                    date = reg.EventWave.EventDate.DateOfEvent.ToString("mm/dd/yyyy");
+                                }
                                 break;
                         }                        
                     }
