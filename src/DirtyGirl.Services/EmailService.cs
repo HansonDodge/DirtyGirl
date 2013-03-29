@@ -92,6 +92,9 @@ namespace DirtyGirl.Services
                 Cart cart = _repository.Carts.Find(x => x.CartId == CartId);                
                 
                 StringBuilder cartBody = new StringBuilder();
+
+                String city = string.Empty;
+                String date = string.Empty;
                 
                 foreach (var item in cart.CartItems)
                 {
@@ -101,7 +104,6 @@ namespace DirtyGirl.Services
                     string purchaseName = string.Empty;
                     string purchaseDescription = string.Empty;
                     string purchaseCost = item.Total.ToString();
-                    
                                         
                     if (item.PurchaseItem is EventFee)
                     {
@@ -117,8 +119,13 @@ namespace DirtyGirl.Services
                                 purchaseDescription = "fee associated with cancelling your registration.";
                                 break;
                             default:
-                                reg = _repository.Registrations.Find(x => x.CartItemId == item.CartItemId);                                
-                                purchaseDescription = string.Format("{0}, {1} : {2} {3}", reg.EventWave.EventDate.Event.GeneralLocality, reg.EventWave.EventDate.Event.Region.Code, reg.EventWave.EventDate.DateOfEvent.ToString("dddd  MMMM, dd yyyy"), reg.EventWave.StartTime.ToString("h:mm tt"));                        
+                                reg = _repository.Registrations.Find(x => x.CartItemId == item.CartItemId);
+                                if (reg != null)
+                                {
+                                    purchaseDescription = string.Format("{0}, {1} : {2} {3}", reg.EventWave.EventDate.Event.GeneralLocality, reg.EventWave.EventDate.Event.Region.Code, reg.EventWave.EventDate.DateOfEvent.ToString("dddd  MMMM, dd yyyy"), reg.EventWave.StartTime.ToString("h:mm tt"));
+                                    city = reg.Locality;
+                                    date = reg.EventWave.EventDate.DateOfEvent.ToString("mm/dd/yyyy");
+                                }
                                 break;
                         }                        
                     }
@@ -141,6 +148,8 @@ namespace DirtyGirl.Services
                     .Replace("{FirstName}", cart.User.FirstName)
                     .Replace("{LastName}", cart.User.LastName)
                     .Replace("{PaymentId}", cart.TransactionId)
+                    .Replace("{City}", city)
+                    .Replace("{Date}", date)
                     .Replace("{Cart}", cartBody.ToString());
                 
                 SendEmail(cart.User.EmailAddress, DirtyGirlServiceConfig.Settings.PaymentConfirmationEmailSubject, messageBody);

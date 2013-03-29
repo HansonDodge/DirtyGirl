@@ -66,11 +66,10 @@ namespace DirtyGirl.Services
             fname = fname.ToLower().Replace(" ", string.Empty);
             lname = lname.ToLower().Replace(" ", string.Empty);
             var existingRegistrations = _repository.Registrations.All().Where(x => x.EventWaveId == eventWaveId
-                                                                                 && x.UserId == userId
-                                                                                 && x.RegistrationStatus == RegistrationStatus.Active
-                                                                                 && x.FirstName.ToLower().Replace(" ", string.Empty) == fname
-                                                                                 && x.FirstName.ToLower().Replace(" ", string.Empty) == fname.ToLower().Replace(" ", string.Empty)
-                                                                                 && x.LastName.ToLower().Replace(" ", string.Empty) == lname.ToLower().Replace(" ", string.Empty));
+                                                    && x.UserId == userId
+                                                    && x.RegistrationStatus == RegistrationStatus.Active
+                                                    && x.FirstName.ToLower().Replace(" ", string.Empty) == fname
+                                                    && x.LastName.ToLower().Replace(" ", string.Empty) == lname );
             return existingRegistrations.Count() > 0;
         }
         
@@ -142,6 +141,7 @@ namespace DirtyGirl.Services
                     target.Address1 = r.Address1;
                     target.Address2 = r.Address2;
                     target.AgreeToTerms = r.AgreeToTerms;
+                    target.AgreeTrademark = r.AgreeTrademark;
                     target.CartItemId = r.CartItemId;                    
                     target.Email = r.Email;
                     target.EmergencyContact = r.EmergencyContact;
@@ -308,6 +308,7 @@ namespace DirtyGirl.Services
                         UserId = existingReg.UserId,
                         CartItemId = cartItemId,
                         AgreeToTerms = existingReg.AgreeToTerms,
+                        AgreeTrademark = existingReg.AgreeTrademark,
                         IsFemale = existingReg.IsFemale,
                         IsOfAge = existingReg.IsOfAge,
                         EventLeadId = existingReg.EventLeadId,

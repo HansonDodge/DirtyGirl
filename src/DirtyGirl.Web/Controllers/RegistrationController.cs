@@ -284,6 +284,7 @@ namespace DirtyGirl.Web.Controllers
                 reg.Signature = model.RegistrationDetails.Signature;
                 reg.IsIAmTheParticipant = model.RegistrationDetails.IsIAmTheParticipant;
                 reg.IsSignatureConsent = model.RegistrationDetails.IsSignatureConsent;
+                reg.AgreeTrademark = model.RegistrationDetails.AgreeTrademark;
                 regAction.ActionObject = reg;
                 regAction.ItemReadyForCheckout = true;
 
