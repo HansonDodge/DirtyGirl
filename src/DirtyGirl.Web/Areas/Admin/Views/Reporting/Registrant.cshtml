@@ -27,18 +27,19 @@
                       cols.Bound(r => r.Address1).Width(140);
                       cols.Bound(r => r.Address2).Width(140);
                       cols.Bound(r => r.City).Width(140);
-                      cols.Bound(r => r.State).Width(140);
-                      cols.Bound(r => r.Zip).Width(140);
+                      cols.Bound(r => r.State).Width(100);
+                      cols.Bound(r => r.Zip).Width(100);
                       cols.Bound(r => r.Email).Width(140);
                       cols.Bound(r => r.Phone).Width(140);
-                      cols.Bound(r => r.EmergencyContact).Width(140);
-                      cols.Bound(r => r.EmergencyPhone).Width(100);
-                      cols.Bound(r => r.MedicalInformation).Width(140);
+                      cols.Bound(r => r.EmergencyContact).Width(150);
+                      cols.Bound(r => r.EmergencyPhone).Width(150);
+                      cols.Bound(r => r.MedicalInformation).Width(150);
                       cols.Bound(r => r.SpecialNeeds).Width(140);
                       cols.Bound(r => r.TShirtSize).Title("T-Shirt Size").Width(100);
-                      cols.Bound(r => r.PacketDeliveryOption).Title("Packet Delivery Option").Width(140);
+                      cols.Bound(r => r.PacketDeliveryOption).Title("Packet Delivery Option").Width(160);
                       cols.Bound(r => r.AgreeToTerms).Title("Agreed to Legal Terms").Width(180);
-                      cols.Bound(r => r.DateAdded).Format("{0:MM/dd/yyyy}").Title("Registration Date").Width(180);
+                      cols.Bound(r => r.AgreeTrademark).Title("Agreed to Trademark").Width(180);
+                      cols.Bound(r => r.DateAdded).Format("{0:MM/dd/yyyy}").Title("Registration Date").Width(140);
                   })
               .HtmlAttributes(new { style = "font-size:75%; width:1200px;" })        
               .Pageable()
