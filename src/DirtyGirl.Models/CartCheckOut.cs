@@ -37,10 +37,10 @@ namespace DirtyGirl.Models
         [CreditCard(ErrorMessage="Please enter a valid card number")] 
         public string CardNumber { get; set; }
         
-        [Required(ErrorMessage = "Expiration month")]
+        [Required(ErrorMessage = "Expiration month is required")]
         public int ExpirationMonth { get; set; }
 
-        [Required(ErrorMessage = "Expiration year required")]
+        [Required(ErrorMessage = "Expiration year is required")]
         public int ExpirationYear { get; set; }
 
         [Required(ErrorMessage = "CCV required")]

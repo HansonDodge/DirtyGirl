@@ -406,8 +406,8 @@ span.field-validation-error { color:#ff0000;}
 .registration_form_header { position: relative;}
 .contentMain_copy.register .registration_form_header p{ margin:0 0 5px;}
 .registration_form_header p a{ font-weight: normal; color:#EF5192;}
-.registration_form_content { position: relative; margin: 20px 0 0;}f
-.registration_form_content p a{ color:#EF5192;}
+.registration_form_content { position: relative; margin: 20px 0 0;}
+.registration_form_content p a { color:#EF5192;}
 .single_row { position: relative; overflow: hidden; margin-bottom: 20px;}
 .single_input { position: relative; float: left; margin-right: 10px;}
 .contentMain_copy.register .single_input p { margin:0 0 5px;}
@@ -553,7 +553,7 @@ span.field-validation-error { color:#ff0000;}
 .teamChat_left {position: relative; float: left; width:375px; padding: 40px 0 0; margin: 0 15px;}
 .teamChat_left h2{font-size: 18px; color:#573f3f; margin:0 0 5px;}
 .teamChat_left h2 span{}
-.teamChat_runDetail { position: relative;float: left;width: 288px;}
+.teamChat_runDetail { position: relative;rewidth: 370px;}
 .teamChat_runDetail h3{font-size: 18px; color:#573f3f; }
 .teamChat_runDetail p{font-size: 12px; color:#2c1d13; margin: 0 0 3px; }
 .teamChat_runDetail p span{font-size: 12px; color:#2c1d13; width: 130px; font-weight: bold; float: left;}

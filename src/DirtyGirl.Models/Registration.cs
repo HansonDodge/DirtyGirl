@@ -36,7 +36,7 @@ namespace DirtyGirl.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Email Address is Required")]
-        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$", ErrorMessage = "Email address format is invalid")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$", ErrorMessage = "Email address format is invalid.")]
         public string Email { get; set; }
 
         [Required(ErrorMessage="Phone is Required")]        
@@ -56,7 +56,8 @@ namespace DirtyGirl.Models
        
         public string PostalCode { get; set; }
 
-        [Required(ErrorMessage = "Emergency contact is required")]
+        [Required(ErrorMessage = "Emergency contact name is required")]
+        [RegularExpression(@"^(?!\s+$)[a-zA-Z][a-zA-Z- ]+$", ErrorMessage = "Please enter a valid Emergency contact name.")]
         public string EmergencyContact { get; set; }
 
         [Required(ErrorMessage="Emergency contact phone number is required.")]        

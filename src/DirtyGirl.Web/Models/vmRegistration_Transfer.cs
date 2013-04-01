@@ -22,7 +22,7 @@ namespace DirtyGirl.Web.Models
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$", ErrorMessage = "Email address format is invalid")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Email is required.")]
+        [Required(ErrorMessage = "Confirm Email is required.")]
         [Compare("Email", ErrorMessage="Emails must match.")]
         public string ConfirmationEmail { get; set; }
     }
