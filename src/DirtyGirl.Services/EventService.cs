@@ -472,19 +472,21 @@ namespace DirtyGirl.Services
 
             var EventWithRegion = (from e in ev
                       from r in rg
-                      where r.RegionId == e.RegionId
-                      select new { e.EventId, e.Locality, r.Code}).ToList();
+                      where r.RegionId == e.RegionId && e.IsActive == true
+                      select new { e.EventId, e.Locality, e.RegistrationCutoff, r.Code}).ToList();
 
-
+            var AdjustedCurrentTime = DirtyGirl.Services.Utils.Utilities.AdjustCurrentTimeForTimezone();
             foreach (var @event in EventWithRegion)
             {
                 var ds = (from mn in dt where mn.EventId == @event.EventId select mn.DateOfEvent);
                 if (ds.Count() > 0)
-                {                    
-                    basics.Add(new EventBasics(@event.EventId, @event.Locality, @event.Code, ds.Min(), ds.Max()));
+                {       
+                    
+                    if ((@event.RegistrationCutoff - AdjustedCurrentTime).Seconds > 0)  // cutoff is in the future
+                        basics.Add(new EventBasics(@event.EventId, @event.Locality, @event.Code, ds.Min(), ds.Max()));
                 }
             }
-            return basics;
+            return basics.OrderBy(x => x.StartDate).ToList();
         }
 
         public IList<EventDateDetails> GetSimpleDateDetailsByEvent(int eventId)

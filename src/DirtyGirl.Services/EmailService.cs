@@ -67,6 +67,7 @@ namespace DirtyGirl.Services
 
                 string messageBody = File.ReadAllText(emailTemplatePath +
                                                       DirtyGirlServiceConfig.Settings.PasswordResetRequestBody)
+                                         .Replace("{Firstname}", user.FirstName)
                                          .Replace("{ServerUrl}", DirtyGirlServiceConfig.Settings.ServerUrl)
                                          .Replace("{ResetToken}", user.PasswordResetToken);
 
