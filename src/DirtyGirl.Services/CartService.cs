@@ -33,25 +33,33 @@ namespace DirtyGirl.Services
         public ServiceResult ProcessCart(CartCheckOut checkOutDetails, SessionCart tempCart, int userId)
         {
             ServiceResult result = new ServiceResult();
+            if (checkOutDetails != null && checkOutDetails.CartSummary != null && checkOutDetails.CartSummary.TotalCost > 0)
+            {
+                DateTime expired = new DateTime();
+                expired.AddYears(checkOutDetails.ExpirationYear);
+                expired.AddMonths(checkOutDetails.ExpirationMonth);
 
-            DateTime expired = new DateTime(); 
-            expired.AddYears(checkOutDetails.ExpirationYear); 
-            expired.AddMonths(checkOutDetails.ExpirationMonth);
+                if (DateTime.Now.CompareTo(expired) < 0)
+                    result.AddServiceError("This credit card is expired");
 
-            if (DateTime.Now.CompareTo(expired) < 0) 
-                result.AddServiceError("This credit card is expired");               
+                Regex rg = new Regex(@"^[a-zA-Z ]*$");
+                if (string.IsNullOrWhiteSpace(checkOutDetails.CardHolderFirstname))
+                {
+                    result.AddServiceError("Cardholder first name is required.");
+                }
+                else if (!rg.IsMatch(checkOutDetails.CardHolderFirstname))
+                {
+                    result.AddServiceError("Cardholder first name is invalid.");
+                }
 
-            Regex rg = new Regex(@"^[a-zA-Z ]*$");
-            if (string.IsNullOrWhiteSpace(checkOutDetails.CardHolderFirstname)) {
-                result.AddServiceError("Cardholder first name is required.");
-            } else if (!rg.IsMatch(checkOutDetails.CardHolderFirstname)) {
-                result.AddServiceError("Cardholder first name is invalid.");
-            }
-
-            if (string.IsNullOrWhiteSpace(checkOutDetails.CardHolderLastname)) {
-                result.AddServiceError("Cardholder last name is required.");
-            } else if (!rg.IsMatch(checkOutDetails.CardHolderLastname)) {
-                result.AddServiceError("Cardholder last name is invalid.");
+                if (string.IsNullOrWhiteSpace(checkOutDetails.CardHolderLastname))
+                {
+                    result.AddServiceError("Cardholder last name is required.");
+                }
+                else if (!rg.IsMatch(checkOutDetails.CardHolderLastname))
+                {
+                    result.AddServiceError("Cardholder last name is invalid.");
+                }
             }
 
             if (result.GetServiceErrors().Count > 0)
