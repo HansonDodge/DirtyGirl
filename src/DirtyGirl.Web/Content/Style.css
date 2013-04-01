@@ -193,6 +193,7 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .reg-eventinfo_content h3{font-size: 18px; color:#573f3f; }
 .reg-eventinfo_content h5{ font-size: 16px;color:#ee5192; margin-top: 20px; margin-bottom: 5px; }
 .reg-eventinfo_content p{ font-size: 14px;  color:#573f3f; margin-bottom: 14px;}
+.reg-eventinfo_content p a{ color: #EF5192;}
 
 /*fix RTF styles*/
 .reg-eventinfo_content .eventInfo > div > div > span {font-size: 14px;  color:#573f3f;  margin-top:0; margin-bottom: 14px; display:block;}
@@ -367,13 +368,13 @@ span.field-validation-error { color:#ff0000;}
 .form_waiver { position: relative; margin: 20px 0;}
 .form_waiver h3{color: #EF5192; font-size: 18px;}
 .form_waiver h3 span {margin-left: 5px; }
-.form_waiver h3 span a { font-size: 12px; font-weight: bold;}
+.form_waiver h3 span a { font-size: 12px; font-weight: bold; color:#EF5192;}
 .form_waiver_content {border: 1px solid #000000; margin: 10px 0 0; padding: 15px; position: relative; width: 650px; }
 .form_waiver_content .scroller_content { }
 .form_waiver_content ol{padding:0 0 0 30px;}
 .form_waiver_content ol li{list-style:decimal; font-family: Arial; font-size: 12px;}
 .form_waiver_content ol li p { }
-
+.form_waiver_content a {color: #ef5192;}
 
 /*WAVE*/
 .wave_header { position: relative; width: 470px;}
@@ -405,7 +406,8 @@ span.field-validation-error { color:#ff0000;}
 .registration_form_header { position: relative;}
 .contentMain_copy.register .registration_form_header p{ margin:0 0 5px;}
 .registration_form_header p a{ font-weight: normal; color:#EF5192;}
-.registration_form_content { position: relative; margin: 20px 0 0;}
+.registration_form_content { position: relative; margin: 20px 0 0;}f
+.registration_form_content p a{ color:#EF5192;}
 .single_row { position: relative; overflow: hidden; margin-bottom: 20px;}
 .single_input { position: relative; float: left; margin-right: 10px;}
 .contentMain_copy.register .single_input p { margin:0 0 5px;}
@@ -725,6 +727,7 @@ span.field-validation-error { color:#ff0000;}
 .login_image {position: absolute; top:1px; right: 0px; }
 #login_content .validation-summary-errors { display:none;}
 #login_content input.input-validation-error { border:1px solid #ff0000;}
+#login_content a{color: #EF5192;}
 #closemodal {background: none repeat scroll 0 0 #EF5192;color: #FFFFFF;display: block; font-size: 18px; font-weight: bold; padding: 1px 6px; position: absolute; right: -23px; text-decoration: none;  top: -23px; }
 
 /*SHARE MODAL*/
@@ -834,7 +837,7 @@ input.input-validation-error { border:1px solid #ff0000;}
 #checkoutContainer .summary_separator{background: none repeat scroll 0 0 #E5E3DF; padding:10px 0 0; margin:0; text-align:center;}
 #cartSummaryMessages { position: relative; margin:0 0 20px;}
 #cartSummaryMessages ul li{font-family: Arial; color:#ff0000; font-size: 12px;}
-
+.thankyouContainer a{color: #EF5192;}
 
 
 /*TOOLTIP*/
@@ -861,3 +864,4 @@ input.input-validation-error { border:1px solid #ff0000;}
     float:left;
     margin: 0 10px;
 }
+#Errorpage a{color: #EF5192;}
