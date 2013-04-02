@@ -162,6 +162,9 @@ namespace DirtyGirl.Web.Controllers
                 }
                 if (actionItem.ActionType == CartActionType.EventChange)
                 {
+                    if (actionItem.ItemReadyForCheckout == false)
+                        return false;
+
                     var changeAction = (ChangeEventAction)actionItem.ActionObject;
                     if (changeAction.RegistrationId == regId)
                         return true;
