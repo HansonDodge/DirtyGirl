@@ -30,7 +30,10 @@ namespace DirtyGirl.Services.ServiceInterfaces
 
         ServiceResult CreateRedemptionCode(RedemptionCode redemptionCode);
 
+        [Obsolete("ValidateRedemptionCode is deprecated, please use ValidateRedemptionCodeForUserId instead.", true)]
         ServiceResult ValidateRedemptionCode(string code);
+
+        ServiceResult ValidateRedemptionCodeForUserId(string code, int userId);
 
         string GenerateDiscountCode();
 

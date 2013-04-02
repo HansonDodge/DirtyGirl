@@ -208,7 +208,7 @@ namespace DirtyGirl.Web.Controllers
 
         public ActionResult StartRedemption(string id)
         {
-            ServiceResult result = _service.ValidateRedemptionCode(id);
+            ServiceResult result = _service.ValidateRedemptionCodeForUserId(id, CurrentUser.UserId);
 
             if (result.Success)            
             {

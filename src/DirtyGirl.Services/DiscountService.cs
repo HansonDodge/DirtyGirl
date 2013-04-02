@@ -174,6 +174,7 @@ namespace DirtyGirl.Services
             return result;
         }
 
+        [Obsolete("ValidateRedemptionCode is deprecated, please use ValidateRedemptionCodeForUserId instead.")]
         public ServiceResult ValidateRedemptionCode(string code)
         {
             ServiceResult result = new ServiceResult();
@@ -194,6 +195,51 @@ namespace DirtyGirl.Services
 
                             if (!_sharedRepository)
                                 _repository.SaveChanges();
+
+                            
+                        }
+                    }
+                    else
+                        result.AddServiceError("This code has already been used.");
+                }
+                else
+                    result.AddServiceError("Discount does not exist.");
+            }
+            catch (Exception ex)
+            {
+                result.AddServiceError(Utilities.GetInnerMostException(ex));
+            }
+
+            return result;
+        }
+
+        public ServiceResult ValidateRedemptionCodeForUserId(string code, int userId)
+        {
+            ServiceResult result = new ServiceResult();
+
+            try
+            {
+                //User user = _repository.Users.Find(x => x.UserId == userId);
+                RedemptionCode redemptionCode = _repository.RedemptionCodes.Find(x => x.Code.ToLower() == code.ToLower());
+
+                if (redemptionCode != null)
+                {
+                    if (redemptionCode.ResultingRegistrationId == null)
+                    {
+                        if (redemptionCode.RedemptionCodeType == RedemptionCodeType.Transfer && !(redemptionCode.DateAdded >= DateTime.Now.AddDays(-DirtyGirlServiceConfig.Settings.MaxTransferHeldDays)))
+                        {
+                            redemptionCode.GeneratingRegistration.RegistrationStatus = RegistrationStatus.Cancelled;
+                            redemptionCode.RedemptionCodeType = RedemptionCodeType.StraightValue;
+                            redemptionCode.GeneratingRegistration.DateUpdated = DateTime.Now;
+
+                            if (!_sharedRepository)
+                                _repository.SaveChanges();
+
+
+                        }
+                        else if (redemptionCode.RedemptionCodeType == RedemptionCodeType.StraightValue && redemptionCode.GeneratingRegistration.UserId != userId)
+                        {
+                            result.AddServiceError("This redemption code is expired or doesn't belong to you.");
                         }
                     }
                     else

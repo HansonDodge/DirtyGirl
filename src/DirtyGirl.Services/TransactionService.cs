@@ -23,13 +23,20 @@ namespace DirtyGirl.Services
 
         public RedemptionCode GetRedemptionCode(string code)
         {
-            return _repository.RedemptionCodes.Find(x => x.Code.ToLower() == code.ToLower());
+            var  redemptionCode = _repository.RedemptionCodes.Find(x => x.Code.ToLower() == code.ToLower());
+            return redemptionCode;
         }
 
         public ServiceResult ValidateRedemptionCode(string code)
         {
             DiscountService discountService = new DiscountService(this._repository, false);
             return discountService.ValidateRedemptionCode(code);
+        }
+
+        public ServiceResult ValidateRedemptionCodeForUserId(string code, int userId)
+        {
+            DiscountService discountService = new DiscountService(this._repository, false);
+            return discountService.ValidateRedemptionCodeForUserId(code, userId);
         }
 
         #endregion
