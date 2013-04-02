@@ -283,7 +283,7 @@ namespace DirtyGirl.Services
                 Registration existingReg = _repository.Registrations.Find(x => x.RegistrationId == registrationId);
                 existingReg.RegistrationStatus = RegistrationStatus.Changed;
                 existingReg.DateUpdated = DateTime.Now;
-
+                
                 var newReg = new Registration
                     {
                         EventWaveId = eventWaveId,
@@ -312,7 +312,10 @@ namespace DirtyGirl.Services
                         IsFemale = existingReg.IsFemale,
                         IsOfAge = existingReg.IsOfAge,
                         EventLeadId = existingReg.EventLeadId,
-                        IsThirdPartyRegistration = existingReg.IsThirdPartyRegistration
+                        IsSignatureConsent = existingReg.IsSignatureConsent,
+                        IsThirdPartyRegistration = existingReg.IsThirdPartyRegistration,
+                        Signature = existingReg.Signature,
+                        IsIAmTheParticipant = existingReg.IsIAmTheParticipant
                     };
 
                 _repository.Registrations.Create(newReg);
