@@ -28,7 +28,7 @@ namespace DirtyGirl.Services
         public IList<Cart> GetCartsByDateRange(DateTime start, DateTime end)
         {
           return _repository.Carts.Filter(x => x.TransactionDate >= start && x.TransactionDate <= end).ToList();
-        }        
+        }
 
         public ServiceResult ProcessCart(CartCheckOut checkOutDetails, SessionCart tempCart, int userId)
         {
@@ -436,6 +436,12 @@ namespace DirtyGirl.Services
 
             if (discount != null)
             {
+                if (cartSummary.TotalCost == 0) {
+                    discount = null;
+                    currentCart.DiscountCode = null;
+                    cartSummary.SummaryMessages.Add("You cannot apply a discount code to this cart. There are no charges.");
+                }
+
                 if (discount is RedemptionCode)
                 {
                     var discountableRegList = cartSummary.CartItems.Where(x => x.PurchaseType == PurchaseType.Registration && x.Discountable == true).OrderByDescending(x => x.ItemCost).ToList();
