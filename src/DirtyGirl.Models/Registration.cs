@@ -113,6 +113,17 @@ namespace DirtyGirl.Models
         [NotMapped]
         public bool IsRegistrationCutoff {get; set;}
 
+        [NotMapped]
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; } 
+        }
+        [NotMapped]
+        public string CompressedFullName
+        {
+            get { return FirstName.ToLower().Replace(" ", "") + LastName.ToLower().Replace(" ", ""); }
+        }
+
         #region Navigation Properties
        
         public virtual EventWave EventWave { get; set; }

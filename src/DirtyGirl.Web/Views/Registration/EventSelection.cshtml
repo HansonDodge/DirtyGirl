@@ -116,7 +116,9 @@
     @Html.HiddenFor(x => x.EventWaveId)
     @Html.HiddenFor(x => x.ItemId)
     @Html.HiddenFor(x => x.LockEvent)
-    @Html.HiddenFor(x => x.ReturnToRegistrationDetails)
+    @Html.HiddenFor(x => x.ReturnToRegistrationDetails)    
+    <input type="hidden" name="initialWaveId" id="initialWaveId" value="@Model.EventWaveId" />
+    <input type="hidden" name="initialEventId" id="initialEventId" value="@Model.EventId" />
 </form>
 
 

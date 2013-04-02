@@ -4,10 +4,10 @@
 
 @if (message != null)
 {
-    if (message.Message.ToLower().IndexOf("updated your event wave") != -1)
+    if (message.Message.ToLower().Substring(0,5) == "head-")
     {
         //Do this for Change Wave message
-        <h2>@message.Message</h2>
+        <h2>@message.Message.Substring(5)</h2>
         <style>
             .profileCustomMessage { display: none;}
             .changeWaveMsg { display: block;}

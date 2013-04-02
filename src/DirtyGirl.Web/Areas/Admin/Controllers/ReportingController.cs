@@ -281,7 +281,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                 {
                     row = sheet.CreateRow(rowNumber++);
                     CreateCell(row, 0, size.Keys.ElementAt(0).ToString(), allStyles.LeftAligned);
-                    CreateCell(row, 1, size.Values.ElementAt(0).ToString(), allStyles.RightAligned);
+                    CreateCell(row, 1, size.Values.ElementAt(0), allStyles.RightAligned);
                 }
 
                 row = sheet.CreateRow(rowNumber++);

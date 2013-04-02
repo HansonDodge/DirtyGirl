@@ -77,7 +77,7 @@ namespace DirtyGirl.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult WaveSelected(int eventWaveId, Guid itemId, bool ReturnToRegistrationDetails)
+        public ActionResult WaveSelected(int eventWaveId, Guid itemId, bool ReturnToRegistrationDetails, int? initialWaveId, int? initialEventId)
         {
             if (!Utilities.IsValidCart())
                 return  RedirectToAction("Index", "home");
@@ -85,7 +85,7 @@ namespace DirtyGirl.Web.Controllers
             SessionManager.CurrentCart.CheckOutFocus = CartFocusType.Registration;
 
             var action = SessionManager.CurrentCart.ActionItems[itemId];
-
+            
             switch (action.ActionType)
             {
                 case CartActionType.NewRegistration:
@@ -99,25 +99,69 @@ namespace DirtyGirl.Web.Controllers
                     return RedirectToAction("CreateTeam", new { itemId});
 
                 case CartActionType.EventChange:
-
-                    ((ChangeEventAction)action.ActionObject).UpdatedEventWaveId = eventWaveId;
-                    action.ItemReadyForCheckout = true;
-                    return RedirectToAction("checkout", "cart");
-
-                case CartActionType.WaveChange:                   
-                    
-                    ServiceResult waveChangeResult = _service.ChangeWave(((ChangeWaveAction)action.ActionObject).RegistrationId, eventWaveId);
-
-                    if (waveChangeResult.Success)
+                    if (EventChanged(initialEventId, eventWaveId))
                     {
-                        SessionManager.CurrentCart.ActionItems.Remove(itemId);
-                        DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "You have successfully updated your event wave."));
-                        return RedirectToAction("viewuser", "user", new { userId = CurrentUser.UserId });                        
-                    }                                           
+                        ((ChangeEventAction)action.ActionObject).UpdatedEventWaveId = eventWaveId;
+                        action.ItemReadyForCheckout = true;
+                        return RedirectToAction("checkout", "cart");
+                    }
+                    // remove it from the cart, we are not going to be charging the user
+
+
+                    // is only a wave change, process it as such
+                    var eventChangeResult = ChangeWave(((ChangeEventAction)action.ActionObject).RegistrationId, eventWaveId, itemId, initialWaveId);
+                    if (eventChangeResult != null)
+                        return eventChangeResult;
+                   
+                    break;
+
+                case CartActionType.WaveChange:
+                   
+                    // ok, it changed, update 
+                    var result = ChangeWave(((ChangeWaveAction)action.ActionObject).RegistrationId, eventWaveId, itemId, initialWaveId);
+                    if (result != null)
+                        return result;
+                                                               
                     break;
             }
 
             return RedirectToAction("EventSelection", new {eventWaveId, itemId});
+        }
+
+        private RedirectToRouteResult ChangeWave(int registrationId, int eventWaveId, Guid itemId, int ?initialWaveId)
+        {
+            // did they even change it?
+            if (initialWaveId.HasValue && initialWaveId.Value == eventWaveId)
+            {
+                SessionManager.CurrentCart.ActionItems.Remove(itemId);
+                DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "head-Event wave was not changed."));
+                return RedirectToAction("viewuser", "user", new { userId = CurrentUser.UserId });
+            }
+
+            ServiceResult eventWaveChangeResult = _service.ChangeWave(registrationId, eventWaveId);
+
+            if (eventWaveChangeResult.Success)
+            {
+                SessionManager.CurrentCart.ActionItems.Remove(itemId);
+                DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "head-You have successfully updated your event wave."));
+                return RedirectToAction("viewuser", "user", new { userId = CurrentUser.UserId });
+            }
+            return null;
+        }
+
+        private bool EventChanged(int? initialEventId, int? eventWaveId)
+        {
+            if (!eventWaveId.HasValue || !initialEventId.HasValue) 
+                return true;
+
+            var initialEvent = _service.GetEventWaveById(eventWaveId.Value);
+            if (initialEvent == null)
+                return true;
+
+            if (initialEventId.Value == initialEvent.EventDate.EventId)
+                return false;
+
+            return true;
         }
 
         public JsonResult GetActiveEventList()

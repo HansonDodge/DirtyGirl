@@ -44,6 +44,11 @@ namespace DirtyGirl.Models
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$", ErrorMessage = "Email address format is invalid")]
         public string EmailAddress { get; set; }
 
+        public string CompressedFullName
+        {
+            get { return FirstName.ToLower().Replace(" ", "") + LastName.ToLower().Replace(" ", ""); }
+        }
+
         public Int64? FacebookId { get; set; }
 
         public byte[] Image { get; set; }

@@ -95,9 +95,13 @@
                                             <p><span>Wave:</span> @w.StartTime.ToString("h:mm tt")</p>
                                             @{ if (Model.RegistrationValues.ContainsKey(reg.RegistrationId)){ 
                                                 <p><span>Registration Paid:</span> @Model.RegistrationValues[reg.RegistrationId].ToString("c")</p>
-                                            }} 
-                                            
- 
+                                               }} 
+
+                                            @if (reg.CompressedFullName != Model.User.CompressedFullName)
+                                            {
+                                                <p><span>Registration For:</span> @reg.FullName </p>
+                                            }
+  
                                             <p class="editReg">
                                                 <span class="editRegTitle">WHAT WOULD YOU LIKE TO CHANGE?</span>
                                                 <span>@Html.ActionLink("Change My Wave", "StartChangeWave", "transaction", new { regId = reg.RegistrationId }, null)</span>
