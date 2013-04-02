@@ -156,7 +156,7 @@ namespace DirtyGirl.Web.Controllers
         public ActionResult AddDiscount(string txtCouponCode)
         {
             SessionManager.CurrentCart.DiscountCode = txtCouponCode;
-            return RedirectToAction("CheckOUt");         
+            return RedirectToAction("CheckOut");
         }
 
         #endregion
