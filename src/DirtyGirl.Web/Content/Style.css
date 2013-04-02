@@ -149,7 +149,7 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 #registration_list_nav_content a.active { background-position: 0 -54px !important;}
 #registration_list_nav_content a.nav-schedule{ background:url(../images/sprite-tab-eventschedule.png) 0 0 no-repeat transparent; width:221px;}
 #registration_list_nav_content a.nav-info{ background:url(../images/sprite-tab-generalinfo.png) 0 0 no-repeat transparent; width:197px;}
-#registration_list_nav_content a.nav-faq{ background:url(../images/sprite-tab-faq.png) 0 0 no-repeat transparent; width:95px;}
+#registration_list_nav_content a.nav-faq{ background:url(../images/sprite-tab-faq.png) 0 0 no-repeat transparent; width:82px;}
 #registration_list_content_container { position: relative;}
 .registration_list_singlecontent { position: relative;}
 /*MAPS - EVENT SCHEDULE*/
@@ -256,7 +256,7 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .contentMain_info_tab a { display: block; float: left; height: 40px; text-indent:-5000px; margin-left: 10px;}
 .contentMain_info_tab a.infotab-map { background:url(../images/sprite-tabdetail-map.png) 0 0 no-repeat transparent; width:140px;}
 .contentMain_info_tab a.infotab-eventinfo {background:url(../images/sprite-tabdetail-eventinfo.png) 0 0 no-repeat transparent; width:180px; }
-.contentMain_info_tab a.infotab-faq {background:url(../images/sprite-tabdetail-faq.png) 0 0 no-repeat transparent; width:106px; }
+.contentMain_info_tab a.infotab-faq {background:url(../images/sprite-tabdetail-faq.png) 0 0 no-repeat transparent; width:98px; }
 .contentMain_info_tab a.active{background-position: 0 -40px !important;}
 .contentMain_info_content { position: relative; background:#ffffff;}
 .event_map_content { position: relative; padding: 10px;}
@@ -499,7 +499,7 @@ span.field-validation-error { color:#ff0000;}
 .profileContent h2 {font-size: 24px; color:#ed5192; margin-bottom: 20px;}
 .profileContent h3 { font-size: 18px; color:#ed5192; margin-bottom: 15px;}
 .profileInfoContent { position: relative; overflow: hidden;}
-.profileInfoContentLeft { position: relative; float: left; margin-right: 30px;width:240px; height: 377px;}
+.profileInfoContentLeft { position: relative; float: left; margin-right: 30px;width:240px; min-height: 377px}
 .profilePicture { position: relative;}
 .pp_frame { left: 0;  position: absolute;  top: 0; z-index: 10;}
 .pp_content { display: table-cell; height: 160px; overflow: hidden; position: relative;  width: 181px;}

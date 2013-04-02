@@ -255,7 +255,7 @@ namespace DirtyGirl.Services
                 System.IO.File.ReadAllText(filePath)
                       .Replace("{RegistrantName}",
                                string.Format("{0} {1}", user.FirstName, user.LastName))
-                      .Replace("{TeamName}", team.Name)
+                      .Replace("{EventID}", team.Event.EventId.ToString())
                       .Replace("{RaceLocation}", team.Event.GeneralLocality)
                       .Replace("{DayOfWeek}", eventDate.DateOfEvent.ToString("dddd"))
                       .Replace("{Month}", eventDate.DateOfEvent.ToString("MMMM"))

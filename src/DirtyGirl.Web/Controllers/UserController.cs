@@ -112,10 +112,10 @@ namespace DirtyGirl.Web.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(vm.User.UserName, false);
 
-                    DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "We've setup your profile and you're ready to register for your first race."));
-
                     if (!string.IsNullOrEmpty(vm.returnUrl))
                         return Redirect(vm.returnUrl);
+
+                    DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "We've setup your profile and you're ready to register for your first race."));                   
 
                     return RedirectToAction("ViewUser", new { userId = vm.User.UserId });
                 }
