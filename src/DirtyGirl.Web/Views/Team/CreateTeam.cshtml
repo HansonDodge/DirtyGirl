@@ -101,20 +101,20 @@
 
 <script>
     function VerifyTeamName() {
-        if ($('#teamName').val().length > 3)
+        if ($('#teamName').val().length > 3) {
             $.ajax({
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#addTeamResult')
-                        .html(function () {
+                        .html(function() {
                             return '<img src="../Images/ajax-loader.gif"/>';
                         });
                 },
                 url: '@Url.Action("VerifyTeamNameAvailability", "Team")',
                 data: { EventId: $('#eventId').val(), TeamName: $('#teamName').val() },
                 type: 'POST',
-                success: function (isValid) {
+                success: function(isValid) {
                     $('#addTeamResult')
-                        .html(function () {
+                        .html(function() {
                             var list = '';
                             if (isValid == true) {
                                 list = 'Team Name Available';
@@ -125,25 +125,26 @@
                             return list;
                         });
                 },
-                error: function (data, status, jqXhr) {
+                error: function(data, status, jqXhr) {
                     //alert("FAILED: " + data.status + " " + data.responseText);
                 }
             });
+        } 
     }
     
     function CreateTeam() {
-        if ($('#teamName').val().length > 3)
+        if ($('#teamName').val().length > 3) {
             $.ajax({
                 url: '@Url.Action("CreateTeam", "Team")',
                 data: { EventId: "@(ViewBag.EventId)", TeamName: $('#teamName').val(), RegistrationId: $('#registrationId').val() },
                 type: 'POST',
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#addTeamResult')
-                        .html(function () {
+                        .html(function() {
                             return '<img src="../Images/ajax-loader.gif"/>';
                         });
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data.redirect) {
                         // data.redirect contains the string URL to redirect to
                         window.location.href = data.redirect;
@@ -154,10 +155,14 @@
                             });
                     }
                 },
-                error: function (data, status, jqXhr) {
+                error: function(data, status, jqXhr) {
                     //alert("FAILED: " + data);
                 }
             });
+        } 
+        else {
+            $('#addTeamResult').html("Team Name is required");        
+        }
     }
     
     function ValidateTeamCodeText() {
@@ -191,32 +196,35 @@
     }
     
     function JoinTeam() {
-        if ($('#TeamCodeTextBox').val().length > 4)
+        if ($('#TeamCodeTextBox').val().length > 4) {
             $.ajax({
                 url: '@Url.Action("JoinTeam", "Team")',
                 data: { eventId: "@(ViewBag.EventId)", teamCode: $('#TeamCodeTextBox').val(), registrationId: $('#registrationId').val() },
                 type: 'POST',
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#teamCodeResultsText')
-                        .html(function () {
+                        .html(function() {
                             return '<img src="../Images/ajax-loader.gif"/>';
                         });
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data.redirect) {
                         // data.redirect contains the string URL to redirect to
                         window.location.href = data.redirect;
                     } else {
                         $('#teamCodeResultsText')
-                            .html(function () {
-                                return "Error Occurred";
+                            .html(function() {
+                                return "Passcode can not be verified at this time.";
                             });
                     }
                 },
-                error: function (data, status, jqXhr) {
+                error: function(data, status, jqXhr) {
                     //alert("FAILED: " + data);
                 }
             });
+        } else {
+            $('#teamCodeResultsText').html("Passcode is required.");
+        }
     }
 
 </script>

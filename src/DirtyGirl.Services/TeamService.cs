@@ -29,7 +29,10 @@ namespace DirtyGirl.Services
                 {
                     team.Code = GenerateTeamCode(team.EventId);
                     _repository.Teams.Create(team);
-                    _repository.Registrations.Find(x => x.RegistrationId == registrationId).Team = team;
+                    
+                    var reg = _repository.Registrations.Find(x => x.RegistrationId == registrationId);
+                    reg.Team = team;
+                    _repository.Registrations.Update(reg);
 
                     if (!_sharedRepository)
                         _repository.SaveChanges();
@@ -37,7 +40,7 @@ namespace DirtyGirl.Services
                 }
             }
             catch (Exception ex)
-            { result.AddServiceError(Utilities.GetInnerMostException(ex)); }
+            { result.AddServiceError(ex.Message); }
             return result;
         }       
 

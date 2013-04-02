@@ -57,7 +57,7 @@ namespace DirtyGirl.Models
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "Emergency contact name is required")]
-        [RegularExpression(@"^(?!\s+$)[a-zA-Z][a-zA-Z- ]+$", ErrorMessage = "Please enter a valid Emergency contact name.")]
+        [RegularExpression(@"^(?!\s+$)[a-zA-Z][a-zA-Z-. ]+$", ErrorMessage = "Please enter a valid Emergency contact name.")]
         public string EmergencyContact { get; set; }
 
         [Required(ErrorMessage="Emergency contact phone number is required.")]        

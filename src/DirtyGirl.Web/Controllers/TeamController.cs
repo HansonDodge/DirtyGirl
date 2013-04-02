@@ -111,6 +111,8 @@ namespace DirtyGirl.Web.Controllers
                         return Json(new { redirect = Url.Action("ViewTeam", "Team", new { teamId = newTeam.TeamId}) });
                     }
                     result.GetServiceErrors().ForEach(x => errors += x.ErrorMessage + "<br/>");
+                    errors += string.Format("\nEventID: {0}, name: {1}, regid: {2}\n", teamCreate.EventId,
+                                            teamCreate.TeamName, teamCreate.RegistrationId);
                     return Json(errors);
                 }
                 return Json("The requested team name is already in use for this event. Please select a different team name.");
