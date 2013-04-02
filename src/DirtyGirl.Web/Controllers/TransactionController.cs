@@ -259,7 +259,7 @@ namespace DirtyGirl.Web.Controllers
                 error = errors[0].ErrorMessage;
 
  
-            return RedirectToAction("InvalidRedemption", "registration", new { m = error });
+            return RedirectToAction("InvalidRedemption", "registration", new { redemptionError = error });
         }
 
         #endregion
