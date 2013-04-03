@@ -88,11 +88,16 @@ namespace DirtyGirl.Services
 
         public IList<RedemptionCode> GetActiveRedemptionCodes(int userId)
         {
-            var redemptionCodes = _repository.RedemptionCodes.Filter(x => x.GeneratingRegistration.UserId == userId && x.ResultingRegistrationId == null).ToList();
+            var transferExpirationDate = DateTime.Now.AddDays(-DirtyGirlServiceConfig.Settings.MaxTransferHeldDays);
+            var redemptionCodes = _repository.RedemptionCodes.Filter(
+                                        x => x.GeneratingRegistration.UserId == userId
+                                     && x.ResultingRegistrationId == null
+                                     && ( x.RedemptionCodeType == RedemptionCodeType.StraightValue || x.DateAdded < transferExpirationDate )
+                                     ).ToList();
 
             foreach (var code in redemptionCodes)
             {
-                if (code.RedemptionCodeType == RedemptionCodeType.Transfer && code.DateAdded < DateTime.Now.AddDays(-DirtyGirlServiceConfig.Settings.MaxTransferHeldDays) && code.ResultingRegistrationId == null)
+                if (code.RedemptionCodeType == RedemptionCodeType.Transfer && code.DateAdded < transferExpirationDate && code.ResultingRegistrationId == null)
                 {
                     code.RedemptionCodeType = RedemptionCodeType.StraightValue;
                     code.GeneratingRegistration.RegistrationStatus = RegistrationStatus.Cancelled;
