@@ -21,7 +21,7 @@ namespace DirtyGirl.Web.Controllers
         {
             if (ModelState.IsValid && ValidateUser(model.UserName, model.Password, model.RememberMe))
             {
-                if (!string.IsNullOrEmpty(model.ReturnUrl))
+                if (!string.IsNullOrEmpty(model.ReturnUrl) && !model.ReturnUrl.Contains("logon"))       // if logging in, do not return to the logon screen
                     return RedirectToLocal(returnUrl);
 
                 var user = UserService.GetUserByUsername(model.UserName); 

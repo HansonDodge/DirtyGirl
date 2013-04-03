@@ -79,12 +79,15 @@ namespace DirtyGirl.Web.Controllers
             if (!regExUserName.IsMatch(vm.User.UserName))
                 ModelState.AddModelError("UserName", "Invalid Username.");
 
-            if (string.IsNullOrWhiteSpace(vm.User.Password))
+            if (vm.User.FacebookId == null)
             {
-                ModelState.AddModelError("UserName", "Password is required.");
+                if (string.IsNullOrWhiteSpace(vm.User.Password))
+                {
+                    ModelState.AddModelError("UserName", "Password is required.");
+                }
+                else if (vm.User.UserName.ToLower() == vm.Password.ToLower())
+                    ModelState.AddModelError("Password", "Your password cannot be the same as your username.");
             }
-            else if (vm.User.UserName.ToLower() == vm.Password.ToLower())
-                ModelState.AddModelError("Password", "Your password cannot be the same as your username.");
 
             if (!regExName.IsMatch(vm.User.FirstName))
                 ModelState.AddModelError("FirstName", "Please enter a valid first name.");
