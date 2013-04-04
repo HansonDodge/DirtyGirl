@@ -1,4 +1,5 @@
-﻿using DirtyGirl.Models;
+﻿using System.Linq;
+using DirtyGirl.Models;
 using DirtyGirl.Models.Enums;
 using DirtyGirl.Services.ServiceInterfaces;
 using DirtyGirl.Web.Utils;
@@ -52,6 +53,54 @@ namespace DirtyGirl.Web.Controllers
 
             return RedirectToAction("eventSelection", "registration", new { itemId, eventId, eventDateId });
         }
+
+        public ActionResult RemoveRegistration(int regId, string returnURL)
+        {        
+            if (!Utilities.IsValidCart())
+            {
+                return Redirect(returnURL);
+            }
+
+            Guid removeItem = Guid.Empty;
+
+            foreach (var itemId in SessionManager.CurrentCart.ActionItems.Keys)
+            {
+                if (!SessionManager.CurrentCart.ActionItems.ContainsKey(itemId))
+                    continue;
+
+                ActionItem actionItem = SessionManager.CurrentCart.ActionItems[itemId];
+
+                if (actionItem.ActionType == CartActionType.CancelRegistration)
+                {
+                    var cancelAction = (CancellationAction)actionItem.ActionObject;
+                    if (cancelAction.RegistrationId == regId)
+                        removeItem = itemId;
+                }
+                if (actionItem.ActionType == CartActionType.TransferRregistration)
+                {
+                    var transferAction = (TransferAction)actionItem.ActionObject;
+                    if (transferAction.RegistrationId == regId)
+                        removeItem = itemId;
+                }
+                if (actionItem.ActionType == CartActionType.EventChange)
+                {
+                    var changeAction = (ChangeEventAction)actionItem.ActionObject;
+                    if (changeAction.RegistrationId == regId)
+                        removeItem = itemId;
+                }
+            }
+
+            // check igf we found one
+            if (removeItem != Guid.Empty)
+                SessionManager.CurrentCart.ActionItems.Remove(removeItem);
+
+            if (!SessionManager.CurrentCart.ActionItems.Any() )
+            {
+                SessionManager.CurrentCart = null;
+            }
+
+            return Redirect(returnURL);
+        }        
 
         #endregion
 

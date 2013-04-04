@@ -118,7 +118,7 @@ namespace DirtyGirl.Web.Controllers
                     if (!string.IsNullOrEmpty(vm.returnUrl))
                         return Redirect(vm.returnUrl);
 
-                    DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "We've setup your profile and you're ready to register for your first race."));                   
+                    DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "We’ve setup your profile and you’re ready to register for your Dirty Girl run."));                   
 
                     return RedirectToAction("ViewUser", new { userId = vm.User.UserId });
                 }
@@ -150,6 +150,7 @@ namespace DirtyGirl.Web.Controllers
             {
                 vm.RegistrationValues.Add(reg.RegistrationId, UserService.GetRegistrationValue(reg.RegistrationId));
                 reg.IsRegistrationCutoff = GetIsRegistrationCutoff(reg.EventWave.EventDate.Event.RegistrationCutoff);
+                reg.IsRegistrationInCart = Utilities.IsRegistrationInCart(reg.RegistrationId);
             }
 
 

@@ -39,14 +39,14 @@
     <div id="inviteFriendContent_@Model.InstanceNumber" class="inviteFriendContent">
         <p class="instructions">To invite friends to your team, please enter their email address and a custom message. We'll then shoot them an email with your Dirty Girl run and team information.</p>
         <div class="single_input">
-            <p>Friend's Email Addresses (separate by comma) *</p>
+            <p>Friend's Email Addresses (separate by comma) <span class="pink">*</span></p>
             <input id="emailAddresses_@Model.InstanceNumber" value="@Model.EmailAddresses"/>
             @Html.ValidationMessageFor(x => x.EmailAddresses, "*")
         </div>
         <input id="subject_@Model.InstanceNumber" type="text" value="@Model.MessageSubject" style="visibility: hidden"/>
         <input id="messageBody_@Model.InstanceNumber" type="text" value="@Model.MessageBody" style="visibility: hidden"/>
         <div class="single_input">
-            <p>Message *</p>
+            <p>Message <span class="pink">*</span></p>
             <textarea id="userMessageBody_@Model.InstanceNumber" >@Model.UserMessageBody</textarea>
             @Html.ValidationMessageFor(x => x.UserMessageBody, "*")
         </div>
@@ -116,7 +116,7 @@
                             CloseInviteModal_@(Model.InstanceNumber)(); 
                         } else {
                             //Service Failure
-                            list = 'Failure:  Please verify the email address(es) entered.';
+                            list = 'Please enter a valid email address';
                         }
                         return list;
                     });

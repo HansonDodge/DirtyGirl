@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using DirtyGirl.Services;
 using DirtyGirl.Services.ServiceInterfaces;
+using DirtyGirl.Models.Enums;
 
 namespace DirtyGirl.Web.Utils
 {
@@ -138,6 +139,42 @@ namespace DirtyGirl.Web.Utils
             }
 
             return true;
+        }
+
+        public static bool IsRegistrationInCart(int regId)
+        {
+            if (!IsValidCart())
+                return false;
+
+            foreach (var actionItem in SessionManager.CurrentCart.ActionItems.Values)
+            {
+                if (!actionItem.ItemReadyForCheckout)
+                    continue;
+
+                if (actionItem.ActionType == CartActionType.CancelRegistration)
+                {
+                    var cancelAction = (CancellationAction)actionItem.ActionObject;
+                    if (cancelAction.RegistrationId == regId )
+                        return true;
+                }
+                if (actionItem.ActionType == CartActionType.TransferRregistration)
+                {
+                    var transferAction = (TransferAction)actionItem.ActionObject;
+                    if (transferAction.RegistrationId == regId)
+                        return true;
+                }
+                if (actionItem.ActionType == CartActionType.EventChange)
+                {
+                    if (actionItem.ItemReadyForCheckout == false)
+                        return false;
+
+                    var changeAction = (ChangeEventAction)actionItem.ActionObject;
+                    if (changeAction.RegistrationId == regId)
+                        return true;
+                }
+
+            }
+            return false;
         }
 
     }

@@ -363,6 +363,11 @@ DG.util = {
         $(".button_editRun").click(function (e) {
             e.preventDefault();
             var links = $(this).parent().find(".editReg").html();
+                
+            $("#editRunInCart").hide();
+            $("#editRunContent").height(145);
+            $("#editRunContainer").height(240);
+
             DG.util.showModal("#editRunContainer");
             $("#editRunContent").html(links);
             $('html, body').animate({ scrollTop: 300 }, 1500);
@@ -375,7 +380,7 @@ DG.util = {
                 DG.util.hideModal(e);
                 $("#editRunContent").html("");
             });
-        });
+        });       
     },
     openRedeemCode: function () {
         $(".openRedeemCode").click(function (e) {

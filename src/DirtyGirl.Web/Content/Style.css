@@ -612,7 +612,8 @@ span.field-validation-error { color:#ff0000;}
 #editRunContent span.editRegTitle{color:#2C1D13; font-family:"Blackout-Midnight","blackout-midnight-1","blackout-midnight-2",sans-serif; font-size: 20px;}
 #editRunContent a{font-family:"Blackout-Midnight","blackout-midnight-1","blackout-midnight-2",sans-serif;  color:#ee5192; font-size: 18px; text-decoration:none;}
 #editRunContent a:hover{text-decoration:underline;}
-
+#editRunInCart {text-align: center;}
+#editRunInCart a{padding: 10px 20px 0 20px;font-family:"Blackout-Midnight","blackout-midnight-1","blackout-midnight-2",sans-serif;  color:#ee5192; font-size: 14px; text-decoration:none;}
 
 /*EDIT REGISTRATION*/
 .editRegistrationContent {position: relative; }

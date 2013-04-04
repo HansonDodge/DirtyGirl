@@ -114,6 +114,9 @@ namespace DirtyGirl.Models
         public bool IsRegistrationCutoff {get; set;}
 
         [NotMapped]
+        public bool IsRegistrationInCart { get; set; }
+
+        [NotMapped]
         public string FullName
         {
             get { return FirstName + " " + LastName; } 

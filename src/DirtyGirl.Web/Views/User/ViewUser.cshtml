@@ -11,6 +11,41 @@
     $(document).ready(function () {
         DG.util.initEditRunBtn();
         DG.util.openRedeemCode();
+        
+
+        $(document).on('click', '.startChange', function (e) {
+            var self = $(this);
+            var isInCart = self.attr("dataval");
+            if (isInCart == "False")
+                return true;
+            
+            e.preventDefault();         
+            var regId = self.attr("datareg");
+            $("#editRunRemoveRun").attr("href", "/transaction/RemoveRegistration?regId=" + regId + "&returnURL=" + encodeURIComponent(self.attr("href")));
+
+            $("#editRunContent").animate({
+                height: 0
+            }, 1000, function () {
+                $("#editRunContainer").animate({
+                    height: 150
+                }, 1000, function () {
+                    $("#editRunInCart").show();
+                });
+            });
+            
+            return false;
+        });
+
+        $(document).on('click', '#cancelRunRemove', function (e) {
+            e.preventDefault();
+            $("#editRunInCart").hide();
+            $("#editRunContainer").animate({
+                    height: 240
+                }, 1000, function () {
+                    $("#editRunContent").height(145);            
+                });
+            });
+
     });
 </script>
 <div id="eventDetail">
@@ -104,10 +139,10 @@
   
                                             <p class="editReg">
                                                 <span class="editRegTitle">WHAT WOULD YOU LIKE TO CHANGE?</span>
-                                                <span>@Html.ActionLink("Change My Wave", "StartChangeWave", "transaction", new { regId = reg.RegistrationId }, null)</span>
-                                                <span>@Html.ActionLink("Change My Run", "StartChangeEvent", "transaction", new { eventId = d.EventId, regId = reg.RegistrationId, waveID = w.EventWaveId, dateID = d.EventDateId }, null)</span>
-                                                <span>@Html.ActionLink("Transfer My Registration To A Friend", "StartTransfer", "transaction", new { regId = reg.RegistrationId }, null)</span>
-                                                <span>@Html.ActionLink("Cancel My Run", "StartCancellation", "transaction", new { regId = reg.RegistrationId }, null)</span>
+                                                <span>@Html.ActionLink("Change My Wave", "StartChangeWave", "transaction", new { regId = reg.RegistrationId }, new {@class="startChange startChangeWave", @datareg=reg.RegistrationId, @dataval=reg.IsRegistrationInCart})</span>
+                                                <span>@Html.ActionLink("Change My Run", "StartChangeEvent", "transaction", new { eventId = d.EventId, regId = reg.RegistrationId, waveID = w.EventWaveId, dateID = d.EventDateId }, new {@class="startChange startChangeEvent", @datareg=reg.RegistrationId, @dataval=reg.IsRegistrationInCart})</span>
+                                                <span>@Html.ActionLink("Transfer My Registration To A Friend", "StartTransfer", "transaction", new { regId = reg.RegistrationId }, new {@class="startChange startTransfer", @datareg=reg.RegistrationId, @dataval=reg.IsRegistrationInCart})</span>
+                                                <span>@Html.ActionLink("Cancel My Run", "StartCancellation", "transaction", new { regId = reg.RegistrationId }, new {@class="startChange startCancel", @datareg=reg.RegistrationId, @dataval=reg.IsRegistrationInCart})</span>
                                             </p>
                                             @if (reg.Team != null)
                                             {
@@ -165,6 +200,13 @@
         </div>
         <div id="editRunContent">
         
+        </div>
+        <div id="editRunInCart">
+            <h4><p>This registration is already in your cart.<p>How would you like to proceed?</p></h4>
+            <br/>
+            <a id="editRunRemoveRun" href="#">Remove From Cart and Continue</a>&nbsp;<a href="#" id="cancelRunRemove">Cancel</a>
+            <br/>
+
         </div>
     </div>
 @foreach (var reg in Model.Registrations)
