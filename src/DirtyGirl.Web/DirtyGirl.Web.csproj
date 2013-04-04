@@ -596,6 +596,7 @@
     <Content Include="Images\sprite-tab-generalinfo.psd" />
     <None Include="Properties\PublishProfiles\register-godirtygirl-qa - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\register-godirtygirl-qa - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\register.godirtygirl-prod.pubxml" />
     <None Include="Properties\PublishProfiles\Staging.pubxml" />
     <Content Include="Images\ajax-loader-lg.gif" />
     <Content Include="Images\ajax-loader.gif" />
