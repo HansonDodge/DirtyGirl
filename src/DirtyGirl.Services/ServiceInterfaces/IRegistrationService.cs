@@ -71,7 +71,6 @@ namespace DirtyGirl.Services.ServiceInterfaces
 
         Team GetTeamByCode(int eventId, string teamCode);
         Team GetTeamById(int teamId);
-
         ServiceResult GenerateTempTeam(Team newTeam);   
 
         #endregion

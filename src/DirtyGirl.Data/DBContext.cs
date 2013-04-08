@@ -32,6 +32,7 @@ namespace DirtyGirl.Data
 
         public DbSet<EventTemplate> EventTemplates { get; set; }
         public DbSet<Cart> Carts { get; set; }
+        public DbSet<DirtyWord> DirtyWords { get; set; }
 
         public virtual ObjectResult<EventDateDetails> SpGetAllEventDateCounts()
         {

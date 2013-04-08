@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataInterfaces\Repositories\IDirtyWordRepository.cs" />
     <Compile Include="DataInterfaces\Repositories\ICartDiscountItemRepository.cs" />
     <Compile Include="DataInterfaces\Repositories\ICartItemRepository.cs" />
     <Compile Include="DataInterfaces\Repositories\ICartRepository.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="DataRepositories\CartItemRepository.cs" />
     <Compile Include="DataRepositories\CartRepository.cs" />
     <Compile Include="DataRepositories\ChargeRepository.cs" />
+    <Compile Include="DataRepositories\DirtyWordRepository.cs" />
     <Compile Include="DataRepositories\EventLeadTypeRepository.cs" />
     <Compile Include="DataRepositories\CouponRepository.cs" />
     <Compile Include="DataRepositories\DiscountItemRepository.cs" />

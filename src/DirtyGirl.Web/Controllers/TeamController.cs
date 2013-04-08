@@ -102,6 +102,11 @@ namespace DirtyGirl.Web.Controllers
             string errors = string.Empty;
             if (ModelState.IsValid)
             {
+                if (!_teamService.CheckTeamNameForDirtyWords(teamCreate.TeamName))
+                {
+                    return Json("The requested team name contains a naughty word.");
+                }
+
                 if (_teamService.CheckTeamNameAvailability(teamCreate.EventId, teamCreate.TeamName))
                 {
                     var newTeam = new Team { EventId = teamCreate.EventId, Name = teamCreate.TeamName, CreatorID = CurrentUser.UserId};
@@ -172,7 +177,12 @@ namespace DirtyGirl.Web.Controllers
         [Authorize]
         public JsonResult VerifyTeamNameAvailability(vmTeam_Create createTeam)
         {
-            return Json(_teamService.CheckTeamNameAvailability(createTeam.EventId, createTeam.TeamName));
+            if (!_teamService.CheckTeamNameForDirtyWords(createTeam.TeamName))
+            {
+                return Json("The requested team name contains a naughty word.");
+            }
+
+            return Json(!_teamService.CheckTeamNameAvailability(createTeam.EventId, createTeam.TeamName) ? "The requested team name is already in use for this event. Please select a different team name." : string.Empty);
         }
 
 

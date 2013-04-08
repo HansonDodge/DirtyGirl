@@ -10,42 +10,7 @@
 <script>
     $(document).ready(function () {
         DG.util.initEditRunBtn();
-        DG.util.openRedeemCode();
-        
-
-        $(document).on('click', '.startChange', function (e) {
-            var self = $(this);
-            var isInCart = self.attr("dataval");
-            if (isInCart == "False")
-                return true;
-            
-            e.preventDefault();         
-            var regId = self.attr("datareg");
-            $("#editRunRemoveRun").attr("href", "/transaction/RemoveRegistration?regId=" + regId + "&returnURL=" + encodeURIComponent(self.attr("href")));
-
-            $("#editRunContent").animate({
-                height: 0
-            }, 1000, function () {
-                $("#editRunContainer").animate({
-                    height: 150
-                }, 1000, function () {
-                    $("#editRunInCart").show();
-                });
-            });
-            
-            return false;
-        });
-
-        $(document).on('click', '#cancelRunRemove', function (e) {
-            e.preventDefault();
-            $("#editRunInCart").hide();
-            $("#editRunContainer").animate({
-                    height: 240
-                }, 1000, function () {
-                    $("#editRunContent").height(145);            
-                });
-            });
-
+        DG.util.openRedeemCode();      
     });
 </script>
 <div id="eventDetail">
@@ -55,7 +20,7 @@
             <div id="eventDetailContent" class="profileColumn">
                 <div class="profileContent">
                     <h2>PROFILE</h2>
-                    <h3>WELCOME BACK, @Model.User.FirstName!</h3>
+                    <h3>HELLO, @Model.User.FirstName!</h3>
                     <div class="profileInfoContent">
                         <div class="profileInfoContentLeft">
                             <div class="profilePicture">
@@ -178,7 +143,7 @@
                                 <a href="@Url.Action("Index", "Home")">
                                     <img src="@Url.Content("~/images/btn_registerRun.png")" /></a>
                                 <a href="http://www.nationalbreastcancer.org/about-nbcf/dirty-girl-mud-run-fundraising" target="_blank">
-                                    <img src="@Url.Content("~/images/btn_makeDonation.png")" /></a>
+                                    <img src="@Url.Content("~/images/btn_Donation.png")" /></a>
                             </div>
                         </div>
                     </div>

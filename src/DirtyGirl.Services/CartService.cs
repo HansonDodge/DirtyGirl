@@ -42,7 +42,7 @@ namespace DirtyGirl.Services
                 if (DateTime.Now.CompareTo(expired) < 0)
                     result.AddServiceError("This credit card is expired");
 
-                Regex rg = new Regex(@"^[a-zA-Z ]*$");
+                Regex rg = new Regex(@"^[a-zA-Z].*$");
                 if (string.IsNullOrWhiteSpace(checkOutDetails.CardHolderFirstname))
                 {
                     result.AddServiceError("Cardholder first name is required.");

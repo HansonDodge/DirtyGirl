@@ -190,26 +190,26 @@ namespace DirtyGirl.Web.Controllers
         {
             var waves = _service.GetWaveDetialsForEventDate(eventDateId);
 
-            var vm = new vmRegistration_WaveList
-                {
-                    MorningWaves = GetWaveItems(waves.Where(x => x.StartTime.ToString("tt") == "AM").ToList()),
-                    EveningWaves = GetWaveItems(waves.Where(x => x.StartTime.ToString("tt") == "PM").ToList())
-                };
-
+            var vm = new vmRegistration_WaveList();
+            vm.MorningWaves = GetWaveItems(1, waves.Where(x => x.StartTime.ToString("tt") == "AM").ToList());
+            vm.EveningWaves = GetWaveItems(vm.MorningWaves.Count()+1,
+                                           waves.Where(x => x.StartTime.ToString("tt") == "PM").ToList());
+            
             return PartialView("Partial/WaveList", vm);
         }
 
-        private List<vmRegistration_WaveItem> GetWaveItems(List<EventWaveDetails> waveOverviewList)
+        private List<vmRegistration_WaveItem> GetWaveItems(int startingWaveNumber, List<EventWaveDetails> waveOverviewList)
         {
 
             var waveItemList = new List<vmRegistration_WaveItem>();
+            int waveNumber = startingWaveNumber;
 
             foreach (var wave in waveOverviewList)
             {
                 var newWave = new vmRegistration_WaveItem
                     {
                         EventWaveId = wave.EventWaveId,
-                        WaveNumber = waveOverviewList.IndexOf(wave) + 1,
+                        WaveNumber = waveNumber++,
                         StartTime = wave.StartTime,
                         isFull = wave.SpotsLeft <= 0
                     };
@@ -414,49 +414,11 @@ namespace DirtyGirl.Web.Controllers
                     switch (model.TeamType.ToLower())
                     {
                         case "existing":
-
-                            if (string.IsNullOrEmpty(model.TeamCode))
-                            {
-                                ModelState.AddModelError("TeamCode", "Team Code is Required.");
-                                ViewBag.showTeamCode = "true";
-                            }
-                            else
-                            {
-                                var existingTeam = _service.GetTeamByCode(model.EventId, model.TeamCode);
-
-                                if (existingTeam != null)
-                                    reg.TeamId = existingTeam.TeamId;
-                                else
-                                    ModelState.AddModelError("TeamCode", "There is no team using this code for this event.");
-                            }
+                            JoinExistingTeam(model, reg);
                             break;
 
                         case "new":
-
-                            if (string.IsNullOrEmpty(model.TeamName))
-                            {
-                                ModelState.AddModelError("TeamName", "Team Name is Required");
-                            }
-                            else
-                            {
-                                Match match = Regex.Match(model.TeamName, @"([a-zA-Z].*?){3}", RegexOptions.IgnoreCase);
-
-                                if (!match.Success)
-                                {
-                                    ModelState.AddModelError("TeamName", "Team Name must contain at least 3 letters.");
-                                }
-                                else
-                                {
-                                    Team newTeam = new Team { EventId = model.EventId, Name = model.TeamName, CreatorID = CurrentUser.UserId };
-
-                                    ServiceResult tempTeamResult = _service.GenerateTempTeam(newTeam);
-
-                                    if (!tempTeamResult.Success)
-                                        Utilities.AddModelStateErrors(ModelState, tempTeamResult.GetServiceErrors());
-                                    else
-                                        reg.Team = newTeam;
-                                }
-                            }
+                            CreateNewTeam(model, reg);
                             break;
                     }
                 }
@@ -473,6 +435,50 @@ namespace DirtyGirl.Web.Controllers
 
             model.EventOverview = _service.GetEventOverviewById(model.EventId);
             return View(model);
+        }
+
+        private void JoinExistingTeam(vmRegistration_CreateTeam model, Registration reg)
+        {
+            if (string.IsNullOrEmpty(model.TeamCode))
+            {
+                ModelState.AddModelError("TeamCode", "Team Code is Required.");
+                ViewBag.showTeamCode = "true";
+                return;
+            }
+
+            var existingTeam = _service.GetTeamByCode(model.EventId, model.TeamCode);
+
+            if (existingTeam != null)
+                reg.TeamId = existingTeam.TeamId;
+            else
+                ModelState.AddModelError("TeamCode", "There is no team using this code for this event.");
+        }
+
+        private void CreateNewTeam(vmRegistration_CreateTeam model, Registration reg)
+        {
+            if (string.IsNullOrEmpty(model.TeamName))
+            {
+                ModelState.AddModelError("TeamName", "Team Name is Required");
+                return;
+            }
+
+            Match match = Regex.Match(model.TeamName, @"([a-zA-Z].*?){3}", RegexOptions.IgnoreCase);
+
+            if (!match.Success)
+            {
+                ModelState.AddModelError("TeamName", "Team Name must contain at least 3 letters.");
+                return;
+            }
+
+            Team newTeam = new Team {EventId = model.EventId, Name = model.TeamName, CreatorID = CurrentUser.UserId};
+
+            ServiceResult tempTeamResult = _service.GenerateTempTeam(newTeam);
+
+            if (!tempTeamResult.Success)
+                Utilities.AddModelStateErrors(ModelState, tempTeamResult.GetServiceErrors());
+            else
+                reg.Team = newTeam;
+                
         }
 
         public JsonResult ValidateTeamCode(int eventId, string code)

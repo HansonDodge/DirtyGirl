@@ -23,6 +23,7 @@ namespace DirtyGirl.Data.RepositoryGroups
         private IEventTemplate_PayScaleRepository eventTemplate_PayScales;
         private IEventLeadRepository eventLeads;
         private IEventLeadTypeRepository eventLeadTypes;
+        private IDirtyWordRepository dirtyWord;
 
         #endregion
 
@@ -160,6 +161,11 @@ namespace DirtyGirl.Data.RepositoryGroups
         public IEventLeadTypeRepository EventLeadTypes
         {
             get { return eventLeadTypes ?? (eventLeadTypes = new EventLeadTypeRepository(dbContext)); }
+        }
+
+        public IDirtyWordRepository DirtyWord
+        {
+            get { return dirtyWord ?? (dirtyWord = new DirtyWordRepository(dbContext)); }
         }
 
         #endregion

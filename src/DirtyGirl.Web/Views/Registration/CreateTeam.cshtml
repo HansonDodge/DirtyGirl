@@ -33,7 +33,7 @@
             $(".new_team").show();
             $(".existing_team").hide();
             $(".teamcreation_join").hide();
-            $('#TeamCodeTextBox').val("")
+            $('#TeamCodeTextBox').val("");
         });
 
         var teamCode = '@Model.TeamCode';
@@ -118,7 +118,7 @@
                                 <div class="register_step3">
                                     <div class="existing_team">
                                         <div class="single_input">
-                                            <p><span class="pink">*</span>Please enter your passcode</p>
+                                            <p><span class="pink">*</span>Please enter your Team Code</p>
                                             @Html.TextBoxFor(x => x.TeamCode, new {id = "TeamCodeTextBox", onkeyup = "ValidateTeamCode()"})
                                             @Html.ValidationMessageFor(x => x.TeamCode, "*")                                            
                                         </div>
@@ -142,7 +142,7 @@
                                     <div class="jointeam_container">
                                         <h3 id="newTeamName"></h3><h5>TEAM: </h5>
                                     </div>
-                                    <p>No. This isn't my team. Enter passcode again.</p>
+                                    <p>No. This isn't my team. Enter Team Code again.</p>
                                 </div>
                             </div>
                             <div class="register_next">  
@@ -163,9 +163,9 @@
                             <p class="bold">Can I register now and create a team name later?  </p>
                             <p>Yes. You must register as an individual then later log in to your Dirty Girl profile and edit your registration. You can then switch to a team member and add a team name.  However, some team names go quickly, so do not wait too long!</p>
                             <p class="bold">How do I register with an existing team? </p>
-                            <p>Registering with an existing team is easy.  As you proceed through the registration process, click “I’m joining an existing team”.  You will be asked to enter the team passcode provide to you by the team captain.  If you are not aware of the passcode, please ask the one who created the name to provide this to you.  Once you confirm the passcode and team name, you are set to go. </p>
+                            <p>Registering with an existing team is easy.  As you proceed through the registration process, click “I’m joining an existing team”.  You will be asked to enter the Team Code provide to you by the team captain.  If you are not aware of the Team Code, please ask the one who created the name to provide this to you.  Once you confirm the Team Code and team name, you are set to go. </p>
                             <p class="bold">How do I register a new team?</p>
-                            <p>Registering a new team is simple.  As you proceed through the registration process, click “I’m creating a new team”.  You will be asked to enter a team name.  Once you have created your name, you will be given a passcode to provide to other team members to join.  Team names cannot be edited so be sure to double check that it is correct before submitting. </p>
+                            <p>Registering a new team is simple.  As you proceed through the registration process, click “I’m creating a new team”.  You will be asked to enter a team name.  Once you have created your name, you will be given a Team Code to provide to other team members to join.  Team names cannot be edited so be sure to double check that it is correct before submitting. </p>
                             <p class="bold">How can I ensure that our team members are all get in the same wave? </p>
                             <p>The best way to ensure each member is in the same wave is have everyone register as early as possible.  Each wave has a limited amount of first come, first serve space. Once a wave is full it is sold out. The registration page will indicate if a wave is sold out or if there are 75 or fewer spots remaining. Anyone who is already registered has the ability to switch to another open wave that day if there is still space available. </p>                            
                             <p class="bold">What is the best team name?  </p>

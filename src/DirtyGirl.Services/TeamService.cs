@@ -8,6 +8,7 @@ using DirtyGirl.Services.Utils;
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace DirtyGirl.Services
 {
@@ -81,7 +82,16 @@ namespace DirtyGirl.Services
 
         public bool CheckTeamNameAvailability(int eventId, string teamName)
         {
-            return !_repository.Teams.Filter(t => t.Name.ToLower().Equals(teamName.Trim().ToLower()) && t.EventId == eventId).Any();
+            if (_repository.Teams.Filter(t => t.Name.ToLower().Equals(teamName.Trim().ToLower()) && t.EventId == eventId).Any())
+                return false;
+
+            return true;
+        }
+
+        public bool CheckTeamNameForDirtyWords(string teamName)
+        {
+            var badWords = _repository.DirtyWord.All().Select(x => x.Word).ToList();
+            return badWords.Count(badWord => teamName.ToLower().Contains(badWord.ToLower())) == 0;
         }
 
         protected bool ValidateTeam(Team teamToValidate, ServiceResult serviceResult)

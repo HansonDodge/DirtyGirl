@@ -30,6 +30,8 @@ namespace DirtyGirl.Data.DataInterfaces.RepositoryGroups
 
         IEventLeadTypeRepository EventLeadTypes { get; }
 
+        IDirtyWordRepository DirtyWord { get; }
+
         #endregion
 
         #region Shopping Cart

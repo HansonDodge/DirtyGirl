@@ -380,7 +380,56 @@ DG.util = {
                 DG.util.hideModal(e);
                 $("#editRunContent").html("");
             });
-        });       
+        });
+        
+        $(document).on('click', '.startChange', function (e) {
+            var self = $(this);
+            e.preventDefault();
+            var regId = self.attr("datareg");
+            var clickUrl = self.attr("href");
+
+            // call controller to see if the registration is already in the cart
+            $.ajax({
+                url: "/Transaction/IsRegistrationInCart",
+                data: { regId: regId },
+                type: 'POST',
+                success: function (data) {
+
+                    // not in the cart, just keep rocking it baby
+                    if (data != true) {
+                        window.location = clickUrl;
+                        return true;
+                    }
+
+                    // in the cart, ask what they want to do next
+                    $("#editRunRemoveRun").attr("href", "/transaction/RemoveRegistration?regId=" + regId + "&returnURL=" + encodeURIComponent(clickUrl));
+
+                    $("#editRunContent").animate({
+                        height: 0
+                    }, 1000, function () {
+                        $("#editRunContainer").animate({
+                            height: 150
+                        }, 1000, function () {
+                            $("#editRunInCart").show();
+                        });
+                    });
+                    return false;
+                },
+                error: function (data, status, jqXhr) {
+                    alert("FAILED: " + data.status + " " + data.responseText);
+                }
+            });
+        });
+
+        $(document).on('click', '#cancelRunRemove', function (e) {
+            e.preventDefault();
+            $("#editRunInCart").hide();
+            $("#editRunContainer").animate({
+                height: 240
+            }, 1000, function () {
+                $("#editRunContent").height(145);
+            });
+        });
     },
     openRedeemCode: function () {
         $(".openRedeemCode").click(function (e) {

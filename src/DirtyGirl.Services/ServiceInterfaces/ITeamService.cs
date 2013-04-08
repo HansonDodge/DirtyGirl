@@ -17,6 +17,7 @@ namespace DirtyGirl.Services.ServiceInterfaces
         Team GetTeamByCode(int eventId, string code);
 
         bool CheckTeamNameAvailability(int eventId, string teamName);
+        bool CheckTeamNameForDirtyWords(string teamName);
 
         string GenerateTeamCode(int eventId);
     }

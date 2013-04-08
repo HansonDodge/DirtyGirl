@@ -78,8 +78,8 @@
                         </div>
                         <div class="register_next">
                             <div class="register_next_copy">
-                                <p>You have selected: <span id="SelectedWave">no wave selected</span></p>
-                                <p class="red hide" style="position: absolute; text-align: left; top: 15px;">no wave selected!  Please click on a wave to select it.</p>
+                                <p>You have selected: <span id="SelectedWave">No wave selected</span></p>
+                                <p class="red hide" style="position: absolute; text-align: left; top: 15px;">No wave selected!  Please click on a wave to select it.</p>
                             </div>
                             <div class="register_next_button">
                                 <a href="#" id="lnkWaveSelected" class="proceed">NEXT</a>
@@ -132,8 +132,11 @@
 
         $("#lnkWaveSelected").click(function (e) {
             e.preventDefault();
-            if ($('#SelectedWave').text().indexOf("no wave selected") >= 0) {
-                $(".register_next_copy p:last").show();
+            if ($('#SelectedWave').text().indexOf("No wave selected") >= 0) {
+                if (AreWavesAvailable()) {
+                    // waves are available, tell user what to do
+                    $(".register_next_copy p:last").show();
+                }
             } else {
                 $("#frmWaveSelected").submit();
             }
@@ -166,6 +169,7 @@
     function onEventChange(e) {
         $('#waveList').slideUp("fast", function () {
             DG.util.columns();
+            $(".register_next_copy p:last").hide();
         });
         $("#EventNameTitle").html($("#ddlEvent").data("kendoDropDownList").dataSource._data[$("#ddlEvent").data("kendoDropDownList").selectedIndex - 1].Name);
         
@@ -183,6 +187,7 @@
             eventDateId = 0;
         
         $('#waveList').slideUp("fast", function () {
+            $(".register_next_copy p:last").hide();
             DG.util.columns();
         });
 
@@ -200,7 +205,7 @@
             },
             success: function (data) {
                 $(".wave_content").html(data);
-                $("#SelectedWave").text("no wave selected");
+                $("#SelectedWave").text("No wave selected");
                 enableWaves();
                 DG.util.columns();
             }
@@ -226,6 +231,15 @@
 
             $("#SelectedWave").text(selectedWaveNumber + " at " + selectedWaveTime);
         });
+    }
+
+    function AreWavesAvailable() {
+        var emptyWaves = $(".empty_wave");
+        var halfwaves = $(".half_wave");
+        if (emptyWaves.length > 0 || halfwaves.length > 0)
+            return true;
+
+        return false;
     }
 
 </script>

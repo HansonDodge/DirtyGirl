@@ -67,7 +67,7 @@ namespace DirtyGirl.Web.Controllers
         public ActionResult CreateUser(vmUser_EditUser vm)
         {
             Regex regExUserName = new Regex(@"^[a-zA-Z0-9][a-zA-Z0-9\+@._-]+$");
-            Regex regExName = new Regex(@"^[a-zA-Z][a-zA-Z- ]*$");     
+            Regex regExName = new Regex(@"^[a-zA-Z].*$");     
 
             //bool validImageFile = true;
             if (!vm.ImAGirl)

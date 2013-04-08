@@ -224,6 +224,6 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             }).ToList();
             return Json(returnUserList, JsonRequestBehavior.AllowGet);
         }
-
+           
     }
 }

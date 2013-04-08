@@ -512,16 +512,22 @@ namespace DirtyGirl.Services
 
         public ServiceResult GenerateTempTeam(Team newTeam)
         {
-            ServiceResult result = new ServiceResult();
+            var result = new ServiceResult();
 
             try
             {               
-                ITeamService teamService = new TeamService(_repository);               
-
-                if (teamService.CheckTeamNameAvailability(newTeam.EventId, newTeam.Name))
-                    newTeam.Code = teamService.GenerateTeamCode(newTeam.EventId);
+                ITeamService teamService = new TeamService(_repository);
+                if (!teamService.CheckTeamNameForDirtyWords(newTeam.Name))
+                {
+                    result.AddServiceError("TeamName", "Team name contains a naughty word.");
+                }
                 else
-                    result.AddServiceError("TeamName", "Team name is already taken for this event.");
+                {
+                    if (teamService.CheckTeamNameAvailability(newTeam.EventId, newTeam.Name))
+                        newTeam.Code = teamService.GenerateTeamCode(newTeam.EventId);
+                    else
+                        result.AddServiceError("TeamName", "Team name is already taken for this event.");
+                }
             }
             catch (Exception ex)
             {

@@ -105,7 +105,12 @@ namespace DirtyGirl.Web.Controllers
         #endregion
 
         #region ChangeEvent
+        public JsonResult IsRegistrationInCart(int regId)
+        {
+            bool ret = true;
 
+            return Json(IsRegistrationAlreadyInCart(regId), JsonRequestBehavior.AllowGet);
+        }
         
         public ActionResult StartChangeEvent(int eventId, int regId, int waveId, int dateId)
         {        
