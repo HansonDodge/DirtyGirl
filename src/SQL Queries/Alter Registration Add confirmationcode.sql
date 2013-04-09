@@ -1,0 +1,1 @@
+alter table registration add confirmationcode varchar(25) null

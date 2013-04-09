@@ -96,7 +96,8 @@
                                             @{ if (Model.RegistrationValues.ContainsKey(reg.RegistrationId)){ 
                                                 <p><span>Registration Paid:</span> @Model.RegistrationValues[reg.RegistrationId].ToString("c")</p>
                                                }} 
-
+                                            
+                                            <p><span>Confirmation Code:</span> @(!string.IsNullOrWhiteSpace(reg.ConfirmationCode) ? reg.ConfirmationCode : "Not Available") </p>
                                             @if (reg.CompressedFullName != Model.User.CompressedFullName)
                                             {
                                                 <p><span>Registration For:</span> @reg.FullName </p>

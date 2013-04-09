@@ -456,7 +456,8 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                          WaveTime = x.EventWave.StartTime,
                          Zip = x.PostalCode,
                          DateAdded = x.DateAdded,
-                         PacketDeliveryOption = (x.PacketDeliveryOption.HasValue ? x.PacketDeliveryOption.Value.ToString() : RegistrationMaterialsDeliveryOption.OnSitePickup.ToString()),
+                         ConfirmationCode = x.ConfirmationCode ?? "Unknown",
+                         PacketDeliveryOption = (x.PacketDeliveryOption.HasValue ? x.PacketDeliveryOption.Value.ToString() : RegistrationMaterialsDeliveryOption.OnSitePickup.ToString())
                      }).OrderBy(x => x.LastName).ToList();
             }
 
@@ -510,6 +511,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             headerRow.CreateCell(19).SetCellValue("Agreed to Legal Terms");
             headerRow.CreateCell(20).SetCellValue("Agreed to Trademark");
             headerRow.CreateCell(21).SetCellValue("Registration Date");
+            headerRow.CreateCell(22).SetCellValue("Confirmation Code");
 
             //(Optional) freeze the header row so it is not scrolled
             sheet.CreateFreezePane(0, 1, 0, 1);
@@ -549,6 +551,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                 row.CreateCell(19).SetCellValue(reg.AgreeToTerms);
                 row.CreateCell(20).SetCellValue(reg.AgreeTrademark);
                 row.CreateCell(21).SetCellValue(reg.DateAdded.ToShortDateString());
+                row.CreateCell(21).SetCellValue(reg.ConfirmationCode ?? "Unknown");
             }
 
             //Write the workbook to a memory stream

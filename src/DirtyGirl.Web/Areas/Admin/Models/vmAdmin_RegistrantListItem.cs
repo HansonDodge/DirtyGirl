@@ -1,7 +1,4 @@
-﻿using DirtyGirl.Models;
-using DirtyGirl.Models.Enums;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace DirtyGirl.Web.Areas.Admin.Models
 {
@@ -31,5 +28,6 @@ namespace DirtyGirl.Web.Areas.Admin.Models
         public bool AgreeTrademark { get; set; }
         public DateTime DateAdded { get; set; }
         public string PacketDeliveryOption { get; set; }
+        public string ConfirmationCode { get; set; }
     }
 }

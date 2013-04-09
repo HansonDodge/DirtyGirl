@@ -26,7 +26,7 @@ namespace DirtyGirl.Services.ServiceInterfaces
         ServiceResult TransferRegistration(int existingRegistrationId, string name, string email);
         ServiceResult CancelRegistration(int registrationId);
         ServiceResult ChangeWave(int registrationId, int eventWaveId);
-        ServiceResult ChangeEvent(int registrationId, int eventWaveId, int? cartItemId);
+        ServiceResult ChangeEvent(int registrationId, int eventWaveId, int? cartItemId, string confirmationCode);
         ServiceResult RedemptionCodeRegistration(string redemptionCode, Registration r);
 
         Registration GetRegistrationById(int registrationId);

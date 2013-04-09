@@ -594,6 +594,8 @@
     <Content Include="Areas\Admin\Views\Reporting\Partial\PerformanceExport.cshtml" />
     <Content Include="Images\btn_Donation.png" />
     <Content Include="Images\img_login_modal.jpg" />
+    <Content Include="Images\sponsors\NBCF-Logo.png" />
+    <Content Include="Images\sponsors\PaulMitchellLogo.png" />
     <Content Include="Images\sprite-tab-generalinfo.psd" />
     <Content Include="Images\btn_Donation.psd" />
     <None Include="Properties\PublishProfiles\register-godirtygirl-qa - FTP.pubxml" />

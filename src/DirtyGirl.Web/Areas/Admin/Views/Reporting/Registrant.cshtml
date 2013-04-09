@@ -40,6 +40,7 @@
                       cols.Bound(r => r.AgreeToTerms).Title("Agreed to Legal Terms").Width(180);
                       cols.Bound(r => r.AgreeTrademark).Title("Agreed to Trademark").Width(180);
                       cols.Bound(r => r.DateAdded).Format("{0:MM/dd/yyyy}").Title("Registration Date").Width(140);
+                      cols.Bound(r => r.ConfirmationCode).Width(140);
                   })
               .HtmlAttributes(new { style = "font-size:75%; width:1200px;" })        
               .Pageable()

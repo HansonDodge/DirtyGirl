@@ -182,7 +182,7 @@ namespace DirtyGirl.Services
                     {
                         ActionItem action = tempCart.ActionItems[summaryItem.SessionKey.Value];
                         int? discountId = summaryItem.DiscountItemId;
-                        CompleteActions(action, newItem.CartItemId, discountId);
+                        CompleteActions(action, newItem.CartItemId, discountId, transactionId);
                     }
 
                 }
@@ -200,7 +200,7 @@ namespace DirtyGirl.Services
             }           
         }
 
-        private void CompleteActions(ActionItem item, int cartItemId, int? discountId)
+        private void CompleteActions(ActionItem item, int cartItemId, int? discountId, string confirmationCode)
         {
             IRegistrationService regService = new RegistrationService(this._repository, false);
 
@@ -209,11 +209,12 @@ namespace DirtyGirl.Services
                 case CartActionType.NewRegistration:
                     var newReg = (Registration)item.ActionObject;
                     newReg.CartItemId = cartItemId;
+                    newReg.ConfirmationCode = confirmationCode;
                     regService.CreateNewRegistration(newReg, discountId);
                     break;
                 case CartActionType.EventChange:
                     var changeAction = (ChangeEventAction)item.ActionObject;
-                    regService.ChangeEvent(changeAction.RegistrationId, changeAction.UpdatedEventWaveId, cartItemId);
+                    regService.ChangeEvent(changeAction.RegistrationId, changeAction.UpdatedEventWaveId, cartItemId, confirmationCode);
                     break;
                 case CartActionType.TransferRregistration:
                     var transferAction = (TransferAction)item.ActionObject;

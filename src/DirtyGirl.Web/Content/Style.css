@@ -120,7 +120,7 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .contentSide_sponsors { position: relative; padding: 20px 0 0;}
 .contentSide_sponsors h4{font-size: 16px; color:#573f3f; }
 .contentSide_sponsors .sponsors{ position: relative; overflow: hidden; padding: 15px 0;}
-.contentSide_sponsors .sponsors img{ float:left; height: 77px; margin: 0 5px 5px 0;  width: 77px;}
+.contentSide_sponsors .sponsors img{ float:left; height: 77px; margin: 0 5px 5px 0;  }
 .contentSideFaq { position: relative; padding: 15px 0 0;}
 .contentSideFaq h3{ font-size: 24px; color:#573F3F; margin-bottom: 20px;}
 .contentSideFaq p.bold{ margin:0; padding-bottom:5px;}

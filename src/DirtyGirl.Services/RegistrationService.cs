@@ -169,6 +169,7 @@ namespace DirtyGirl.Services
                     target.TeamId = r.TeamId;
                     target.UserId = r.UserId;
                     target.DateUpdated = DateTime.Now;
+                    target.ConfirmationCode = r.ConfirmationCode;
 
                     if (!_sharedRepository)
                         _repository.SaveChanges();
@@ -274,7 +275,7 @@ namespace DirtyGirl.Services
 
         }
 
-        public ServiceResult ChangeEvent(int registrationId, int eventWaveId, int? cartItemId)
+        public ServiceResult ChangeEvent(int registrationId, int eventWaveId, int? cartItemId, string confirmationCode)
         {
             var result = new ServiceResult();
 
@@ -317,6 +318,10 @@ namespace DirtyGirl.Services
                         Signature = existingReg.Signature,
                         IsIAmTheParticipant = existingReg.IsIAmTheParticipant
                     };
+                if (string.IsNullOrEmpty(confirmationCode))
+                    newReg.ConfirmationCode = existingReg.ConfirmationCode;
+                else
+                    newReg.ConfirmationCode = confirmationCode;
 
                 _repository.Registrations.Create(newReg);
 

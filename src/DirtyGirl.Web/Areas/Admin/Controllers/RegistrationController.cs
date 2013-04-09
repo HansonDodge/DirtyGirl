@@ -53,7 +53,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
         public ActionResult EventSelection(int eventWaveId, int registrationId)
         {
             var eventObj = _registrationService.GetRegistrationById(registrationId);
-            var result = _registrationService.ChangeEvent(registrationId, eventWaveId, null);
+            var result = _registrationService.ChangeEvent(registrationId, eventWaveId, null,null);
 
             if(!result.Success)
                 Utilities.AddModelStateErrors(this.ModelState, result.GetServiceErrors());

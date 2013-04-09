@@ -110,6 +110,8 @@ namespace DirtyGirl.Models
 
         public DateTime? DateUpdated { get; set; }
 
+        public string ConfirmationCode { get; set; }
+
         [NotMapped]
         public bool IsRegistrationCutoff {get; set;}
 
