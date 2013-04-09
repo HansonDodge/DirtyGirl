@@ -3,6 +3,20 @@
     Layout = null;    
 }
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".ccv p a").tooltip({ showURL: false });
+        $('#lnkAddDiscount').click(function () {
+            var code = $('#txtCouponCode').val();
+            if (code.trim().length == 0) {
+                alert("Coupon code is required.");
+                return false;
+            }
+            return true;
+        });
+    });
+
+</script>
 <div id="cartSummaryMessages">
     <ul>
     @foreach (var message in Model.SummaryMessages)
