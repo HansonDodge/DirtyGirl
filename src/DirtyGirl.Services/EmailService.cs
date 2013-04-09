@@ -125,8 +125,8 @@ namespace DirtyGirl.Services
                                 if (reg != null)
                                 {
                                     purchaseDescription = string.Format("{0}, {1} : {2} {3}", reg.EventWave.EventDate.Event.GeneralLocality, reg.EventWave.EventDate.Event.Region.Code, reg.EventWave.EventDate.DateOfEvent.ToString("dddd  MMMM, dd yyyy"), reg.EventWave.StartTime.ToString("h:mm tt"));
-                                    city = reg.Locality;
-                                    date = reg.EventWave.EventDate.DateOfEvent.ToString("mm/dd/yyyy");
+                                    city = reg.EventWave.EventDate.Event.GeneralLocality;
+                                    date = reg.EventWave.EventDate.DateOfEvent.Date.ToShortDateString();
                                 }
                                 break;
                         }                        
