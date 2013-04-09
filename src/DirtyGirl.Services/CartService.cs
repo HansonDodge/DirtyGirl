@@ -385,6 +385,28 @@ namespace DirtyGirl.Services
                                         null,
                                         null,
                                         false));
+                        break;
+
+                    case CartActionType.ProcessingFee:
+
+                        var processingCost = (ProcessingFeeAction)item.Value.ActionObject;
+                        evtWave = evtService.GetEventWaveById(processingCost.EventWaveId);
+                        evtDate = evtWave.EventDate;
+                        evt = evtDate.Event;
+                        fee = evtService.GetCurrentFeeForEvent(evt.EventId, EventFeeType.ProcessingFee);
+                        lineItems.Add(GenerateLineItem(evt.EventId,
+                                        item.Key,
+                                        PurchaseType.Fee,
+                                        ProcessType.General,
+                                        "Processing Fee",
+                                        "Processing Fee for registration packet",
+                                        fee.PurchaseItemId,
+                                        fee.Cost,
+                                        false,
+                                        false,
+                                        null,
+                                        null,
+                                        false));
                         break; 
                 }               
 

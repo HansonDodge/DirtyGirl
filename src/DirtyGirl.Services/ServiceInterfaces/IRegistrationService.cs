@@ -34,6 +34,7 @@ namespace DirtyGirl.Services.ServiceInterfaces
 
         decimal GetRegistrationPathValue(int registrationId);
         ActionItem CreateShippingFee(Guid regItemGuid, int eventWaveId, RegistrationMaterialsDeliveryOption? deliveryOption);
+        ActionItem CreateProcessingFee(Guid regItemGuid, int eventWaveId,RegistrationMaterialsDeliveryOption? deliveryOption);
 
         #endregion
 

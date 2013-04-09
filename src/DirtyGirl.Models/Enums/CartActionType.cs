@@ -8,6 +8,7 @@ namespace DirtyGirl.Models.Enums
         WaveChange,
         TransferRregistration,
         CancelRegistration,
-        ShippingFee
+        ShippingFee,
+        ProcessingFee
     }
 }

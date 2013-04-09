@@ -114,12 +114,23 @@ namespace DirtyGirl.Web.Controllers
             // entering the danger zone... 
             ActionItem removeAction = SessionManager.CurrentCart.ActionItems[itemId];
             
-            // if new event- remove shipping charge related to that event if any 
+            // if new event- remove shipping and/or processing charge related to that event if any 
             if (removeAction.ActionType == CartActionType.NewRegistration)
             {
+                var processingActions = SessionManager.CurrentCart.ActionItems.Where(x => (x.Value as ActionItem).ActionType == CartActionType.ProcessingFee).ToList();
+                foreach (var proc in processingActions)
+                {
+                    var processesAction = proc.Value.ActionObject as ProcessingFeeAction;
+                    if (processesAction.RegItemGuid == itemId)
+                    {
+                        SessionManager.CurrentCart.ActionItems.Remove(proc.Key);
+                    }
+                }
+
                 Registration reg = (Registration)removeAction.ActionObject;
                 if (reg.PacketDeliveryOption.HasValue &&  (int)reg.PacketDeliveryOption.Value == 1)
                 {
+                  
                     var shippingActions = SessionManager.CurrentCart.ActionItems.Where(x => (x.Value as ActionItem).ActionType == CartActionType.ShippingFee).ToList();
                     foreach (var ship in shippingActions)
                     {

@@ -409,6 +409,24 @@ namespace DirtyGirl.Services
             return newCartItem;
         }
 
+        public ActionItem CreateProcessingFee(Guid regItemGuid, int eventWaveId, RegistrationMaterialsDeliveryOption? deliveryOption)
+        {
+
+            var newAction = new ProcessingFeeAction
+            {
+                RegItemGuid = regItemGuid,
+                EventWaveId = eventWaveId
+            };
+            var newCartItem = new ActionItem
+            {
+                ActionType = CartActionType.ProcessingFee,
+                ActionObject = newAction,
+                ItemReadyForCheckout = true
+            };
+
+            return newCartItem;
+        }
+
         #endregion
 
         #region Registration Leads

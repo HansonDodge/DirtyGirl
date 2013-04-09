@@ -340,6 +340,9 @@ namespace DirtyGirl.Web.Controllers
                     SessionManager.CurrentCart.ActionItems.Add(Guid.NewGuid(), shippingFeeItem);
                 }
 
+                ActionItem processingFeeItem = _service.CreateProcessingFee(model.ItemId, reg.EventWaveId, reg.PacketDeliveryOption);
+                SessionManager.CurrentCart.ActionItems.Add(Guid.NewGuid(), processingFeeItem);
+
                 return RedirectToAction("checkout", "cart");
             }
 

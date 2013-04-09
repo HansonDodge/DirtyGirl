@@ -276,6 +276,16 @@ namespace DirtyGirl.Services
                                    Taxable = false
                                };
 
+                var pfee = new EventFee
+                {
+                    EventId = e.EventId,
+                    EffectiveDate = DateTime.Now,
+                    Cost = template.DefaultProcessingFeeCost,
+                    EventFeeType = EventFeeType.ProcessingFee,
+                    Discountable = false,
+                    Taxable = false
+                };
+
                 var sfee = new EventFee
                 {
                     EventId = e.EventId,
@@ -291,6 +301,7 @@ namespace DirtyGirl.Services
                 CreateEventFee(chFee);
                 CreateEventFee(cfee);
                 CreateEventFee(sfee);
+                CreateEventFee(pfee);
 
                 // all payscale increases should take place starting the wednesday before the event.
                 var EventOffsetStart = newEvent.EventDate;

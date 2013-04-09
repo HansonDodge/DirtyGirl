@@ -18,6 +18,8 @@ namespace DirtyGirl.Models
         public decimal DefaultTransferFeeCost { get; set; }
         public decimal DefaultCancellationFeeCost { get; set; }
         public decimal DefaultShippingFeeCost { get; set; }
+        public decimal DefaultProcessingFeeCost { get; set; }
+
         public string DefaultPlaceName { get; set; }      
 
         private DateTime dateAdded = default(DateTime);
