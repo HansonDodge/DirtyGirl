@@ -1,3 +1,7 @@
+alter table EventTemplate add DefaultProcessingFeeCost decimal(18,0) null
+commit;
+update EventTemplate set DefaultProcessingFeeCost = 5.69
+
 declare @eventID int
 declare @discountitemid int
 DECLARE db_cursor CURSOR FOR  
