@@ -325,6 +325,8 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .register_next_button a.proceed{background-position: 0 -46px;}
 .register_next_button input{position: absolute; top:0; left:0;}
 
+#frmMakePayment .btnPink {display:inline;}
+
 /*CREATE ACCOUNT*/
 .contentMain_copy.register.form.account { background: url(../images/bg_profile.jpg) 0 0 no-repeat #e8e8e8;}
 #username_availability_result { }
