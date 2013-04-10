@@ -399,7 +399,7 @@ namespace DirtyGirl.Services
                                         PurchaseType.Fee,
                                         ProcessType.General,
                                         "Processing Fee",
-                                        "Processing Fee for registration packet",
+                                        "",
                                         fee.PurchaseItemId,
                                         fee.Cost,
                                         false,

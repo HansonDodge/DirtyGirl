@@ -120,7 +120,8 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .contentSide_sponsors { position: relative; padding: 20px 0 0;}
 .contentSide_sponsors h4{font-size: 16px; color:#573f3f; }
 .contentSide_sponsors .sponsors{ position: relative; overflow: hidden; padding: 15px 0;}
-.contentSide_sponsors .sponsors img{ float:left; height: 77px; margin: 0 5px 5px 0;  }
+.contentSide_sponsors .sponsors.globalsponsors img{ float:left;width:auto; height: 77px; margin: 0 5px 5px 0;  }
+.contentSide_sponsors .sponsors img{ float:left;width: 77px; height: 77px; margin: 0 5px 5px 0;  }
 .contentSideFaq { position: relative; padding: 15px 0 0;}
 .contentSideFaq h3{ font-size: 24px; color:#573F3F; margin-bottom: 20px;}
 .contentSideFaq p.bold{ margin:0; padding-bottom:5px;}
@@ -802,7 +803,7 @@ input.input-validation-error { border:1px solid #ff0000;}
 #checkoutContainer h2{ font-size: 24px; color:#EF5192; margin-bottom: 20px;}
 #cartSummary { position: relative; background:#E5E3DF; padding:20px;}
 #cartSummary .item{width:110px; margin-right: 20px; overflow:hidden;}
-#cartSummary .desc{ width:250px; margin-right: 20px;}
+#cartSummary .desc{ width:250px; margin-right: 20px;padding: 1px;}
 #cartSummary .cost{ width:210px; margin-right: 20px;}
 #cartSummary .dollarSign{position: absolute; right: 55px; text-align: right;}
 #cartSummary .remove{ width:50px;}
