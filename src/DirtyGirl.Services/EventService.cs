@@ -301,19 +301,24 @@ namespace DirtyGirl.Services
                 CreateEventFee(chFee);
                 CreateEventFee(cfee);
                 CreateEventFee(sfee);
-                CreateEventFee(pfee);
-
-                // all payscale increases should take place starting the wednesday before the event.
-                var EventOffsetStart = newEvent.EventDate;
-                while (EventOffsetStart.DayOfWeek != DayOfWeek.Wednesday)
-                    EventOffsetStart = EventOffsetStart.AddDays(-1);
+                CreateEventFee(pfee);                
 
                 foreach (EventTemplate_PayScale ps in template.PayScales)
                 {
+                    var eventStart = newEvent.EventDate;
+
+                    eventStart = newEvent.EventDate.AddDays(-1*ps.DaysOut);
+
+                    // for registrations, 
+                    if (ps.EventFeeType == EventFeeType.Registration)
+                    {
+                        while (eventStart.DayOfWeek != DayOfWeek.Wednesday)
+                            eventStart = eventStart.AddDays(1);
+                    }
                     var newFee = new EventFee
                                      {
                                          EventId = e.EventId,
-                                         EffectiveDate = EventOffsetStart.AddDays(0 - ps.DaysOut).Date,
+                                         EffectiveDate = eventStart,
                                          Cost = ps.Cost,
                                          EventFeeType = ps.EventFeeType,
                                          Taxable = ps.Taxable,
