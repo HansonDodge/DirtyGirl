@@ -522,6 +522,15 @@ namespace DirtyGirl.Services
             List<EventDate> dateList =
                 _repository.EventDates.Filter(x => x.EventId == eventId).OrderBy(x => x.DateOfEvent).ToList();
 
+            var temp = dateList.Select(d => new EventDateDetails
+            {
+                EventDateId = d.EventDateId,
+                EventId = d.EventId,
+                DateOfEvent = d.DateOfEvent,
+                MaxRegistrants = d.EventWaves.Sum(x => x.MaxRegistrants),
+                RegistrationCount = d.EventWaves.Sum(x => x.Registrations.Count())
+            }).ToList();
+
             return dateList.Select(d => new EventDateDetails
                                             {
                                                 EventDateId = d.EventDateId, EventId = d.EventId, DateOfEvent = d.DateOfEvent, MaxRegistrants = d.EventWaves.Sum(x => x.MaxRegistrants), RegistrationCount = d.EventWaves.Sum(x => x.Registrations.Count())
@@ -1076,6 +1085,7 @@ namespace DirtyGirl.Services
                                    State = e.Region.Name,
                                    StateCode = e.Region.Code,
                                    Zip = e.PostalCode,
+                                   MetaDescription = e.MetaDescription, 
                                    Latitude = e.Latitude,
                                    Longitude = e.Longitude,
                                    StartDate = e.EventDates.Min(x => x.DateOfEvent),

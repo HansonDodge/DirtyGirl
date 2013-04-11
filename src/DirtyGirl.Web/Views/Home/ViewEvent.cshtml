@@ -1,7 +1,8 @@
 ﻿@model vmViewEvent
 
 @{
-    ViewBag.Title = string.Format("View Event {0}", Model.EventDetails.Location);
+    ViewBag.Title = string.Format("{0} Womens 5k Mud Run | Dirty Girl", Model.EventDetails.Location);
+    ViewBag.Description = Model.EventDetails.MetaDescription;
 }
 
 @section includes

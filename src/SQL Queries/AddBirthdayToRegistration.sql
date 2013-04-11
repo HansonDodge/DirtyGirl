@@ -1,0 +1,1 @@
+ALTER TABLE Registration ADD Birthday Datetime

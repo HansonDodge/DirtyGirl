@@ -49,7 +49,7 @@ namespace DirtyGirl.Web.Controllers
                 EventWave selectedWave = _service.GetEventWaveById(eventWaveId.Value);
                 vm.EventId = selectedWave.EventDate.EventId;
                 vm.EventDateId = selectedWave.EventDateId;
-                vm.EventWaveId = selectedWave.EventWaveId;
+                vm.EventWaveId = selectedWave.EventWaveId;  
             }
             else if(eventDateId.HasValue)
             {
@@ -83,6 +83,10 @@ namespace DirtyGirl.Web.Controllers
                 return  RedirectToAction("Index", "home");
 
             SessionManager.CurrentCart.CheckOutFocus = CartFocusType.Registration;
+
+            //save event city for thank you page... 
+            EventWave selectedWave = _service.GetEventWaveById(eventWaveId);
+            SessionManager.CurrentCart.EventCity = selectedWave.EventDate.Event.GeneralLocality;
 
             var action = SessionManager.CurrentCart.ActionItems[itemId];
             
@@ -322,6 +326,7 @@ namespace DirtyGirl.Web.Controllers
                 reg.RegistrationStatus = RegistrationStatus.Active;
                 reg.RegistrationType = model.RegistrationDetails.RegistrationType;
                 reg.SpecialNeeds = model.RegistrationDetails.SpecialNeeds;
+                reg.Birthday = model.RegistrationDetails.Birthday;
                 reg.TShirtSize = model.RegistrationDetails.TShirtSize;
                 reg.PacketDeliveryOption = (model.RegistrationDetails.PacketDeliveryOption.HasValue ? model.RegistrationDetails.PacketDeliveryOption : RegistrationMaterialsDeliveryOption.OnSitePickup );
                 reg.UserId = CurrentUser.UserId;

@@ -138,6 +138,7 @@
     <Compile Include="User.cs" />
     <Compile Include="EventWaveDetails.cs" />
     <Compile Include="User_Role.cs" />
+    <Compile Include="Validation\MinimumAgeCheck.cs" />
     <Compile Include="Validation\MustBeTrueAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

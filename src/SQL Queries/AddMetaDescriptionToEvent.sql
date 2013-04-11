@@ -1,0 +1,1 @@
+ALTER TABLE DirtyGirl.dbo.Event ADD MetaDescription varchar(150)

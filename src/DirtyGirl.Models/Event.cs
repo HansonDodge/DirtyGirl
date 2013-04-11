@@ -27,6 +27,8 @@ namespace DirtyGirl.Models
 
         public string EventDetails { get; set; }
 
+        public string MetaDescription { get; set; }
+
         public string Latitude { get; set; }
 
         public string Longitude { get; set; }

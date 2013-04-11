@@ -8,6 +8,10 @@
 
         <meta charset="utf-8" />
         <title>@ViewBag.Title</title>
+        @{ if (!string.IsNullOrEmpty(ViewBag.Description)) {
+            <meta name="description" content="@ViewBag.Description">
+        }}
+        
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
   

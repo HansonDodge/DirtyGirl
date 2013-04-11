@@ -20,5 +20,7 @@ namespace DirtyGirl.Models
         public string ResultingConfirmationCode { get; set; }
                 
         public string DiscountCode { get; set; }
+
+        public string EventCity { get; set; }
     }
 }

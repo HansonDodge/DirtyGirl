@@ -9,6 +9,8 @@
 
     $(document).ready(function () {
 
+        $("#RegistrationDetails_Birthday").kendoDatePicker();
+
         $("#lnkSubmit").click(function (e) {
             e.preventDefault();
             $("#RegistrationForm").submit();
@@ -193,6 +195,15 @@
                                             @Html.ValidationMessageFor(x => x.RegistrationDetails.MedicalInformation, "*")
                                         </div>
                                     </div>
+                                    
+                                    <div class="single_row">
+                                        <div class="single_input dropdown">
+                                            <p><span class="pink">*</span>What is your birthday?</p>
+                                            @Html.TextBoxFor(x => x.RegistrationDetails.Birthday, new { @Value = "mm/dd/yyyy" }) 
+                                           @Html.ValidationMessageFor(x => x.RegistrationDetails.Birthday, "*")
+                                        </div>
+                                    </div>
+
                                     <div class="single_row">
                                         <div class="single_input dropdown">
                                             <p><span class="pink">*</span>What is your t-shirt size? (women's sizes only)</p>

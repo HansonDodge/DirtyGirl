@@ -25,6 +25,8 @@ namespace DirtyGirl.Models
 
         public string Zip { get; set; }
 
+        public string MetaDescription { get; set; }
+
         public bool RegistrationCutoff { get; set; }
 
         public bool EmailCutoff { get; set; }

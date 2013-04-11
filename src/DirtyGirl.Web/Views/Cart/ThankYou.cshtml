@@ -16,7 +16,7 @@
                                 case CartFocusType.Redemption:
                                 case CartFocusType.Registration:
                                     <div class="thankyouRegistration">
-                                        <h1 class="pink" style="text-align: center;">THANK YOU @Model.UserName FOR REGISTERING</h1>
+                                        <h1 class="pink" style="text-align: center;">@string.Format("THANK YOU {0} FOR REGISTERING FOR {1}", Model.UserName , string.IsNullOrEmpty(Model.EventCity) ? "DIRTY GIRL" : Model.EventCity)</h1>
                                         <div class="thankyouContent">
                                             <p>Your confirmation code is @Model.ConfirmationCode. We've also sent this to you in an email. </p>
                                             <p>Click <a href="@Url.Action("ViewUser", "User", new {userId = CurrentUser.UserId})">here</a> to view/update your profile, join a team, or invite others to join your team.</p>

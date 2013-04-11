@@ -245,7 +245,7 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .contentMain_copy h5 {font-size: 14px; line-height: 20px; }
 .contentMain_copy p { font-size: 14px; }
 .cm_header_city {position: relative; float:left; padding: 25px 0 0; margin-right: 40px;}
-.cm_header_city h4 { font-size: 22px;color:#ef5192;}
+.cm_header_city h1 { font-size: 22px;color:#ef5192;}
 .cm_header_where { position: relative; float: left; padding-top: 25px; margin-right: 40px; overflow: hidden}
 .cm_header_where h5 { font-size: 22px; color:#573f3f; float: left; margin-right: 5px;} 
 .cm_header_where p{ font-size: 14px; color:#2d1d14;float:left; padding: 2px 0 0;}
@@ -778,7 +778,10 @@ span.field-validation-error { color:#ff0000;}
 .validation-summary-errors *{font-family:Arial; font-size:14px; color:#000000;}
 .validation-summary-errors ul{position: relative; margin: 10px 0;}
 .validation-summary-errors ul li{color:#ff0000;}
+
+.k-picker-wrap input.input-validation-error,
 input.input-validation-error { border:1px solid #ff0000;}
+
 .validation-summary-valid {display: none;}
 
 .field-validation-error {

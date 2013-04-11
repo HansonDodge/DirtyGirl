@@ -11,5 +11,6 @@ namespace DirtyGirl.Web.Models
         public string ConfirmationCode { get; set; }
         public CartFocusType CartFocus { get; set; }
         public string UserName { get; set; }
+        public string EventCity { get; set; }
     }
 }

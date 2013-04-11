@@ -187,6 +187,17 @@
              ))
         </fieldset>
     </div>
+    <div style="position: relative; overflow: hidden;">
+        <fieldset>
+            <legend>Event Meta Description</legend>
+            <div class="entryRow">
+                <div class="entryInput">                            
+                    @Html.TextBoxFor(x => x.Event.MetaDescription, new { style = "width: 100%;" })
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    
     <div style="margin: 20px 0;">
         <fieldset>
             <legend>Event Dates</legend>

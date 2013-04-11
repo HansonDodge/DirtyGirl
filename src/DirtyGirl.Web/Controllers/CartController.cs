@@ -60,7 +60,8 @@ namespace DirtyGirl.Web.Controllers
             {
                 var confirmationCode = SessionManager.CurrentCart.ResultingConfirmationCode;
                 var CartFocusType = SessionManager.CurrentCart.CheckOutFocus;
-
+                var EventCity = (string.IsNullOrEmpty(SessionManager.CurrentCart.EventCity)) ? "" : SessionManager.CurrentCart.EventCity; 
+ 
                 foreach (var actionItem in SessionManager.CurrentCart.ActionItems)
                 {
                     if (actionItem.Value.ActionType == CartActionType.NewRegistration)
@@ -71,7 +72,7 @@ namespace DirtyGirl.Web.Controllers
                 }
 
                 SessionManager.CurrentCart = null;
-                return RedirectToAction("ThankYou", new {id = CartFocusType, confirm = confirmationCode});
+                return RedirectToAction("ThankYou", new { id = CartFocusType, confirm = confirmationCode, city = EventCity });
             }
             else
                 Utilities.AddModelStateErrors(ModelState, result.GetServiceErrors());                                   
@@ -87,13 +88,14 @@ namespace DirtyGirl.Web.Controllers
 
         #region ThankYou
 
-        public ActionResult ThankYou(CartFocusType id, string confirm)
+        public ActionResult ThankYou(CartFocusType id, string confirm, string city)
         {
             vmCart_ThankYou vm = new vmCart_ThankYou
                 {
                     CartFocus = id,
                     ConfirmationCode = confirm,
-                    UserName = string.Format("{0} {1}", CurrentUser.FirstName, CurrentUser.LastName)
+                    UserName = string.Format("{0} {1}", CurrentUser.FirstName, CurrentUser.LastName), 
+                    EventCity = city
                 };
             
             return View(vm);
