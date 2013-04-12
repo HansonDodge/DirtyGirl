@@ -592,6 +592,7 @@
     <Content Include="Areas\Admin\Views\Reporting\EventPerformance.cshtml" />
     <Content Include="Areas\Admin\Views\Reporting\Partial\EventExport.cshtml" />
     <Content Include="Areas\Admin\Views\Reporting\Partial\PerformanceExport.cshtml" />
+    <Content Include="Images\ajax-loader2.gif" />
     <Content Include="Images\btn_Donation.png" />
     <Content Include="Images\img_login_modal.jpg" />
     <Content Include="Images\sponsors\NBCF-Logo.png" />
@@ -739,6 +740,8 @@
     <Content Include="Images\sprite-tabdetail-faq_.png" />
     <Content Include="Images\sprite-tabdetail-map.png" />
     <Content Include="Images\tint20.png" />
+    <Content Include="Images\tint70.png" />
+    <Content Include="Images\tint90.png" />
     <Content Include="Images\trek-women.png" />
     <Content Include="Images\twitter.gif" />
     <Content Include="Images\ui-horizontal-pink.png" />

@@ -17,6 +17,10 @@ namespace DirtyGirl.Models.Validation
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            
+            // Birthday is nullable 
+            if (value == null) { return ValidationResult.Success; }
+            
             DateTime bday = (DateTime)value;
             
             DateTime today = DateTime.Today;

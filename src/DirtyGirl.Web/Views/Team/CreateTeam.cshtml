@@ -1,4 +1,4 @@
-﻿@model vmRegistration_CreateTeam
+﻿@model vmTeam_Create
 @{
     ViewBag.Title = "Create Team";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -37,11 +37,11 @@
                     <div class="contentMain_copy register form">
                         <div class="viewMyProfile" style="z-index: 999">
                             <a href='@Url.Action("ViewUser", "User", new {userId = CurrentUser.UserId})'>
-                                @if (ViewBag.User.UseFacebookImage)
+                                @if (CurrentUser.UseFacebookImage)
                                 {
-                                    <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(ViewBag.User.FacebookId.ToString())" alt="Manage my Profile" class="mini_pp" /> 
+                                    <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(CurrentUser.FacebookId.ToString())" alt="Manage my Profile" class="mini_pp" /> 
                                 }
-                                else if (ViewBag.User.Image != null)
+                                else if (CurrentUser.Image != null)
                                 {
                                     <img src='@Url.Action("UserImage", "User", new { UserID = CurrentUser.UserId})' alt="Manage my Profile" class="mini_pp" /> 
                                 }
@@ -53,12 +53,18 @@
                             </a>
                         </div>
 
-                        <input id="eventId" type="hidden" value="@ViewBag.EventId" />
-                        <input id="registrationId" type="hidden" value="@ViewBag.RegistrationId" />
+                        <input id="eventId" type="hidden" value="@Model.EventId" />
+                        <input id="registrationId" type="hidden" value="@Model.RegistrationId" />
                          <div class="register_step2">
-                                <p>Are you joining an existing team or creating a new team?  </p>
+                             @{ if (Model.CurrentTeam != null){
+                                <p>@string.Format("You are currently a member of {0} team. Do you want to change to an existing team or create a new team?", Model.CurrentTeam.Name)</p>   
+                                } else {
+                                <p>Are you joining an existing team or creating a new team?</p>
+                                }
+                             }   
+                                
                                 <div class="radiobuttons">
-                                    <p>@Html.RadioButton("TeamType", "new", new { name = "step2", id = "reg_newteam", @checked = "checked"})<label for="reg_newteam">I’m creating a new team</label></p>
+                                    <p>@Html.RadioButton("TeamType", "new", new { name = "step2", id = "reg_newteam", @checked = "checked" })<label for="reg_newteam">I’m creating a new team</label></p>
                                     <p>@Html.RadioButton("TeamType", "existing", new { name = "step2", id = "reg_existingteam" })<label for="reg_existingteam">I’m joining an existing team</label></p>                                                                    
                                 </div>
                                     <div class="existing_team" style="display: none">
@@ -133,7 +139,7 @@
         if ($('#teamName').val().length > 3) {
             $.ajax({
                 url: '@Url.Action("CreateTeam", "Team")',
-                data: { EventId: "@(ViewBag.EventId)", TeamName: $('#teamName').val(), RegistrationId: $('#registrationId').val() },
+                data: { EventId: "@(Model.EventId)", TeamName: $('#teamName').val(), RegistrationId: $('#registrationId').val() },
                 type: 'POST',
                 beforeSend: function() {
                     $('#addTeamResult').html('<img src="../Images/ajax-loader.gif"/>').removeClass('red');
@@ -160,7 +166,7 @@
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("ValidateTeamCode", "Registration")',
-                data: { eventId: "@(ViewBag.EventId)", code: $('#TeamCodeTextBox').val() },
+                data: { eventId: "@(Model.EventId)", code: $('#TeamCodeTextBox').val() },
                 beforeSend: function () {
                     $('#teamCodeResultsText').html('<img src="../Images/ajax-loader.gif"/>').removeClass('red');
                 },
@@ -186,7 +192,7 @@
         if ($('#TeamCodeTextBox').val().length > 4) {
             $.ajax({
                 url: '@Url.Action("JoinTeam", "Team")',
-                data: { eventId: "@(ViewBag.EventId)", teamCode: $('#TeamCodeTextBox').val(), registrationId: $('#registrationId').val() },
+                data: { eventId: "@(Model.EventId)", teamCode: $('#TeamCodeTextBox').val(), registrationId: $('#registrationId').val() },
                 type: 'POST',
                 beforeSend: function() {
                     $('#teamCodeResultsText').html('<img src="../Images/ajax-loader.gif"/>').removeClass('red');                        

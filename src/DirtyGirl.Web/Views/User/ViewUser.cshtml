@@ -4,7 +4,7 @@
 @model DirtyGirl.Web.Models.vmUser_ViewUser
 
 @{
-    ViewBag.Title = "ViewUser";
+    ViewBag.Title = "View User";
 }
 
 <script>
@@ -109,6 +109,11 @@
                                                 <span>@Html.ActionLink("Change My Run", "StartChangeEvent", "transaction", new { eventId = d.EventId, regId = reg.RegistrationId, waveID = w.EventWaveId, dateID = d.EventDateId }, new {@class="startChange startChangeEvent", @datareg=reg.RegistrationId, @dataval=reg.IsRegistrationInCart})</span>
                                                 <span>@Html.ActionLink("Transfer My Registration To A Friend", "StartTransfer", "transaction", new { regId = reg.RegistrationId }, new {@class="startChange startTransfer", @datareg=reg.RegistrationId, @dataval=reg.IsRegistrationInCart})</span>
                                                 <span>@Html.ActionLink("Cancel My Run", "StartCancellation", "transaction", new { regId = reg.RegistrationId }, new {@class="startChange startCancel", @datareg=reg.RegistrationId, @dataval=reg.IsRegistrationInCart})</span>
+                                                
+                                                @if (reg.Team != null) {
+                                                    <span>@Html.ActionLink("Change Team", "CreateTeam", "Team", new { eventId = reg.EventWave.EventDate.EventId, registrationId = reg.RegistrationId, teamId = reg.Team.TeamId }, new {@class="startChange changeTeam", @datareg=reg.RegistrationId, @dataval=reg.IsRegistrationInCart})</span>
+                                                    <span><a href="#" class="leave-team" data-userid="@CurrentUser.UserId" data-teamid="@reg.Team.TeamId" data-regid="@reg.RegistrationId">Leave My Team</a></span>
+                                                }
                                             </p>
                                             @if (reg.Team != null)
                                             {
@@ -121,7 +126,7 @@
                                             }
                                             else
                                             {
-                                                <a href="@Url.Content("~/Team/CreateTeam?eventId=" + reg.EventWave.EventDate.EventId + "&registrationId=" + reg.RegistrationId)" class="button_createTeam">
+                                                <a href="@Url.Content("~/Team/CreateTeam?eventId=" + reg.EventWave.EventDate.EventId + "&registrationId=" + reg.RegistrationId + "&teamId=-1")" class="button_createTeam">
                                                     <img src="@Url.Content("~/images/btn_createjointeam.png")" /></a>                                             
                                             }
                                             
@@ -172,7 +177,11 @@
             <br/>
             <a id="editRunRemoveRun" href="#">Remove From Cart and Continue</a>&nbsp;<a href="#" id="cancelRunRemove">Cancel</a>
             <br/>
-
+        </div>
+        <div id="confirm-remove-team">
+            <h4>Are you sure you want to leave your Team?</h4>
+            <a href="#" class="confirm">yes</a>
+            <a href="#" class="cancel">no</a>
         </div>
     </div>
 @foreach (var reg in Model.Registrations)

@@ -618,6 +618,20 @@ span.field-validation-error { color:#ff0000;}
 #editRunInCart {text-align: center;}
 #editRunInCart a{padding: 10px 20px 0 20px;font-family:"Blackout-Midnight","blackout-midnight-1","blackout-midnight-2",sans-serif;  color:#ee5192; font-size: 14px; text-decoration:none;}
 
+#confirm-remove-team {
+    display: none;
+    position: absolute;
+    top: 0;
+    height: 280px;
+    width: 100%;
+    background: url(../images/tint90.png); 
+    text-align:center;     
+}
+    #confirm-remove-team img {padding-top:100px;}
+    #confirm-remove-team h4 {color: #ffffff; font-size: 24px; padding: 100px 0 20px;}
+    #confirm-remove-team a {font-family: "Blackout-Midnight","blackout-midnight-1","blackout-midnight-2",sans-serif; color: #ee5192; font-size: 24px; text-decoration: none; padding:0 20px;}
+    #confirm-remove-team a:hover{ text-decoration: underline; }
+
 /*EDIT REGISTRATION*/
 .editRegistrationContent {position: relative; }
 .editRegistrationTop { position: relative; overflow: hidden;}

@@ -359,26 +359,70 @@ DG.util = {
             
         }
     },
+
+    removeTeam: function (userId, teamId, regId, e) {
+
+        // call controller to see if the registration is already in the cart
+        var removeTeamhtml = $("#confirm-remove-team").html(); 
+        $("#confirm-remove-team").html("<img src='../images/ajax-loader2.gif' />")
+
+        $.ajax({
+            url: "/Team/LeaveTeam",
+            data: { regId: regId, teamId: teamId},
+            type: 'POST',
+            success: function (data) {
+                window.location = "/User/ViewUser?userId=" + userId; 
+            },
+            error: function (data, status, jqXhr) {
+                console.log("Remove Team Failed: " + data.status);
+                $("#confirm-remove-team").html(removeTeamhtml); 
+            }
+        });
+
+    },
+
     initEditRunBtn: function () {
+        var self = this; 
         $(".button_editRun").click(function (e) {
             e.preventDefault();
             var links = $(this).parent().find(".editReg").html();
                 
             $("#editRunInCart").hide();
-            $("#editRunContent").height(145);
-            $("#editRunContainer").height(240);
+            $("#editRunContent").height(200);
+            $("#editRunContainer").height(280);
 
             DG.util.showModal("#editRunContainer");
             $("#editRunContent").html(links);
-            $('html, body').animate({ scrollTop: 300 }, 1500);
+            $('html, body').animate({ scrollTop: 300 }, 800);
+
+            $("#editRunContent").on("click", ".leave-team", function (e) {
+                e.preventDefault(); 
+                $("#confirm-remove-team").fadeIn("fast");
+            }); 
+
+            $("#confirm-remove-team").on("click", ".confirm", function (e) {
+                e.preventDefault();
+                var $target = $("#editRunContent .leave-team");
+                var userId = parseInt($target.attr("data-userid"));
+                var teamId = parseInt($target.attr("data-teamid"));
+                var regId = parseInt($target.attr("data-regid"));
+                self.removeTeam(userId, teamId, regId, e);
+            });
+
+            $("#confirm-remove-team").on("click", ".cancel", function (e) {
+                e.preventDefault();
+                $("#confirm-remove-team").hide();
+            });
 
             $(".closeEditRunModal").click(function (e) {
                 DG.util.hideModal(e);
                 $("#editRunContent").html("");
+                $("#confirm-remove-team").hide();
             });
             $("#overlay").click(function (e) {
                 DG.util.hideModal(e);
                 $("#editRunContent").html("");
+                $("#confirm-remove-team").hide();
             });
         });
         
@@ -409,7 +453,7 @@ DG.util = {
                     }, 1000, function () {
                         $("#editRunContainer").animate({
                             height: 150
-                        }, 1000, function () {
+                        }, 400, function () {
                             $("#editRunInCart").show();
                         });
                     });

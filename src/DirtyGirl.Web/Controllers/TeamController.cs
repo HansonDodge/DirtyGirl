@@ -86,13 +86,18 @@ namespace DirtyGirl.Web.Controllers
             return View();
         }
 
-        public ActionResult CreateTeam(int eventId, int registrationId)
+        public ActionResult CreateTeam(int eventId, int registrationId, int teamId)
         {
-            ViewBag.EventId = eventId;
-            ViewBag.RegistrationId = registrationId;
-            ViewBag.Referrer = Request.UrlReferrer;
-            ViewBag.User = CurrentUser;
-            return View();
+            var team = (teamId >= 0) ? _teamService.GetTeamById(teamId) : null;
+
+            vmTeam_Create vm = new vmTeam_Create { 
+                EventId = eventId,
+                RegistrationId = registrationId,
+                ReturnUrl = Request.UrlReferrer.AbsolutePath,
+                CurrentTeam = team
+            }; 
+            
+            return View(vm);
         }
 
         [HttpPost]
@@ -185,6 +190,17 @@ namespace DirtyGirl.Web.Controllers
             return Json(!_teamService.CheckTeamNameAvailability(createTeam.EventId, createTeam.TeamName) ? "The requested team name is already in use for this event. Please select a different team name." : string.Empty);
         }
 
+        [HttpPost]
+        [Authorize]
+        public JsonResult LeaveTeam(int regId, int teamId)
+        {
+            IRegistrationService regService = new RegistrationService(new RepositoryGroup(), false);
+            Registration registration = regService.GetRegistrationById(regId);            
+            registration.TeamId = null;
+            var verify = regService.UpdateRegistration(registration); 
+
+            return Json("sucess");
+        }
 
         #endregion
     }
