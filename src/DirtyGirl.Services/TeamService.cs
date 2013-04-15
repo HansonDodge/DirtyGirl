@@ -43,7 +43,23 @@ namespace DirtyGirl.Services
             catch (Exception ex)
             { result.AddServiceError(ex.Message); }
             return result;
-        }       
+        }
+
+        public ServiceResult ChangeTeamName(int teamId, string newTeamName)
+        {
+            ServiceResult result = new ServiceResult();
+            try
+            {
+                var team = this.GetTeamById(teamId);
+                team.Name = newTeamName;
+                _repository.Teams.Update(team); 
+                _repository.SaveChanges();
+            }
+
+            catch (Exception ex)
+            { result.AddServiceError(ex.Message); }
+            return result;
+        }
 
         public Team GetTeamById(int teamId)
         {

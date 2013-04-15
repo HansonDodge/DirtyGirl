@@ -388,8 +388,8 @@ DG.util = {
             var links = $(this).parent().find(".editReg").html();
                 
             $("#editRunInCart").hide();
-            $("#editRunContent").height(200);
-            $("#editRunContainer").height(280);
+            $("#editRunContent").height(220);
+            $("#editRunContainer").height(300);
 
             DG.util.showModal("#editRunContainer");
             $("#editRunContent").html(links);

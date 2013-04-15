@@ -113,6 +113,11 @@
                                                 @if (reg.Team != null) {
                                                     <span>@Html.ActionLink("Change Team", "CreateTeam", "Team", new { eventId = reg.EventWave.EventDate.EventId, registrationId = reg.RegistrationId, teamId = reg.Team.TeamId }, new {@class="startChange changeTeam", @datareg=reg.RegistrationId, @dataval=reg.IsRegistrationInCart})</span>
                                                     <span><a href="#" class="leave-team" data-userid="@CurrentUser.UserId" data-teamid="@reg.Team.TeamId" data-regid="@reg.RegistrationId">Leave My Team</a></span>
+                                                    
+                                                    if (reg.Team.CreatorID == CurrentUser.UserId)
+                                                    {
+                                                        <span><a href="@Url.Content("~/Team/ViewTeam?teamId=" + reg.TeamId)">Change My Team Name</a></span>    
+                                                    }
                                                 }
                                             </p>
                                             @if (reg.Team != null)

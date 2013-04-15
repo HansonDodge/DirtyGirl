@@ -618,6 +618,13 @@ span.field-validation-error { color:#ff0000;}
 #editRunInCart {text-align: center;}
 #editRunInCart a{padding: 10px 20px 0 20px;font-family:"Blackout-Midnight","blackout-midnight-1","blackout-midnight-2",sans-serif;  color:#ee5192; font-size: 14px; text-decoration:none;}
 
+.change-team-name {padding:10px;}
+.change-team-name a.change-team {font-size:14px; color:#ec5192;}
+.change-team-name .new-team-name {padding:10px 0; display:none;}
+.change-team-name .new-team-name p {color: #2c1d13; font-weight: bold; font-size: 12px; margin: 0 0 5px;}
+.change-team-name .new-team-name input {width: 250px; padding: 5px 0; }
+#changeTeamResults {padding:10px 0 0; font-size:14px;}
+
 #confirm-remove-team {
     display: none;
     position: absolute;

@@ -9,7 +9,7 @@ namespace DirtyGirl.Services.ServiceInterfaces
     public interface ITeamService
     {
         ServiceResult CreateTeam(Team team, int registrationId);
-
+        ServiceResult ChangeTeamName(int teamId, string newTeamName);
         ServiceResult CreateTeamPost(TeamPost teamPost);
 
         Team GetTeamById(int teamId);

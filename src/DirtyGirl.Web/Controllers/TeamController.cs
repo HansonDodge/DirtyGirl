@@ -132,6 +132,39 @@ namespace DirtyGirl.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        public JsonResult ChangeTeamName(int teamId, int eventId, string newTeamName)
+        {
+            string errors = string.Empty;
+            if (ModelState.IsValid)
+            {
+                if (!_teamService.CheckTeamNameForDirtyWords(newTeamName))
+                {
+                    return Json("The requested team name contains a naughty word.");
+                }
+
+                if (_teamService.CheckTeamNameAvailability(eventId, newTeamName))
+                {
+                    ServiceResult result = _teamService.ChangeTeamName(teamId, newTeamName); 
+                    
+                    if (result.Success)
+                    {
+                        return Json(new { redirect = Url.Action("ViewTeam", "Team", new { teamId = teamId }) });
+                    }
+
+                    result.GetServiceErrors().ForEach(x => errors += x.ErrorMessage + "<br/>");
+                    errors += string.Format("\nTeamId: {0}, EventId: {1}, New Team Name: {2}\n", teamId, eventId, newTeamName);
+                    return Json(errors);
+                }
+                
+                return Json("The requested team name is already in use for this event. Please select a different team name.");
+            }
+            
+            ModelState.Values.ForEach(x => errors += x.Errors + "<br/>");
+            return Json(errors);
+        }
+
+        [HttpPost]
         public JsonResult JoinTeam(int registrationId, string teamCode, int eventId)
         {
             string errors = string.Empty;
@@ -157,6 +190,7 @@ namespace DirtyGirl.Web.Controllers
             }
             return Json("The code entered is not associated with a team for this event.");
         }
+
 
         private IEnumerable<EventWave> GetRegistrationsByEventWave(IEnumerable<Registration> registrations)
         {
