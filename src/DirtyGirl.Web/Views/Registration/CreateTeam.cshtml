@@ -64,6 +64,8 @@
                 success: function(data) {
                     if (data.Status == 'Failure') {
                         $('#teamCodeResultsText').html("Team Code Invalid!  Please enter a correct Code for the team you want to join.");
+                        $(".teamcreation_join").hide();
+                        $('#newTeamName').html("");
                     } else {
                         $('#teamCodeResultsText').html("");
                         $(".teamcreation_join").show();
@@ -123,7 +125,7 @@
                                             @Html.ValidationMessageFor(x => x.TeamCode, "*")                                            
                                         </div>
                                         <div id="teamCodeResults" style="position:relative">
-                                            <p id="teamCodeResultsText">&nbsp;</p>
+                                            <p id="teamCodeResultsText" class="error">&nbsp;</p>
                                         </div>
                                     </div>
                                     <div class="new_team">
