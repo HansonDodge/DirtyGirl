@@ -20,7 +20,7 @@
                 <div class="profileContent">
                     <div class="viewMyProfile">
                         @*<img class="mini_pp" src="@Url.Content("~/images/fpo_teammate.jpg")" />*@
-                        <a href='@Url.Action("ViewUser", "User", new {userId = CurrentUser.UserId})'>
+                        <a href='@Url.Action("ViewUser", "User", new { userId = CurrentUser.UserId })'>
                             @if (Model.User.UseFacebookImage)
                             {
                                 <img src="@FacebookOpenGraph.Graph.FacebookGraph.GetProfilePhoto(Model.User.FacebookId.ToString())" alt="Manage my Profile" class="mini_pp" /> 
@@ -40,19 +40,19 @@
                     <div class="jointeam_container">
                         <h5>TEAM: </h5><h3>@Html.DisplayFor(model => model.Team.Name)</h3>
                     </div>
-
+                    
+                    @if (Model.Team.CreatorID == CurrentUser.UserId)
+                    { 
                     <div class="change-team-name">
                         <a href="#" class="change-team">Change team name</a>
-                        @if (Model.Team.CreatorID == CurrentUser.UserId) { 
                         <div class="new-team-name">
                             <p><span class="pink">*</span>Enter new team name</p>
-
                             <input id="teamName" type="text" onkeyup="VerifyTeamName()" style="margin-right: 20px; z-index: 999" />
                             <input id="changeTeamButton" class="btnPink" type="button" value="UPDATE" onclick="ChangeTeamName()" />
                             <div id="changeTeamResults"></div>               
                         </div>
-                        }
                     </div>
+                    }
 
                     <div class="teamChat_container">
                         <div class="teamChat_left">
