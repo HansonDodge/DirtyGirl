@@ -1144,12 +1144,15 @@ namespace DirtyGirl.Services
 
         public EventOverview SetEventOverview(Event e)
         {
+            var currentRegistrationFee = GetCurrentFeeForEvent(e.EventId, EventFeeType.Registration);
+
             var overview = new EventOverview 
                 {
                     EventId = e.EventId, 
                     Location = string.Format("{0}, {1}", e.GeneralLocality, e.Region.Code),
                     Place = e.Place,
-                    GeneralLocality = e.GeneralLocality
+                    GeneralLocality = e.GeneralLocality,
+                    Cost = currentRegistrationFee.Cost
                 };
 
             if (e.EventDates.Count > 1)

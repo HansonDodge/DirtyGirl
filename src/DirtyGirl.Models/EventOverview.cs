@@ -12,5 +12,6 @@ namespace DirtyGirl.Models
         public string Place { get; set; }
         public string Dates {get;set;}
         public string Location {get; set;}
+        public decimal Cost { get; set; }
     }
 }

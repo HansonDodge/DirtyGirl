@@ -249,9 +249,13 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .cm_header_where { position: relative; float: left; padding-top: 25px; margin-right: 40px; overflow: hidden}
 .cm_header_where h5 { font-size: 22px; color:#573f3f; float: left; margin-right: 5px;} 
 .cm_header_where p{ font-size: 14px; color:#2d1d14;float:left; padding: 2px 0 0;}
-.cm_header_dates { position: relative; float: left; padding-top: 25px; overflow: hidden}
+.cm_header_dates { position: relative; float: left; padding-top: 25px; margin-right: 40px; overflow: hidden}
 .cm_header_dates h5 {  font-size: 22px; color:#573f3f; float: left; margin-right: 5px;}
 .cm_header_dates p{ font-size: 14px; color:#2d1d14;float:left; padding: 2px 0 0;}
+.cm_header_cost { position: relative; float: left; padding-top: 25px; overflow: hidden}
+.cm_header_cost h5 {  font-size: 22px; color:#573f3f; float: left; margin-right: 5px;}
+.cm_header_cost p{ font-size: 14px; color:#2d1d14;float:left; padding: 2px 0 0;}
+
 .contentMain_info {position: relative; margin: 35px 0 0;}
 .contentMain_info_tab { position: relative; overflow: hidden;}
 .contentMain_info_tab a { display: block; float: left; height: 40px; text-indent:-5000px; margin-left: 10px;}
