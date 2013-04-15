@@ -69,7 +69,7 @@ namespace DirtyGirl.Models
         public string SpecialNeeds { get; set; }
 
         //[Required(ErrorMessage = "Your birth date is required")]
-        [MinimumAgeCheck(14,"You must be at least {0} years old to register")]
+        [MinimumAgeCheck(14, "The participant must be {0} years or older to join the event.")]
         public DateTime? Birthday { get; set; }
 
         [Required(ErrorMessage = "T-shirt size is required")]
