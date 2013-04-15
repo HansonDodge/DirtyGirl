@@ -154,7 +154,7 @@ namespace DirtyGirl.Services
                     .Replace("{Date}", date)
                     .Replace("{Cart}", cartBody.ToString());
                 
-                SendEmail(cart.User.EmailAddress, DirtyGirlServiceConfig.Settings.PaymentConfirmationEmailSubject, messageBody);
+                SendEmail(cart.User.EmailAddress, string.Format(DirtyGirlServiceConfig.Settings.PaymentConfirmationEmailSubject, city), messageBody);
 
             }
             catch (Exception ex)
