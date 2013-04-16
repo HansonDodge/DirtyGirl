@@ -2,11 +2,9 @@
 @{    
     ViewBag.Title = "Check Out";
 }
-<script src="@Url.Content("~/Scripts/jquery.tooltip.min.js")" type="text/javascript"></script>
 
 <script>
     $(document).ready(function () {
-        $(".ccv p a").tooltip({ showURL: false });
         $('#frmMakePayment').data('validator').settings.ignore = '';
     });
 </script>
@@ -47,7 +45,7 @@
                                                 @Html.ValidationMessageFor(x => x.CardNumber, "*")  
                                             </div>     
                                             <div class="single_input ccv">
-                                                <p><span class="pink">*</span>CCV [<a class="pink" href="javascript:void(0);" title="CCV are three or four-digit number on the back of a credit card (on the front for American Express)">?</a>]</p>
+                                                <p><span class="pink">*</span>CCV [<a class="pink tooltip" href="#footer" title="CCV are three or four-digit number on the back of a credit card (on the front for American Express)">?</a>]</p>
                                                 @Html.TextBoxFor(x => x.CCVNumber,null, new { @autocomplete = "off"})
                                                 @Html.ValidationMessageFor(x => x.CCVNumber, "*")
                                             </div>                                       

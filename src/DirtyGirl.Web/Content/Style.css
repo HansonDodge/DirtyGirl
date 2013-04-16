@@ -635,7 +635,7 @@ span.field-validation-error { color:#ff0000;}
     display: none;
     position: absolute;
     top: 0;
-    height: 280px;
+    height: 300px;
     width: 100%;
     background: url(../images/tint90.png); 
     text-align:center;     
