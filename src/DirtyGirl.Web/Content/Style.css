@@ -29,7 +29,7 @@ img, a img { border:none;}
 
 ol, ul, li {   list-style: none outside none;}
 
-
+p.error {color:#f00;}
 
 /*LAYOUT*/
 #fullWrapper {  min-width: 1200px;  overflow: hidden;  position: relative;  width: 100%; padding: 10px 0 0;}
@@ -629,7 +629,7 @@ span.field-validation-error { color:#ff0000;}
 .change-team-name .new-team-name input {width: 250px; padding: 5px 0; }
 #changeTeamResults {padding:10px 0 0; font-size:14px;}
 
-#CreateTeamForm p.error {color:#c00;}
+
 
 #confirm-remove-team {
     display: none;
@@ -863,6 +863,7 @@ input.input-validation-error { border:1px solid #ff0000;}
 .cartAdditional p a{}
 .couponContainer {position: relative; margin: 20px 0 0;}
 .couponContainer p{ font-size: 12px; color:#2c1d13; margin:0; font-weight: bold;}
+.couponContainer p.error {color:#f00;}
 .couponContainer input{ font-size: 20px;  padding: 3px 0; margin-right: 10px; width: 180px;}
 .couponContainer a{ position: relative; top: 8px;}
 #cartPayment { background: none repeat scroll 0 0 #E5E3DF;padding: 20px;position: relative; overflow: hidden;}

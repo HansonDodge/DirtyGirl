@@ -6,14 +6,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(".ccv p a").tooltip({ showURL: false });
-        $('#lnkAddDiscount').click(function () {
-            var code = $('#txtCouponCode').val();
-            if (code.trim().length == 0) {
-                alert("Coupon code is required.");
-                return false;
-            }
-            return true;
-        });
     });
 
 </script>
@@ -101,7 +93,8 @@
         <div class="couponContainer">
             <p>Coupon Code</p>
             @Html.TextBox("txtCouponCode")            
-            <a href="#" id="lnkAddDiscount"><img src="@Url.Content("~/images/btn_redeem.png")" /></a>        
+            <a href="#" id="lnkAddDiscount"><img src="@Url.Content("~/images/btn_redeem.png")" /></a>
+            <div class="coupon-validation"><p class="error"></p></div>        
         </div>
     }
 }
@@ -118,6 +111,12 @@
     $(document).ready(function () {
         $('#lnkAddDiscount').click(function (e) {
             e.preventDefault();
+            var code = $('#txtCouponCode').val();
+            if (code.trim().length == 0) {
+                $(".coupon-validation p.error").html("Coupon code is required.");
+                return; 
+            }
+            $(".coupon-validation p.error").html("");
             $("#frmDiscount").submit();
         });        
 
