@@ -27,7 +27,14 @@
 .share_image_@(Model.InstanceNumber) {position: absolute; top:1px; right: 0px; }
 #share_content_@(Model.InstanceNumber) .validation-summary-errors { display:none;}
 #share_content_@(Model.InstanceNumber) input.input-validation-error { border:1px solid #ff0000;}
+
+#shareConfirm_@(Model.InstanceNumber) { display:none; position:absolute; top:0; left:0; width: 580px; height:400px; background: url(../images/tint90.png); text-align:center; }
+#shareConfirm_@(Model.InstanceNumber) .ajax-loader {padding-top:180px;}
+#shareConfirm_@(Model.InstanceNumber) .confirm-message {padding-top: 160px;}
+#shareConfirm_@(Model.InstanceNumber) .confirm-message h4 {color: #fff; font-size: 25px; line-height: 1.231em; margin-bottom: 15px;}
+#shareConfirm_@(Model.InstanceNumber) .confirm-message a {font-size: 30px; padding: 20px; color:#ed5192;}
 .shareResult{font-family:"Blackout-Midnight","blackout-midnight-1","blackout-midnight-2",sans-serif;color:#ee5192;font-size: 14px; padding: 0 10px;}
+
 </style>
 
 <div id="overlay_@Model.InstanceNumber" onclick="Overlay_@(Model.InstanceNumber)()" class="overlay">&nbsp;</div>
@@ -55,6 +62,14 @@
         <input id="sendInvite_@Model.InstanceNumber" class="button btnPink" type="button" title="Send Invite" value="Send Invite" onclick="SharePost_@(Model.InstanceNumber)()"/>
     </div>
     <div id="shareResult_@(Model.InstanceNumber)" class="shareResult"></div>
+    <div id="shareConfirm_@(Model.InstanceNumber)" class="shareResult">
+        <div class="ajax-loader"><img src='../images/ajax-loader2.gif' /></div>
+        <div class="confirm-message">
+            <h4>Your invitation has been sent. Would you like to send another one?</h4>
+            <a href="#" class="confirm">yes</a>
+            <a href="#" class="cancel">no</a>
+        </div>
+    </div>
 </div>
 
 
@@ -70,11 +85,27 @@
         }
     });
     
+    $("#shareConfirm_@Model.InstanceNumber").on("click", ".confirm", function (e) {
+        e.preventDefault();
+        $("#shareConfirm_@Model.InstanceNumber").fadeOut("fast");
+        $("#shareConfirm_@Model.InstanceNumber .confirm-message").hide();
+        $("#shareConfirm_@Model.InstanceNumber .ajax-loader").hide();
+    });
+
+    $("#shareConfirm_@Model.InstanceNumber").on("click", ".cancel", function (e) {
+        e.preventDefault();
+        $("#shareConfirm_@Model.InstanceNumber").hide();
+        $("#shareConfirm_@Model.InstanceNumber .confirm-message").hide();
+        $("#shareConfirm_@Model.InstanceNumber .ajax-loader").hide();        
+        
+        CloseInviteModal_@(Model.InstanceNumber)();
+    });
+
     function ShowInviteDialog_@(Model.InstanceNumber)() {
         $('#shareResult_@Model.InstanceNumber').html("");
         $("#overlay_@Model.InstanceNumber").show();
         $("#inviteFriendContainer_@Model.InstanceNumber").show();
-        $('html, body').animate({ scrollTop: 300 }, 1500);
+        $('html, body').animate({ scrollTop: 300 }, 800);
     }
     
     function CloseInviteModal_@(Model.InstanceNumber)() {
@@ -82,9 +113,14 @@
             $("#inviteFriendContainer_@Model.InstanceNumber").hide();
     }
     
+    function ShowConfirmMessage_@(Model.InstanceNumber) () {
+        $("#shareConfirm_@Model.InstanceNumber .ajax-loader").hide();
+        $("#shareConfirm_@Model.InstanceNumber .confirm-message").fadeIn("fast");
+    }
+
     function Overlay_@(Model.InstanceNumber)() {
         $("#inviteFriendContainer_@Model.InstanceNumber").hide();
-            $("#overlay_@Model.InstanceNumber").hide();
+        $("#overlay_@Model.InstanceNumber").hide();
     }
 
     function SharePost_@(Model.InstanceNumber)() {
@@ -100,7 +136,12 @@
             $('#shareResult_@Model.InstanceNumber').html("Message Body is required.");
             return;
         }
-        
+
+        $("#shareConfirm_@Model.InstanceNumber").fadeIn("fast");
+        $("#shareConfirm_@Model.InstanceNumber .confirm-message").hide();
+        $("#shareConfirm_@Model.InstanceNumber .ajax-loader").show();
+            
+            
         $.ajax({
             url: "/Share/ShareEmail",
             data: { EmailAddresses: $('#emailAddresses_@Model.InstanceNumber').val(), MessageSubject: $('#subject_@Model.InstanceNumber').val(), MessageBody: $('#messageBody_@Model.InstanceNumber').val(), UserMessageBody: $('#userMessageBody_@Model.InstanceNumber').val() },
@@ -110,18 +151,25 @@
                     .html(function () {
                         var list = '';
                         if (data == "Success") {
-                            list = 'Your invitation was successfully sent.';
+                            //list = 'Your invitation was successfully sent.';
                             $('#userMessageBody_@Model.InstanceNumber').val('');
-                            $('#emailAddresses_@Model.InstanceNumber').val('');
-                            CloseInviteModal_@(Model.InstanceNumber)(); 
+                            $('#emailAddresses_@Model.InstanceNumber').val(''); 
+                            ShowConfirmMessage_@(Model.InstanceNumber)()
                         } else {
                             //Service Failure
+                            $("#shareConfirm_@Model.InstanceNumber").hide();
+                            $("#shareConfirm_@Model.InstanceNumber .confirm-message").hide();
+                            $("#shareConfirm_@Model.InstanceNumber .ajax-loader").hide();
                             list = 'Please enter a valid email address';
                         }
                         return list;
                     });
             },
             error: function (data, status, jqXhr) {
+                $("#shareConfirm_@Model.InstanceNumber").hide();
+                $("#shareConfirm_@Model.InstanceNumber .confirm-message").hide();
+                $("#shareConfirm_@Model.InstanceNumber .ajax-loader").hide();
+
                 $('#shareResult_@Model.InstanceNumber')
                     .html(function () {
                         var list = ("FAILED: " + data.status + " " + data.responseText);
@@ -130,4 +178,6 @@
             }
         });
     };
+
+
 </script>
