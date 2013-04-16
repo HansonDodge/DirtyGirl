@@ -192,7 +192,7 @@
             <legend>Event Meta Description</legend>
             <div class="entryRow">
                 <div class="entryInput">                            
-                    @Html.TextBoxFor(x => x.Event.MetaDescription, new { style = "width: 100%;" })
+                    @Html.TextAreaFor(x => x.Event.MetaDescription, new { rows="3", cols="140", style = "padding: 10px" })
                 </div>
             </div>
         </fieldset>
@@ -262,7 +262,7 @@
                 {
                     columns.ForeignKey("EventFeeType", new SelectList(Model.FeeTypes, "value", "text")).Title("Fee Type");
                     columns.Bound(x => x.EffectiveDate);
-                    columns.Bound(x => x.Cost);
+                    columns.Bound(x => x.Cost).Format("{0:####0.00}").HtmlAttributes(new { style = "text-align: right" });
                     columns.Command(command => { command.Edit(); command.Destroy(); }).Width(400);
                 })
                 .DataSource(dataSource => dataSource
