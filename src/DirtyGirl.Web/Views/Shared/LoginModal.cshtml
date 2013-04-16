@@ -7,7 +7,7 @@
     <div id="login_content">
         @using (Html.BeginForm("logon", "authorize", new { returnUrl = Model.ReturnUrl }, FormMethod.Post, null))
         {
-            <h1 class="reg-steps"><span>STEP 1:</span> Sign IN OR <a href="@Url.Action("CreateUser", "User", new { returnUrl = Model.ReturnUrl })">REGISTER</a></h1>
+            <h1 class="reg-steps"><span>STEP 1:</span> LOG IN OR <a href="@Url.Action("CreateUser", "User", new { returnUrl = Model.ReturnUrl })">REGISTER</a></h1>
             <div class="reg-indicator step-1"></div>
             
             @Html.ValidationSummary(false, " ")
