@@ -445,6 +445,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                          LastName = x.LastName,
                          MedicalInformation = x.MedicalInformation,
                          Phone = x.Phone,
+                         BirthDate  = x.Birthday.HasValue ? x.Birthday.Value.ToShortDateString():"Unknown",
                          RegistrantId = x.RegistrationId,
                          RegistrationType = x.RegistrationType.ToString(),
                          RegistrationValue = _service.GetRegistrationPathValue(x.RegistrationId).ToString("c"),
@@ -485,33 +486,35 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             var headerRow = sheet.CreateRow(0);
 
             //Set the column names in the header row
-            headerRow.CreateCell(0).SetCellValue("Last Name");
-            headerRow.CreateCell(1).SetCellValue("First Name");
-            headerRow.CreateCell(2).SetCellValue("Wave Date");
-            headerRow.CreateCell(3).SetCellValue("Wave Time");
+            int col = 0;
+            headerRow.CreateCell(col++).SetCellValue("Last Name");
+            headerRow.CreateCell(col++).SetCellValue("First Name");
+            headerRow.CreateCell(col++).SetCellValue("Wave Date");
+            headerRow.CreateCell(col++).SetCellValue("Wave Time");
 
-            headerRow.CreateCell(4).SetCellValue("Registration Type");
-            headerRow.CreateCell(5).SetCellValue("Registration Value");
-            headerRow.CreateCell(6).SetCellValue("Address1");
-            headerRow.CreateCell(7).SetCellValue("Address2");
+            headerRow.CreateCell(col++).SetCellValue("Registration Type");
+            headerRow.CreateCell(col++).SetCellValue("Registration Value");
+            headerRow.CreateCell(col++).SetCellValue("Address1");
+            headerRow.CreateCell(col++).SetCellValue("Address2");
 
-            headerRow.CreateCell(8).SetCellValue("City");
-            headerRow.CreateCell(9).SetCellValue("State");
-            headerRow.CreateCell(10).SetCellValue("Zip");
-            headerRow.CreateCell(11).SetCellValue("Email");
+            headerRow.CreateCell(col++).SetCellValue("City");
+            headerRow.CreateCell(col++).SetCellValue("State");
+            headerRow.CreateCell(col++).SetCellValue("Zip");
+            headerRow.CreateCell(col++).SetCellValue("Email");
+            headerRow.CreateCell(col++).SetCellValue("Birthday");
 
-            headerRow.CreateCell(12).SetCellValue("Phone");
-            headerRow.CreateCell(13).SetCellValue("Emergency Contact");
-            headerRow.CreateCell(14).SetCellValue("Emergency Phone");
-            headerRow.CreateCell(15).SetCellValue("Medical Information");
+            headerRow.CreateCell(col++).SetCellValue("Phone");
+            headerRow.CreateCell(col++).SetCellValue("Emergency Contact");
+            headerRow.CreateCell(col++).SetCellValue("Emergency Phone");
+            headerRow.CreateCell(col++).SetCellValue("Medical Information");
 
-            headerRow.CreateCell(16).SetCellValue("Special Needs");
-            headerRow.CreateCell(17).SetCellValue("T-Shirt Size");
-            headerRow.CreateCell(18).SetCellValue("Packet Delivery Option");
-            headerRow.CreateCell(19).SetCellValue("Agreed to Legal Terms");
-            headerRow.CreateCell(20).SetCellValue("Agreed to Trademark");
-            headerRow.CreateCell(21).SetCellValue("Registration Date");
-            headerRow.CreateCell(22).SetCellValue("Confirmation Code");
+            headerRow.CreateCell(col++).SetCellValue("Special Needs");
+            headerRow.CreateCell(col++).SetCellValue("T-Shirt Size");
+            headerRow.CreateCell(col++).SetCellValue("Packet Delivery Option");
+            headerRow.CreateCell(col++).SetCellValue("Agreed to Legal Terms");
+            headerRow.CreateCell(col++).SetCellValue("Agreed to Trademark");
+            headerRow.CreateCell(col++).SetCellValue("Registration Date");
+            headerRow.CreateCell(col++).SetCellValue("Confirmation Code");
 
             //(Optional) freeze the header row so it is not scrolled
             sheet.CreateFreezePane(0, 1, 0, 1);
@@ -523,35 +526,36 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             {
                 //Create a new row
                 var row = sheet.CreateRow(rowNumber++);
-
+                col = 0;
                 //Set values for the cells
-                row.CreateCell(0).SetCellValue(reg.LastName);
-                row.CreateCell(1).SetCellValue(reg.FirstName);
-                row.CreateCell(2).SetCellValue(reg.WaveDate.ToString("MM/dd/yyyy"));
-                row.CreateCell(3).SetCellValue(reg.WaveTime.ToString("hh:mm tt"));
+                row.CreateCell(col++).SetCellValue(reg.LastName);
+                row.CreateCell(col++).SetCellValue(reg.FirstName);
+                row.CreateCell(col++).SetCellValue(reg.WaveDate.ToString("MM/dd/yyyy"));
+                row.CreateCell(col++).SetCellValue(reg.WaveTime.ToString("hh:mm tt"));
 
-                row.CreateCell(4).SetCellValue(reg.RegistrationType.ToString());
-                row.CreateCell(5).SetCellValue(reg.RegistrationValue);
-                row.CreateCell(6).SetCellValue(reg.Address1);
-                row.CreateCell(7).SetCellValue(reg.Address2);
+                row.CreateCell(col++).SetCellValue(reg.RegistrationType.ToString());
+                row.CreateCell(col++).SetCellValue(reg.RegistrationValue);
+                row.CreateCell(col++).SetCellValue(reg.Address1);
+                row.CreateCell(col++).SetCellValue(reg.Address2);
 
-                row.CreateCell(8).SetCellValue(reg.City);
-                row.CreateCell(9).SetCellValue(reg.State);
-                row.CreateCell(10).SetCellValue(reg.Zip);
-                row.CreateCell(11).SetCellValue(reg.Email);
+                row.CreateCell(col++).SetCellValue(reg.City);
+                row.CreateCell(col++).SetCellValue(reg.State);
+                row.CreateCell(col++).SetCellValue(reg.Zip);
+                row.CreateCell(col++).SetCellValue(reg.Email);
+                row.CreateCell(col++).SetCellValue(reg.BirthDate);
 
-                row.CreateCell(12).SetCellValue(reg.Phone);
-                row.CreateCell(13).SetCellValue(reg.EmergencyContact);
-                row.CreateCell(14).SetCellValue(reg.EmergencyPhone);
-                row.CreateCell(15).SetCellValue(reg.MedicalInformation);
+                row.CreateCell(col++).SetCellValue(reg.Phone);
+                row.CreateCell(col++).SetCellValue(reg.EmergencyContact);
+                row.CreateCell(col++).SetCellValue(reg.EmergencyPhone);
+                row.CreateCell(col++).SetCellValue(reg.MedicalInformation);
 
-                row.CreateCell(16).SetCellValue(reg.SpecialNeeds);
-                row.CreateCell(17).SetCellValue(reg.TShirtSize);
-                row.CreateCell(18).SetCellValue(reg.PacketDeliveryOption);
-                row.CreateCell(19).SetCellValue(reg.AgreeToTerms);
-                row.CreateCell(20).SetCellValue(reg.AgreeTrademark);
-                row.CreateCell(21).SetCellValue(reg.DateAdded.ToShortDateString());
-                row.CreateCell(21).SetCellValue(reg.ConfirmationCode ?? "Unknown");
+                row.CreateCell(col++).SetCellValue(reg.SpecialNeeds);
+                row.CreateCell(col++).SetCellValue(reg.TShirtSize);
+                row.CreateCell(col++).SetCellValue(reg.PacketDeliveryOption);
+                row.CreateCell(col++).SetCellValue(reg.AgreeToTerms);
+                row.CreateCell(col++).SetCellValue(reg.AgreeTrademark);
+                row.CreateCell(col++).SetCellValue(reg.DateAdded.ToShortDateString());
+                row.CreateCell(col++).SetCellValue(reg.ConfirmationCode ?? "Unknown");
             }
 
             //Write the workbook to a memory stream

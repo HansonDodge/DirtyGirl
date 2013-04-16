@@ -29,5 +29,6 @@ namespace DirtyGirl.Web.Areas.Admin.Models
         public DateTime DateAdded { get; set; }
         public string PacketDeliveryOption { get; set; }
         public string ConfirmationCode { get; set; }
+        public string BirthDate { get; set; }
     }
 }
