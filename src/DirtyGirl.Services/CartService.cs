@@ -338,7 +338,7 @@ namespace DirtyGirl.Services
                                         false,
                                         null,
                                         null,
-                                        false));                        
+                                        true));                        
 
                         break;
                     case CartActionType.CancelRegistration:
@@ -361,7 +361,7 @@ namespace DirtyGirl.Services
                                         false,
                                         null,
                                         null,
-                                        false));      
+                                        true));      
 
                         break;
 
