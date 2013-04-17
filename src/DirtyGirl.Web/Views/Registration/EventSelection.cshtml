@@ -152,8 +152,9 @@
             var selectedWaveTime = $("#WaveTime_" + id).text();
 
             $("#SelectedWave").text(selectedWaveNumber + " at " + selectedWaveTime);
+        } else {
+            $(".register_next_button a").removeClass("proceed");
         }
-
         var isLocked = $("#LockEvent").val();
         if (isLocked == "True") {
             $("#ddlEvent").data("kendoDropDownList").enable(false);
