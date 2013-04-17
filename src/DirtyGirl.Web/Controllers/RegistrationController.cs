@@ -1,4 +1,5 @@
-﻿using DirtyGirl.Models;
+﻿using System.Diagnostics;
+using DirtyGirl.Models;
 using DirtyGirl.Models.Enums;
 using DirtyGirl.Services.ServiceInterfaces;
 using DirtyGirl.Web.Helpers;
@@ -338,6 +339,7 @@ namespace DirtyGirl.Web.Controllers
                 regAction.ActionObject = reg;
                 regAction.ItemReadyForCheckout = true;
 
+                
                 // should check this better... 
                 if (((int)reg.PacketDeliveryOption.Value == 1))
                 {
@@ -345,9 +347,12 @@ namespace DirtyGirl.Web.Controllers
                     SessionManager.CurrentCart.ActionItems.Add(Guid.NewGuid(), shippingFeeItem);
                 }
 
-                ActionItem processingFeeItem = _service.CreateProcessingFee(model.ItemId, reg.EventWaveId, reg.PacketDeliveryOption);
-                SessionManager.CurrentCart.ActionItems.Add(Guid.NewGuid(), processingFeeItem);
-
+                if (CheckAddProcessingFee(reg, model.ItemId) )
+                {
+                    ActionItem processingFeeItem = _service.CreateProcessingFee(model.ItemId, reg.EventWaveId,
+                                                                                reg.PacketDeliveryOption);
+                    SessionManager.CurrentCart.ActionItems.Add(Guid.NewGuid(), processingFeeItem);
+                }
                 return RedirectToAction("checkout", "cart");
             }
 
@@ -363,8 +368,17 @@ namespace DirtyGirl.Web.Controllers
             model.TShirtSizeList.RemoveAt(0);
 
             return View(model);
-        }        
-        
+        }
+
+        private bool CheckAddProcessingFee(Registration reg, Guid itemId)
+        {
+            if (reg.RegistrationType == RegistrationType.CancerRegistration)
+                return false;
+
+            var processingActions = SessionManager.CurrentCart.ActionItems.Where(x => (x.Value as ActionItem).ActionType == CartActionType.ProcessingFee).ToList();
+            return processingActions.Select(proc => proc.Value.ActionObject as ProcessingFeeAction).All(processesAction => processesAction.RegItemGuid != itemId);
+        }
+
         #endregion
 
         #region Create Team
