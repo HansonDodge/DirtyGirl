@@ -599,6 +599,7 @@
     <Content Include="Images\sponsors\PaulMitchellLogo.png" />
     <Content Include="Images\sprite-tab-generalinfo.psd" />
     <Content Include="Images\btn_Donation.psd" />
+    <Content Include="Content\trademark.pdf" />
     <None Include="Properties\PublishProfiles\register-godirtygirl-qa - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\register-godirtygirl-qa - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\register.godirtygirl-prod.pubxml" />
