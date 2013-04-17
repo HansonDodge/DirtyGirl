@@ -1,4 +1,13 @@
 ﻿@model IList<EventDateOverview>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        // if in iframe, i.e. facebook, set all 
+        if (window.self != window.top) {
+            $(".eventschedule_singlerow a").attr('target', '_blank');
+        }
+    });
+</script>
 @if (!Model.Any())
 {
     <div class="eventschedule_singlerow">

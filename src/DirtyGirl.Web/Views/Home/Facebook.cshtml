@@ -21,34 +21,7 @@
             <div id="registration_list_content_container">
                 <div class="registration_list_singlecontent reg-eventschedule">                         
                         <div class="eventschedule_filter">
-                            <form id="filterForm" >
-                                <h1>EVENT SCHEDULE</h1>     
-                                <div class="eventschedule_filter_content">
-                                    <div class="single_filter">
-                                        <p>State:</p>
-                                        <div class="custom_dropdown">
-                                            @Html.DropDownList("RegionId", Model.RegionList, new { @class = "filterItem" })                                         
-                                            <img src="@Url.Content("~/images/arrow_select.png")" />
-                                        </div>
-                                    </div>
-                                    <div class="single_filter">
-                                        <p>Month:</p>
-                                        <div class="custom_dropdown">
-                                            @Html.DropDownList("Month", Model.MonthList, new { @class = "filterItem" })
-                                            <img src="@Url.Content("~/images/arrow_select.png")" />
-                                        </div>
-                                    </div>
-                                    <div class="single_filter">
-                                        <p>Year:</p>
-                                        <div class="custom_dropdown">
-                                            @Html.DropDownList("Year", Model.YearList, new { @class = "filterItem" })
-                                            <img src="@Url.Content("~/images/arrow_select.png")" />
-                                        </div>
-                                    </div>
-                                    @Html.Hidden("SortBy", "Date")
-                                    @Html.Hidden("DirectionOfSort")
-                                </div>
-                            </form>
+                            <h1>EVENT SCHEDULE</h1>     
                         </div>
                         <div class="eventschedule_content">
                             <div class="eventschedule_content_header">
