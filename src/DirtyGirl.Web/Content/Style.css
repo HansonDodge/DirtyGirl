@@ -29,7 +29,7 @@ img, a img { border:none;}
 
 ol, ul, li {   list-style: none outside none;}
 
-
+p.error {color:#f00;}
 
 /*LAYOUT*/
 #fullWrapper {  min-width: 1200px;  overflow: hidden;  position: relative;  width: 100%; padding: 10px 0 0;}
@@ -127,6 +127,11 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .contentSideFaq p.bold{ margin:0; padding-bottom:5px;}
 .contentSideFaq p{ font-size: 12px; color:#2C1D13;padding-bottom: 20px;}
 .contentSideFaq p a{ font-size: 12px; color:#2C1D13;}
+.contentSideFaq ul {list-style:disc; padding:0 0 0 18px; margin-bottom: 14px;}
+.contentSideFaq ul li {font-size: 12px; color: #2C1D13; list-style:disc; margin-bottom:3px; }
+.contentSideFaq table {margin-bottom: 14px;}
+.contentSideFaq table tr td {padding:0 10px 3px 0; font-size: 12px; color: #2C1D13;}
+
 .viewEventSidePanel { top:0; margin: 25px 0 20px;}
 .viewEventSidePanel .contentSide_registration p{padding:0 5px 0 0;}
                             
@@ -135,8 +140,8 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 #registration {position: relative; margin: 0 0 20px;}
 #registration_map { position: relative;}
 .registration_map_content {position: relative; background:url("../images/img_map.png") 0 0 no-repeat transparent; height: 665px; width: 1200px; z-index:2;}
-.registration_map_copy {background: url("../images/bg_map_copy.png") no-repeat scroll 0 0 transparent;  height: 233px; position: absolute; right: 10px; top: 155px; width: 398px;  z-index: 1;}
-.registration_map_copy_content {float: right; padding: 25px 10px 10px; position: relative;  width: 236px;}
+.registration_map_copy {background: url("../images/bg_map_copy.png") no-repeat scroll 0 0 transparent;  height: 233px; position: absolute; right: 10px; top: 170px; width: 398px;  z-index: 1;}
+.registration_map_copy_content {float: right; padding: 13px 10px 10px; position: relative;  width: 236px;}
 .registration_map_copy_content h3 { font-size: 16px; color:#ee5192; margin-bottom: 10px; line-height: 18px;}
 .registration_map_copy_content p {font-size:12px; color:#2e1d15; line-height: 16px; margin-bottom:10px;}
 .registration_map_viewschedule {position: absolute; right: 110px;  top: 415px;  z-index: 3; }
@@ -213,6 +218,13 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .reg-faq_content h3{ font-size: 18px; color:#573f3f; }
 .reg-faq_content h5{ font-size: 16px;color:#ee5192; margin-top: 20px; margin-bottom: 5px; }
 .reg-faq_content p{font-size: 14px;  color:#573f3f; margin-bottom: 14px; }
+.reg-faq_content ul {list-style:disc; padding:0 0 0 18px; margin-bottom: 14px;}
+.reg-faq_content ul li {font-size: 14px; color: #573f3f; list-style:disc; margin-bottom:3px; }
+
+.reg-faq_content table {margin-bottom: 14px;}
+.reg-faq_content table tr td {padding:0 20px 3px 0; font-size: 14px; color: #573f3f;}
+
+
 /*SIDEBAR*/
 .viewEventSidePanel .contentSidePanel_side { padding: 0 20px; }
 .viewEventSidePanel .contentSide_separator { text-align:left;}
@@ -629,7 +641,7 @@ span.field-validation-error { color:#ff0000;}
 .change-team-name .new-team-name input {width: 250px; padding: 5px 0; }
 #changeTeamResults {padding:10px 0 0; font-size:14px;}
 
-#CreateTeamForm p.error {color:#c00;}
+
 
 #confirm-remove-team {
     display: none;
@@ -863,6 +875,7 @@ input.input-validation-error { border:1px solid #ff0000;}
 .cartAdditional p a{}
 .couponContainer {position: relative; margin: 20px 0 0;}
 .couponContainer p{ font-size: 12px; color:#2c1d13; margin:0; font-weight: bold;}
+.couponContainer p.error {color:#f00;}
 .couponContainer input{ font-size: 20px;  padding: 3px 0; margin-right: 10px; width: 180px;}
 .couponContainer a{ position: relative; top: 8px;}
 #cartPayment { background: none repeat scroll 0 0 #E5E3DF;padding: 20px;position: relative; overflow: hidden;}
