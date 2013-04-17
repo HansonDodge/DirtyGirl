@@ -968,6 +968,8 @@
     <Content Include="Views\Shared\MudPlant.cshtml" />
     <Content Include="Views\Registration\InvalidRedemption.cshtml" />
     <Content Include="Views\Shared\InvalidInputError.cshtml" />
+    <Content Include="Views\Home\Facebook.cshtml" />
+    <Content Include="Views\Shared\_FacebookLayout.cshtml" />
     <None Include="Web.QA.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

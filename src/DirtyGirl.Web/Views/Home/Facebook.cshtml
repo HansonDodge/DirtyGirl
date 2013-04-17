@@ -1,0 +1,153 @@
+﻿@model vmHomePage
+@{
+    Layout = "~/Views/Shared/_FacebookLayout.cshtml";
+    ViewBag.Title = "Facebook Event List";
+}
+<script>
+    $(document).ready(function () {
+        DG.util.facebookEventListScroller();
+    });
+
+</script>
+<style>
+    #mcs_container,#mcs_container .dragger_container { height: 518px;}
+    #content { z-index:99999;}
+</style>
+
+
+    <div id="registration_list">
+        <div id="registration_list_content">
+            <a id="EventList"></a>
+            <div id="registration_list_content_container">
+                <div class="registration_list_singlecontent reg-eventschedule">                         
+                        <div class="eventschedule_filter">
+                            <form id="filterForm" >
+                                <h1>EVENT SCHEDULE</h1>     
+                                <div class="eventschedule_filter_content">
+                                    <div class="single_filter">
+                                        <p>State:</p>
+                                        <div class="custom_dropdown">
+                                            @Html.DropDownList("RegionId", Model.RegionList, new { @class = "filterItem" })                                         
+                                            <img src="@Url.Content("~/images/arrow_select.png")" />
+                                        </div>
+                                    </div>
+                                    <div class="single_filter">
+                                        <p>Month:</p>
+                                        <div class="custom_dropdown">
+                                            @Html.DropDownList("Month", Model.MonthList, new { @class = "filterItem" })
+                                            <img src="@Url.Content("~/images/arrow_select.png")" />
+                                        </div>
+                                    </div>
+                                    <div class="single_filter">
+                                        <p>Year:</p>
+                                        <div class="custom_dropdown">
+                                            @Html.DropDownList("Year", Model.YearList, new { @class = "filterItem" })
+                                            <img src="@Url.Content("~/images/arrow_select.png")" />
+                                        </div>
+                                    </div>
+                                    @Html.Hidden("SortBy", "Date")
+                                    @Html.Hidden("DirectionOfSort")
+                                </div>
+                            </form>
+                        </div>
+                        <div class="eventschedule_content">
+                            <div class="eventschedule_content_header">
+                                <div class="header-date">
+                                    <h5><a id="lnkDate" href="#">DATE</a></h5>
+                                </div>
+                                <div class="header-location">
+                                    <h5><a id="lnkLocation" href="#">LOCATION</a></h5>                                
+                                </div>
+                                <div class="header-where">
+                                    <h5>WHERE</h5>
+                                </div>
+                                <div class="header-cost">
+                                    <h5>COST</h5>
+                                </div>
+                                <div class="header-openings">
+                                    <h5>RUN OPENINGS</h5>
+                                </div>
+                            </div>                            
+                        <div id="EventDetail_List" class="eventschedule_content_body">  
+                            <div class="landingScroll landingSchedule">
+                                @Html.Partial("Partial/EventList", Model.EventDateDetails)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+        
+        var loadEventData = function(){
+
+            $.ajax({
+                type: "POST",
+                url: 'Home/FilterEventDetails',
+                data: $("#filterForm").serialize(),
+                beforeSend: function () {
+                    $("#EventDetail_List").find(".mCSB_container").html(function () {
+                            return '<img src="../Images/ajax-loader-lg.gif"/>';
+                        });
+                },
+                success: function (data) {
+                    $("#EventDetail_List").find(".mCSB_container").html(data[0]);
+                    DG.util.eventListScroller();
+                }
+            });
+
+        }
+
+        $(".filterItem").change(function () {
+            loadEventData();
+        });
+
+        $("#lnkDate").click(function (e) {
+            e.preventDefault();
+            setSort("Date", this);
+            loadEventData();
+        });
+
+        $("#lnkLocation").click(function (e) {
+            e.preventDefault();
+            setSort("Location", this);
+            loadEventData();
+        });
+
+    });
+
+    function setSort(sortBy, el)
+    {
+        var sortControl = $("#SortBy");
+        var directionControl = $("#DirectionOfSort");
+
+        var currentSort = sortControl.val();
+        var currentDirection = directionControl.val();
+
+        if (currentSort != sortBy) {
+            sortControl.val(sortBy);
+            directionControl.val('ASC');
+            $(el).addClass("down");
+            $(el).removeClass("up");
+        }
+        else {           
+            if (currentDirection == '' || currentDirection == "ASC") {
+                directionControl.val("DESC");
+                $(el).addClass("up");
+                $(el).removeClass("down");
+            }
+            else {
+                directionControl.val("ASC");
+                $(el).addClass("down");
+                $(el).removeClass("up");
+            }
+        }
+    }
+
+</script>
