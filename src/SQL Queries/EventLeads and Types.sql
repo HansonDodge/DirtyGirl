@@ -1,0 +1,13 @@
+insert into EventLeadType(TypeName) values (5)
+
+insert into eventlead(EventLeadTypeid,title,displaytext) values (4,'Facebook','Facebook')
+insert into eventlead(EventLeadTypeid,title,displaytext) values (1,'Google','Google')
+insert into eventlead(EventLeadTypeid,title,displaytext) values (1,'Bing','Bing')
+insert into eventlead(EventLeadTypeid,title,displaytext) values (5,'Friends or family','Friends or family')
+insert into eventlead(EventLeadTypeid,title,displaytext) values (5,'Co-worker','Co-worker')
+insert into eventlead(EventLeadTypeid,title,displaytext) values (5,'Local retailer','Local retailer')
+insert into eventlead(EventLeadTypeid,title,displaytext) values (1,'Yahoo','Yahoo')
+insert into eventlead(EventLeadTypeid,title,displaytext) values (5,'Twitter','Twitter')
+insert into eventlead(EventLeadTypeid,title,displaytext) values (5,'Repeat Participant','Other Participant')
+insert into eventlead(EventLeadTypeid,title,displaytext) values (5,'Advertisement','Advertisement')
+insert into eventlead(EventLeadTypeid,title,displaytext) values (5,'Other','Other')
