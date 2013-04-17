@@ -23,7 +23,7 @@
         </div>
         <div class="body-where">
             <p>
-                @Html.ActionLink(e.Place, "viewevent", new { id = e.EventId }, null)
+                <a href="@e.EventUrl">@e.Place</a>
             </p>
         </div>
         <div class="body-cost">
@@ -56,7 +56,7 @@
             }
         </div>
         <div class="body-cta">
-            <a class="btnPink" href="@Url.Action("viewevent", "home", new { id = e.EventId })">View Details</a>
+            <a class="btnPink" href="@e.EventUrl">View Details</a>
         </div>
 
 

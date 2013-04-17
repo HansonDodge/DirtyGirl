@@ -138,7 +138,8 @@
             }
         }
                 
-        if (@Request.Url.PathAndQuery.Contains("viewevent") && Model != null)
+        if ((@Request.Url.PathAndQuery.Contains("viewevent") ||
+             @Request.Url.PathAndQuery.Contains("mud-run")) && Model != null)
         {
             returnUrl = "/transaction/StartNewRegistration?eventId=" + Model.EventDetails.EventId;
         }

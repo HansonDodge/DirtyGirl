@@ -24,7 +24,7 @@
             {
                 <div class="single_location" style="position: absolute; left: @string.Format("{0}px", @location.PinXCoordinate); top: @string.Format("{0}px", @location.PinYCoordinate);">
                     <div class="single_location_content">
-                        <div class="pin"><a href="@Url.Action("viewevent", "home", new {id = location.EventId})">&nbsp;</a></div>
+                        <div class="pin"><a href="@location.EventUrl">&nbsp;</a></div>
                         <div class="popup">
                             <div class="popup_content">
                                 <h3>@location.City, @location.State</h3>
@@ -55,7 +55,7 @@
                                     }
                                      
                                 </div>
-                                <a href="@Url.Action("viewevent", "home", new { id = location.EventId })"><img src="@Url.Content("~/images/map-viewevent.png")" /></a>
+                                <a href="@location.EventUrl"><img src="@Url.Content("~/images/map-viewevent.png")" /></a>
                             </div>
                         </div>
                     </div>

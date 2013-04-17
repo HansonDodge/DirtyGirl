@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace DirtyGirl.Models
 {
@@ -53,6 +55,30 @@ namespace DirtyGirl.Models
             get { return SpotsLeft <= 0; }
         }
 
+        public string EventUrl
+        {
+            get { 
+                
+                string seo = StateCode;                             // default to just state
+                if (!String.IsNullOrWhiteSpace(GeneralLocality))    // if locality exists, make it locality + state
+                {
+                    seo = GeneralLocality+"-"+StateCode;
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(City))                // if no locality, check if city exists
+                    {
+                        seo = City + "-" + StateCode;
+                    }
+                    
+                }
+                seo = seo.Replace(" ", "-");        // replace spaces with dashes
+                seo = Regex.Replace(seo, "[^a-zA-Z0-9_.-]+", "-", RegexOptions.Compiled); // get rid of any non valid characters
+                string url = "/mud-run/" + seo + "/" + EventId.ToString(CultureInfo.InvariantCulture);
+
+                return url;
+            }
+        }
         public bool DisplayIcon { get; set; }
 
         public string IconImagePath { get; set; }

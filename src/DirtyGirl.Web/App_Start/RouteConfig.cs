@@ -50,6 +50,13 @@ namespace DirtyGirl.Web
                );
 
             routes.MapRoute(
+               name: "MudRun",
+               url: "mud-run/{seo}/{id}",
+               defaults: new { controller = "home", action = "ViewEvent", id = UrlParameter.Optional },
+               namespaces: new string[] { "DirtyGirl.Web.Controllers" }
+               );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
