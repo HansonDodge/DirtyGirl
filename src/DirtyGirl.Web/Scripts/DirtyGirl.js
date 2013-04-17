@@ -110,6 +110,7 @@ DG.util = {
         }, 500);
     },
     initMapTab: function () {
+
         $(".nav-schedule, .registration_map_viewschedule").click(function (e) {
             e.preventDefault();
             $("#EventList").scrollToMe();
@@ -117,16 +118,6 @@ DG.util = {
             $(".reg-eventschedule").show();
             $("#registration_list_nav_content a.active").removeClass("active");
             $(".nav-schedule").addClass("active");
-            //$("#mcs_container").mCustomScrollbar("vertical", 400, "easeOutCirc", 1.05, "auto", "yes", "yes", 10);
-            $(".landingSchedule").mCustomScrollbar("destroy");
-            $(".landingSchedule").mCustomScrollbar({
-                set_width: 1040,
-                set_height: 518,
-                scrollButtons: {
-                    scrollSpeed: 100,
-                    scrollAmount: 60
-                }
-            });
         });
 
         $(".nav-info").click(function (e) {
@@ -335,6 +326,21 @@ DG.util = {
         $(".landingSchedule").mCustomScrollbar("destroy");
         $(".landingSchedule").mCustomScrollbar({
             set_width: 1040,
+            set_height: theHeight,
+            scrollButtons: {
+                scrollSpeed: 100,
+                scrollAmount: 60
+            }
+        });
+    },
+
+    facebookEventListScroller: function () {
+        var theHeight = $("#EventDetail_List").outerHeight();
+
+        //theHeight = theHeight - 80;
+        $(".landingSchedule").mCustomScrollbar("destroy");
+        $(".landingSchedule").mCustomScrollbar({
+            set_width: 750,
             set_height: theHeight,
             scrollButtons: {
                 scrollSpeed: 100,

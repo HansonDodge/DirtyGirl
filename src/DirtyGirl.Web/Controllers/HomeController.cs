@@ -35,6 +35,17 @@ namespace DirtyGirl.Web.Controllers
             return View(vm);
         }
 
+        public ActionResult Facebook()
+        {
+            vmHomePage vm = new vmHomePage();
+            vm.EventDateDetails = _eventService.GetActiveEventDateOverviews(null, null, null, "date", "asc");
+            vm.RegionList = Utilities.CreateSelectList(_eventService.GetRegionsByCountry(DirtyGirlConfig.Settings.DefaultCountryId), x => x.RegionId, x => x.Name);
+            vm.MonthList = DirtyGirlExtensions.ConvertToSelectList<Months>();
+            vm.MonthList.Insert(0, new SelectListItem { Text = "Select", Value = "" });
+
+            return View(vm);
+        }
+
         public ActionResult ViewEvent(int id)
         {
             var eventObj = _eventService.GetEventById(id);

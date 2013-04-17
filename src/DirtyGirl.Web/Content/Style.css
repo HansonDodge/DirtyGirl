@@ -912,3 +912,35 @@ input.input-validation-error { border:1px solid #ff0000;}
     margin: 0 10px;
 }
 #Errorpage a{color: #EF5192;}
+
+/*Facebook layout
+-----------------------------------------------------*/
+#facebook-layout #fullWrapper {min-width:0;}
+#facebook-layout #container {width:800px;}
+#facebook-layout #header {width: 800px;}
+#facebook-layout #logoContainer {width:350px;}
+#facebook-layout #content {padding-bottom:40px;}
+#facebook-layout #registration_list {width: 800px; background:#fff; margin:0;}
+#facebook-layout #registration_list_nav {left:0;}
+#facebook-layout #registration_list_content {padding:25px 0 0; width:750px; margin:0 auto; }
+#facebook-layout .eventschedule_content {width:800px; margin: 40px auto 0;}
+#facebook-layout .eventschedule_content_body {margin-top:10px;}
+#facebook-layout .eventschedule_filter_content {width:auto; margin:0;}
+#facebook-layout #filterForm h1 {color:#ef5192; float:left; padding-top:16px; }
+
+#facebook-layout .eventschedule_content_header div.header-date,
+#facebook-layout .eventschedule_content_body .eventschedule_singlerow div.body-date {width:75px;}
+#facebook-layout .eventschedule_content_body .eventschedule_singlerow div.body-date h5 {font-size: 16px;}
+
+#facebook-layout .eventschedule_content_header div.header-location,
+#facebook-layout .eventschedule_content_body .eventschedule_singlerow div.body-location {width:180px;}
+
+#facebook-layout .eventschedule_content_header div.header-where,
+#facebook-layout .eventschedule_content_body .eventschedule_singlerow div.body-where {width:90px;}
+
+#facebook-layout .eventschedule_content_header div.header-cost,
+#facebook-layout .eventschedule_content_body .eventschedule_singlerow div.body-cost {width:50px;}
+
+#facebook-layout .eventschedule_content_header div.header-openings,
+#facebook-layout .eventschedule_content_body .eventschedule_singlerow div.body-openings {width:105px}
+#facebook-layout .eventschedule_content_body .eventschedule_singlerow div.body-cta {width:168px;}
