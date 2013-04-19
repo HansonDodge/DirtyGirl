@@ -46,6 +46,13 @@ namespace DirtyGirl.Services
            return _repository.Registrations.Filter(x => x.EventWave.EventDate.EventId == EventId).ToList();
         }
 
+        public int GetSurvivorRegistrationsCountByEventDate(int EventDateId)
+        {
+            return _repository.Registrations.Filter(x => x.EventWave.EventDateId == EventDateId && 
+                                                    x.RegistrationStatus == RegistrationStatus.Active && 
+                                                    x.RegistrationType == RegistrationType.CancerRegistration).Count();
+        }
+
         public IList<Registration> GetRegistrationsByEventDate(int EventDateId)
         {
             return _repository.Registrations.Filter(x => x.EventWave.EventDateId == EventDateId).ToList();

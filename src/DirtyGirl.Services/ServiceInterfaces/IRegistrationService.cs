@@ -14,6 +14,7 @@ namespace DirtyGirl.Services.ServiceInterfaces
         IList<Registration> GetRegistrationByUserID(int userId);        
         IList<Registration> GetRegistrationsByEvent(int EventId);
         IList<Registration> GetRegistrationsByEventDate(int EventDateId);
+        int GetSurvivorRegistrationsCountByEventDate(int EventDateId);
         IList<Registration> GetRegistrationByEventWave(int EventWaveId);        
         IList<Registration> GetRegistrationsByTeam(int teamId);
         IList<Registration> GetRegistrationsAll();

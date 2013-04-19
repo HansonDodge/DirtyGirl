@@ -23,6 +23,7 @@ namespace DirtyGirl.Web.Models
         public IList<SelectListItem> PacketDeliveryOptionList { get; set; }
         public IList<SelectListItem> TShirtSizeList { get; set; }
         public IList<EventLead> EventLeadList { get; set; }
+        public bool survivorSpotsAvailable { get; set; }
 
         public vmRegistration_Details()
         {

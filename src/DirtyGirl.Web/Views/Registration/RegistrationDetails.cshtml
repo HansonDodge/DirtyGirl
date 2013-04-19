@@ -142,13 +142,23 @@
                                                     }
                                                     else
                                                     {
-                                                        @Html.RadioButtonFor(x => x.RegistrationDetails.RegistrationType, regType.Value);
+                                                        if (@Model.survivorSpotsAvailable)
+                                                        {
+                                                            @Html.RadioButtonFor(x => x.RegistrationDetails.RegistrationType, regType.Value)                                                            
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.RadioButtonFor(x => x.RegistrationDetails.RegistrationType, regType.Value, new {disabled = "disabled"})                                                            
+                                                        }
                                                     }
 
                                                     <label for="RegistrationType">@regType.Text</label>
                                                 </div>
                                             }
-
+                                            @if (!Model.survivorSpotsAvailable)
+                                            {
+                                                <div class="registrationTypeMessage">(There are no more cancer survivor spots available for this event.)</div>
+                                            }
                                         </div>
                                     </div>
                                     <div class="single_row">

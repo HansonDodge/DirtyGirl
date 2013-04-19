@@ -258,6 +258,16 @@ namespace DirtyGirl.Services.Utils
         }
 
         #endregion
+
+        #region Survivor
+
+        [ConfigurationProperty("SurvivorSpots")]
+        public int SurvivorSpots
+        {
+            get { return int.Parse(this["SurvivorSpots"].ToString()); }
+        }
+
+        #endregion
         
     }
 }

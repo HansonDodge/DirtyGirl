@@ -2,6 +2,7 @@
 using DirtyGirl.Models;
 using DirtyGirl.Models.Enums;
 using DirtyGirl.Services.ServiceInterfaces;
+using DirtyGirl.Services.Utils;
 using DirtyGirl.Web.Helpers;
 using DirtyGirl.Web.Models;
 using DirtyGirl.Web.Utils;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Text.RegularExpressions;
+using Utilities = DirtyGirl.Web.Utils.Utilities;
 
 namespace DirtyGirl.Web.Controllers
 {
@@ -267,6 +269,8 @@ namespace DirtyGirl.Web.Controllers
             var tShirtSizeList = DirtyGirlExtensions.ConvertToSelectList<TShirtSize>();
             tShirtSizeList.RemoveAt(0);
 
+            var allowSurvivors = (_service.GetSurvivorRegistrationsCountByEventDate(wave.EventDateId) < DirtyGirlServiceConfig.Settings.SurvivorSpots);
+
             var vm = new vmRegistration_Details 
                 { 
 
@@ -278,7 +282,8 @@ namespace DirtyGirl.Web.Controllers
                     PacketDeliveryOptionList = DirtyGirlExtensions.ConvertToSelectList<RegistrationMaterialsDeliveryOption>(),
                     EventLeadList = _service.GetEventLeads(eventId, true),
                     RegistrationDetails = reg,
-                    ItemId = itemId
+                    ItemId = itemId,
+                    survivorSpotsAvailable = allowSurvivors
                 };          
 
             return View(vm);
@@ -298,9 +303,9 @@ namespace DirtyGirl.Web.Controllers
                 ModelState.AddModelError("FirstName",
                                          "You have already registered for this event wave. You may select another wave above, or, if you would like to register another participant for this wave, please enter their name below.");
 
-            if (reg.FirstName + reg.LastName == model.RegistrationDetails.EmergencyContact.Replace(" ", ""))
+            var fullName = model.RegistrationDetails.FirstName + model.RegistrationDetails.LastName;
+            if (fullName.Replace(" ","") == model.RegistrationDetails.EmergencyContact.Replace(" ", ""))
                 ModelState.AddModelError("EmergencyContact", "Emergency contact cannot be the same as the registrant.");
-
 
             EventWave wave = _service.GetEventWaveById(reg.EventWaveId);
 
@@ -312,7 +317,7 @@ namespace DirtyGirl.Web.Controllers
             else
                 ModelState.AddModelError("Birthday", "Registrants Birthday is required.");
 
-        model.RegistrationDetails.Address1 = reg.Address1 = CurrentUser.Address1;
+            model.RegistrationDetails.Address1 = reg.Address1 = CurrentUser.Address1;
             model.RegistrationDetails.Address2 = reg.Address2 = CurrentUser.Address2;
             model.RegistrationDetails.Locality = reg.Locality = CurrentUser.Locality;
             model.RegistrationDetails.RegionId = reg.RegionId = CurrentUser.RegionId;

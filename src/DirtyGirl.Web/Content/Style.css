@@ -449,7 +449,7 @@ span.field-validation-error { color:#ff0000;}
 .single_inlineRadio { position: relative; overflow: hidden; float: left; margin-right: 10px;}
 .single_inlineRadio input{ position: relative; float: left; margin-right: 5px;}
 .single_inlineRadio label{ position: relative; float:left; color: #2C1D13;  font-size: 12px; }
-
+.registrationTypeMessage {font-size: 10px;float: left;color: red;margin-left: 10px;}
 
 /*DONATE*/
 .registration_donate {position: relative; width:465px; padding: 0 0 40px;}
