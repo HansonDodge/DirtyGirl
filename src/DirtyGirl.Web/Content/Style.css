@@ -65,6 +65,8 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .menu-main-menu-container ul li.menu-item-27 a{width:108px;height: 57px;background: transparent url(../images/nav-sponsors.png) top left no-repeat;	margin: 14px 0px 0px 8px;}
 .menu-main-menu-container ul li.menu-item-780 a{width:92px;	height: 93px;background: transparent url(../images/nav-signup2.png) top left no-repeat;	margin: 5px 0px 0px 10px;}
 .menu-main-menu-container ul li.menu-item-28 a{width:92px;	height: 53px;background: transparent url(../images/contact.png) top left no-repeat;	margin: 0px 0px 0px 10px;}
+.menu-main-menu-container ul li.menu-item-1993 a {width:49px; height:24px; background:transparent url(../images/faq-nav.png) top left no-repeat;	margin: 32px 0px 0px 8px;}
+
 .menu-main-menu-container ul li a{	float:left;}
 .menu-main-menu-container ul li a:hover, .menu-main-menu-container ul li.current-menu-item a, .menu-main-menu-container ul li.current_page_parent a {  background-position: left bottom;}
 #newSignup2 {  background: url("../images/signup-new.png") no-repeat scroll left top transparent;  display: block;  height: 457px;  left: 877px;  position: absolute;  text-indent: -999999px;  top: -59px;  width: 514px;  z-index: 99999;}
@@ -82,13 +84,19 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 #contactinfo a:link, #contactinfo a:visited{color:#FFF;}
 #copyrightContainer{float:left;width:314px;height: 93px;margin:22px 0 0 0;}
 #copyrightContainer p{float:left;}
-#socialContainer{top:65px;left:434px;width:254px;height: 35px;position:absolute;margin:0;}
-#socialContainer a.twitter{position:absolute;bottom:0;right:0;width:115px;height: 26px;display: block;text-indent: -9999px;outline: none;background: transparent url(../images/logo-twitter2.png) top left no-repeat;margin:0;}
-#socialContainer a.facebook{position:absolute;bottom:0;left:0;width:116px;height: 35px;display: block;text-indent: -9999px;outline: none;background: transparent url(../images/logo-facebook2.png) top left no-repeat;}
-.trek{top:41px;	left:746px;	position:absolute;	width:182px;}
-.trek a{	height:25px;	width:167px;	background: transparent url("../images/trek-women.png") top left no-repeat;	display:block;	text-indent:-99999px;}
-.trek p{	font-size:13px;	line-height:16px;	color:#fff;	margin-top:7px;	text-align:left;	font-family:Arial, sans-serif;}
-
+#footer .partners {top: 52px; left: 430px; width:187px; height: 45px; position:absolute;}
+#footer .partners a.title {width:158px; height: 45px; display: block; text-indent: -9999px; outline: none; background: transparent url(../images/partners-button.png) top left no-repeat;}
+#footer .partners p {font-size:13px; color:#fff;}
+#footer .partners p a {color:#fff;}
+#socialContainer {top:57px; left:658px; width:118px; height: 80px; position:absolute; margin:0;}
+#socialContainer a.twitter {position:absolute; bottom:0; right:0; width:115px; height: 26px; display: block; text-indent: -9999px; outline: none; background: transparent url(../images/logo-twitter2.png) top left no-repeat; margin:0;}
+#socialContainer a.facebook {position:absolute; top:0; left:0; width:116px; height: 35px; display: block; text-indent: -9999px; outline: none; background: transparent url(../images/logo-facebook2.png) top left no-repeat; }
+.trek {top:41px; left:746px; position:absolute; width:182px;}
+.trek a {height:25px; width:167px; background: transparent url("../images/trek-women.png") top left no-repeat; display:block; text-indent:-99999px; }
+.trek p {font-size:13px; line-height:16px; color:#fff; margin-top:7px; text-align:left; font-family:Arial, sans-serif;}
+#footer .sponsors {top:53px; left:840px; position:absolute; width:185px;}
+#footer .sponsors a.paul-mitchell {height:42px; width:185px; background: transparent url("../images/paul-mitchell.gif") top left no-repeat; display:block; text-indent:-99999px;}
+#footer .sponsors p {font-size:13px; color:#fff;}
 
 /*GENERAL*/
 .float-right { float: right; }
