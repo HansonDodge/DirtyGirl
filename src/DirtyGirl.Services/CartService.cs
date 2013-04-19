@@ -15,6 +15,7 @@ namespace DirtyGirl.Services
 {
     public class CartService:ServiceBase, ICartService
     {
+        private const string PROCESSING_FEE = "Processing Fee";
 
         #region constructor
 
@@ -398,7 +399,7 @@ namespace DirtyGirl.Services
                                         item.Key,
                                         PurchaseType.Fee,
                                         ProcessType.General,
-                                        "Processing Fee",
+                                        PROCESSING_FEE,
                                         "",
                                         fee.PurchaseItemId,
                                         fee.Cost,
@@ -485,6 +486,9 @@ namespace DirtyGirl.Services
                             discountableRegList[0].DiscountDescription = code.Code;
                             discountableRegList[0].DiscountType = code.DiscountType;
                             discountableRegList[0].DiscountValue = discountableRegList[0].ItemTotal <= 0 ? cost : discountValue;
+
+                            if (NeedToRemoveProcessingFee(currentCart, code))
+                                RemoveProcessingFee(cartSummary);
                         }
                         else
                             cartSummary.SummaryMessages.Add(validationResult.GetServiceErrors().First().ErrorMessage);
@@ -509,7 +513,7 @@ namespace DirtyGirl.Services
                                                 x.Discountable == true && 
                                                 x.EventId == ((coupon.EventId.HasValue) ? coupon.EventId.Value : x.EventId)).OrderByDescending(x => x.ItemCost).ToList();
 
-                                if (discountableRegList.Count() > 0)
+                                if (discountableRegList.Any())
                                 {
                                     var cost = discountableRegList[0].ItemCost;
                                     var discountValue = coupon.DiscountType == DiscountType.Dollars ? coupon.Value : cost * (coupon.Value / 100); 
@@ -519,6 +523,9 @@ namespace DirtyGirl.Services
                                     discountableRegList[0].DiscountDescription = coupon.Code;
                                     discountableRegList[0].DiscountType = coupon.DiscountType;
                                     discountableRegList[0].DiscountValue = discountableRegList[0].ItemTotal <= 0 ? cost : discountValue;
+
+                                    if (NeedToRemoveProcessingFee(currentCart, coupon))
+                                        RemoveProcessingFee(cartSummary);
                                 }
                                 else
                                     cartSummary.SummaryMessages.Add("There are no applicable items for this discount.");
@@ -535,8 +542,58 @@ namespace DirtyGirl.Services
 
             return cartSummary.SummaryMessages.Count <= 0;
             
+        }
+
+       // remove all the processing fees from this cart...
+        private void RemoveProcessingFee(CartSummary cartSummary)
+        {
+            var fees =
+                cartSummary.CartItems.Where(
+                    item => item.PurchaseType == PurchaseType.Fee && item.ItemName == PROCESSING_FEE).ToList();
+            foreach (var item in fees)
+            {                
+                cartSummary.CartItems.Remove(item);
+            }            
+        }
+
+        private bool NeedToRemoveProcessingFee(SessionCart currentCart)
+        {
+            if (currentCart.ActionItems.All(x => (x.Value as ActionItem).ActionType != CartActionType.ProcessingFee))
+                return false;
+
+            return true;
+        }
+
+        private bool NeedToRemoveProcessingFee(SessionCart currentCart, RedemptionCode code)
+        {
+            if (!NeedToRemoveProcessingFee(currentCart))            // check base method
+                return false;
+
+            if (code.RedemptionCodeType == RedemptionCodeType.StraightValue ||      // check out redemption type
+                code.RedemptionCodeType == RedemptionCodeType.Transfer)
+                return true;
+
+            return false;                                           // no good reason to remove it...
         }        
 
+        private bool NeedToRemoveProcessingFee(SessionCart currentCart, Coupon coupon)
+        {
+            if (!NeedToRemoveProcessingFee(currentCart))            // check base method
+                return false;
+
+            if (coupon.CouponType != CouponType.Registration)       // only if a registration coupon
+                return false;
+
+            if (coupon.DiscountType == DiscountType.Dollars)        //  remove for all dollar amounts
+                return true;
+
+            if (coupon.DiscountType == DiscountType.Percentage && coupon.Value >= 75) // only 75% disocunt or greater
+                return true;
+
+            return false;
+        }
+
+       
         private IGatewayResponse ChargeConsumer(CartCheckOut checkOutDetails, CartSummary cartSummary)
         {                       
 
@@ -549,12 +606,17 @@ namespace DirtyGirl.Services
             paymentRequest.FirstName = checkOutDetails.CardHolderFirstname;
             paymentRequest.LastName = checkOutDetails.CardHolderLastname;
             paymentRequest.Zip = checkOutDetails.CardHolderZipCode;
-            paymentRequest.CardCode = checkOutDetails.CCVNumber;           
+            paymentRequest.CardCode = checkOutDetails.CCVNumber;
 
+            var totalTax = 0.0M;
             foreach (var item in cartSummary.CartItems)
             {
                 paymentRequest.AddLineItem(item.PurchaseItemId.ToString(), item.ItemName, item.DiscountDescription, 1, item.ItemTotal, item.Taxable);
+                if (item.Taxable)
+                    totalTax += (item.StateTax + item.LocalTax);
             }
+
+            paymentRequest.AddTax(totalTax);
 
             var gateway = new Gateway(DirtyGirlServiceConfig.Settings.PaymentGatewayId, DirtyGirlServiceConfig.Settings.PaymentGatewayKey, true);
             gateway.TestMode = DirtyGirlServiceConfig.Settings.PaymentTestMode;            
