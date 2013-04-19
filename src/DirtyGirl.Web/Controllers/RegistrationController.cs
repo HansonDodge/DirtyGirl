@@ -291,15 +291,28 @@ namespace DirtyGirl.Web.Controllers
                 return RedirectToAction("Index", "home");
 
             var regAction = SessionManager.CurrentCart.ActionItems[model.ItemId];
-            var reg = (Registration)regAction.ActionObject;
+            var reg = (Registration) regAction.ActionObject;
 
-            if (_service.IsDuplicateRegistration(reg.EventWaveId, CurrentUser.UserId, model.RegistrationDetails.FirstName, model.RegistrationDetails.LastName))
-                ModelState.AddModelError("FirstName", "You have already registered for this event wave. You may select another wave above, or, if you would like to register another participant for this wave, please enter their name below.");
-            
-            if (reg.FirstName + reg.LastName == model.RegistrationDetails.EmergencyContact.Replace(" ",""))
+            if (_service.IsDuplicateRegistration(reg.EventWaveId, CurrentUser.UserId,
+                                                 model.RegistrationDetails.FirstName, model.RegistrationDetails.LastName))
+                ModelState.AddModelError("FirstName",
+                                         "You have already registered for this event wave. You may select another wave above, or, if you would like to register another participant for this wave, please enter their name below.");
+
+            if (reg.FirstName + reg.LastName == model.RegistrationDetails.EmergencyContact.Replace(" ", ""))
                 ModelState.AddModelError("EmergencyContact", "Emergency contact cannot be the same as the registrant.");
 
-            model.RegistrationDetails.Address1 = reg.Address1 = CurrentUser.Address1;
+
+            EventWave wave = _service.GetEventWaveById(reg.EventWaveId);
+
+            if (model.RegistrationDetails.Birthday.HasValue)
+            {
+                if (model.RegistrationDetails.Birthday.Value.AddYears(14) > wave.EventDate.DateOfEvent )
+                     ModelState.AddModelError("Birthday", "The participant must be 14 years or older to join the event..");
+            }
+            else
+                ModelState.AddModelError("Birthday", "Registrants Birthday is required.");
+
+        model.RegistrationDetails.Address1 = reg.Address1 = CurrentUser.Address1;
             model.RegistrationDetails.Address2 = reg.Address2 = CurrentUser.Address2;
             model.RegistrationDetails.Locality = reg.Locality = CurrentUser.Locality;
             model.RegistrationDetails.RegionId = reg.RegionId = CurrentUser.RegionId;
@@ -356,7 +369,7 @@ namespace DirtyGirl.Web.Controllers
                 return RedirectToAction("checkout", "cart");
             }
 
-            EventWave wave = _service.GetEventWaveById(reg.EventWaveId);
+           
 
             model.EventWave = wave;
             model.EventOverview = _service.GetEventOverviewById(wave.EventDate.EventId);
