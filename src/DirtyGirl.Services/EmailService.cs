@@ -89,6 +89,7 @@ namespace DirtyGirl.Services
 
         public bool SendPaymentConfirmationEmail(int CartId)
         {
+            var needToSendConfirmation = false;
             try
             {
                 Cart cart = _repository.Carts.Find(x => x.CartId == CartId);                
@@ -116,11 +117,19 @@ namespace DirtyGirl.Services
                         {
                             case EventFeeType.Transfer:
                                 purchaseDescription = "fee associated with transfering your event to a friend.";
+
+                                // since an email is sent on transfer, no need to send one here - JJO 4/22/2014
+                                continue;
                                 break;
                             case EventFeeType.Cancellation:
                                 purchaseDescription = "fee associated with cancelling your registration.";
+
+
+                                // since an email is sent on transfer, no need to send one here - JJO 4/22/2014
+                                continue;
                                 break;
                             default:
+                                needToSendConfirmation = true;
                                 reg = _repository.Registrations.Find(x => x.CartItemId == item.CartItemId);
                                 if (reg != null)
                                 {
@@ -144,18 +153,26 @@ namespace DirtyGirl.Services
                     cartBody.Append("</tr>");
                 }
 
-                cartBody.Append(string.Format("<tr><td><p style='font-family: Arial; font-size: 11px; color:#573f3f;'>Total: {0}</p></td></tr>", cart.TotalCost));
+                if (needToSendConfirmation)     // do we still need to send anything?
+                {
+                    cartBody.Append(
+                        string.Format(
+                            "<tr><td><p style='font-family: Arial; font-size: 11px; color:#573f3f;'>Total: {0}</p></td></tr>",
+                            cart.TotalCost));
 
-                string messageBody = File.ReadAllText(emailTemplatePath + DirtyGirlServiceConfig.Settings.PaymentConfirmationEmailBody)
-                    .Replace("{FirstName}", cart.User.FirstName)
-                    .Replace("{LastName}", cart.User.LastName)
-                    .Replace("{PaymentId}", cart.TransactionId)
-                    .Replace("{City}", city)
-                    .Replace("{Date}", date)
-                    .Replace("{Cart}", cartBody.ToString());
-                
-                SendEmail(cart.User.EmailAddress, string.Format(DirtyGirlServiceConfig.Settings.PaymentConfirmationEmailSubject, city), messageBody);
+                    string messageBody = File.ReadAllText(emailTemplatePath +
+                                                          DirtyGirlServiceConfig.Settings.PaymentConfirmationEmailBody)
+                                             .Replace("{FirstName}", cart.User.FirstName)
+                                             .Replace("{LastName}", cart.User.LastName)
+                                             .Replace("{PaymentId}", cart.TransactionId)
+                                             .Replace("{City}", city)
+                                             .Replace("{Date}", date)
+                                             .Replace("{Cart}", cartBody.ToString());
 
+                    SendEmail(cart.User.EmailAddress,
+                              string.Format(DirtyGirlServiceConfig.Settings.PaymentConfirmationEmailSubject, city),
+                              messageBody);
+                }
             }
             catch (Exception ex)
             {
