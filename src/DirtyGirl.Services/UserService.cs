@@ -410,7 +410,8 @@ namespace DirtyGirl.Services
         public decimal GetRegistrationValue(int registrationId)
         {
             IRegistrationService regService = new RegistrationService(this._repository, false);
-            return regService.GetRegistrationPathValue(registrationId);
+            var reg = regService.GetRegistrationById(registrationId);
+            return reg.CartItem.Cost;
         }
 
         #endregion
