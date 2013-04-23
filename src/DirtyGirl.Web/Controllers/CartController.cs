@@ -5,9 +5,7 @@ using DirtyGirl.Web.Helpers;
 using DirtyGirl.Web.Models;
 using DirtyGirl.Web.Utils;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DirtyGirl.Web.Controllers
@@ -17,11 +15,13 @@ namespace DirtyGirl.Web.Controllers
 
         #region constructor
 
+// ReSharper disable FieldCanBeMadeReadOnly.Local
         private ICartService _service;
+// ReSharper restore FieldCanBeMadeReadOnly.Local
 
         public CartController(ICartService service)
         {
-            this._service = service;
+            _service = service;
         }
 
         #endregion
@@ -34,7 +34,7 @@ namespace DirtyGirl.Web.Controllers
             if (!Utilities.IsValidCart())
                 return RedirectToAction("Index", "home");
 
-            CartCheckOut vm = new CartCheckOut 
+            var vm = new CartCheckOut 
                 {                    
                     ExpirationMonthList = DirtyGirlExtensions.ConvertToSelectList<Months>(),
                     ExpirationYearList = Utilities.CreateNumericSelectList(DateTime.Now.Year, DateTime.Now.AddYears(20).Year),
@@ -59,24 +59,17 @@ namespace DirtyGirl.Web.Controllers
             if (result.Success)
             {
                 var confirmationCode = SessionManager.CurrentCart.ResultingConfirmationCode;
-                var CartFocusType = SessionManager.CurrentCart.CheckOutFocus;
-                var EventCity = (string.IsNullOrEmpty(SessionManager.CurrentCart.EventCity)) ? "" : SessionManager.CurrentCart.EventCity; 
+                var cartFocusType = SessionManager.CurrentCart.CheckOutFocus;
+                var eventCity = (string.IsNullOrEmpty(SessionManager.CurrentCart.EventCity)) ? "" : SessionManager.CurrentCart.EventCity; 
  
-                foreach (var actionItem in SessionManager.CurrentCart.ActionItems)
-                {
-                    if (actionItem.Value.ActionType == CartActionType.NewRegistration)
-                    {
-                        CartFocusType = DirtyGirl.Models.Enums.CartFocusType.Registration;
-                        break;
-                    }
-                }
+                // ensure cart focus is correct
+                ResetCartFocus();
 
                 SessionManager.CurrentCart = null;
-                return RedirectToAction("ThankYou", new { id = CartFocusType, confirm = confirmationCode, city = EventCity });
+                return RedirectToAction("ThankYou", new { id = cartFocusType, confirm = confirmationCode, city = eventCity });
             }
-            else
-                Utilities.AddModelStateErrors(ModelState, result.GetServiceErrors());                                   
-
+            
+            Utilities.AddModelStateErrors(ModelState, result.GetServiceErrors());
             model.ExpirationMonthList = DirtyGirlExtensions.ConvertToSelectList<Months>();
             model.ExpirationYearList = Utilities.CreateNumericSelectList(DateTime.Now.Year, DateTime.Now.AddYears(20).Year);
             model.CartSummary = _service.GenerateCartSummary(SessionManager.CurrentCart);
@@ -90,7 +83,7 @@ namespace DirtyGirl.Web.Controllers
 
         public ActionResult ThankYou(CartFocusType id, string confirm, string city)
         {
-            vmCart_ThankYou vm = new vmCart_ThankYou
+            var vm = new vmCart_ThankYou
                 {
                     CartFocus = id,
                     ConfirmationCode = confirm,
@@ -119,25 +112,25 @@ namespace DirtyGirl.Web.Controllers
             // if new event- remove shipping and/or processing charge related to that event if any 
             if (removeAction.ActionType == CartActionType.NewRegistration)
             {
-                var processingActions = SessionManager.CurrentCart.ActionItems.Where(x => (x.Value as ActionItem).ActionType == CartActionType.ProcessingFee).ToList();
+                var processingActions = SessionManager.CurrentCart.ActionItems.Where(x => x.Value.ActionType == CartActionType.ProcessingFee).ToList();
                 foreach (var proc in processingActions)
                 {
                     var processesAction = proc.Value.ActionObject as ProcessingFeeAction;
-                    if (processesAction.RegItemGuid == itemId)
+                    if (processesAction != null && processesAction.RegItemGuid == itemId)
                     {
                         SessionManager.CurrentCart.ActionItems.Remove(proc.Key);
                     }
                 }
 
-                Registration reg = (Registration)removeAction.ActionObject;
+                var reg = (Registration)removeAction.ActionObject;
                 if (reg.PacketDeliveryOption.HasValue &&  (int)reg.PacketDeliveryOption.Value == 1)
                 {
                   
-                    var shippingActions = SessionManager.CurrentCart.ActionItems.Where(x => (x.Value as ActionItem).ActionType == CartActionType.ShippingFee).ToList();
+                    var shippingActions = SessionManager.CurrentCart.ActionItems.Where(x => x.Value.ActionType == CartActionType.ShippingFee).ToList();
                     foreach (var ship in shippingActions)
                     {
                         var shipAction = ship.Value.ActionObject as ShippingFeeAction;
-                        if (shipAction.RegItemGuid == itemId)
+                        if (shipAction != null && shipAction.RegItemGuid == itemId)
                         {
                             SessionManager.CurrentCart.ActionItems.Remove(ship.Key);
                         }
@@ -147,8 +140,8 @@ namespace DirtyGirl.Web.Controllers
             // else if shipping charge- update registration DB to remove mailing option  
             else if (removeAction.ActionType == CartActionType.ShippingFee)
             {
-                ShippingFeeAction shipAction = (ShippingFeeAction)removeAction.ActionObject;
-                Registration reg = (Registration)SessionManager.CurrentCart.ActionItems[shipAction.RegItemGuid].ActionObject;
+                var shipAction = (ShippingFeeAction)removeAction.ActionObject;
+                var reg = (Registration)SessionManager.CurrentCart.ActionItems[shipAction.RegItemGuid].ActionObject;
                 reg.PacketDeliveryOption = 0; 
                 SessionManager.CurrentCart.ActionItems[shipAction.RegItemGuid].ActionObject = reg;  
             }
@@ -156,13 +149,45 @@ namespace DirtyGirl.Web.Controllers
             // remove initial request 
             SessionManager.CurrentCart.ActionItems.Remove(itemId);
 
-            if (SessionManager.CurrentCart.ActionItems.Count() == 0 )
+            if (!SessionManager.CurrentCart.ActionItems.Any() )
             {
                 SessionManager.CurrentCart = null;
                 return RedirectToAction("index", "home");
             }
 
+            ResetCartFocus();
+
             return RedirectToAction("CheckOut");
+        }
+
+        // check if there is a registration item in the cart.  If so, the focus should be registration
+        // otherwise set the focus to the first item in the cart
+        private void ResetCartFocus()
+        {
+            if (SessionManager.CurrentCart.ActionItems.Any(item => item.Value.ActionType == CartActionType.NewRegistration))
+            {
+                SessionManager.CurrentCart.CheckOutFocus = CartFocusType.Registration;
+                return;
+            }
+
+            var curItem = SessionManager.CurrentCart.ActionItems.FirstOrDefault(x => x.Value.ActionType != CartActionType.ProcessingFee &&
+                                                                                     x.Value.ActionType != CartActionType.ShippingFee);
+
+            switch (curItem.Value.ActionType)
+            {
+                case CartActionType.CancelRegistration:
+                    SessionManager.CurrentCart.CheckOutFocus = CartFocusType.CancelEvent;
+                    break;
+                case CartActionType.EventChange:
+                    SessionManager.CurrentCart.CheckOutFocus = CartFocusType.ChangeEvent;
+                    break;
+                case CartActionType.TransferRregistration:
+                    SessionManager.CurrentCart.CheckOutFocus = CartFocusType.TransferEvent;
+                    break;
+                case CartActionType.WaveChange:
+                    SessionManager.CurrentCart.CheckOutFocus = CartFocusType.ChangeWave;
+                    break;
+            }
         }
 
         [HttpPost]
