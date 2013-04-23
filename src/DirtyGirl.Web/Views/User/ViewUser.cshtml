@@ -94,7 +94,7 @@
                                             }
                                             <p><span>Wave:</span> @w.StartTime.ToString("h:mm tt")</p>
                                             @{ if (Model.RegistrationValues.ContainsKey(reg.RegistrationId)){ 
-                                                <p><span>Registration Paid:</span> @Model.RegistrationValues[reg.RegistrationId].ToString("c")</p>
+                                                <p><span>Registration Cost:</span> @Model.RegistrationValues[reg.RegistrationId].ToString("c")</p>
                                                }} 
                                             
                                             <p><span>Confirmation Code:</span> @(!string.IsNullOrWhiteSpace(reg.ConfirmationCode) ? reg.ConfirmationCode : "Not Available") </p>
@@ -153,8 +153,8 @@
                                     <img src="@Url.Content("~/images/btn_editProfile.png")" /></a>
                                 <a href="@Url.Action("Index", "Home")">
                                     <img src="@Url.Content("~/images/btn_registerRun.png")" /></a>
-                                <a href="http://www.nationalbreastcancer.org/about-nbcf/dirty-girl-mud-run-fundraising" target="_blank">
-                                    <img src="@Url.Content("~/images/btn_Donation.png")" /></a>
+<!--                                <a href="http://www.nationalbreastcancer.org/about-nbcf/dirty-girl-mud-run-fundraising" target="_blank">
+                                    <img src="@Url.Content("~/images/btn_Donation.png")" /></a> -->
                             </div>
                         </div>
                     </div>
