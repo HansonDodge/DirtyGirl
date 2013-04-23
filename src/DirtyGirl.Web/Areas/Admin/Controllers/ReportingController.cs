@@ -615,18 +615,18 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                 var evt = _service.GetEventById(filter.EventId.Value);
 
                 if (!filter.startDate.HasValue)
-                    newFilter.startDate = evt.EventFees.Min(x => x.EffectiveDate);
+                    newFilter.startDate = evt.EventFees.Min(x => x.EffectiveDate).Date;
 
                 if (!filter.endDate.HasValue)
-                    newFilter.endDate = DateTime.Now >= evt.EventDates.Max(x => x.DateOfEvent) ? evt.EventDates.Max(x => x.DateOfEvent) : DateTime.Now;
+                    newFilter.endDate = DateTime.Now >= evt.EventDates.Max(x => x.DateOfEvent).Date ? evt.EventDates.Max(x => x.DateOfEvent) : DateTime.Now.Date;
             }
             else
             {
                 if (!filter.startDate.HasValue)
-                    newFilter.startDate = DateTime.Now.AddDays(-(DateTime.Now.Day - 1));
+                    newFilter.startDate = DateTime.Now.AddDays(-(DateTime.Now.Day - 1)).Date;
 
                 if (!filter.endDate.HasValue)
-                    newFilter.endDate = DateTime.Now;            
+                    newFilter.endDate = DateTime.Now.Date;            
             }
 
             newFilter.endDate = newFilter.endDate.Value.AddDays(1).Date.AddSeconds(-1);
