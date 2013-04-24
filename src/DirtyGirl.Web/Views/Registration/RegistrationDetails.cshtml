@@ -5,17 +5,36 @@
 
 <script type="text/javascript">
 
+
+
+
     var formPreviousValues = [];
 
     $(document).ready(function () {
-       
+
+
+        $("#lnkSizing").click(function (e) {
+
+            e.preventDefault();
+            var win = $("#SizingWindow").kendoWindow({
+                height: "300px",
+                title: "Sizing Chart",
+                visible: false,
+                width: "300px"
+            }).data("kendoWindow");
+
+            win.center();
+            win.open();
+        });
+
+
 
         $("#lnkSubmit").click(function (e) {
-            
+
             e.preventDefault();
             $("#RegistrationForm").submit();
 
-            setTimeout(function(){scrollTo("very-important-validation-messages");}, 500);
+            setTimeout(function () { scrollTo("very-important-validation-messages"); }, 500);
 
         });
         $(".TextBoxInput").each(function (index) {
@@ -148,11 +167,11 @@
                                                     {
                                                         if (@Model.survivorSpotsAvailable)
                                                         {
-                                                            @Html.RadioButtonFor(x => x.RegistrationDetails.RegistrationType, regType.Value)                                                            
+                                                        @Html.RadioButtonFor(x => x.RegistrationDetails.RegistrationType, regType.Value)                                                            
                                                         }
                                                         else
                                                         {
-                                                            @Html.RadioButtonFor(x => x.RegistrationDetails.RegistrationType, regType.Value, new {disabled = "disabled"})                                                            
+                                                        @Html.RadioButtonFor(x => x.RegistrationDetails.RegistrationType, regType.Value, new { disabled = "disabled" })                                                            
                                                         }
                                                     }
 
@@ -209,18 +228,18 @@
                                             @Html.ValidationMessageFor(x => x.RegistrationDetails.MedicalInformation, "*")
                                         </div>
                                     </div>
-                                    
+
                                     <div class="single_row">
                                         <div class="single_input dropdown">
                                             <p><span class="pink">*</span>When is the participant's birthday?</p>
-                                            @(Html.Kendo().DatePickerFor(x => x.RegistrationDetails.Birthday))                                         
+                                            @(Html.Kendo().DatePickerFor(x => x.RegistrationDetails.Birthday))
                                             @Html.ValidationMessageFor(x => x.RegistrationDetails.Birthday, "*")
                                         </div>
                                     </div>
 
                                     <div class="single_row">
                                         <div class="single_input dropdown">
-                                            <p><span class="pink">*</span>What is your t-shirt size? (women's sizes only)</p>
+                                            <p><span class="pink">*</span>What is your t-shirt size? (women's sizes only)<a href="#" id="lnkSizing">Sizing Chart</a></p>
                                             @(Html.Kendo().DropDownListFor(x => x.RegistrationDetails.TShirtSize)
                                             .OptionLabel("Select")
                                             .DataTextField("Text")
@@ -421,7 +440,7 @@ of severity. <u>I do hereby fully RELEASE, and FOREVER DISCHARGE</u> the Release
                                         <h3>Trademark Usage Guidelines  <span>(<a href="@Url.Content("~/Content/trademark.pdf")" target="_blank">Open as PDF</a>)</span></h3>
                                         <div class="form_waiver_content">
                                             <p align="center">
-                                               Dirty Girl TRADEMARK USAGE GUIDELINES
+                                                Dirty Girl TRADEMARK USAGE GUIDELINES
                                             </p>
                                             <p>
                                                 These trademark usage guidelines (the "Guidelines") are for Dirty Girl® participants wishing to use Dirty Girl trademarks, logos, graphics, etc. on
@@ -518,3 +537,47 @@ not operate as a waiver to request strict compliance in the future. If you have 
         <div class="pinkborder_bottom">&nbsp;</div>
     </div>
 }
+
+    <div class="hide" id="SizingWindow">
+        <h3>Product Specifications</h3>
+        <table cellpadding="1" cellspacing="1">
+            <tr>
+                <th>Size</th>
+                <th>Chest</th>
+                <th>Body Length</th>
+            </tr>
+            <tr>
+                <td>S</td>
+                <td>37</td>
+                <td>25&nbsp;<sup>1</sup>/<sub>2</sub> </td>
+            </tr>
+            <tr>
+                <td>M</td>
+                <td>38&nbsp;<sup>1</sup>/<sub>2</sub></td>
+                <td>26 </td>
+            </tr>
+            <tr>
+                <td>L</td>
+                <td>42&nbsp;<sup>1</sup>/<sub>2</sub></td>
+                <td>26&nbsp;<sup>1</sup>/<sub>2</sub> </td>
+            </tr>
+            <tr>
+                <td>XL</td>
+                <td>46&nbsp;<sup>1</sup>/<sub>2</sub></td>
+                <td>27</td>
+            </tr>
+            <tr>
+                <td>2XL</td>
+                <td>50&nbsp;<sup>1</sup>/<sub>2</sub></td>
+                <td>27&nbsp;<sup>1</sup>/<sub>2</sub> </td>
+            </tr>
+            <tr>
+                <td>3XL</td>
+                <td>54&nbsp;<sup>1</sup>/<sub>2</sub></td>
+                <td>28</td>
+            </tr>
+        </table>
+        <h3>Care Instructions:</h3>
+        <p>Machine wash warm, inside out, with like colors. Only non-chlorine bleach. Tumble dry medium. Do not iron. Do not dry clean.</p>
+    </div>
+

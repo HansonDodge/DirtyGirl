@@ -348,7 +348,34 @@ div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; widt
 .register_next_button.submit a{ position: relative; display: block; width: 94px; height: 46px; text-indent: -5000px; text-decoration: none; background: url(../images/sprite-submit.png) 0 0 no-repeat transparent;}
 .register_next_button a.proceed{background-position: 0 -46px;}
 .register_next_button input{position: absolute; top:0; left:0;}
-
+#lnkSizing { font-size: 10px;margin-left: 5px;}
+#SizingWindow h3
+{
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+#SizingWindow table
+{    
+    font-size: 12px;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 10px;
+    border-collapse: collapse;
+}
+#SizingWindow th {
+    width: 80px;
+    background: gray;
+    color: #ffffff;
+}
+#SizingWindow td {
+     border: 1px solid gray;   
+}
+#SizingWindow p
+{
+    font-size: 11px;
+}
 #frmMakePayment .btnPink {display:inline;}
 
 /*CREATE ACCOUNT*/
