@@ -426,6 +426,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 fee.EventId = masterEventId;
+                fee.Discountable = true;
                 ServiceResult result = _eventService.CreateEventFee(fee);
 
                 if (!result.Success)
