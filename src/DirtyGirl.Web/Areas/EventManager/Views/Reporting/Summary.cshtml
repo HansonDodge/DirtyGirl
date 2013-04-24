@@ -1,0 +1,37 @@
+﻿
+@using Kendo.Mvc.UI
+@model DirtyGirl.Web.Areas.EventManager.Models.vmEventManager_Summary
+
+@{
+    ViewBag.Title = "Summary Report";
+}
+
+<h2>Summary Report</h2>
+
+@{Html.RenderPartial("partial/EventFilter", Model.Filter);}
+
+<br/>
+<br/>    
+<h2>@Model.Report.EventName</h2>
+@if (Model.Filter.EventId.HasValue && Model.Filter.EventId > 0)
+{
+    using (Html.BeginForm("SummaryExport", "reporting"))
+    {
+    <input data-val="true" id="EventId" name="EventId" type="hidden" value="@Model.Filter.EventId" />    
+    <input id="ExportSummary" type="submit" value="Export" />  
+    }
+
+}
+<div style="width:500px; ">
+@(Html.Kendo()
+.Grid(Model.Report.WaveData)
+.Name("grdCharge")
+.Columns(cols =>
+    {
+        cols.Bound(x => x.WaveNumber).Width(100);
+        cols.Bound(x => x.StartTime).Format("{0:g}").Width(300);
+        cols.Bound(x => x.NumParticipants).Width(50);
+        cols.Bound(x => x.Active).Width(50);
+    }))                    
+
+</div>

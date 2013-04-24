@@ -2,6 +2,7 @@
 using DirtyGirl.Models.Enums;
 using DirtyGirl.Services.ServiceInterfaces;
 using DirtyGirl.Web.Areas.Admin.Models;
+using DirtyGirl.Web.Utils;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using NPOI.HSSF.UserModel;
@@ -18,16 +19,7 @@ using NPOI.SS.Util;
 
 namespace DirtyGirl.Web.Areas.Admin.Controllers
 {
-    public class StyleContainer
-    {
-        public NPOI.SS.UserModel.ICellStyle Currency { get; set; }
-        public NPOI.SS.UserModel.ICellStyle RightAligned { get; set; }
-        public NPOI.SS.UserModel.ICellStyle LeftAligned { get; set; }
-        public NPOI.SS.UserModel.ICellStyle TitleStyle { get; set; }
-        public NPOI.SS.UserModel.ICellStyle HeaderStyle { get; set; }
-        public NPOI.SS.UserModel.ICellStyle Header2Style { get; set; }
-        public NPOI.SS.UserModel.ICellStyle Header3Style { get; set; }
-    }
+    
     public class ReportingController : BaseController
     {
 
@@ -82,9 +74,9 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             //Create new Excel sheet
             var sheet = CreateSheet(workbook);
 
-            var allStyles = CreateStyles(workbook);
+            var allStyles = ReportUtilities.CreateStyles(workbook);
 
-            ExportReportHeader(title, sheet, allStyles, ref rowNumber);
+            ReportUtilities.ExportReportHeader(title, sheet, allStyles, ref rowNumber);
             ExportReportSubheader(sheet, filter, allStyles, ref rowNumber);
 
             ExportReportValues(report, sheet, allStyles, ref rowNumber);
@@ -109,7 +101,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             if (filter.EventId.HasValue && filter.EventId.Value > 0)
             {
                 var thisEvent = _service.GetEventById(filter.EventId.Value);
-                CreateCell(row, 0, string.Format("{0} - {1}", thisEvent.GeneralLocality, thisEvent.EventDates.Min().DateOfEvent.ToShortDateString()), allStyles.Header2Style);
+                ReportUtilities.CreateCell(row, 0, string.Format("{0} - {1}", thisEvent.GeneralLocality, thisEvent.EventDates.Min().DateOfEvent.ToShortDateString()), allStyles.Header2Style);
                 row = sheet.CreateRow(rowNumber++);
             }
             else
@@ -117,65 +109,12 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                 if (filter.startDate.HasValue)
                 {
                     var value = string.Format("Events from {0} to {1}", filter.startDate.Value.ToShortDateString(), filter.endDate.Value.ToShortDateString());
-                    CreateCell(row, 0, value, allStyles.Header2Style);
+                    ReportUtilities.CreateCell(row, 0, value, allStyles.Header2Style);
                     row = sheet.CreateRow(rowNumber++);
                 }
-            }
-                     
-
+            }                     
         }
-
-        private static StyleContainer CreateStyles(HSSFWorkbook workbook)
-        {
-
-            var styles = new StyleContainer();
-
-            var h1Font = workbook.CreateFont();
-            h1Font.FontHeightInPoints = (short)24;
-            h1Font.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.BOLD;
-
-            var h2Font = workbook.CreateFont();
-            h2Font.FontHeightInPoints = (short)16;
-            h2Font.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.BOLD;
-
-            var h3Font = workbook.CreateFont();
-            h3Font.FontHeightInPoints = (short)12;
-            h3Font.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.BOLD;
-
-            var titleFont = workbook.CreateFont();
-            titleFont.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.BOLD;
-
-            styles.RightAligned = workbook.CreateCellStyle();
-            styles.RightAligned.Alignment = NPOI.SS.UserModel.HorizontalAlignment.RIGHT;
-
-            styles.Currency = workbook.CreateCellStyle();
-            styles.Currency.Alignment = NPOI.SS.UserModel.HorizontalAlignment.RIGHT;
-            //styles.Currency.DataFormat = HSSFDataFormat.GetBuiltinFormat("$#,##0.00");
-           styles.Currency.DataFormat = (short)7;
-
-            styles.LeftAligned = workbook.CreateCellStyle();
-            styles.LeftAligned.Alignment = NPOI.SS.UserModel.HorizontalAlignment.LEFT;
-
-            styles.TitleStyle = workbook.CreateCellStyle();
-            styles.TitleStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.CENTER;
-            styles.TitleStyle.SetFont(titleFont);
-
-            // Fonts are set into a style so create a new one to use.
-            styles.HeaderStyle = workbook.CreateCellStyle();
-            styles.HeaderStyle.SetFont(h1Font);
-            styles.HeaderStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.CENTER;
-
-            // Fonts are set into a style so create a new one to use.
-            styles.Header2Style = workbook.CreateCellStyle();
-            styles.Header2Style.SetFont(h2Font);
-
-            // Fonts are set into a style so create a new one to use.
-            styles.Header3Style = workbook.CreateCellStyle();
-            styles.Header3Style.SetFont(h3Font);
-
-            return styles;
-        }
-
+       
         private static NPOI.SS.UserModel.ISheet CreateSheet(HSSFWorkbook workbook)
         {
             var sheet = workbook.CreateSheet();
@@ -190,46 +129,32 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             return sheet;
         }
 
-        private static void ExportReportHeader(string title, NPOI.SS.UserModel.ISheet sheet, StyleContainer allStyles, ref int rowNumber)
-        {     
-            var row = sheet.CreateRow(rowNumber++);
-            row.HeightInPoints = 27;
-            var titleCell = row.CreateCell(0);
-            titleCell.SetCellValue(title);
-            titleCell.CellStyle = allStyles.HeaderStyle;
-
-            titleCell.CellStyle.WrapText = true;
-
-            NPOI.SS.Util.CellRangeAddress titleMerge = new NPOI.SS.Util.CellRangeAddress(0, 0, 0, 7);
-            sheet.AddMergedRegion(titleMerge);
-
-            row = sheet.CreateRow(rowNumber++);
-        }
+        
 
         private static void ExportReportCharges(vmAdmin_PerformanceReport report, NPOI.SS.UserModel.ISheet sheet, StyleContainer allStyles, ref int rowNumber)
         {
             if (report.ChargeReport.Count > 0)
             {
                 var row = sheet.CreateRow(rowNumber++);
-                CreateCell(row, 0, "Event Charges", allStyles.Header2Style);
+                ReportUtilities.CreateCell(row, 0, "Event Charges", allStyles.Header2Style);
                 row = sheet.CreateRow(rowNumber++);
 
-                CreateCell(row, 0, "Name", allStyles.TitleStyle);
-                CreateCell(row, 1, "Cost Total", allStyles.TitleStyle);
-                CreateCell(row, 2, "Discount Total", allStyles.TitleStyle);
-                CreateCell(row, 3, "Local Tax Total", allStyles.TitleStyle);
-                CreateCell(row, 4, "State Tax Total", allStyles.TitleStyle);
-                CreateCell(row, 5, "Actual Total", allStyles.TitleStyle);
+                ReportUtilities.CreateCell(row, 0, "Name", allStyles.TitleStyle);
+                ReportUtilities.CreateCell(row, 1, "Cost Total", allStyles.TitleStyle);
+                ReportUtilities.CreateCell(row, 2, "Discount Total", allStyles.TitleStyle);
+                ReportUtilities.CreateCell(row, 3, "Local Tax Total", allStyles.TitleStyle);
+                ReportUtilities.CreateCell(row, 4, "State Tax Total", allStyles.TitleStyle);
+                ReportUtilities.CreateCell(row, 5, "Actual Total", allStyles.TitleStyle);
 
                 foreach (var charge in report.ChargeReport.OrderBy(x => x.Name))
                 {
                     row = sheet.CreateRow(rowNumber++);
-                    CreateCell(row, 0, charge.Name, allStyles.LeftAligned);
-                    CreateCell(row, 1, charge.CostTotal, allStyles.Currency);
-                    CreateCell(row, 2, charge.DiscountTotal, allStyles.Currency);
-                    CreateCell(row, 3, charge.LocalTaxTotal, allStyles.Currency);
-                    CreateCell(row, 4, charge.StateTaxTotal, allStyles.Currency);
-                    CreateCell(row, 5, charge.ActualTotal, allStyles.Currency);
+                    ReportUtilities.CreateCell(row, 0, charge.Name, allStyles.LeftAligned);
+                    ReportUtilities.CreateCell(row, 1, charge.CostTotal, allStyles.Currency);
+                    ReportUtilities.CreateCell(row, 2, charge.DiscountTotal, allStyles.Currency);
+                    ReportUtilities.CreateCell(row, 3, charge.LocalTaxTotal, allStyles.Currency);
+                    ReportUtilities.CreateCell(row, 4, charge.StateTaxTotal, allStyles.Currency);
+                    ReportUtilities.CreateCell(row, 5, charge.ActualTotal, allStyles.Currency);
                 }
 
             }
@@ -240,30 +165,30 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             if (report.FeeReport.Count > 0)
             {
                 var row = sheet.CreateRow(rowNumber++);
-                CreateCell(row, 0, "Event Fees", allStyles.Header2Style);
+                ReportUtilities.CreateCell(row, 0, "Event Fees", allStyles.Header2Style);
                 foreach (var feeType in report.FeeReport.GroupBy(x => x.FeeType).Select(x => x.Key))
                 {
                     row = sheet.CreateRow(rowNumber++);
-                    CreateCell(row, 0, feeType.ToString(), allStyles.Header3Style);
+                    ReportUtilities.CreateCell(row, 0, feeType.ToString(), allStyles.Header3Style);
                     row = sheet.CreateRow(rowNumber++);
-                    CreateCell(row, 0, "Cost", allStyles.TitleStyle);
-                    CreateCell(row, 1, "Use Count", allStyles.TitleStyle);
-                    CreateCell(row, 2, "Cost Total", allStyles.TitleStyle);
-                    CreateCell(row, 3, "Discount Total", allStyles.TitleStyle);
-                    CreateCell(row, 4, "Local Tax Total", allStyles.TitleStyle);
-                    CreateCell(row, 5, "State Tax Total", allStyles.TitleStyle);
-                    CreateCell(row, 6, "Actual Total", allStyles.TitleStyle);
+                    ReportUtilities.CreateCell(row, 0, "Cost", allStyles.TitleStyle);
+                    ReportUtilities.CreateCell(row, 1, "Use Count", allStyles.TitleStyle);
+                    ReportUtilities.CreateCell(row, 2, "Cost Total", allStyles.TitleStyle);
+                    ReportUtilities.CreateCell(row, 3, "Discount Total", allStyles.TitleStyle);
+                    ReportUtilities.CreateCell(row, 4, "Local Tax Total", allStyles.TitleStyle);
+                    ReportUtilities.CreateCell(row, 5, "State Tax Total", allStyles.TitleStyle);
+                    ReportUtilities.CreateCell(row, 6, "Actual Total", allStyles.TitleStyle);
 
                     foreach (var fee in report.FeeReport.Where(x => x.FeeType == feeType).OrderBy(x => x.Cost))
                     {
                         row = sheet.CreateRow(rowNumber++);
-                        CreateCell(row, 0, fee.Cost, allStyles.Currency);
-                        CreateCell(row, 1, fee.UseCount, allStyles.RightAligned);
-                        CreateCell(row, 2, fee.CostTotal, allStyles.Currency);
-                        CreateCell(row, 3, fee.DiscountTotal, allStyles.Currency);
-                        CreateCell(row, 4, fee.LocalTaxTotal, allStyles.Currency);
-                        CreateCell(row, 5, fee.StateTaxTotal, allStyles.Currency);
-                        CreateCell(row, 6, fee.ActualTotal, allStyles.Currency);
+                        ReportUtilities.CreateCell(row, 0, fee.Cost, allStyles.Currency);
+                        ReportUtilities.CreateCell(row, 1, fee.UseCount, allStyles.RightAligned);
+                        ReportUtilities.CreateCell(row, 2, fee.CostTotal, allStyles.Currency);
+                        ReportUtilities.CreateCell(row, 3, fee.DiscountTotal, allStyles.Currency);
+                        ReportUtilities.CreateCell(row, 4, fee.LocalTaxTotal, allStyles.Currency);
+                        ReportUtilities.CreateCell(row, 5, fee.StateTaxTotal, allStyles.Currency);
+                        ReportUtilities.CreateCell(row, 6, fee.ActualTotal, allStyles.Currency);
                     }
                     row = sheet.CreateRow(rowNumber++);
                 }
@@ -276,12 +201,12 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             if (report.TShirtSizes != null && report.TShirtSizes.Count > 0)
             {
                 var row = sheet.CreateRow(rowNumber++);
-                CreateCell(row, 0, "T-Shirts", allStyles.Header3Style);
+                ReportUtilities.CreateCell(row, 0, "T-Shirts", allStyles.Header3Style);
                 foreach (var size in report.TShirtSizes)
                 {
                     row = sheet.CreateRow(rowNumber++);
-                    CreateCell(row, 0, size.Keys.ElementAt(0).ToString(), allStyles.LeftAligned);
-                    CreateCell(row, 1, size.Values.ElementAt(0), allStyles.RightAligned);
+                    ReportUtilities.CreateCell(row, 0, size.Keys.ElementAt(0).ToString(), allStyles.LeftAligned);
+                    ReportUtilities.CreateCell(row, 1, size.Values.ElementAt(0), allStyles.RightAligned);
                 }
 
                 row = sheet.CreateRow(rowNumber++);
@@ -293,71 +218,58 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
         {
             var row = sheet.CreateRow(rowNumber++);
 
-            CreateCell(row, 0, "Event Revenue", allStyles.LeftAligned);
-            CreateCell(row, 1, report.TotalRevenue, allStyles.Currency);
-            CreateCell(row, 2, "Available Spots", allStyles.LeftAligned);
-            CreateCell(row, 3, report.TotalSpots, allStyles.RightAligned);
-            CreateCell(row, 4, "Fee Total", allStyles.LeftAligned);
-            CreateCell(row, 5, report.FeeValue, allStyles.Currency);
-            CreateCell(row, 6, "Charge Total", allStyles.LeftAligned);
-            CreateCell(row, 7, report.ChargeValue, allStyles.Currency);
+            ReportUtilities.CreateCell(row, 0, "Event Revenue", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 1, report.TotalRevenue, allStyles.Currency);
+            ReportUtilities.CreateCell(row, 2, "Available Spots", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 3, report.TotalSpots, allStyles.RightAligned);
+            ReportUtilities.CreateCell(row, 4, "Fee Total", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 5, report.FeeValue, allStyles.Currency);
+            ReportUtilities.CreateCell(row, 6, "Charge Total", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 7, report.ChargeValue, allStyles.Currency);
 
             row = sheet.CreateRow(rowNumber++);
-            CreateCell(row, 0, "Days count", allStyles.LeftAligned);
-            CreateCell(row, 1, report.DayCount, allStyles.RightAligned);
-            CreateCell(row, 2, "Active Registrations", allStyles.LeftAligned);
-            CreateCell(row, 3, report.SpotsTaken, allStyles.RightAligned);
-            CreateCell(row, 4, "Discount value", allStyles.LeftAligned);
-            CreateCell(row, 5, report.DiscountValue, allStyles.Currency);
-            CreateCell(row, 6, "Local Tax", allStyles.LeftAligned);
-            CreateCell(row, 7, report.ChargeLocalTaxValue, allStyles.Currency);
+            ReportUtilities.CreateCell(row, 0, "Days count", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 1, report.DayCount, allStyles.RightAligned);
+            ReportUtilities.CreateCell(row, 2, "Active Registrations", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 3, report.SpotsTaken, allStyles.RightAligned);
+            ReportUtilities.CreateCell(row, 4, "Discount value", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 5, report.DiscountValue, allStyles.Currency);
+            ReportUtilities.CreateCell(row, 6, "Local Tax", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 7, report.ChargeLocalTaxValue, allStyles.Currency);
 
             row = sheet.CreateRow(rowNumber++);
-            CreateCell(row, 0, "Event count", allStyles.LeftAligned);
-            CreateCell(row, 1, report.EventCount, allStyles.RightAligned);
-            CreateCell(row, 2, "Spots Available", allStyles.LeftAligned);
-            CreateCell(row, 3, report.SpotsLeft, allStyles.RightAligned);
-            CreateCell(row, 4, "Local Tax", allStyles.LeftAligned);
-            CreateCell(row, 5, report.LocalTaxValue, allStyles.Currency);
-            CreateCell(row, 6, "State Tax", allStyles.LeftAligned);
-            CreateCell(row, 7, report.ChargeStateTaxValue, allStyles.Currency);
+            ReportUtilities.CreateCell(row, 0, "Event count", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 1, report.EventCount, allStyles.RightAligned);
+            ReportUtilities.CreateCell(row, 2, "Spots Available", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 3, report.SpotsLeft, allStyles.RightAligned);
+            ReportUtilities.CreateCell(row, 4, "Local Tax", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 5, report.LocalTaxValue, allStyles.Currency);
+            ReportUtilities.CreateCell(row, 6, "State Tax", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 7, report.ChargeStateTaxValue, allStyles.Currency);
 
             row = sheet.CreateRow(rowNumber++);
-            CreateCell(row, 0, "Revenue Per Day", allStyles.LeftAligned);
-            CreateCell(row, 1, report.RevenuePerDay, allStyles.Currency);
-            CreateCell(row, 2, "Registrations Per Day", allStyles.LeftAligned);
-            CreateCell(row, 3, report.RegPerDay, allStyles.RightAligned);
-            CreateCell(row, 4, "State Tax", allStyles.LeftAligned);
-            CreateCell(row, 5, report.StateTaxValue, allStyles.Currency);
-            CreateCell(row, 6, "Total Revenue", allStyles.LeftAligned);
-            CreateCell(row, 7, report.ChargeActualRevenue, allStyles.Currency);
+            ReportUtilities.CreateCell(row, 0, "Revenue Per Day", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 1, report.RevenuePerDay, allStyles.Currency);
+            ReportUtilities.CreateCell(row, 2, "Registrations Per Day", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 3, report.RegPerDay, allStyles.RightAligned);
+            ReportUtilities.CreateCell(row, 4, "State Tax", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 5, report.StateTaxValue, allStyles.Currency);
+            ReportUtilities.CreateCell(row, 6, "Total Revenue", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 7, report.ChargeActualRevenue, allStyles.Currency);
 
             row = sheet.CreateRow(rowNumber++);
-            CreateCell(row, 0, "Revenue Per Event", allStyles.LeftAligned);
-            CreateCell(row, 1, report.RevenuePerEvent, allStyles.Currency);
+            ReportUtilities.CreateCell(row, 0, "Revenue Per Event", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 1, report.RevenuePerEvent, allStyles.Currency);
             row.CreateCell(2);
             row.CreateCell(3);
-            CreateCell(row, 4, "Total Revenue", allStyles.LeftAligned);
-            CreateCell(row, 5, report.FeeActualRevenue, allStyles.Currency);
+            ReportUtilities.CreateCell(row, 4, "Total Revenue", allStyles.LeftAligned);
+            ReportUtilities.CreateCell(row, 5, report.FeeActualRevenue, allStyles.Currency);
             row.CreateCell(6);
             row.CreateCell(7);
 
             row = sheet.CreateRow(rowNumber++);
         }
-
-        private static void CreateCell(NPOI.SS.UserModel.IRow row,int index,object value, NPOI.SS.UserModel.ICellStyle cellStyle )
-        {
-            var cell = row.CreateCell(index);
-            if(value is decimal)
-                cell.SetCellValue((double)((decimal)value));
-            else
-                if(value is int)
-                    cell.SetCellValue((int)value);
-                else
-                    cell.SetCellValue((string)value);
-
-            cell.CellStyle = cellStyle;
-        }
+       
 
 
         #endregion

@@ -20,6 +20,10 @@ namespace DirtyGirl.Web.Utils
             {
                 filterContext.Controller.ViewData[BaseController.CurrentUserKey] = ((DirtyGirl.Web.Areas.Admin.Controllers.BaseController)filterContext.Controller).CurrentUser;
             }
+            else if (controllerType.FullName.Contains("Areas.EventManager"))
+            {
+                filterContext.Controller.ViewData[BaseController.CurrentUserKey] = ((DirtyGirl.Web.Areas.EventManager.Controllers.BaseController)filterContext.Controller).CurrentUser;
+            }
             else
             {
                 filterContext.Controller.ViewData[BaseController.CurrentUserKey] = ((BaseController)filterContext.Controller).CurrentUser;

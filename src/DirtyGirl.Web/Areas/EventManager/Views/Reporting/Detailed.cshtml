@@ -1,0 +1,64 @@
+﻿
+@using Kendo.Mvc.UI
+@model DirtyGirl.Web.Areas.EventManager.Models.vmEventManager_Detailed
+
+@{
+    ViewBag.Title = "Detailed Report";
+}
+
+<h2>Detailed Report</h2>
+
+@{Html.RenderPartial("partial/EventFilter", Model.Filter);}
+
+<br/>
+<br/>    
+<h2>@Model.Report.EventName</h2>
+@if (Model.Filter.EventId.HasValue && Model.Filter.EventId > 0)
+{
+    using (Html.BeginForm("DetailedExport", "reporting"))
+    {
+    <input data-val="true" id="EventId" name="EventId" type="hidden" value="@Model.Filter.EventId" />    
+    <input id="ExportDetailed" type="submit" value="Export" />  
+    }
+
+}
+<div style="font-size:11px; ">
+    @(Html.Kendo()
+          .Grid(Model.Report.WaveData)
+          .Name("grdCharge")
+          .Pageable()               
+          .Columns(cols =>
+              {
+                  cols.Bound(x => x.StartTime).Format("{0:g}").Width(120);
+                  cols.Bound(x => x.Firstname).Width(100);
+                  cols.Bound(x => x.Lastname).Width(100);
+                  cols.Bound(x => x.EmergencyContact).Width(100);
+                  cols.Bound(x => x.EmergencyPhone).Width(100);
+                  cols.Bound(x => x.MedicalInformation).Width(100);
+                  cols.Bound(x => x.SpecialNeeds).Width(100);
+                  cols.Bound(x => x.ShirtSize).Width(50);
+                  cols.Bound(x => x.AgreedLegal).Width(50);
+                  cols.Bound(x => x.AgreedTrademark).Width(50);
+                  cols.Bound(x => x.ConfirmationCode).Width(50);        
+              })
+        .DataSource(dataSource => dataSource
+            .Ajax() // Specify that the data source is of ajax type
+            .ServerOperation(true)
+            .PageSize(100)
+            .Read(read => read.Action("DetailedPage", "Reporting" ).Data("PageData")) // Specify the action method and controller name)                    
+           )
+
+        )  
+</div>
+
+
+<script>
+   
+    
+    function PageData() {
+        return {
+            eventId: $('#EventId').val()
+        };
+    }
+
+</script>

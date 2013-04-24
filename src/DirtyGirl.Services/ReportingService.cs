@@ -172,5 +172,11 @@ namespace DirtyGirl.Services
 
         #endregion
 
+        public List<EventWave> GetWavesByEventID(int eventId)
+        {            
+            var waves = _repository.EventWaves.Filter(x => x.EventDate.EventId == eventId).OrderBy(x => x.StartTime).ToList() ;
+            return waves;
+
+        }
     }
 }

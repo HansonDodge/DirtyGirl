@@ -235,6 +235,15 @@
     <Compile Include="Areas\Admin\Models\vmAdmin_ReportCoupon.cs" />
     <Compile Include="Areas\Admin\Models\vmAdmin_ReportPerformance.cs" />
     <Compile Include="Areas\Admin\Models\vmAdmin_ReportTransfer.cs" />
+    <Compile Include="Areas\EventManager\Controllers\BaseController.cs" />
+    <Compile Include="Areas\EventManager\Controllers\HomeController.cs" />
+    <Compile Include="Areas\EventManager\Controllers\ReportingController.cs" />
+    <Compile Include="Areas\EventManager\EventManagerAreaRegistration.cs" />
+    <Compile Include="Areas\EventManager\Models\vmEventManager_Detailed.cs" />
+    <Compile Include="Areas\EventManager\Models\vmEventManager_DetailedReport.cs" />
+    <Compile Include="Areas\EventManager\Models\vmEventManager_EventFilter.cs" />
+    <Compile Include="Areas\EventManager\Models\vmEventManager_Summary.cs" />
+    <Compile Include="Areas\EventManager\Models\vmEventManager_SummaryReport.cs" />
     <Compile Include="Controllers\AuthorizeController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -283,6 +292,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ControllerExtensions.cs" />
     <Compile Include="Utils\BaseViewPage.cs" />
+    <Compile Include="Utils\ReportUtilities.cs" />
     <Compile Include="Utils\UserActionFilter.cs" />
     <Compile Include="Utils\Detective.cs" />
     <Compile Include="Utils\DirtyGirlConfig.cs" />
@@ -550,7 +560,7 @@
     <Content Include="Areas\Admin\Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml">
+    <Content Include="Areas\EventManager\Views\Shared\_Layout.cshtml">
       <BrowseToURL>~/Admin/Shared/_Layout</BrowseToURL>
     </Content>
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
@@ -603,6 +613,13 @@
     <Content Include="Images\sprite-tab-generalinfo.psd" />
     <Content Include="Images\btn_Donation.psd" />
     <Content Include="Content\trademark.pdf" />
+    <Content Include="Areas\EventManager\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\EventManager\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\EventManager\Views\Home\Index.cshtml" />
+    <Content Include="Areas\EventManager\Views\Reporting\Summary.cshtml" />
+    <Content Include="Areas\EventManager\Views\Reporting\Detailed.cshtml" />
+    <Content Include="Areas\EventManager\Views\Reporting\Partial\EventFilter.cshtml" />
     <None Include="Properties\PublishProfiles\register-godirtygirl-qa - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\register-godirtygirl-qa - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\register.godirtygirl-prod.pubxml" />

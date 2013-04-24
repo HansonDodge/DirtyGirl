@@ -47,5 +47,6 @@ namespace DirtyGirl.Services.ServiceInterfaces
 
         #endregion
 
+        List<EventWave> GetWavesByEventID(int eventId);
     }
 }
