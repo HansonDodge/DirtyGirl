@@ -8,8 +8,7 @@
     var formPreviousValues = [];
 
     $(document).ready(function () {
-
-        $("#RegistrationDetails_Birthday").kendoDatePicker();
+       
 
         $("#lnkSubmit").click(function (e) {
             
@@ -214,8 +213,8 @@
                                     <div class="single_row">
                                         <div class="single_input dropdown">
                                             <p><span class="pink">*</span>When is the participant's birthday?</p>
-                                            @Html.TextBoxFor(x => x.RegistrationDetails.Birthday, new { @Value = "mm/dd/yyyy" }) 
-                                           @Html.ValidationMessageFor(x => x.RegistrationDetails.Birthday, "*")
+                                            @(Html.Kendo().DatePickerFor(x => x.RegistrationDetails.Birthday))                                         
+                                            @Html.ValidationMessageFor(x => x.RegistrationDetails.Birthday, "*")
                                         </div>
                                     </div>
 
