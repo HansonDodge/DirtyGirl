@@ -12,8 +12,12 @@
         $("#RegistrationDetails_Birthday").kendoDatePicker();
 
         $("#lnkSubmit").click(function (e) {
+            
             e.preventDefault();
             $("#RegistrationForm").submit();
+
+            setTimeout(function(){scrollTo("very-important-validation-messages");}, 500);
+
         });
         $(".TextBoxInput").each(function (index) {
             formPreviousValues.push([$(this).val()]);
@@ -106,6 +110,7 @@
                                     <p>You have selected to run on @Model.EventWave.EventDate.DateOfEvent.ToString("dddd  MMMM, dd yyyy") at @Model.EventWave.StartTime.ToString("h:mm tt")</p>
                                     <p><a href="@Url.Action("EventSelection", new { eventId = Model.EventOverview.EventId, eventwaveid = Model.EventWave.EventWaveId, itemId = Model.ItemId, returnToRegDetails = true })" >Select a different wave</a></p>
 
+                                    <a name="very-important-validation-messages"></a>
                                     @Html.ValidationSummary(false, "Please Fix the following errors")
                                     @Html.HiddenFor(x => x.ItemId)
 

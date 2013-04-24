@@ -35,9 +35,10 @@ namespace DirtyGirl.Services
 
             if (_repository.DiscountItems.Filter(x => x.DiscountItemId != couponToValidate.DiscountItemId && x.Code.ToUpper() == couponToValidate.Code.ToUpper()).Any())
                 serviceResult.AddServiceError("Code", "The code you entered is already in use by another discount.");
-
-            if (couponToValidate.CouponType == CouponType.Registration && !couponToValidate.EventId.HasValue)
-                serviceResult.AddServiceError("EventId", "Registration coupons must be associated to an event.");
+            
+            // does not need to be associated with an event null == all events 
+            //if (couponToValidate.CouponType == CouponType.Registration && !couponToValidate.EventId.HasValue)
+            //    serviceResult.AddServiceError("EventId", "Registration coupons must be associated to an event.");
             
             return serviceResult.Success;
         }
