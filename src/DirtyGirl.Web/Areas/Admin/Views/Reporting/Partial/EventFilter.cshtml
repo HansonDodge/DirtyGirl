@@ -1,5 +1,23 @@
 ﻿@model vmAdmin_EventFilter
 
+<script type="text/javascript">
+
+   
+    function SetButton() {
+        var btn = $("#filterEventButton");
+      
+        if ($("#EventId").data("kendoDropDownList").value().length > 0) {
+            btn.removeAttr('disabled');
+           
+        }
+        else {
+            btn.attr('disabled', 'disabled');
+           
+        }
+    }
+    
+
+</script>
 @using (Html.BeginForm())
 {
   <div id="reportfilter">
@@ -10,11 +28,16 @@
                     .BindTo(Model.EventList)
                     .DataTextField("Text")
                     .DataValueField("Value")
-                    .OptionLabel("Select Event-->")
-                    .HtmlAttributes(new {style = "width:250px" }))
+                    .OptionLabel("Select Event-->")    
+                                    
+                    .HtmlAttributes(new {style = "width:250px" })
+                    .Events(e=>e
+                        .Change("SetButton")
+                        .DataBound("SetButton") ))
+                         
               </td>
               <td>
-                    <input type="submit" value="Update Results" />
+                    <input id="filterEventButton" type="submit" value="Update Results" disabled="disabled" />
               </td>
           </tr>
       </table>         

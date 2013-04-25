@@ -48,6 +48,7 @@
               .Sortable()
               .Scrollable(scrolling => scrolling.Height(600) )
               .Filterable()
+              .Events(e => e.DataBound("SetExportButton"))
               .DataSource(datasource => datasource
                                             .Ajax()
                                             .Events(events => events.RequestEnd("onRequestEnd"))
@@ -60,7 +61,19 @@
 </div>
 
 <script type="text/javascript">
-    
+
+    function SetExportButton() {
+        var grid = $("#grdRegistrants").data("kendoGrid");        
+        var expButton = $("#regExport");
+        
+        if ( grid.tbody.find("tr").length > 0) {
+            expButton.css("visibility", "visible");
+        }
+        else {
+            expButton.css("visibility", "hidden");
+        }
+    }
+
     function onRequestEnd(e) {
         if (e.type == "read") {
             var offsetMiliseconds = new Date().getTimezoneOffset() * 60000;

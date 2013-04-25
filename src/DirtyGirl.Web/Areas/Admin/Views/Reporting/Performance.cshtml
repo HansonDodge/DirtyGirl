@@ -4,9 +4,16 @@
 <div id="reporting">
 @{Html.RenderPartial("partial/PerformanceFilter", Model.Filter);}
 
-@if(Model.Report.FeeReport.Count > 0 )
+@if (Model.Report.FeeReport.Count > 0)
 {
     Html.RenderPartial("partial/PerformanceExport", Model.Filter);
     Html.RenderPartial("partial/PerformanceReport", Model.Report);
+}
+else
+{
+       <div style="clear:both"></div>
+    <h2>Performance Report</h2>
+    <br/>
+    <h3>No Data Found</h3>
 }
 </div>

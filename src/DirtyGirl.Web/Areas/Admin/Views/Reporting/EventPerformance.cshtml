@@ -9,4 +9,15 @@
     Html.RenderPartial("partial/EventExport", Model.Filter);
     Html.RenderPartial("partial/PerformanceReport", Model.Report);
 }
+else
+{
+    if (Model.Filter.EventId.HasValue)
+    {
+        <div style="clear:both"></div>
+        <h2>Performance Report</h2>
+        <br/>
+        <h3>No Data Found</h3>
+    }
+}
+
 </div>

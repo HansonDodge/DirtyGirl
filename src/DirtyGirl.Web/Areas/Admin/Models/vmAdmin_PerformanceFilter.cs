@@ -7,7 +7,8 @@ using System.Web.Mvc;
 namespace DirtyGirl.Web.Areas.Admin.Models
 {
     public class vmAdmin_PerformanceFilter
-    {        
+    {
+        public bool fullEvent { get; set; }
         public List<SelectListItem> EventList { get; set; }
 
         public int? EventId { get; set; }
