@@ -494,16 +494,24 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
         }
 
         private vmAdmin_PerformanceReport GetPerformanceReport(vmAdmin_PerformanceFilter filter)
-        {            
+        {
+            DateTime sDate = filter.startDate.Value;
+
+            if (filter.fullEvent && filter.EventId.HasValue)            // if getting a single event, set the start back to the oldest registration
+            {
+                var regs = _service.GetRegistrationsByEventId(filter.EventId.Value);
+                if (regs.Any())
+                    sDate = regs.Min(x => x.DateAdded);
+            }
             return new vmAdmin_PerformanceReport
                 {
-                    FeeReport = _service.GetFeeReport(filter.EventId, filter.startDate.Value, filter.endDate.Value),
-                    ChargeReport = _service.GetEventChargeReport(filter.EventId, filter.startDate.Value, filter.endDate.Value),
-                    DayCount = (filter.endDate.Value - filter.startDate.Value).Days + 1,
-                    TotalSpots = _service.GetSpotsAvailable(filter.EventId, filter.startDate.Value, filter.endDate.Value),
-                    SpotsTaken = _service.GetSpotsTaken(filter.EventId, filter.startDate.Value, filter.endDate.Value),
-                    RedemptionRegCount = _service.GetRedemptionSpots(filter.EventId, filter.startDate.Value, filter.endDate.Value),
-                    EventCount = _service.GetEventCount(filter.EventId, filter.startDate.Value, filter.endDate.Value)
+                    FeeReport = _service.GetFeeReport(filter.EventId, sDate, filter.endDate.Value),
+                    ChargeReport = _service.GetEventChargeReport(filter.EventId, sDate, filter.endDate.Value),
+                    DayCount = (filter.endDate.Value - sDate).Days + 1,
+                    TotalSpots = _service.GetSpotsAvailable(filter.EventId, sDate, filter.endDate.Value),
+                    SpotsTaken = _service.GetSpotsTaken(filter.EventId, sDate, filter.endDate.Value),
+                    RedemptionRegCount = _service.GetRedemptionSpots(filter.EventId, sDate, filter.endDate.Value),
+                    EventCount = _service.GetEventCount(filter.EventId, sDate, filter.endDate.Value)
                 };
         }
 
@@ -519,7 +527,8 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                     EventList = GetEventList(), 
                     EventId = filter.EventId,
                     startDate = filter.startDate,
-                    endDate = filter.endDate
+                    endDate = filter.endDate,
+                    fullEvent = false
                 };
 
             if (filter.EventId.HasValue)
@@ -527,8 +536,10 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                 var evt = _service.GetEventById(filter.EventId.Value);
 
                 if (!filter.startDate.HasValue)
+                {
                     newFilter.startDate = evt.EventFees.Min(x => x.EffectiveDate).Date;
-
+                    newFilter.fullEvent = true;
+                }
                 if (!filter.endDate.HasValue)
                     newFilter.endDate = DateTime.Now >= evt.EventDates.Max(x => x.DateOfEvent).Date ? evt.EventDates.Max(x => x.DateOfEvent) : DateTime.Now.Date;
             }
