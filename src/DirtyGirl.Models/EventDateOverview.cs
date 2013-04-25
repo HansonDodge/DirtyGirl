@@ -13,8 +13,6 @@ namespace DirtyGirl.Models
 
         public int EventId { get; set; }
 
-        public int EventDateId { get; set; }
-
         public string Place { get; set; }
 
         public string GeneralLocality { get; set; }

@@ -512,8 +512,8 @@ namespace DirtyGirl.Services
 
             return dateList.Select(d => new EventDateDetails
             {
-                EventDateId = d.EventDateId,
                 EventId = d.EventId,
+                EventDateId = d.EventDateId,
                 DateOfEvent = d.DateOfEvent,                
             }).ToList();
         }
@@ -524,7 +524,6 @@ namespace DirtyGirl.Services
 
             var temp = dateList.Select(d => new EventDateDetails
             {
-                EventDateId = d.EventDateId,
                 EventId = d.EventId,
                 DateOfEvent = d.DateOfEvent,
                 MaxRegistrants = d.EventWaves.Sum(x => x.MaxRegistrants),
@@ -533,7 +532,7 @@ namespace DirtyGirl.Services
 
             return dateList.Select(d => new EventDateDetails
                                             {
-                                                EventDateId = d.EventDateId, EventId = d.EventId, DateOfEvent = d.DateOfEvent, MaxRegistrants = d.EventWaves.Sum(x => x.MaxRegistrants), RegistrationCount = d.EventWaves.Sum(x => x.Registrations.Count())
+                                                EventId = d.EventId, DateOfEvent = d.DateOfEvent, MaxRegistrants = d.EventWaves.Sum(x => x.MaxRegistrants), RegistrationCount = d.EventWaves.Sum(x => x.Registrations.Count())
                                             }).ToList();
         }
 
@@ -580,7 +579,7 @@ namespace DirtyGirl.Services
                 var overview = new EventDateOverview
                                    {
                                        EventId = date.EventId,
-                                       EventDateId = date.EventDateId,
+                                   
                                        GeneralLocality = date.GeneralLocality,
                                        Place = date.Place,
                                        Address = date.Address1,

@@ -10,7 +10,6 @@ namespace DirtyGirl.Models
     public class EventDateCounts
     {
         public int EventId { get; set; }
-        public int EventDateId { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime DateOfEvent { get; set; }
