@@ -7,35 +7,39 @@
 <script>
 
     function filterEventDates() {
+        alert("filterEventDates");
         return { eventId: $('#ddlEvent').val()};
     }
     
     function filterEventWaves() {
+        alert("filtereventwaves");
         return { eventDateId: $('#ddlEventDate').val() };
     }
 
     function onEventChange(e) {
-        $("#EventNameTitle").html($("#ddlEvent").data("kendoDropDownList").dataSource._data[$("#ddlEvent").data("kendoDropDownList").selectedIndex - 1].Name);
-        $("#EventWaveId").val(0);
+      //  $("#EventNameTitle").html($("#ddlEvent").data("kendoDropDownList").dataSource.data[$("#ddlEvent").data("kendoDropDownList").selectedIndex - 1].Name);
+      //  $("#EventWaveId").val(0);
     }
     
     function onEventWaveChange(e) {
-        $("#EventWaveId").val($("#ddlWaveSelect").data("kendoDropDownList").dataSource._data[$("#ddlWaveSelect").data("kendoDropDownList").selectedIndex - 1].EventWaveId);
+        $("#EventWaveId").val($("#ddlWaveSelect").data("kendoDropDownList").dataSource.data[$("#ddlWaveSelect").data("kendoDropDownList").selectedIndex - 1].EventWaveId);
         $('#submitError').hide();
     }
 
     function onEventDataBound(e) {
-        $("#EventNameTitle").html($("#ddlEvent").data("kendoDropDownList").dataSource._data[$("#ddlEvent").data("kendoDropDownList").selectedIndex - 1].Name);
+      // $("#EventNameTitle").html($("#ddlEvent").data("kendoDropDownList").dataSource.data[$("#ddlEvent").data("kendoDropDownList").selectedIndex - 1].Name);
     }
     
     function onEventDateChange(e) {
+        alert("wave date change");
     }
 
     function onEventWaveDataBound(e) {
+        alert("wave data bound");
     }
 
     function onEventDateDataBound(e) {
-        $("#EventNameTitle").html($("#ddlEventDate").data("kendoDropDownList").dataSource._data[$("#ddlEventDate").data("kendoDropDownList").selectedIndex - 1].Name);
+        alert("data data bound");
     }
 
 

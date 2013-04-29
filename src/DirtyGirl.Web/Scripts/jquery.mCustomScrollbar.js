@@ -343,17 +343,21 @@ $.fn.mCustomScrollbar = function (scrollType,animSpeed,easeType,bottomSpace,drag
 		}
 	}
 	
-	$(window).resize(function() {
-		if(scrollType=="horizontal"){
-			if($dragger.position().left>$dragger_container.width()-$dragger.width()){
-				$dragger.css("left", $dragger_container.width()-$dragger.width());
-			}
-		} else {
-			if($dragger.position().top>$dragger_container.height()-$dragger.height()){
-				$dragger.css("top", $dragger_container.height()-$dragger.height());
-			}
-		}
-		CustomScroller("resize");
+	$(window).resize(function () {
+	    if (typeof $dragger == "undefined") {
+	        return;
+	    }
+	    if (scrollType == "horizontal") {
+	            if ($dragger.position().left > $dragger_container.width() - $dragger.width()) {
+	                $dragger.css("left", $dragger_container.width() - $dragger.width());
+	            }
+	        } else {
+	            if ($dragger.position().top > $dragger_container.height() - $dragger.height()) {
+	                $dragger.css("top", $dragger_container.height() - $dragger.height());
+	            }
+	        }
+	    CustomScroller("resize");
+	    
 	});
 };  
 })(jQuery);

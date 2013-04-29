@@ -82,7 +82,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             return RedirectToAction("ViewUser", "User", new { id = eventObj.UserId });
         }
 
-        public ActionResult GetWavesByEventDateId(int eventDateId)
+        public JsonResult GetWavesByEventDateId(int eventDateId)
         {
             var waves = _registrationService.GetWaveDetialsForEventDate(eventDateId).ToList();
             var vm = waves.Select(GetWaveItem);
@@ -165,7 +165,9 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
 
         public JsonResult GetEventDateList(int eventId)
         {
-            return Json(_registrationService.GetActiveDateDetailsByEvent(eventId).Select(x => new { EventDateId = x.EventDateId, DateOfEvent = x.DateOfEvent.ToShortDateString() }).ToList(), JsonRequestBehavior.AllowGet);
+            var dates = _registrationService.GetActiveDateDetailsByEvent(eventId).Select(x =>new{EventDateId = x.EventDateId,DateOfEvent = x.DateOfEvent.ToShortDateString()}).ToList();
+            var ret =  Json(dates, JsonRequestBehavior.AllowGet);
+            return ret;
         }
 
         [HttpPost]
