@@ -8,6 +8,7 @@ namespace DirtyGirl.Web.Utils
 {
     public class StyleContainer
     {
+        public NPOI.SS.UserModel.ICellStyle Date { get; set; }
         public NPOI.SS.UserModel.ICellStyle Currency { get; set; }
         public NPOI.SS.UserModel.ICellStyle RightAligned { get; set; }
         public NPOI.SS.UserModel.ICellStyle LeftAligned { get; set; }
@@ -41,6 +42,10 @@ namespace DirtyGirl.Web.Utils
             styles.RightAligned = workbook.CreateCellStyle();
             styles.RightAligned.Alignment = NPOI.SS.UserModel.HorizontalAlignment.RIGHT;
 
+            styles.Date = workbook.CreateCellStyle();
+            styles.Date.Alignment = NPOI.SS.UserModel.HorizontalAlignment.RIGHT;
+            styles.Date.DataFormat = HSSFDataFormat.GetBuiltinFormat("m/d/yy h:mm");
+            
             styles.Currency = workbook.CreateCellStyle();
             styles.Currency.Alignment = NPOI.SS.UserModel.HorizontalAlignment.RIGHT;
             //styles.Currency.DataFormat = HSSFDataFormat.GetBuiltinFormat("$#,##0.00");
