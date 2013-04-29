@@ -372,6 +372,11 @@ namespace DirtyGirl.Web.Controllers
                                                                                 reg.PacketDeliveryOption);
                     SessionManager.CurrentCart.ActionItems.Add(Guid.NewGuid(), processingFeeItem);
                 }
+                else
+                {
+                    // check to see if the processing fee is already in the cart.  If so, we know we do not want it, so remove it.
+                    RemoveProcessingFee(model.ItemId);
+                }
                 return RedirectToAction("checkout", "cart");
             }
 
@@ -387,6 +392,19 @@ namespace DirtyGirl.Web.Controllers
             model.TShirtSizeList.RemoveAt(0);
 
             return View(model);
+        }
+
+        private void RemoveProcessingFee(Guid itemId)
+        {
+            var processingActions = SessionManager.CurrentCart.ActionItems.Where(x => x.Value.ActionType == CartActionType.ProcessingFee).ToList();
+            foreach (var proc in processingActions)
+            {
+                var processesAction = proc.Value.ActionObject as ProcessingFeeAction;
+                if (processesAction != null && processesAction.RegItemGuid == itemId)
+                {
+                    SessionManager.CurrentCart.ActionItems.Remove(proc.Key);
+                }
+            }
         }
 
         private bool CheckAddProcessingFee(Registration reg, Guid itemId)
