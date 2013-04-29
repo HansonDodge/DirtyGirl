@@ -211,7 +211,7 @@ namespace DirtyGirl.Web.Areas.EventManager.Controllers
                 row = sheet.CreateRow(rowNumber++);
                 ReportUtilities.CreateCell(row, 0, report.EventName, allStyles.LeftAligned);
                 ReportUtilities.CreateCell(row, 1, wave.WaveNumber, allStyles.RightAligned);
-                ReportUtilities.CreateCell(row, 2, wave.StartTime.ToString("g"), allStyles.LeftAligned);
+                ReportUtilities.CreateCell(row, 2, wave.StartTime.ToString("MM/dd/yyyy HH:mm"), allStyles.RightAligned);
                 ReportUtilities.CreateCell(row, 3, wave.NumParticipants, allStyles.RightAligned);
                 ReportUtilities.CreateCell(row, 4, wave.Active, allStyles.LeftAligned);
             }
@@ -282,7 +282,7 @@ namespace DirtyGirl.Web.Areas.EventManager.Controllers
                 col = 0;
                 row = sheet.CreateRow(rowNumber++);
                 ReportUtilities.CreateCell(row, col++, report.EventName, allStyles.LeftAligned);
-                ReportUtilities.CreateCell(row, col++, wave.StartTime.ToString("g"), allStyles.LeftAligned);
+                ReportUtilities.CreateCell(row, col++, wave.StartTime.ToString("MM/dd/yyyy HH:mm"), allStyles.RightAligned);
                 ReportUtilities.CreateCell(row, col++, wave.Firstname, allStyles.LeftAligned);
                 ReportUtilities.CreateCell(row, col++, wave.Lastname, allStyles.LeftAligned);
                 ReportUtilities.CreateCell(row, col++, wave.EmergencyContact, allStyles.LeftAligned);
