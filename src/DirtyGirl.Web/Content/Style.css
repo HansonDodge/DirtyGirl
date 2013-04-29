@@ -408,7 +408,7 @@ span.field-validation-error { color:#ff0000;}
 .register_teaminfo .new_team p{ margin:0;}
 .register_teaminfo .new_team input{font-size: 15px; padding: 5px 0;  width: 230px; }
 .register_teaminfo .new_team a{margin-left: 10px; position: relative;   top: 9px; }
-.register_teamcreation_copy { position: relative;}
+.register_teamcreation_copy { position: relative;width: 280px;}
 .register_teamcreation_copy .teamcreation_create{position: relative; }
 .register_teamcreation_copy .teamcreation_create p{ font-weight: normal; margin:0;}
 .register_teamcreation_copy .teamcreation_create p.bold{ margin-bottom:15px; font-weight: bold;}
@@ -459,6 +459,7 @@ span.field-validation-error { color:#ff0000;}
 .registration_form {position: relative; }
 .registration_form_header { position: relative;}
 .contentMain_copy.register .registration_form_header p{ margin:0 0 5px;}
+.contentMain_copy.register .registration_form_header .selected_run p{ font-size:14px}
 .registration_form_header p a{ font-weight: normal; color:#EF5192;}
 .registration_form_content { position: relative; margin: 20px 0 0;}
 .registration_form_content p a { color:#EF5192;}
