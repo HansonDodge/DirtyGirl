@@ -34,6 +34,22 @@ namespace DirtyGirl.Models
 
         public DateTime DateOfEvent { get; set; }
 
+        public DateTime LastDateOfEvent { get; set; }
+
+        public  string DateRange
+        {
+            get
+            {
+                var returnDate = DateOfEvent.ToShortDateString();
+                if (DateOfEvent.Date != LastDateOfEvent.Date)
+                    returnDate = string.Format("{0} - {1}", DateOfEvent.ToShortDateString(),
+                                               LastDateOfEvent.ToShortDateString());
+
+                return returnDate;
+
+            }
+        }
+
         [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal CurrentCost { get; set; }
 

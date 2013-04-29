@@ -13,6 +13,7 @@ namespace DirtyGirl.Models
 
         [DataType(DataType.Date)]
         public DateTime DateOfEvent { get; set; }
+        public DateTime LastDateOfEvent { get; set; }
 
         public string DisplayDateOfEvent
         {

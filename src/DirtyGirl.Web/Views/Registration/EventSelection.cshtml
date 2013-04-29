@@ -67,7 +67,8 @@
                                                 .Enable(false)
                                                 .AutoBind(false)
                                                 .CascadeFrom("ddlEvent")
-                                                .Events(evt => evt.Change("onEventDateChange")))
+                                                .Events(evt => evt.Change("onEventDateChange"))
+                                                .HtmlAttributes(new { style = "width:225px" }))
                                         </td>
                                     </tr>
                                 </table>                                                                           

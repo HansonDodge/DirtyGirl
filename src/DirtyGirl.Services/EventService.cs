@@ -242,7 +242,7 @@ namespace DirtyGirl.Services
                 var rfee = new EventFee
                                {
                                    EventId = e.EventId,
-                                   EffectiveDate = DateTime.Now,
+                                   EffectiveDate = DateTime.Now.Date,
                                    Cost = template.DefaultRegistrationCost,
                                    EventFeeType = EventFeeType.Registration,
                                    Discountable = true,
@@ -251,7 +251,7 @@ namespace DirtyGirl.Services
                 var tFee = new EventFee
                                {
                                    EventId = e.EventId,
-                                   EffectiveDate = DateTime.Now,
+                                   EffectiveDate = DateTime.Now.Date,
                                    Cost = template.DefaultTransferFeeCost,
                                    EventFeeType= EventFeeType.Transfer,
                                    Discountable = false,
@@ -260,7 +260,7 @@ namespace DirtyGirl.Services
                 var chFee = new EventFee
                                 {
                                     EventId = e.EventId,
-                                    EffectiveDate = DateTime.Now,
+                                    EffectiveDate = DateTime.Now.Date,
                                     Cost = template.DefaultChangeFeeCost,
                                     EventFeeType = EventFeeType.ChangeEvent,
                                     Discountable = false,
@@ -269,7 +269,7 @@ namespace DirtyGirl.Services
                 var cfee = new EventFee
                                {
                                    EventId = e.EventId,
-                                   EffectiveDate = DateTime.Now,
+                                   EffectiveDate = DateTime.Now.Date,
                                    Cost = template.DefaultCancellationFeeCost,
                                    EventFeeType = EventFeeType.Cancellation,
                                    Discountable = false,
@@ -279,7 +279,7 @@ namespace DirtyGirl.Services
                 var pfee = new EventFee
                 {
                     EventId = e.EventId,
-                    EffectiveDate = DateTime.Now,
+                    EffectiveDate = DateTime.Now.Date,
                     Cost = template.DefaultProcessingFeeCost,
                     EventFeeType = EventFeeType.ProcessingFee,
                     Discountable = false,
@@ -289,7 +289,7 @@ namespace DirtyGirl.Services
                 var sfee = new EventFee
                 {
                     EventId = e.EventId,
-                    EffectiveDate = DateTime.Now,
+                    EffectiveDate = DateTime.Now.Date,
                     Cost = template.DefaultShippingFeeCost,
                     EventFeeType = EventFeeType.Shipping,
                     Discountable = false,
@@ -318,7 +318,7 @@ namespace DirtyGirl.Services
                     var newFee = new EventFee
                                      {
                                          EventId = e.EventId,
-                                         EffectiveDate = eventStart,
+                                         EffectiveDate = eventStart.Date,
                                          Cost = ps.Cost,
                                          EventFeeType = ps.EventFeeType,
                                          Taxable = ps.Taxable,
@@ -588,6 +588,7 @@ namespace DirtyGirl.Services
                                        StateCode = date.Code,
                                        Zip = date.PostalCode,
                                        DateOfEvent = date.DateOfEvent,
+                                       LastDateOfEvent = date.LastDateOfEvent,
                                        MaxRegistrants = date.MaxRegistrants,
                                        RegistrationCount = date.RegistrationCount,
                                        PinXCoordinate = date.PinXCoordinate,
