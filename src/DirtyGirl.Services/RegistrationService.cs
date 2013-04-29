@@ -149,6 +149,7 @@ namespace DirtyGirl.Services
                     target.Address2 = r.Address2;
                     target.AgreeToTerms = r.AgreeToTerms;
                     target.AgreeTrademark = r.AgreeTrademark;
+                    target.Birthday = r.Birthday;
                     target.CartItemId = r.CartItemId;                    
                     target.Email = r.Email;
                     target.EmergencyContact = r.EmergencyContact;
@@ -323,6 +324,7 @@ namespace DirtyGirl.Services
                         IsSignatureConsent = existingReg.IsSignatureConsent,
                         IsThirdPartyRegistration = existingReg.IsThirdPartyRegistration,
                         Signature = existingReg.Signature,
+                        Birthday = existingReg.Birthday,
                         IsIAmTheParticipant = existingReg.IsIAmTheParticipant
                     };
                 if (string.IsNullOrEmpty(confirmationCode))
