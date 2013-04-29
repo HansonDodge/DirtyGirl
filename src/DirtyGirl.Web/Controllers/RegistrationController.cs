@@ -183,7 +183,7 @@ namespace DirtyGirl.Web.Controllers
 
         public JsonResult GetEventDateList(int eventId)
         {
-            return Json(_service.GetSimpleDateDetailsByEvent(eventId).Select(x => new { EventDateId = x.EventDateId, DateOfEvent = x.DateOfEvent.ToShortDateString() }).ToList(), JsonRequestBehavior.AllowGet);
+            return Json(_service.GetSimpleDateDetailsByEvent(eventId).Select(x => new { EventDateId = x.EventDateId, DateOfEvent = x.DateOfEvent.ToString("D") }).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         private int GetEventDateCount(int eventId)
@@ -262,6 +262,7 @@ namespace DirtyGirl.Web.Controllers
             reg.Locality = CurrentUser.Locality;
             reg.RegionId = CurrentUser.RegionId;
             reg.PostalCode = CurrentUser.PostalCode;
+            reg.Birthday = DateTime.Now.AddYears(-30).Date;
     
             var wave = _service.GetEventWaveById(reg.EventWaveId);
             int eventId = wave.EventDate.EventId;
@@ -345,7 +346,7 @@ namespace DirtyGirl.Web.Controllers
                 reg.RegistrationStatus = RegistrationStatus.Active;
                 reg.RegistrationType = model.RegistrationDetails.RegistrationType;
                 reg.SpecialNeeds = model.RegistrationDetails.SpecialNeeds;
-                reg.Birthday = model.RegistrationDetails.Birthday;
+                reg.Birthday = model.RegistrationDetails.Birthday.Value.Date;
                 reg.TShirtSize = model.RegistrationDetails.TShirtSize;
                 reg.PacketDeliveryOption = (model.RegistrationDetails.PacketDeliveryOption.HasValue ? model.RegistrationDetails.PacketDeliveryOption : RegistrationMaterialsDeliveryOption.OnSitePickup );
                 reg.UserId = CurrentUser.UserId;

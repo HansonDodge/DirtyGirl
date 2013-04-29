@@ -1,4 +1,5 @@
-﻿using DirtyGirl.Models.Enums;
+﻿using DirtyGirl.Models;
+using DirtyGirl.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace DirtyGirl.Web.Models
         public CartFocusType CartFocus { get; set; }
         public string UserName { get; set; }
         public string EventCity { get; set; }
+        public CartSummary Summary { get; set; }
     }
 }

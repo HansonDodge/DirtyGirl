@@ -1,4 +1,5 @@
-﻿using DirtyGirl.Models;
+﻿using System.Collections.Generic;
+using DirtyGirl.Models;
 using DirtyGirl.Models.Enums;
 using DirtyGirl.Services.ServiceInterfaces;
 using DirtyGirl.Web.Helpers;
@@ -60,8 +61,10 @@ namespace DirtyGirl.Web.Controllers
             {
                 var confirmationCode = SessionManager.CurrentCart.ResultingConfirmationCode;
                 var cartFocusType = SessionManager.CurrentCart.CheckOutFocus;
-                var eventCity = (string.IsNullOrEmpty(SessionManager.CurrentCart.EventCity)) ? "" : SessionManager.CurrentCart.EventCity; 
- 
+                var eventCity = (string.IsNullOrEmpty(SessionManager.CurrentCart.EventCity)) ? "" : SessionManager.CurrentCart.EventCity;
+                var summary = _service.GenerateCartSummary(SessionManager.CurrentCart);
+                TempData["cartSummary"] = summary;
+
                 // ensure cart focus is correct
                 ResetCartFocus();
 
@@ -81,10 +84,13 @@ namespace DirtyGirl.Web.Controllers
 
         #region ThankYou
 
-        public ActionResult ThankYou(CartFocusType id, string confirm, string city)
+        public ActionResult ThankYou(CartFocusType id, string confirm, string city,List<CartSummaryLineItem> lineItems)
         {
+            var summary = TempData["cartSummary"] as CartSummary;
+            
             var vm = new vmCart_ThankYou
                 {
+                    Summary = summary,
                     CartFocus = id,
                     ConfirmationCode = confirm,
                     UserName = string.Format("{0} {1}", CurrentUser.FirstName, CurrentUser.LastName), 

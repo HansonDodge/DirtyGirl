@@ -1,4 +1,5 @@
-﻿@model vmCart_ThankYou
+﻿@using System.Globalization
+@model vmCart_ThankYou
 @{
     ViewBag.Title = "ThankYou";
 }
@@ -67,4 +68,63 @@
         </div>
     </div>
     <div class="pinkborder_bottom">&nbsp;</div>
+    <!-- Google Code for Registration Conversion Page -->
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 948793261;
+        var google_conversion_language = "en";
+        var google_conversion_format = "3";
+        var google_conversion_color = "ffffff";
+        var google_conversion_label = "cpiRCKOpuwUQrd-1xAM";
+        var google_conversion_value = @Model.Summary.TotalCost.ToString(CultureInfo.InvariantCulture)
+    /* ]]> */
+    </script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+    </script>
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/948793261/?value=
+                @Model.Summary.TotalCost.ToString(CultureInfo.InvariantCulture)&label=cpiRCKOpuwUQrd-1xAM&guid=ON&script=0"/>
+        </div>
+    </noscript>
+    
+    
+    <script type="text/javascript">
+        
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-21031951-1']);
+        _gaq.push(['_trackPageview']);
+        _gaq.push(['_addTrans',        
+                '@Model.ConfirmationCode',
+                'Dirty Girl Mud Run',  
+                '@Model.Summary.TotalCost',           
+                '@Model.Summary.Totaltax',            
+                '0.00',          
+                '',       
+                '',     
+                'USA' 
+            ]);
+
+        @foreach (var itm in Model.Summary.CartItems)
+        {
+             <text>
+             _gaq.push(['_addItem',
+            '@Model.ConfirmationCode', 
+            '@itm.PurchaseItemId', 
+            '@itm.ItemName', 
+            '@itm.ItemDescription', 
+            '@itm.ItemCost', 
+            '1' 
+             ]);
+            </text>
+        }
+        _gaq.push(['_trackTrans']); //submits transaction to the Analytics servers
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
 </div>

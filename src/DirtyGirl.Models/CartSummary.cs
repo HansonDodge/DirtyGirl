@@ -18,6 +18,13 @@ namespace DirtyGirl.Models
                 return CartItems.Sum(x => x.ItemTotal);
             }
         }
+        public Decimal Totaltax
+        {
+            get
+            {
+                return CartItems.Sum(x => x.LocalTax+x.StateTax);
+            }
+        }
 
     }
 }
