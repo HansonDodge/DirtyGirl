@@ -37,7 +37,7 @@
                     cols.Bound(x => x.MaxRegistrantCount).Title("Max Registrations");                    
                     cols.Bound(x => x.Description);
                     cols.Bound(x => x.EventId).Visible(false);
-                    cols.Command(command => { command.Edit(); command.Destroy(); });
+                    cols.Command(command => { command.Edit(); command.Destroy(); }).Width(160);
                 })
                 .Editable(editable => editable.Mode(GridEditMode.InLine))
                 .DataSource(datasource => datasource
@@ -49,7 +49,7 @@
                     .Create(add => add.Action("Ajax_CreateCoupon", "Discount").Data("getSelectedEvent"))
                     .Update(save => save.Action("Ajax_UpdateCoupon", "Discount").Data("getSelectedEvent"))
                     .Destroy(delete => delete.Action("Ajax_DeleteCoupon", "Discount"))
-                )
+                ).HtmlAttributes(new { style = "font-size:12px;" })
             )
 
         </fieldset>

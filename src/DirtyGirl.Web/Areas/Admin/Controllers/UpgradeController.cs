@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using DirtyGirl.Services.ServiceInterfaces;
 
@@ -30,21 +29,27 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult PasswordReset()
+        public ActionResult PasswordReset( string emailCount)
         {
 
             try
             {
+                int emailsToSend;
+                if (!int.TryParse(emailCount, out emailsToSend))
+                {
+                    TempData["Errors"] = "Invalid Email Count";
+                    return RedirectToAction("Index");
+                }
                 var users = _userService.GetAllUsers();
 
                 int count = 0;
-                foreach (var user in users)
+                foreach (var user in users.Where(x=>string.IsNullOrEmpty(x.PasswordResetToken)).Take(emailsToSend))
                 {
                     Console.WriteLine(string.Format("User {0}", user.EmailAddress));
                     _userService.GeneratePasswordResetRequestForGoLive(user);
                     count++;
                 }
-                TempData["Errors"] = "Records Processed: " + count.ToString();
+                TempData["Errors"] = "Records Processed: " + count.ToString(CultureInfo.InvariantCulture);
             }
             catch (Exception ex)
             {

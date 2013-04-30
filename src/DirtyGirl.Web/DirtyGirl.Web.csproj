@@ -236,6 +236,7 @@
     <Compile Include="Areas\Admin\Models\vmAdmin_ReportCoupon.cs" />
     <Compile Include="Areas\Admin\Models\vmAdmin_ReportPerformance.cs" />
     <Compile Include="Areas\Admin\Models\vmAdmin_ReportTransfer.cs" />
+    <Compile Include="Areas\Admin\Models\vmAdmin_Upgrade.cs" />
     <Compile Include="Areas\EventManager\Controllers\BaseController.cs" />
     <Compile Include="Areas\EventManager\Controllers\HomeController.cs" />
     <Compile Include="Areas\EventManager\Controllers\ReportingController.cs" />
