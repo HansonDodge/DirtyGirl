@@ -344,7 +344,7 @@ $.fn.mCustomScrollbar = function (scrollType,animSpeed,easeType,bottomSpace,drag
 	}
 	
 	$(window).resize(function () {
-	    if (typeof $dragger == "undefined") {
+	    if ($dragger.length == 0) {
 	        return;
 	    }
 	    if (scrollType == "horizontal") {
