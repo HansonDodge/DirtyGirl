@@ -103,6 +103,7 @@ $(".wave_time").height($(".wave_time").next().innerHeight() - 20);
         if ($('#EventWaveId').val() <= 0) {
             $('#submitError').show();
         } else {
+            $("#EventWaveId").val($('#ddlWaveSelect').val());
             $("#frmWaveSelected").submit();
         }
     });
