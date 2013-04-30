@@ -6,6 +6,16 @@
 <script>
     $(document).ready(function () {
         $('#frmMakePayment').data('validator').settings.ignore = '';
+        
+        $("form :input:submit").click(function () {
+            
+            if ($("#frmMakePayment").valid()) {
+                $('#btnSubmit').hide();
+                $('#imgWaiting').show();
+            }
+            
+            ;
+        });
     });
 </script>
 
@@ -90,7 +100,8 @@
                                 </div>
                                 }
                                 <div style="text-align:right;">
-                                    <input type="submit" value="Finish" class="btnPink" />
+                                    <input type="submit" value="Finish" class="btnPink" id="btnSubmit" />
+                                    <img height="100" width="100" id="imgWaiting" src="~/Images/ajax-loader1.gif" style="display:none;"/>
                                 </div>
                             }
                         </div>
