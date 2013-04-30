@@ -11,39 +11,15 @@
     }
     
     function filterEventWaves() {
-        return { eventDateId: $('#ddlEventDate').val() };
+        var id = ($('#ddlEventDate').val() == "" ) ? 0 : $('#ddlEventDate').val() ;
+        return { eventDateId: id };
     }
-
-    function onEventChange(e) {
-      //  $("#EventNameTitle").html($("#ddlEvent").data("kendoDropDownList").dataSource.data[$("#ddlEvent").data("kendoDropDownList").selectedIndex - 1].Name);
-      //  $("#EventWaveId").val(0);
-    }
-    
-    function onEventWaveChange(e) {
-        $("#EventWaveId").val($("#ddlWaveSelect").data("kendoDropDownList").dataSource.data[$("#ddlWaveSelect").data("kendoDropDownList").selectedIndex - 1].EventWaveId);
-        $('#submitError').hide();
-    }
-
-    function onEventDataBound(e) {
-      // $("#EventNameTitle").html($("#ddlEvent").data("kendoDropDownList").dataSource.data[$("#ddlEvent").data("kendoDropDownList").selectedIndex - 1].Name);
-    }
-    
+        
     function onEventDateChange(e) {
-        //$('#ddlEventDate').data("kendoDropDownList").Query(e);
-        PopulateDates();
-    }
-
-    function onEventWaveDataBound(e) {
-  
-    }
-
-    function onEventDateDataBound(e) {
-        PopulateDates();
-    }
-
-    function PopulateDates() {
         $('#ddlWaveSelect').data("kendoDropDownList").dataSource.read();
     }
+
+
 </script>
 
 <style>
@@ -62,8 +38,7 @@
                                                   .OptionLabel("Select")
                                                   .DataTextField("Name")
                                                   .DataValueField("EventId")
-                                                  .DataSource(source => source.Read(read => read.Action("geteventlist", "Registration")))
-                                                  .Events(evts =>  evts.Change("onEventChange").DataBound("onEventDataBound"))                                                                           
+                                                  .DataSource(source => source.Read(read => read.Action("geteventlist", "Registration")))                                                                         
                                                   .HtmlAttributes(new { style = "width:250px"}))       
                                         </td>
 
@@ -78,7 +53,7 @@
                                                   .DataValueField("EventDateId")
                                                   .DataSource(source => source.Read(read => read.Action("geteventdatelist", "Registration").Data("filterEventDates"))
                                                                               .ServerFiltering(true))
-                                                  .Events(evts =>  evts.Change("onEventDateChange").DataBound("onEventDateDataBound"))                                                                              
+                                                  .Events(evts =>  evts.Change("onEventDateChange"))                                                                              
                                                   .Enable(false)
                                                   .AutoBind(false)
                                                   .CascadeFrom("ddlEvent"))
@@ -93,9 +68,10 @@
                                                   .OptionLabel("Select")
                                                   .DataTextField("Description")
                                                   .DataValueField("EventWaveId")
-                                                  .Events(evts =>  evts.Change("onEventWaveChange").DataBound("onEventWaveDataBound")) 
+                                                  .DataSource(source => source.Read(read => read.Action("getwavesbyeventdateid", "Registration").Data("filterEventWaves"))
+                                                                              .ServerFiltering(true))
                                                   .Enable(false)
-                                                  .AutoBind(true)
+                                                  .AutoBind(false)
                                                   .CascadeFrom("ddlEventDate"))
                                         </td>
                                     </tr>
