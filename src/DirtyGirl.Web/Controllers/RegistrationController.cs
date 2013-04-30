@@ -69,6 +69,11 @@ namespace DirtyGirl.Web.Controllers
             }
       
 
+            // did the cart timeout?
+            if (!SessionManager.CurrentCart.ActionItems.ContainsKey(itemId))
+            {
+                return RedirectToAction("Index", "home");
+            }
             if (SessionManager.CurrentCart.ActionItems[itemId].ActionType == CartActionType.EventChange ||
                 SessionManager.CurrentCart.CheckOutFocus == CartFocusType.Redemption)
                 vm.LockEvent = false;
