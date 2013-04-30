@@ -215,6 +215,7 @@
     <Compile Include="Areas\Admin\Controllers\EventLeadController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\RegistrationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UpgradeController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\vmAdmin_AddEvent.cs" />
     <Compile Include="Areas\Admin\Models\vmAdmin_CouponList.cs" />
@@ -490,6 +491,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="EmailTemplates\Cancellation.html" />
+    <Content Include="EmailTemplates\NewRegistrationSystem.html" />
     <Content Include="EmailTemplates\PasswordResetRequest.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -620,6 +622,7 @@
     <Content Include="Areas\EventManager\Views\Reporting\Summary.cshtml" />
     <Content Include="Areas\EventManager\Views\Reporting\Detailed.cshtml" />
     <Content Include="Areas\EventManager\Views\Reporting\Partial\EventFilter.cshtml" />
+    <Content Include="Areas\Admin\Views\Upgrade\Index.cshtml" />
     <None Include="Properties\PublishProfiles\register-godirtygirl-qa - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\register-godirtygirl-qa - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\register.godirtygirl-prod.pubxml" />

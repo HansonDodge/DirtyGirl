@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirtyGirl.Data", "DirtyGirl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirtyGirl.Models", "DirtyGirl.Models\DirtyGirl.Models.csproj", "{E0337B32-D02C-46FC-8459-D39259C42C80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResetAllPasswords", "ResetAllPasswords\ResetAllPasswords.csproj", "{638BE77D-D0E8-4E6F-ACC6-6F91EEA7FDB5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,16 +58,6 @@ Global
 		{E0337B32-D02C-46FC-8459-D39259C42C80}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E0337B32-D02C-46FC-8459-D39259C42C80}.Stage|Any CPU.ActiveCfg = Release|Any CPU
 		{E0337B32-D02C-46FC-8459-D39259C42C80}.Stage|Any CPU.Build.0 = Release|Any CPU
-		{638BE77D-D0E8-4E6F-ACC6-6F91EEA7FDB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{638BE77D-D0E8-4E6F-ACC6-6F91EEA7FDB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{638BE77D-D0E8-4E6F-ACC6-6F91EEA7FDB5}.PreProd|Any CPU.ActiveCfg = Release|Any CPU
-		{638BE77D-D0E8-4E6F-ACC6-6F91EEA7FDB5}.PreProd|Any CPU.Build.0 = Release|Any CPU
-		{638BE77D-D0E8-4E6F-ACC6-6F91EEA7FDB5}.QA|Any CPU.ActiveCfg = Release|Any CPU
-		{638BE77D-D0E8-4E6F-ACC6-6F91EEA7FDB5}.QA|Any CPU.Build.0 = Release|Any CPU
-		{638BE77D-D0E8-4E6F-ACC6-6F91EEA7FDB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{638BE77D-D0E8-4E6F-ACC6-6F91EEA7FDB5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{638BE77D-D0E8-4E6F-ACC6-6F91EEA7FDB5}.Stage|Any CPU.ActiveCfg = Release|Any CPU
-		{638BE77D-D0E8-4E6F-ACC6-6F91EEA7FDB5}.Stage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

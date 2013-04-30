@@ -13,8 +13,8 @@ namespace DirtyGirl.Services.ServiceInterfaces
         bool SendTransferEmail(int discountItemId, string toName, string email);        
         bool SendCancellationEmail(int discountItemId);
         bool SendTeamShareEmail(string[] toAddresses, string subject, string messageBody);
-        string GetShareBodyText(Team team, EventWave eventWave, User user, EventDate eventDate,
-                                bool includeJavascriptLineBreaks);
+        string GetShareBodyText(Team team, EventWave eventWave, User user, EventDate eventDate,bool includeJavascriptLineBreaks);
         bool SendPasswordResetRequestEmail(int userId);
+        bool SendPasswordResetForGoLiveEmail(int userId);
     }
 }

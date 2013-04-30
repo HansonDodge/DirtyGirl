@@ -46,6 +46,7 @@ namespace DirtyGirl.Services.ServiceInterfaces
         int? ConfirmAccount(string confirmationCode);
 
         ServiceResult GeneratePasswordResetRequest(string emailAddress);
+        ServiceResult GeneratePasswordResetRequestForGoLive(User user);
 
         User GetUserByPasswordResetToken(string resetToken);
         decimal GetRegistrationValue(int registrationId);

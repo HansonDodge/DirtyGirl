@@ -85,7 +85,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
 
         #endregion
 
-        private static void ForceElmahNotification(Exception exception)
+        protected static void ForceElmahNotification(Exception exception)
         {
             var context = System.Web.HttpContext.Current;
             if (context == null) return;
