@@ -82,7 +82,27 @@ namespace DirtyGirl.Services
                 return false;
             }
         }
+        public bool SendPasswordResetForGoLiveEmail(int userId)
+        {
+            try
+            {
+                var user = _repository.Users.Find(x => x.UserId == userId);
 
+                string messageBody = File.ReadAllText(emailTemplatePath +
+                                                      "NewRegistrationSystem.html")
+                                         .Replace("{ServerUrl}", DirtyGirlServiceConfig.Settings.ServerUrl)
+                                         .Replace("{ResetToken}", user.PasswordResetToken);
+
+                SendEmail(user.EmailAddress, "Your New Dirty Girl Mud Run Account", messageBody);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+                return false;
+            }
+        }
         #endregion
 
         #region Payment Confirmation

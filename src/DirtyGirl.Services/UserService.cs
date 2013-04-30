@@ -321,6 +321,36 @@ namespace DirtyGirl.Services
             return GeneratePasswordResetRequest(user);
         }
 
+        public ServiceResult GeneratePasswordResetRequestForGoLive(User user)
+        {
+            if (user == null) throw new ArgumentNullException("user");
+            // Get user object
+            var result = new ServiceResult();
+            try
+            {
+               
+                var byteArray = new byte[128];
+                // Create new Cryptography object
+                using (var crypto = new RNGCryptoServiceProvider())
+                {
+                    crypto.GetNonZeroBytes(byteArray);
+
+                    user.PasswordResetToken = Convert.ToBase64String(byteArray);
+                    user.PasswordResetToken = user.PasswordResetToken.Replace("+", "");
+                    user.PasswordResetRequested = DateTime.Now.AddDays(10);
+                    _repository.SaveChanges();
+
+                    SendPasswordResetForGoLiveEmail(user);
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                result.AddServiceError(Utilities.GetInnerMostException(ex));
+            }
+            return result;
+        }
+
         private ServiceResult GeneratePasswordResetRequest(User user)
         {
             if (user == null) throw new ArgumentNullException("user");
@@ -366,6 +396,12 @@ namespace DirtyGirl.Services
         {
             IEmailService emailService = new EmailService();
             emailService.SendPasswordResetRequestEmail(user.UserId);
+        }
+
+        private static void SendPasswordResetForGoLiveEmail(User user)
+        {
+            IEmailService emailService = new EmailService();
+            emailService.SendPasswordResetForGoLiveEmail(user.UserId);
         }
 
         static byte[] GenerateSaltedHash(byte[] plainText, byte[] salt)

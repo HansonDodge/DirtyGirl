@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h1>Go Live - Password Reset</h1>
+@using (Html.BeginForm("PasswordReset", "Upgrade", FormMethod.Post))
+{
+    <h2>Press button to reset passwords and send out emails</h2>
+    if (TempData["Errors"] != null)
+     {
+        <br/>
+        <p style="color:red">@TempData["Errors"].ToString() </p>
+        <br/>
+     }
+    <input type="submit" value="Submit" />
+}
