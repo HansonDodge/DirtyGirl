@@ -7,12 +7,10 @@
 <script>
 
     function filterEventDates() {
-        alert("filterEventDates");
         return { eventId: $('#ddlEvent').val()};
     }
     
     function filterEventWaves() {
-        alert("filtereventwaves");
         return { eventDateId: $('#ddlEventDate').val() };
     }
 
@@ -31,18 +29,21 @@
     }
     
     function onEventDateChange(e) {
-        alert("wave date change");
+        //$('#ddlEventDate').data("kendoDropDownList").Query(e);
+        PopulateDates();
     }
 
     function onEventWaveDataBound(e) {
-        alert("wave data bound");
+  
     }
 
     function onEventDateDataBound(e) {
-        alert("data data bound");
+        PopulateDates();
     }
 
-
+    function PopulateDates() {
+        $('#ddlWaveSelect').data("kendoDropDownList").dataSource.read();
+    }
 </script>
 
 <style>
@@ -92,11 +93,9 @@
                                                   .OptionLabel("Select")
                                                   .DataTextField("Description")
                                                   .DataValueField("EventWaveId")
-                                                  .DataSource(source => source.Read(read => read.Action("GetWavesByEventDateId", "Registration").Data("filterEventWaves"))
-                                                                              .ServerFiltering(true))
                                                   .Events(evts =>  evts.Change("onEventWaveChange").DataBound("onEventWaveDataBound")) 
                                                   .Enable(false)
-                                                  .AutoBind(false)
+                                                  .AutoBind(true)
                                                   .CascadeFrom("ddlEventDate"))
                                         </td>
                                     </tr>
@@ -115,7 +114,7 @@
     @Html.HiddenFor(x => x.RegistrationId)
     @Html.HiddenFor(x => x.EventWaveId)
 </form>
-
+ @Html.HiddenFor(x => x.EventDateId)
 
 <script type="text/javascript">
     
