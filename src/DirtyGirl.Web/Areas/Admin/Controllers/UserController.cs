@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Web.Mvc;
 using System.Web.Security;
 using DirtyGirl.Models;
+using DirtyGirl.Models.Enums;
 using DirtyGirl.Services.ServiceInterfaces;
 using DirtyGirl.Web.Utils;
 using System.Web;
@@ -156,7 +157,8 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
 
         private void FillEditUserEnums(ref vmUser_EditUser model)
         {
-            model.Regions = UserService.GetRegionsForCountry(DirtyGirlConfig.Settings.DefaultCountryId);
+            model.Regions = UserService.GetRegionsForCountry((int)CountryCodes.USA);
+            model.Regions.AddRange(UserService.GetRegionsForCountry((int)CountryCodes.Canada));
         }
 
         #endregion

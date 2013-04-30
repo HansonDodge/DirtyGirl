@@ -67,6 +67,7 @@
     <Compile Include="CartDiscountItem.cs" />
     <Compile Include="ChangeWaveAction.cs" />
     <Compile Include="ChargeReport.cs" />
+    <Compile Include="Enums\CountryCodes.cs" />
     <Compile Include="ProcessingFeeAction.cs" />
     <Compile Include="DirtyWord.cs" />
     <Compile Include="EventBasics.cs" />

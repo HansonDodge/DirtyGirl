@@ -16,6 +16,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Text.RegularExpressions;
+using Kendo.Mvc.Extensions;
 
 namespace DirtyGirl.Web.Controllers
 {
@@ -390,7 +391,8 @@ namespace DirtyGirl.Web.Controllers
 
         private void FillEditUserEnums(vmUser_EditUser model)
         {
-            model.Regions = UserService.GetRegionsForCountry(DirtyGirlConfig.Settings.DefaultCountryId);
+            model.Regions = UserService.GetRegionsForCountry((int)CountryCodes.USA);
+            model.Regions.AddRange(UserService.GetRegionsForCountry((int)CountryCodes.Canada));
 
             model.Months = DirtyGirlExtensions.ConvertToSelectList<Months>();
 
