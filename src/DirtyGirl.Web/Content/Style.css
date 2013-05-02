@@ -27,12 +27,16 @@ img, a img { border:none;}
 .custom_dropdown img{position:absolute; top:10px; right:0;z-index:1;}
 .custom_dropdown select{z-index:2;-webkit-appearance: none;outline:none;cursor:pointer;}
 
+.validation-message {display:none;}
+.contentMain_copy.register .validation-message p {color:#c00;}
+#emailAddressTextBox.error {border-color:#c00;}
+
 ol, ul, li {   list-style: none outside none;}
 
 p.error {color:#f00;}
 
 /*LAYOUT*/
-#fullWrapper {  min-width: 1200px;  overflow: hidden;  position: relative;  width: 100%; padding: 10px 0 0;}
+#fullWrapper {  min-width: 1200px;  overflow: hidden;  position: relative;  width: 100%; padding: 10px 0 0; min-height: 750px;}
 #container { position: relative; width: 1200px; margin: auto; }
 #content { position: relative;  margin: 15px 0 0; }
 div.overlay,#overlay { position: fixed; top: 0; left:0; background:#000000; width:100%; height: 100%; opacity: 0.6; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";  filter: alpha(opacity=60);z-index:1000000; display:none;}
