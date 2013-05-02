@@ -1,4 +1,4 @@
-﻿@if (Request.IsAuthenticated) {
+﻿@if (Request.IsAuthenticated && User != null && User.Identity.Name != null) {
 
     <ul>
         	   
