@@ -54,9 +54,15 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
         #region Coupons
 
         [HttpPost]
-        public ActionResult Ajax_GetCoupons([DataSourceRequest] DataSourceRequest request, int? masterEventId)
+        public ActionResult Ajax_GetCoupons([DataSourceRequest] DataSourceRequest request, int? masterEventId, string search)
         {
+
             var couponList = _service.GetCouponsByEvent(masterEventId).Select(x => new { x.DiscountItemId, x.Code, x.CouponType, x.DiscountType, x.Description, x.EndDateTime, x.IsActive, x.IsReusable, x.MaxRegistrantCount, x.StartDateTime, x.Value }).ToList();
+            
+            if (!string.IsNullOrEmpty(search)) {
+                couponList = couponList.Where(x => x.Code.Contains(search)).ToList();   
+            }
+            
             return Json(couponList.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);            
         }
 

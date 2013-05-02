@@ -18,12 +18,16 @@
                     .BindTo(Model.EventList)
                     .Events(events => events.Change("onEventChange"))
                  )
+                
+                 @Html.TextBox("SearchCoupons", null, new { @class = "k-textbox seach-field", @placeholder = "Search Coupon Code" })
+                 <input type="button" id="search-button" class="k-button" value="Search" />
             }
 
             <br />
             @(Html.Kendo().Grid<Coupon>()
                 .Name("grdCoupons")
                 .ToolBar(commands => commands.Create().Text("Add New Coupon"))
+                .Pageable()
                 .Columns(cols =>
                 {
                     cols.ForeignKey(x => x.CouponType, Model.CouponTypeList, "value", "text");
@@ -42,6 +46,7 @@
                 .Editable(editable => editable.Mode(GridEditMode.InLine))
                 .DataSource(datasource => datasource
                     .Ajax()
+                    .PageSize(30)
                     .Events(events => events.Error("error_handler"))
                     .Events(events => events.RequestEnd("onRequestEnd"))
                     .Model(model => model.Id("DiscountItemId"))
@@ -63,6 +68,13 @@
 </script>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        $("#search-button").on('click', function () {
+            var grid = $("#grdCoupons").data("kendoGrid");
+            grid.dataSource.read();
+        });
+
+    });
 
     var validationMessageTmpl = kendo.template($("#message").html());
 
@@ -98,7 +110,8 @@
 
     function getSelectedEvent() {
         var currentValue = $("#ddlSelectedEvent").data("kendoDropDownList").value();
-        return { masterEventId: currentValue };
+        var searchTerm = $("#SearchCoupons").val(); 
+        return { masterEventId: currentValue, search: searchTerm };
     }
 
     function onRequestEnd(e) {
