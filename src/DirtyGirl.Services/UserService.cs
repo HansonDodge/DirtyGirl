@@ -447,7 +447,7 @@ namespace DirtyGirl.Services
         {
             IRegistrationService regService = new RegistrationService(this._repository, false);
             var reg = regService.GetRegistrationById(registrationId);
-            return reg.CartItem.Cost;
+            return reg.CartItem == null ? 0 : reg.CartItem.Cost;
         }
 
         #endregion
