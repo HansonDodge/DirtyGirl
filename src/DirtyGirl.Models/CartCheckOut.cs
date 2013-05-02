@@ -26,7 +26,7 @@ namespace DirtyGirl.Models
         public string CardHolderLastname { get; set; }
 
         [Required(ErrorMessage = "Card holder zip code is required.")]
-        [RegularExpression(@"^[0-9]{5}(-[0-9]{4})?$", ErrorMessage = "Zip Code is not valid.")]      
+        [RegularExpression(@"^(\d{5}-\d{4}|\d{5}|\d{9})$|^([a-zA-Z]\d[a-zA-Z]( )?\d[a-zA-Z]\d)$", ErrorMessage = "Zip Code is not valid.")]       
         public string CardHolderZipCode { get; set; }
 
         [Required(ErrorMessage="card type is required")]
