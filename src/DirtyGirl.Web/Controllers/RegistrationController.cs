@@ -149,6 +149,15 @@ namespace DirtyGirl.Web.Controllers
                 DisplayMessageToUser(new DisplayMessage(DisplayMessageType.SuccessMessage, "head-Event wave was not changed."));
                 return RedirectToAction("viewuser", "user", new { userId = CurrentUser.UserId });
             }
+            
+            var userRegistrations = _service.GetRegistrationByUserID(CurrentUser.UserId);
+            Registration curRegistration = userRegistrations.FirstOrDefault(x => x.RegistrationId == registrationId); 
+
+            // are you already registered for that wave? 
+            if (_service.IsDuplicateRegistration(eventWaveId, CurrentUser.UserId,curRegistration.FirstName, curRegistration.LastName)) {
+                DisplayMessageToUser(new DisplayMessage(DisplayMessageType.Warning, "You have already registered for this event wave."));
+                return RedirectToAction("viewuser", "user", new { userId = CurrentUser.UserId });
+            }
 
             ServiceResult eventWaveChangeResult = _service.ChangeWave(registrationId, eventWaveId);
 
