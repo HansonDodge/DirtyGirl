@@ -23,7 +23,7 @@ namespace DirtyGirl.Services
 
         public UserService(IRepositoryGroup repository)
         {
-            this._repository = repository;
+            _repository = repository;
         }
 
         #endregion
@@ -57,9 +57,9 @@ namespace DirtyGirl.Services
             return serviceResult.Success;
         }
 
-        public bool ValidateUser(int userID, string password)
+        public bool ValidateUser(int userId, string password)
         {
-            var u = _repository.Users.Get(userID);
+            var u = _repository.Users.Get(userId);
 
             if (u != null && Crypto.ValidatePassword(password.Trim(), new CryptoHashContainer(u.Salt, u.Password)))
                 return true;
@@ -76,7 +76,12 @@ namespace DirtyGirl.Services
             return _repository.Users.All().ToList();
         }
 
-        public IList<Models.Region> GetRegionsForCountry(int countryId)
+        public IList<User> GetUsers(string firstName, string lastName, string userName, string emailAddress)
+        {
+            return _repository.Users.GetUsers(firstName, lastName, userName, emailAddress);            
+        }
+
+        public IList<Region> GetRegionsForCountry(int countryId)
         {
             return _repository.Regions.Filter(r => r.CountryId.Equals(countryId)).ToList();
         }
@@ -127,7 +132,7 @@ namespace DirtyGirl.Services
 
         public ServiceResult CreateUser(User u)
         {
-            ServiceResult result = new ServiceResult();
+            var result = new ServiceResult();
             try
             {
                 if (ValidateUser(u, result))
@@ -169,7 +174,7 @@ namespace DirtyGirl.Services
 
         public ServiceResult UpdateUser(User u, bool setIsActive)
         {
-            ServiceResult result = new ServiceResult();
+            var result = new ServiceResult();
             try
             {
                 if (ValidateUser(u, result))
@@ -229,7 +234,7 @@ namespace DirtyGirl.Services
         public ServiceResult UpdatePassword(int userId, string password)
         {
             //TODO: Check password requirements - length, complexity, etc
-            ServiceResult result = new ServiceResult();
+            var result = new ServiceResult();
             try
             {
                 

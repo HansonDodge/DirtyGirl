@@ -163,36 +163,11 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
 
         #endregion
 
-        public ActionResult SearchUsers([DataSourceRequest]DataSourceRequest request, string name = null, string userNameEmail = null)
+        public ActionResult SearchUsers([DataSourceRequest]DataSourceRequest request, string firstName = null, string lastName = null, string userName = null, string emailAddress = null)
         {
 
-            IEnumerable<User> userList = null;
-            if (name != null) name = name.ToLowerInvariant();
-            if (userNameEmail != null) userNameEmail = userNameEmail.ToLowerInvariant();
-            if (name != null && userNameEmail != null)
-            {
-                var namelist = name.ToLowerInvariant().Trim().Split(' ');
-                if (namelist.Count() > 1)
-                {
-                    userList =
-                        UserService.GetAllUsers().Where(
-                            user => (namelist.Any(array => user.FirstName.ToLowerInvariant().Contains(array))
-                                     && namelist.Any(array => user.LastName.ToLowerInvariant().Contains(array)))
-                                    && (user.UserName.ToLowerInvariant().Contains(userNameEmail)
-                                        || user.EmailAddress.ToLowerInvariant().Contains(userNameEmail)));
-                }
-                else
-                {
-                    userList =
-                        UserService.GetAllUsers().Where(
-                            user => (namelist.Any(array => user.FirstName.ToLowerInvariant().Contains(array))
-                                     || namelist.Any(array => user.LastName.ToLowerInvariant().Contains(array)))
-                                    && (user.UserName.ToLowerInvariant().Contains(userNameEmail)
-                                        || user.EmailAddress.ToLowerInvariant().Contains(userNameEmail)));
-                }
-            }
-
-            Debug.Assert(userList != null, "userList != null");
+            var userList = UserService.GetUsers(firstName, lastName, userName, emailAddress);
+            
             var returnUserList = userList.Select(user => new vmUser_Detail
                                                              {
                                                                  UserId = user.UserId,

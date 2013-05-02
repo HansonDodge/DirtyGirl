@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+﻿using System.Collections.Generic;
 using DirtyGirl.Models;
 
 namespace DirtyGirl.Services.ServiceInterfaces
@@ -10,6 +6,7 @@ namespace DirtyGirl.Services.ServiceInterfaces
     public interface IUserService
     {
         IList<User> GetAllUsers();
+        IList<User> GetUsers(string firstName, string lastName, string userName, string emailAddress);
         
         IList<Region> GetRegionsForCountry(int countryId);
 
@@ -51,7 +48,7 @@ namespace DirtyGirl.Services.ServiceInterfaces
         User GetUserByPasswordResetToken(string resetToken);
         decimal GetRegistrationValue(int registrationId);
 
-        bool ValidateUser(int userID, string password);
+        bool ValidateUser(int userId, string password);
         
         bool IsValidPasswordResetToken(string resetToken);
     }

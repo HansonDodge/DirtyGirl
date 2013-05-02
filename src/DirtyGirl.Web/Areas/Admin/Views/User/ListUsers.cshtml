@@ -5,12 +5,12 @@
 }
 
 <h2>List Users</h2>
-<p>Name</p>
-<p><input id="name" type="text" onkeyup="LookupName()"/></p>
-<br/>
-<br/>
-<p>UserName or Email</p>
-<p><input id="userNameEmail" type="text" onkeyup="LookupUserName()"/></p>
+  @Html.TextBox("firstName", null, new { @class = "k-textbox seach-field listUser", @placeholder = "Search First Name" })
+  @Html.TextBox("lastName", null, new { @class = "k-textbox seach-field listUser", @placeholder = "Search Last Name" })
+  @Html.TextBox("userName", null, new { @class = "k-textbox seach-field listUser", @placeholder = "Search User Name" })
+  @Html.TextBox("emailAddress", null, new { @class = "k-textbox seach-field listUser", @placeholder = "Search Email Address" })
+&nbsp;
+ <input type="button" id="search-button" class="k-button" value="Search" /> <input type="button" id="reset-button" class="k-button" value="Clear Search" />
 <br/>
 <br/>
 <div id="GridResult"></div>
@@ -18,7 +18,7 @@
 <div id="dataview"></div>
 
 @(Html.Kendo().Grid(Model.Users)
-    .Name("Grid")
+    .Name("grdUsers")
     .Columns(cols =>
     {
         cols.Bound(u => u.IsActive);
@@ -45,26 +45,29 @@
 <script>
     var dataList;
     
-    function LookupName() {
-        if ($('#name').val().length > 2)
-            $("#Grid").data("kendoGrid").dataSource.read();
-        else if ($('#name').val().length == 0) {
-            $("#Grid").data("kendoGrid").dataSource.read();
-        }
-    }
-    
-    function LookupUserName() {
-        if ($('#userNameEmail').val().length > 2)
-            $("#Grid").data("kendoGrid").dataSource.read();
-        else if ($('#userNameEmail').val().length == 0) {
-            $("#Grid").data("kendoGrid").dataSource.read();
-        }
-    }
+    $(document).ready(function () {
+        $("#search-button").on('click', function () {
+            var grid = $("#grdUsers").data("kendoGrid");
+            grid.dataSource.page(1);
+        });
+
+        $("#reset-button").on('click', function () {
+            $("#firstName").val("");
+            $("#lastName").val("");
+            $("#userName").val("");
+            $("#emailAddress").val("");
+            var grid = $("#grdUsers").data("kendoGrid");
+            grid.dataSource.page(1);
+        });
+
+    });
     
     function SearchData() {
         return {
-            name: $('#name').val(),
-            userNameEmail: $('#userNameEmail').val()
+            firstName: $('#firstName').val(),
+            lastName: $('#lastName').val(),
+            userName: $('#userName').val(),
+            emailAddress: $('#emailAddress').val()
         };
     }
 

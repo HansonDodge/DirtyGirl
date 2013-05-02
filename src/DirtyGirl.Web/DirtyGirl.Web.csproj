@@ -802,6 +802,7 @@
     <Content Include="ReferencedAssemblies\Org.Mentalis.Security.Cryptography.dll" />
     <Content Include="ReferencedAssemblies\System.Web.Optimization.dll" />
     <Content Include="ReferencedAssemblies\WebGrease.dll" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\jquery.mCustomScrollbar.min.js" />
     <Content Include="Scripts\jquery.mCustomScrollbar.new.js" />
     <Content Include="Scripts\jquery.mCustomScrollbar_v2.js" />
