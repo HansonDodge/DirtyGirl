@@ -1,0 +1,13 @@
+User-Agent: *
+Disallow: /User*
+Disallow: /Admin*
+Disallow: /EventManager*
+Disallow: /Transaction*
+Disallow: /Registration*
+Disallow: /Authorize*
+Disallow: /User/CreateUser/
+Disallow: /Admin/
+Disallow: /EventManager/
+Disallow: /Transaction/
+Disallow: /Registration/
+Disallow: /Authorize/ForgotPassword/

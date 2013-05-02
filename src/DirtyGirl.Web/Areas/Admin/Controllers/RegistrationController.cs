@@ -246,11 +246,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                                                              RegistrationId = reg.RegistrationId,
                                                              UserId = reg.UserId,
                                                              WaveDateTime = reg.EventWave.StartTime,
-                                                             EventLocation =
-                                                                 string.Format("{0}, {1}",
-                                                                               reg.EventWave.EventDate.Event
-                                                                                  .GeneralLocality,
-                                                                               reg.EventWave.EventDate.Event.Region.Code),
+                                                             EventLocation =string.Format("{0}, {1}",reg.EventWave.EventDate.Event.GeneralLocality,reg.EventWave.EventDate.Event.Region.Code),
                                                              EventId = reg.EventWave.EventDate.EventId,
                                                              IsThirdPartyRegistration = reg.IsThirdPartyRegistration,
                                                              FirstName = reg.FirstName,
@@ -275,7 +271,14 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
                                                              RegistrationStatus = reg.RegistrationStatus.ToString(),
                                                              IsOfAge = reg.IsOfAge,
                                                              IsFemale = reg.IsFemale,
-                                                             AgreeToTerms = reg.AgreeToTerms
+                                                             AgreeToTerms = reg.AgreeToTerms,
+                                                             AgreeToTrademark =  reg.AgreeTrademark,
+                                                             ConfirmationCode = reg.ConfirmationCode,
+                                                             TotalCost = reg.CartItem == null ? string.Empty : reg.CartItem.Total.ToString("c"),
+                                                             Discount = reg.CartItem == null ? string.Empty : (reg.CartItem.DiscountValueTotal != null ? reg.CartItem.DiscountValueTotal.Value.ToString("c") : string.Empty),
+                                                             Cost = reg.CartItem == null ? string.Empty : reg.CartItem.Cost.ToString("c"),
+                                                             StateTax  = reg.CartItem == null ? string.Empty : (reg.CartItem.StateTaxValue.HasValue ? reg.CartItem.StateTaxValue.Value.ToString("c") : string.Empty),
+                                                             LocalTax = reg.CartItem == null ? string.Empty : (reg.CartItem.LocalTaxValue.HasValue ? reg.CartItem.LocalTaxValue.Value.ToString("c") : string.Empty),
                                                          }).ToList();
             return Json(result.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
