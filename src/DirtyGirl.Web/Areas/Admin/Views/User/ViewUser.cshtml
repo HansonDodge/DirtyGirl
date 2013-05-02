@@ -124,7 +124,7 @@ else
     .Modal(true)
     .Draggable(true)
     .Width(600)
-    .Height(400)
+    .Height(600)
       )
 
 
@@ -158,16 +158,16 @@ else
         <p><b>Email:</b> #=Email#</p>
     </div>
     <div class="singleRow">
-        <p><b>Team Name:</b> #=TeamName#</p>
+        <p><b>Team Name:</b> #=TeamName# &nbsp;&nbsp;<b>Team Code:</b> <span class="pink bold">#=TeamCode#</span></p>
+    </div>
+     <div class="singleRow">
+        <p><b>Wave:</b> #=kendo.toString(WaveDateTime,"MM/dd/yyyy HH:mm") #</p>
     </div>
     <div class="singleRow">
-        <p><b>Team Code:</b> <span class="pink bold">#=TeamCode#</span></p>
+        <p><b>Registration Type:</b> #=RegistrationType#</p>
     </div>
     <div class="singleRow">
-        <p><b>Emergency Contact:</b> #=EmergencyContact#</p>
-    </div>
-    <div class="singleRow">
-        <p><b>Emergency Phone:</b> #=EmergencyPhone#</p>
+        <p><b>Emergency Contact:</b> #=EmergencyContact# /  #=EmergencyPhone#</p>
     </div>
     <div class="singleRow">
         <p><b>Medical Information:</b> #=MedicalInformation#</p>
@@ -178,14 +178,28 @@ else
     <div class="singleRow">
         <p><b>Date Added:</b> #=kendo.toString(DateAdded,"MM/dd/yyyy") #</p>
     </div>
+   
     <div class="singleRow">
-        <p><b>Wave:</b> #=kendo.toString(WaveDateTime,"MM/dd/yyyy HH:mm") #</p>
+        <p><b>Third Party Registration:</b> #=IsThirdPartyRegistration#</p>
     </div>
     <div class="singleRow">
-        <p><b>Registration Type:</b> #=RegistrationType#</p>
+        <p><b>Cost:</b> #=Cost#</p>
     </div>
     <div class="singleRow">
-        <p><b>Third Party Registration:</b> #=IsThirdPartyRegistration#</p></div>
+        <p><b>Discount:</b> #=Discount#</p>
+    </div>
+     <div class="singleRow">
+        <p><b>State Tax:</b> #=StateTax#</p>
+    </div>
+     <div class="singleRow">
+        <p><b>Local Tax:</b> #=LocalTax#</p>
+    </div>
+    <div class="singleRow">
+        <p><b>Total Cost:</b> #=TotalCost#</p>
+    </div>
+        <div class="singleRow">
+        <p><b>ConfirmationCode:</b> #=ConfirmationCode#</p>
+    </div>
     </div>
 </script>
 

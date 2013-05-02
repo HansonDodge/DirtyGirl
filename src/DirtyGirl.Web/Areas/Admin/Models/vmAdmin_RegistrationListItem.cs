@@ -44,5 +44,12 @@ namespace DirtyGirl.Web.Areas.Admin.Models
         public bool IsOfAge { get; set; }
         public bool IsFemale { get; set; }
         public bool AgreeToTerms { get; set; }
+        public bool AgreeToTrademark { get; set; }
+        public string TotalCost { get; set; }
+        public string Discount { get; set; }
+        public string Cost { get; set; }
+        public string StateTax { get; set; }
+        public string LocalTax { get; set; }
+        public string ConfirmationCode { get; set; }
     }
 }
