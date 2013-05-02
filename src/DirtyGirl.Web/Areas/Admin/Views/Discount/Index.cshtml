@@ -72,13 +72,13 @@
     $(document).ready(function () {
         $("#search-button").on('click', function () {
             var grid = $("#grdCoupons").data("kendoGrid");
-            grid.dataSource.read();
+            grid.dataSource.page(1);
         });
 
         $("#reset-button").on('click', function () {
             $("#SearchCoupons").val("");
             var grid = $("#grdCoupons").data("kendoGrid");
-            grid.dataSource.read();
+            grid.dataSource.page(1);
         });
 
     });
