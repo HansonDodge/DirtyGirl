@@ -25,5 +25,6 @@ fieldset legend{font-family:"Blackout-Midnight","blackout-midnight-1","blackout-
 .adminRegDetailsModal .singleRow{position: relative; margin-bottom: 10px;}
 .adminRegDetailsModal .singleRow p{font-size: 14px;}
 
-#search-button {font-size: 13px;} 
+#search-button {font-size: 13px;}
+#reset-button  {font-size: 13px;}  
 #SearchCoupons {margin-left: 50px; font-size: 13px;}

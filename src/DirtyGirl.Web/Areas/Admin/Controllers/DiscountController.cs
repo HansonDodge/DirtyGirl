@@ -60,7 +60,7 @@ namespace DirtyGirl.Web.Areas.Admin.Controllers
             var couponList = _service.GetCouponsByEvent(masterEventId).Select(x => new { x.DiscountItemId, x.Code, x.CouponType, x.DiscountType, x.Description, x.EndDateTime, x.IsActive, x.IsReusable, x.MaxRegistrantCount, x.StartDateTime, x.Value }).ToList();
             
             if (!string.IsNullOrEmpty(search)) {
-                couponList = couponList.Where(x => x.Code.Contains(search)).ToList();   
+                couponList = couponList.Where(x => x.Code.ToLower().Contains(search.ToLower())).ToList();   
             }
             
             return Json(couponList.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);            

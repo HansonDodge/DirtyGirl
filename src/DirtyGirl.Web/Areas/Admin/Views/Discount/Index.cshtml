@@ -21,6 +21,7 @@
                 
                  @Html.TextBox("SearchCoupons", null, new { @class = "k-textbox seach-field", @placeholder = "Search Coupon Code" })
                  <input type="button" id="search-button" class="k-button" value="Search" />
+                 <input type="button" id="reset-button" class="k-button" value="Clear Search" />
             }
 
             <br />
@@ -70,6 +71,12 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#search-button").on('click', function () {
+            var grid = $("#grdCoupons").data("kendoGrid");
+            grid.dataSource.read();
+        });
+
+        $("#reset-button").on('click', function () {
+            $("#SearchCoupons").val("");
             var grid = $("#grdCoupons").data("kendoGrid");
             grid.dataSource.read();
         });
